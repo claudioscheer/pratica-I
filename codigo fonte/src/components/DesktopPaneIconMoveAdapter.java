@@ -25,8 +25,26 @@ public class DesktopPaneIconMoveAdapter extends MouseAdapter {
     @Override
     public void mouseDragged(MouseEvent e) {
         if (dragging) {
-            e.getComponent().setBounds(new Rectangle(startBounds.x + e.getLocationOnScreen().x - startPoint.x,
-                    startBounds.y + e.getLocationOnScreen().y - startPoint.y, startBounds.width, startBounds.height));
+
+            Component c = e.getComponent();
+
+            Rectangle r = new Rectangle(startBounds.x + e.getLocationOnScreen().x - startPoint.x,
+                    startBounds.y + e.getLocationOnScreen().y - startPoint.y, startBounds.width, startBounds.height);
+
+            if (r.getX() < 0) {
+                r.x = 0;
+            } else if (r.x + c.getWidth() > c.getParent().getWidth()) {
+                r.x = c.getParent().getWidth() - c.getWidth();
+            }
+
+            if (r.getY() < 0) {
+                r.y = 0;
+            } else if (r.y + c.getHeight() > c.getParent().getHeight()) {
+                r.y = c.getParent().getHeight() - c.getHeight();
+            }
+
+            e.getComponent().setBounds(r);
+
             if (e.getComponent() instanceof JComponent) {
                 ((JComponent) e.getComponent()).putClientProperty(DRAGGED_MARK, true);
             }
@@ -37,15 +55,15 @@ public class DesktopPaneIconMoveAdapter extends MouseAdapter {
     public void mouseReleased(MouseEvent e) {
         if (SwingUtilities.isLeftMouseButton(e) && dragging) {
             Rectangle bounds = e.getComponent().getBounds();
-
             Container parent = e.getComponent().getParent();
             boolean setBounds = false;
-            for (int i = 25; i < parent.getWidth(); i += 125) {
-                for (int j = 25; j < parent.getHeight(); j += 100) {
-                    Rectangle cell = new Rectangle(i, j, 100, 75);
+            for (int i = 1; i < parent.getWidth(); i += 125) {
+                for (int j = 1; j < parent.getHeight(); j += 100) {
+                    Rectangle cell = new Rectangle(i, j, 10, 10);
                     if (cell.intersects(bounds)) {
                         Rectangle intersection = cell.intersection(bounds);
                         if (intersection.width * intersection.height >= bounds.width * bounds.height / 8) {
+                            System.out.println("hu3");
                             e.getComponent().setBounds(cell);
                             setBounds = true;
                             break;

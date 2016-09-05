@@ -1,6 +1,5 @@
 package components.panelsCads;
 
-import com.alee.extended.progress.WebProgressOverlay;
 import com.alee.laf.panel.WebPanel;
 import components.Validador;
 import java.awt.event.ActionListener;
@@ -8,7 +7,6 @@ import model.Especificacao;
 
 public class PanelCadEspecificacao extends WebPanel {
 
-    public WebProgressOverlay progressOverlay;
     public Validador validador;
 
     public PanelCadEspecificacao() {
@@ -19,15 +17,11 @@ public class PanelCadEspecificacao extends WebPanel {
 
         validador = new Validador(Validador.TipoValidator.ICONE);
         validador.addObrigatorioValidator(txtCodigo);
-        validador.addApenasNumeroValidator(txtNome);
         validador.addObrigatorioValidator(txtNome);
+        validador.addApenasNumeroValidator(txtNome);
     }
 
     public void setEvents(ActionListener salvar, ActionListener cancelar) {
-        progressOverlay = new WebProgressOverlay();
-        progressOverlay.setConsumeEvents(false);
-        progressOverlay.setComponent(btnSalvar);
-
         btnSalvar.addActionListener(salvar);
         btnCancelar.addActionListener(cancelar);
     }

@@ -140,10 +140,9 @@ public class Validador {
 
         private Predicate<String> funcao;
         private boolean valido;
-        private String mensagem;
-        private JLabel label;
-        private JComponent componente;
-        private Container parentValido;
+        private final String mensagem;
+        private final JLabel label;
+        private final JComponent componente;
 
         private FuncaoValidador(JComponent componente, Predicate<String> function, String mensagem) {
             this.componente = componente;
@@ -156,22 +155,19 @@ public class Validador {
 
         private void initLabel() {
             Container parent = this.componente;
-            Container ultimoParent = this.componente;
             while (parent != null && !(parent instanceof JPanel || parent instanceof JFrame || parent instanceof JDialog)) {
-                ultimoParent = parent;
                 parent = parent.getParent();
             }
             if (parent != null) {
                 parent.add(label);
             }
-            this.parentValido = ultimoParent;
             this.label.setVisible(false);
         }
 
         private void calculaPosicaoValidador(TipoValidator tipoValidator) {
             if (tipoValidator == TipoValidator.ICONE) {
-                int x = this.parentValido.getX() + this.parentValido.getWidth() + 3;
-                int y = ((int) (this.parentValido.getHeight() + 16) / 2) + this.parentValido.getY() - 16;
+                int x = this.componente.getX() + this.componente.getWidth() + 3;
+                int y = this.componente.getY() + (this.componente.getHeight() / 2) - 8;
                 this.label.setLabelFor(this.componente);
                 this.label.setBounds(x, y, 16, 16);
             } else {

@@ -17,9 +17,9 @@ public class PanelEspecificacao extends WebPanel implements ActionListener {
     }
 
     public void setEvents(ActionListener add, ActionListener edit, ActionListener delete) {
-        panelOpcoes.setEventAdd(add);
-        panelOpcoes.setEventEditar(edit);
-        panelOpcoes.setEventExcluir(delete);
+        buttonAdd.addActionListener(add);
+        buttonAdd.addActionListener(edit);
+        buttonAdd.addActionListener(delete);
     }
 
     private void loadDatas() {
@@ -60,8 +60,11 @@ public class PanelEspecificacao extends WebPanel implements ActionListener {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tableLista = new com.alee.laf.table.WebTable();
-        panelOpcoes = new components.PanelOpcoes();
         textBusca = new com.alee.laf.text.WebTextField();
+        panelOpcoes = new javax.swing.JPanel();
+        buttonAdd = new com.alee.laf.button.WebButton();
+        buttonExcluir = new com.alee.laf.button.WebButton();
+        buttonEditar = new com.alee.laf.button.WebButton();
 
         setMinimumSize(new java.awt.Dimension(565, 496));
 
@@ -83,33 +86,70 @@ public class PanelEspecificacao extends WebPanel implements ActionListener {
         tableLista.setSelectionBackground(new java.awt.Color(204, 204, 204));
         jScrollPane1.setViewportView(tableLista);
 
+        panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
+
+        buttonAdd.setText("Novo");
+        buttonAdd.setMaximumSize(new java.awt.Dimension(24, 24));
+        buttonAdd.setPreferredSize(new java.awt.Dimension(24, 24));
+
+        buttonExcluir.setText("Excluir");
+
+        buttonEditar.setText("Editar");
+
+        javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
+        panelOpcoes.setLayout(panelOpcoesLayout);
+        panelOpcoesLayout.setHorizontalGroup(
+            panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelOpcoesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        panelOpcoesLayout.setVerticalGroup(
+            panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addComponent(textBusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(textBusca, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE))
                 .addGap(5, 5, 5))
-            .addComponent(panelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addComponent(textBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addGap(3, 3, 3)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.alee.laf.button.WebButton buttonAdd;
+    private com.alee.laf.button.WebButton buttonEditar;
+    private com.alee.laf.button.WebButton buttonExcluir;
     private javax.swing.JScrollPane jScrollPane1;
-    private components.PanelOpcoes panelOpcoes;
+    private javax.swing.JPanel panelOpcoes;
     private com.alee.laf.table.WebTable tableLista;
     private com.alee.laf.text.WebTextField textBusca;
     // End of variables declaration//GEN-END:variables

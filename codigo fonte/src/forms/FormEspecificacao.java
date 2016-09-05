@@ -2,8 +2,9 @@ package forms;
 
 import com.alee.laf.desktoppane.WebInternalFrame;
 import dao.EspecificacaoDAO;
+import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 import model.Especificacao;
 
 public class FormEspecificacao extends WebInternalFrame {
@@ -18,9 +19,6 @@ public class FormEspecificacao extends WebInternalFrame {
         panelCadCadastro.init();
 
         panelCadCadastro.setEvents((e) -> {
-            System.out.println("salvar");
-            boolean showLoad = !panelCadCadastro.progressOverlay.isShowLoad();
-            panelCadCadastro.progressOverlay.setShowLoad(showLoad);
             this.salvarEspecificacao();
         }, (e) -> {
             this.cancelarEspecificacao();
@@ -28,8 +26,11 @@ public class FormEspecificacao extends WebInternalFrame {
     }
 
     private void initComponents() {
+        this.setBounds(10, 10, 565, 496);
         this.setMinimumSize(new Dimension(565, 496));
-        this.setPreferredSize(new Dimension(565, 496));
+        this.setBackground(Color.BLACK);
+
+        this.setFrameIcon(new ImageIcon(getClass().getResource("/imagens/frame.png")));
 
         panelCadastro = new components.panelsListagem.PanelEspecificacao();
 
