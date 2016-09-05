@@ -1,9 +1,15 @@
 package components.panelsCads;
 
+import com.alee.extended.progress.WebProgressOverlay;
 import com.alee.laf.panel.WebPanel;
+import components.Validador;
 import java.awt.event.ActionListener;
+import model.Especificacao;
 
 public class PanelCadEspecificacao extends WebPanel {
+
+    public WebProgressOverlay progressOverlay;
+    public Validador validador;
 
     public PanelCadEspecificacao() {
     }
@@ -11,16 +17,28 @@ public class PanelCadEspecificacao extends WebPanel {
     public void init() {
         this.initComponents();
 
-        txtCodigo.setRequired(false);
-        txtCodigo.setMaxlength(2);
-
-        txtNome.setRequired(true);
-        txtNome.setMaxlength(20);
+        validador = new Validador(Validador.TipoValidator.ICONE);
+        validador.addObrigatorioValidator(txtCodigo);
+        validador.addApenasNumeroValidator(txtNome);
+        validador.addObrigatorioValidator(txtNome);
     }
 
     public void setEvents(ActionListener salvar, ActionListener cancelar) {
+        progressOverlay = new WebProgressOverlay();
+        progressOverlay.setConsumeEvents(false);
+        progressOverlay.setComponent(btnSalvar);
+
         btnSalvar.addActionListener(salvar);
         btnCancelar.addActionListener(cancelar);
+    }
+
+    public Especificacao getEspecificacao() {
+        Especificacao especificacao = new Especificacao();
+
+        especificacao.setId(Integer.parseInt(txtCodigo.getValue().toString()));
+        especificacao.setNome(txtNome.getText());
+
+        return especificacao;
     }
 
     @SuppressWarnings("unchecked")
@@ -31,11 +49,11 @@ public class PanelCadEspecificacao extends WebPanel {
         panelItens = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtCodigo = new components.TextField();
-        txtNome = new components.TextField();
+        txtNome = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JSpinner();
         jPanel1 = new javax.swing.JPanel();
-        btnSalvar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
+        btnSalvar = new com.alee.laf.button.WebButton();
+        btnCancelar = new com.alee.laf.button.WebButton();
 
         setMinimumSize(null);
 
@@ -58,9 +76,9 @@ public class PanelCadEspecificacao extends WebPanel {
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(218, Short.MAX_VALUE))
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         panelItensLayout.setVerticalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,11 +87,11 @@ public class PanelCadEspecificacao extends WebPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(215, Short.MAX_VALUE))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(panelItens);
@@ -88,9 +106,9 @@ public class PanelCadEspecificacao extends WebPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -98,8 +116,8 @@ public class PanelCadEspecificacao extends WebPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
-                    .addComponent(btnCancelar))
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -113,21 +131,21 @@ public class PanelCadEspecificacao extends WebPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnSalvar;
+    private com.alee.laf.button.WebButton btnCancelar;
+    private com.alee.laf.button.WebButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelItens;
-    private components.TextField txtCodigo;
-    private components.TextField txtNome;
+    private javax.swing.JSpinner txtCodigo;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

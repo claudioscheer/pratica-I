@@ -40,7 +40,6 @@ public class PanelEspecificacao extends WebPanel implements ActionListener {
     }
 
     private void loadTextBuscar() {
-
         WebButton button = new WebButton("Buscar");
         button.addActionListener(this);
         button.setCursor(Cursor.getDefaultCursor());

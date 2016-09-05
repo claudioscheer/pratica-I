@@ -1,7 +1,10 @@
 package forms;
 
 import com.alee.laf.desktoppane.WebInternalFrame;
+import dao.EspecificacaoDAO;
 import java.awt.Dimension;
+import javax.swing.JOptionPane;
+import model.Especificacao;
 
 public class FormEspecificacao extends WebInternalFrame {
 
@@ -15,6 +18,9 @@ public class FormEspecificacao extends WebInternalFrame {
         panelCadCadastro.init();
 
         panelCadCadastro.setEvents((e) -> {
+            System.out.println("salvar");
+            boolean showLoad = !panelCadCadastro.progressOverlay.isShowLoad();
+            panelCadCadastro.progressOverlay.setShowLoad(showLoad);
             this.salvarEspecificacao();
         }, (e) -> {
             this.cancelarEspecificacao();
@@ -39,22 +45,40 @@ public class FormEspecificacao extends WebInternalFrame {
     }
 
     private void salvarEspecificacao() {
-        this.cancelarEspecificacao();
+
+        if (!panelCadCadastro.validador.isValid()) {
+            return;
+        }
+
+        EspecificacaoDAO especificacaoDAO = new EspecificacaoDAO();
+        Especificacao especificacao = panelCadCadastro.getEspecificacao();
+//        if (especificacaoDAO.insert(especificacao)) {
+//            this.fecharAbrirPanelCadastro(true);
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Erro ao inserir");
+//        }
     }
 
-    private void cancelarEspecificacao() {
-        this.remove(panelCadCadastro);
-        this.add(panelCadastro);
+    private void fecharAbrirPanelCadastro(Boolean fechar) {
+        if (fechar) {
+            this.remove(panelCadCadastro);
+            this.add(panelCadastro);
+        } else {
+            this.remove(panelCadastro);
+            this.add(panelCadCadastro);
+        }
 
         panelCadastro.revalidate();
         panelCadastro.repaint();
     }
 
+    private void cancelarEspecificacao() {
+        this.fecharAbrirPanelCadastro(true);
+    }
+
     private void addEspecificacao() {
         this.initFormCad();
-
-        this.remove(panelCadastro);
-        this.add(panelCadCadastro);
+        this.fecharAbrirPanelCadastro(false);
 
         panelCadCadastro.revalidate();
         panelCadCadastro.repaint();

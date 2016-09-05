@@ -5,7 +5,10 @@ import java.util.Objects;
 public class Especificacao {
 
     private int id;
-    private String titulo;
+    private String nome;
+
+    public Especificacao() {
+    }
 
     public int getId() {
         return id;
@@ -15,19 +18,19 @@ public class Especificacao {
         this.id = id;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getNome() {
+        return nome;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 97 * hash + this.id;
-        hash = 97 * hash + Objects.hashCode(this.titulo);
+        hash = 97 * hash + Objects.hashCode(this.nome);
         return hash;
     }
 
@@ -46,7 +49,7 @@ public class Especificacao {
         if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.titulo, other.titulo)) {
+        if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
         return true;
