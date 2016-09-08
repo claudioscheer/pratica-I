@@ -26,10 +26,10 @@ public class Notificacoes {
 
     private boolean notificacaoJaExiste(Notificacao notifi) {
         for (Notificacao n : notificacoes) {
+            n.setVisualizada(false);
             if (notifi.equals(n)) {
                 return true;
             }
-            n.setVisualizada(false);
         }
         return false;
     }

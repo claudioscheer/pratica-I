@@ -1,9 +1,12 @@
 package components;
 
 import forms.FormEspecificacao;
+import helper.Helper;
+import java.awt.Color;
 import java.awt.Container;
 import model.Notificacao;
 import model.Notificacoes;
+import org.jdesktop.swingx.border.DropShadowBorder;
 
 public class ItemNotificacao extends javax.swing.JPanel {
 
@@ -11,6 +14,18 @@ public class ItemNotificacao extends javax.swing.JPanel {
 
     public ItemNotificacao() {
         initComponents();
+        this.setBackground(Helper.CoresPadrao.fundoPadrao);
+
+        DropShadowBorder shadow = new DropShadowBorder();
+        shadow.setShadowColor(Color.BLACK);
+        shadow.setShowLeftShadow(true);
+        shadow.setShowTopShadow(true);
+        shadow.setShowBottomShadow(true);
+        shadow.setShowRightShadow(true);
+        shadow.setShadowSize(4);
+
+        this.panelDados.setBorder(shadow);
+
     }
 
     public void setDados(int indexNotificacao) {
@@ -111,7 +126,7 @@ public class ItemNotificacao extends javax.swing.JPanel {
     private void btnVerNotificacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNotificacaoMouseClicked
         Notificacoes notificacoes = Notificacoes.getInstance();
         Notificacao n = notificacoes.get(indexNotificacao);
-        
+
         switch (n.getLink()) {
             case especificacao:
                 FormEspecificacao form = new FormEspecificacao();

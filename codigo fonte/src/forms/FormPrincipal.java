@@ -9,6 +9,7 @@ import helper.Helper;
 import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
@@ -20,7 +21,6 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     public FormPrincipal() {
         initComponents();
-        this.loadComponents();
     }
 
     private void loadComponents() {
@@ -29,14 +29,16 @@ public class FormPrincipal extends javax.swing.JFrame {
     }
 
     private void loadBackgroud() {
-        imageBackgroud.setIcon(Helper.getImage(Helper.Image.fundo));
+        desktopPanel.setOpaque(true);
+        desktopPanel.setBackground(Helper.CoresPadrao.fundoDesktop);
 
         JLabel logo = new JLabel(Helper.getImage(Helper.Image.logo));
-        logo.setBounds(desktopPanel.getWidth() + 50, desktopPanel.getHeight(), 246, 169);
+        logo.setBounds(desktopPanel.getWidth() - 253, desktopPanel.getHeight() - 176, 246, 169);
         desktopPanel.add(logo);
 
-        panelInformacoes.setBackground(new Color(0, 0, 0, 255));
-
+        panelInformacoes.setBackground(Helper.CoresPadrao.fundoPadrao);
+        
+//        lblNotificacoes.setText("");
         lblNotificacoes.setIcon(Helper.getImage(Helper.Image.notificacao));
 
         lblNotificacoes.addMouseListener(new MouseAdapter() {
@@ -90,7 +92,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         panelInformacoes = new javax.swing.JPanel();
         lblNomeUsuario = new javax.swing.JLabel();
         labelBorda = new javax.swing.JLabel();
+        panelDetalhesNotificacao = new javax.swing.JPanel();
         lblNotificacoes = new javax.swing.JLabel();
+        lblQntdNotificacoes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(778, 508));
@@ -108,27 +112,61 @@ public class FormPrincipal extends javax.swing.JFrame {
         labelBorda.setBackground(new java.awt.Color(153, 153, 153));
         labelBorda.setOpaque(true);
 
+        panelDetalhesNotificacao.setOpaque(false);
+
         lblNotificacoes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        lblQntdNotificacoes.setBackground(new java.awt.Color(255, 255, 255));
+        lblQntdNotificacoes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblQntdNotificacoes.setForeground(new java.awt.Color(255, 0, 0));
+        lblQntdNotificacoes.setText("2");
+        lblQntdNotificacoes.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        javax.swing.GroupLayout panelDetalhesNotificacaoLayout = new javax.swing.GroupLayout(panelDetalhesNotificacao);
+        panelDetalhesNotificacao.setLayout(panelDetalhesNotificacaoLayout);
+        panelDetalhesNotificacaoLayout.setHorizontalGroup(
+            panelDetalhesNotificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDetalhesNotificacaoLayout.createSequentialGroup()
+                .addComponent(lblNotificacoes, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelDetalhesNotificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDetalhesNotificacaoLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(lblQntdNotificacoes)
+                    .addGap(5, 5, 5)))
+        );
+        panelDetalhesNotificacaoLayout.setVerticalGroup(
+            panelDetalhesNotificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblNotificacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelDetalhesNotificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDetalhesNotificacaoLayout.createSequentialGroup()
+                    .addGap(0, 0, 0)
+                    .addComponent(lblQntdNotificacoes)
+                    .addGap(0, 0, 0)))
+        );
 
         javax.swing.GroupLayout panelInformacoesLayout = new javax.swing.GroupLayout(panelInformacoes);
         panelInformacoes.setLayout(panelInformacoesLayout);
         panelInformacoesLayout.setHorizontalGroup(
             panelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelBorda, javax.swing.GroupLayout.DEFAULT_SIZE, 1034, Short.MAX_VALUE)
             .addGroup(panelInformacoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblNotificacoes)
-                .addGap(15, 15, 15))
+                .addComponent(panelDetalhesNotificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5))
+            .addComponent(labelBorda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelInformacoesLayout.setVerticalGroup(
             panelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInformacoesLayout.createSequentialGroup()
                 .addComponent(labelBorda, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addGroup(panelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addComponent(lblNotificacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(panelInformacoesLayout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addComponent(panelDetalhesNotificacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -167,8 +205,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         frame.setVisible(true);
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        frame.setMaximizedBounds(env.getMaximumWindowBounds());
-        frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        Rectangle r = env.getMaximumWindowBounds();
+        frame.setMaximizedBounds(r);
+        frame.setExtendedState(frame.getState() | JFrame.MAXIMIZED_BOTH);
+
+        frame.loadComponents();
     }
 
     public static void main(String[] args) {
@@ -181,6 +222,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel labelBorda;
     private javax.swing.JLabel lblNomeUsuario;
     private javax.swing.JLabel lblNotificacoes;
+    private javax.swing.JLabel lblQntdNotificacoes;
+    private javax.swing.JPanel panelDetalhesNotificacao;
     private javax.swing.JPanel panelInformacoes;
     // End of variables declaration//GEN-END:variables
 }

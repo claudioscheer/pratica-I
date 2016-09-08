@@ -2,11 +2,17 @@ package helper;
 
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
+import java.awt.Color;
 import javax.swing.ImageIcon;
 
 public class Helper {
 
     public static int TempoPadrao = 5000;
+    
+    public static class CoresPadrao {
+        public static Color fundoDesktop = Color.decode("#B0BEC5");
+        public static Color fundoPadrao = Color.decode("#263238");
+    }
 
     public static enum TipoNotificacao {
         erro,
@@ -31,7 +37,7 @@ public class Helper {
         String url = "";
         switch (icone) {
             case fundo:
-                url = "fundo.jpg";
+                url = "fundo2.jpg";
                 break;
 
             case logo:

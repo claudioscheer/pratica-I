@@ -28,6 +28,9 @@ public class PanelNotificacoes extends WebPanel {
 
     public PanelNotificacoes() {
         initComponents();
+
+        this.setBackground(Helper.CoresPadrao.fundoPadrao);
+
         this.lblAtualizar.setIcon(Helper.getImage(Helper.Image.atualizar));
         this.lblAtualizar.addMouseListener(new MouseAdapter() {
             @Override
@@ -47,11 +50,13 @@ public class PanelNotificacoes extends WebPanel {
         shadow.setShadowSize(4);
 
         this.panelOpcoes.setBorder(shadow);
+        this.scrollPanel.setBorder(null);
     }
 
     private void loadPanelNotificacoes() {
         if (this.notificacoesPanel == null) {
             this.notificacoesPanel = new WebPanel(new VerticalFlowLayout());
+            this.notificacoesPanel.setBackground(Helper.CoresPadrao.fundoPadrao);
             this.scrollPanel.setViewportView(this.notificacoesPanel);
         }
     }

@@ -28,7 +28,7 @@ public class FormEspecificacao extends WebInternalFrame {
     private void initComponents() {
         this.setBounds(10, 10, 565, 496);
         this.setMinimumSize(new Dimension(565, 496));
-        this.setBackground(Color.BLACK);
+        this.setBackground(Helper.CoresPadrao.fundoPadrao);
 
         this.setFrameIcon(Helper.getImage(Helper.Image.frame));
 
