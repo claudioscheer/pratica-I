@@ -27,6 +27,10 @@ public class FormLogin extends javax.swing.JFrame {
         validador.addMaxLengthValidator(txtSenha, 30);
     }
 
+    private boolean valida(String s) {
+        return true;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

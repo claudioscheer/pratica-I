@@ -1,20 +1,22 @@
 package forms;
 
-import com.alee.global.StyleConstants;
 import com.alee.laf.WebLookAndFeel;
-import com.alee.laf.button.WebButton;
-import com.alee.laf.rootpane.WebRootPaneStyle;
 import com.alee.managers.language.LanguageManager;
 import components.DesktopPaneIconMoveAdapter;
 import components.IconDesktop;
+import components.PanelNotificacoes;
+import helper.Helper;
 import java.awt.Color;
+import java.awt.GraphicsEnvironment;
 import java.awt.Point;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
-import javax.swing.UIManager;
+import javax.swing.JLabel;
 
 public class FormPrincipal extends javax.swing.JFrame {
+
+    private PanelNotificacoes notificacoes;
 
     public FormPrincipal() {
         initComponents();
@@ -27,17 +29,44 @@ public class FormPrincipal extends javax.swing.JFrame {
     }
 
     private void loadBackgroud() {
-        imageBackgroud.setIcon(new ImageIcon(getClass().getResource("/imagens/bg.jpg")));
-        btnInformacoes.setIcon(new ImageIcon(getClass().getResource("/imagens/windows.png")));
+        imageBackgroud.setIcon(Helper.getImage(Helper.Image.fundo));
 
-        btnInformacoes.setRolloverDecoratedOnly(true);
-        btnInformacoes.setHorizontalTextPosition(WebButton.CENTER);
-        btnInformacoes.setVerticalTextPosition(WebButton.BOTTOM);
+        JLabel logo = new JLabel(Helper.getImage(Helper.Image.logo));
+        logo.setBounds(desktopPanel.getWidth() + 50, desktopPanel.getHeight(), 246, 169);
+        desktopPanel.add(logo);
+
+        panelInformacoes.setBackground(new Color(0, 0, 0, 255));
+
+        lblNotificacoes.setIcon(Helper.getImage(Helper.Image.notificacao));
+
+        lblNotificacoes.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                if (notificacoes == null) {
+                    notificacoes = new PanelNotificacoes();
+                }
+
+                if (!notificacoes.isOpen) {
+                    int w = desktopPanel.getWidth() / 4;
+                    int h = desktopPanel.getHeight();
+                    int x = desktopPanel.getWidth() - w;
+                    notificacoes.setBounds(x, 15, w, h - 15);
+                    desktopPanel.add(notificacoes);
+                    desktopPanel.setComponentZOrder(notificacoes, 1);
+                } else {
+                    desktopPanel.remove(notificacoes);
+                    desktopPanel.revalidate();
+                    desktopPanel.repaint();
+                }
+                notificacoes.isOpen = !notificacoes.isOpen;
+            }
+        });
+
     }
 
     private void loadEspecificacao() {
 
-        final IconDesktop iconDesktop = new IconDesktop("Especificação", new ImageIcon(getClass().getResource("/imagens/icon_delete.png")));
+        final IconDesktop iconDesktop = new IconDesktop("Especificação", Helper.getImage(Helper.Image.delete));
 
         iconDesktop.setActionListener((e) -> {
             if (iconDesktop.getClientProperty(DesktopPaneIconMoveAdapter.DRAGGED_MARK) != null) {
@@ -48,7 +77,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             form.open();
         });
 
-        iconDesktop.setLocation(new Point(25, 25));
+        iconDesktop.setLocation(new Point(0, 0));
         desktopPanel.add(iconDesktop);
     }
 
@@ -60,8 +89,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         imageBackgroud = new com.alee.extended.image.WebImage();
         panelInformacoes = new javax.swing.JPanel();
         lblNomeUsuario = new javax.swing.JLabel();
-        btnInformacoes = new com.alee.laf.button.WebButton();
         labelBorda = new javax.swing.JLabel();
+        lblNotificacoes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(778, 508));
@@ -69,33 +98,37 @@ public class FormPrincipal extends javax.swing.JFrame {
         desktopPanel.setOpaque(false);
 
         panelInformacoes.setBackground(new java.awt.Color(255, 255, 255));
-        panelInformacoes.setOpaque(false);
+        panelInformacoes.setMaximumSize(new java.awt.Dimension(32767, 50));
+        panelInformacoes.setMinimumSize(new java.awt.Dimension(0, 50));
 
         lblNomeUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblNomeUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lblNomeUsuario.setText("Claudio Scheer (ADMIN)");
 
-        labelBorda.setBackground(new java.awt.Color(0, 0, 0));
+        labelBorda.setBackground(new java.awt.Color(153, 153, 153));
         labelBorda.setOpaque(true);
+
+        lblNotificacoes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout panelInformacoesLayout = new javax.swing.GroupLayout(panelInformacoes);
         panelInformacoes.setLayout(panelInformacoesLayout);
         panelInformacoesLayout.setHorizontalGroup(
             panelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelBorda, javax.swing.GroupLayout.DEFAULT_SIZE, 1034, Short.MAX_VALUE)
             .addGroup(panelInformacoesLayout.createSequentialGroup()
-                .addComponent(btnInformacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblNomeUsuario)
-                .addContainerGap())
-            .addComponent(labelBorda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblNotificacoes)
+                .addGap(15, 15, 15))
         );
         panelInformacoesLayout.setVerticalGroup(
             panelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInformacoesLayout.createSequentialGroup()
                 .addComponent(labelBorda, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
                 .addGroup(panelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnInformacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)))
+                    .addComponent(lblNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                    .addComponent(lblNotificacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -112,7 +145,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(desktopPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(panelInformacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelInformacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(imageBackgroud, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE))
         );
@@ -121,9 +154,6 @@ public class FormPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static void start() {
-
-        JFrame.setDefaultLookAndFeelDecorated(false);
-        JDialog.setDefaultLookAndFeelDecorated(false);
 
         WebLookAndFeel.setDecorateAllWindows(true);
         WebLookAndFeel.setDecorateDialogs(true);
@@ -135,8 +165,10 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         FormPrincipal frame = new FormPrincipal();
         frame.setVisible(true);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        frame.setMaximizedBounds(env.getMaximumWindowBounds());
+        frame.setExtendedState(frame.getExtendedState() | JFrame.MAXIMIZED_BOTH);
     }
 
     public static void main(String[] args) {
@@ -144,11 +176,11 @@ public class FormPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.alee.laf.button.WebButton btnInformacoes;
     private com.alee.laf.desktoppane.WebDesktopPane desktopPanel;
     private com.alee.extended.image.WebImage imageBackgroud;
     private javax.swing.JLabel labelBorda;
     private javax.swing.JLabel lblNomeUsuario;
+    private javax.swing.JLabel lblNotificacoes;
     private javax.swing.JPanel panelInformacoes;
     // End of variables declaration//GEN-END:variables
 }

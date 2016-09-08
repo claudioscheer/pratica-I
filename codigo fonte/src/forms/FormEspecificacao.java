@@ -2,9 +2,9 @@ package forms;
 
 import com.alee.laf.desktoppane.WebInternalFrame;
 import dao.EspecificacaoDAO;
+import helper.Helper;
 import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.ImageIcon;
 import model.Especificacao;
 
 public class FormEspecificacao extends WebInternalFrame {
@@ -30,7 +30,7 @@ public class FormEspecificacao extends WebInternalFrame {
         this.setMinimumSize(new Dimension(565, 496));
         this.setBackground(Color.BLACK);
 
-        this.setFrameIcon(new ImageIcon(getClass().getResource("/imagens/frame.png")));
+        this.setFrameIcon(Helper.getImage(Helper.Image.frame));
 
         panelCadastro = new components.panelsListagem.PanelEspecificacao();
 
@@ -70,11 +70,13 @@ public class FormEspecificacao extends WebInternalFrame {
         }
 
         panelCadastro.revalidate();
-        panelCadastro.repaint();
     }
 
     private void cancelarEspecificacao() {
-        this.fecharAbrirPanelCadastro(true);
+
+        Helper.notificacao("Blzasdfsaldk fjsd sjdfg kd!as", Helper.TipoNotificacao.erro, 2000);
+
+        //this.fecharAbrirPanelCadastro(true);
     }
 
     private void addEspecificacao() {
@@ -82,7 +84,6 @@ public class FormEspecificacao extends WebInternalFrame {
         this.fecharAbrirPanelCadastro(false);
 
         panelCadCadastro.revalidate();
-        panelCadCadastro.repaint();
     }
 
     private void editEspecificacao() {
