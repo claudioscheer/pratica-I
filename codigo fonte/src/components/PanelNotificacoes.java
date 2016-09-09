@@ -55,8 +55,6 @@ public class PanelNotificacoes extends WebPanel {
             this.notificacoes = Notificacoes.getInstance();
         }
 
-        this.notificacoes.zerarContagem();
-
         for (int i = 0; i < 10; i++) {
             Notificacao n = new Notificacao();
             n.setIndex(i);

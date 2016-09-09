@@ -23,16 +23,11 @@ public class Notificacoes {
         return instance;
     }
 
-    public void zerarContagem() {
-        this.qntdNotificacoes = 0;
-        this.setQntdNotificacoes();
-    }
-
     public void add(Notificacao n) {
         if (!this.notificacaoJaExiste(n)) {
             this.notificacoes.add(n);
+            this.qntdNotificacoes++;
         }
-        this.qntdNotificacoes++;
         this.setQntdNotificacoes();
     }
 
