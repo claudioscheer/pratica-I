@@ -8,8 +8,9 @@ import javax.swing.ImageIcon;
 public class Helper {
 
     public static int TempoPadrao = 5000;
-    
+
     public static class CoresPadrao {
+
         public static Color fundoDesktop = Color.decode("#B0BEC5");
         public static Color fundoPadrao = Color.decode("#263238");
     }
@@ -31,6 +32,7 @@ public class Helper {
         atualizar,
         notificacao,
         gifCarregando,
+        fechar,
     }
 
     public static ImageIcon getImage(Image icone) {
@@ -77,6 +79,10 @@ public class Helper {
 
             case gifCarregando:
                 url = "carregando.gif";
+                break;
+
+            case fechar:
+                url = "fechar.png";
                 break;
         }
 

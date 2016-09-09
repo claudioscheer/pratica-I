@@ -114,13 +114,7 @@ public class ItemNotificacao extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFecharNotificacãoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFecharNotificacãoMouseClicked
-        Container c = this.getParent();
-        if (c != null) {
-            c.remove(this);
-            c.repaint();
-
-            Notificacoes.getInstance().setVisualizada(this.indexNotificacao);
-        }
+        this.removeItem();
     }//GEN-LAST:event_btnFecharNotificacãoMouseClicked
 
     private void btnVerNotificacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVerNotificacaoMouseClicked
@@ -135,8 +129,18 @@ public class ItemNotificacao extends javax.swing.JPanel {
                 form.open();
                 break;
         }
+
+        this.removeItem();
     }//GEN-LAST:event_btnVerNotificacaoMouseClicked
 
+    private void removeItem() {
+        Container c = this.getParent();
+        if (c != null) {
+            c.remove(this);
+            c.repaint();
+            Notificacoes.getInstance().setVisualizada(this.indexNotificacao);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.extended.label.WebLinkLabel btnFecharNotificacão;

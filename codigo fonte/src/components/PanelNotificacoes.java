@@ -3,19 +3,13 @@ package components;
 import com.alee.extended.layout.VerticalFlowLayout;
 import com.alee.laf.label.WebLabel;
 import com.alee.laf.panel.WebPanel;
+import forms.FormPrincipal;
 import helper.Helper;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import model.Notificacao;
 import model.Notificacoes;
-import org.jdesktop.swingx.border.DropShadowBorder;
 
 public class PanelNotificacoes extends WebPanel {
 
@@ -29,8 +23,14 @@ public class PanelNotificacoes extends WebPanel {
     public PanelNotificacoes() {
         initComponents();
 
-        this.setBackground(Helper.CoresPadrao.fundoPadrao);
-
+        this.lblFechar.setIcon(Helper.getImage(Helper.Image.fechar));
+        this.lblFechar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                FormPrincipal formPrincipal = FormPrincipal.getInstance();
+                formPrincipal.toggleNotificacoes();
+            }
+        });
         this.lblAtualizar.setIcon(Helper.getImage(Helper.Image.atualizar));
         this.lblAtualizar.addMouseListener(new MouseAdapter() {
             @Override
@@ -40,17 +40,6 @@ public class PanelNotificacoes extends WebPanel {
         });
         this.scrollPanel.getVerticalScrollBar().setUnitIncrement(20);
         this.carregarNotificacoes();
-
-        DropShadowBorder shadow = new DropShadowBorder();
-        shadow.setShadowColor(Color.BLACK);
-        shadow.setShowLeftShadow(true);
-        shadow.setShowTopShadow(true);
-        shadow.setShowBottomShadow(true);
-        shadow.setShowRightShadow(true);
-        shadow.setShadowSize(4);
-
-        this.panelOpcoes.setBorder(shadow);
-        this.scrollPanel.setBorder(null);
     }
 
     private void loadPanelNotificacoes() {
@@ -65,6 +54,8 @@ public class PanelNotificacoes extends WebPanel {
         if (this.notificacoes == null) {
             this.notificacoes = Notificacoes.getInstance();
         }
+
+        this.notificacoes.zerarContagem();
 
         for (int i = 0; i < 10; i++) {
             Notificacao n = new Notificacao();
@@ -129,6 +120,7 @@ public class PanelNotificacoes extends WebPanel {
         scrollPanel = new javax.swing.JScrollPane();
         panelOpcoes = new javax.swing.JPanel();
         lblAtualizar = new javax.swing.JLabel();
+        lblFechar = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -137,6 +129,8 @@ public class PanelNotificacoes extends WebPanel {
 
         lblAtualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        lblFechar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
         panelOpcoes.setLayout(panelOpcoesLayout);
         panelOpcoesLayout.setHorizontalGroup(
@@ -144,11 +138,14 @@ public class PanelNotificacoes extends WebPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblAtualizar)
-                .addGap(5, 5, 5))
+                .addGap(20, 20, 20)
+                .addComponent(lblFechar)
+                .addGap(8, 8, 8))
         );
         panelOpcoesLayout.setVerticalGroup(
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblAtualizar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+            .addComponent(lblAtualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+            .addComponent(lblFechar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -170,6 +167,7 @@ public class PanelNotificacoes extends WebPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblAtualizar;
+    private javax.swing.JLabel lblFechar;
     private javax.swing.JPanel panelOpcoes;
     private javax.swing.JScrollPane scrollPanel;
     // End of variables declaration//GEN-END:variables

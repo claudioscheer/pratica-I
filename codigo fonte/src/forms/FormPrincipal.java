@@ -6,21 +6,33 @@ import components.DesktopPaneIconMoveAdapter;
 import components.IconDesktop;
 import components.PanelNotificacoes;
 import helper.Helper;
-import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class FormPrincipal extends javax.swing.JFrame {
 
+    private static FormPrincipal instance = null;
     private PanelNotificacoes notificacoes;
 
     public FormPrincipal() {
         initComponents();
+    }
+
+    public static FormPrincipal getInstance() {
+        if (instance == null) {
+            instance = new FormPrincipal();
+        }
+        return instance;
+    }
+
+    public void setQntdNotificacoes(String qntd) {
+        this.lblQntdNotificacoes.setText(qntd);
     }
 
     private void loadComponents() {
@@ -32,38 +44,43 @@ public class FormPrincipal extends javax.swing.JFrame {
         desktopPanel.setOpaque(true);
         desktopPanel.setBackground(Helper.CoresPadrao.fundoDesktop);
 
-        JLabel logo = new JLabel(Helper.getImage(Helper.Image.logo));
-        logo.setBounds(desktopPanel.getWidth() - 253, desktopPanel.getHeight() - 176, 246, 169);
+        ImageIcon logoImagem = Helper.getImage(Helper.Image.logo);
+        JLabel logo = new JLabel(logoImagem);
+        logo.setBounds(desktopPanel.getWidth() - logoImagem.getIconWidth() - 2, desktopPanel.getHeight() - logoImagem.getIconHeight() - 2, logoImagem.getIconWidth(), logoImagem.getIconHeight());
         desktopPanel.add(logo);
 
         panelInformacoes.setBackground(Helper.CoresPadrao.fundoPadrao);
-        
-//        lblNotificacoes.setText("");
+
         lblNotificacoes.setIcon(Helper.getImage(Helper.Image.notificacao));
 
         lblNotificacoes.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
-                if (notificacoes == null) {
-                    notificacoes = new PanelNotificacoes();
-                }
-
-                if (!notificacoes.isOpen) {
-                    int w = desktopPanel.getWidth() / 4;
-                    int h = desktopPanel.getHeight();
-                    int x = desktopPanel.getWidth() - w;
-                    notificacoes.setBounds(x, 15, w, h - 15);
-                    desktopPanel.add(notificacoes);
-                    desktopPanel.setComponentZOrder(notificacoes, 1);
-                } else {
-                    desktopPanel.remove(notificacoes);
-                    desktopPanel.revalidate();
-                    desktopPanel.repaint();
-                }
-                notificacoes.isOpen = !notificacoes.isOpen;
+                toggleNotificacoes();
             }
         });
 
+    }
+
+    public void toggleNotificacoes() {
+        if (!notificacoes.isOpen) {
+            int w = desktopPanel.getWidth() / 4;
+            int h = desktopPanel.getHeight();
+            int x = desktopPanel.getWidth() - w;
+            notificacoes.setBounds(x, 15, w, h - 15);
+            desktopPanel.add(notificacoes);
+            desktopPanel.setComponentZOrder(notificacoes, 1);
+        } else {
+            desktopPanel.remove(notificacoes);
+            desktopPanel.repaint();
+        }
+        notificacoes.isOpen = !notificacoes.isOpen;
+    }
+
+    private void carrregarNotificacoes() {
+        if (notificacoes == null) {
+            notificacoes = new PanelNotificacoes();
+        }
     }
 
     private void loadEspecificacao() {
@@ -117,9 +134,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         lblNotificacoes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         lblQntdNotificacoes.setBackground(new java.awt.Color(255, 255, 255));
-        lblQntdNotificacoes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblQntdNotificacoes.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         lblQntdNotificacoes.setForeground(new java.awt.Color(255, 0, 0));
-        lblQntdNotificacoes.setText("2");
         lblQntdNotificacoes.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
         javax.swing.GroupLayout panelDetalhesNotificacaoLayout = new javax.swing.GroupLayout(panelDetalhesNotificacao);
@@ -137,7 +153,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         );
         panelDetalhesNotificacaoLayout.setVerticalGroup(
             panelDetalhesNotificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblNotificacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDetalhesNotificacaoLayout.createSequentialGroup()
+                .addGap(1, 1, 1)
+                .addComponent(lblNotificacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelDetalhesNotificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDetalhesNotificacaoLayout.createSequentialGroup()
                     .addGap(0, 0, 0)
@@ -164,9 +182,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(panelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addGroup(panelInformacoesLayout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(panelDetalhesNotificacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(panelDetalhesNotificacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -201,15 +217,15 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         WebLookAndFeel.install();
 
-        FormPrincipal frame = new FormPrincipal();
+        FormPrincipal frame = FormPrincipal.getInstance();
         frame.setVisible(true);
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle r = env.getMaximumWindowBounds();
         frame.setMaximizedBounds(r);
         frame.setExtendedState(frame.getState() | JFrame.MAXIMIZED_BOTH);
-
         frame.loadComponents();
+        frame.carrregarNotificacoes();
     }
 
     public static void main(String[] args) {
