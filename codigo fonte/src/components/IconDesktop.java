@@ -27,7 +27,7 @@ public class IconDesktop extends WebButton {
         this.setVerticalTextPosition(WebButton.BOTTOM);
         this.setSize(100, 75);
 
-        DesktopPaneIconMoveAdapter moveItem = new DesktopPaneIconMoveAdapter();
+        MoverComponente moveItem = new MoverComponente();
         this.addMouseListener(moveItem);
         this.addMouseMotionListener(moveItem);
     }

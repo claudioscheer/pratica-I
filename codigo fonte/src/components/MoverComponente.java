@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class DesktopPaneIconMoveAdapter extends MouseAdapter {
+public class MoverComponente extends MouseAdapter {
 
     public static final String DRAGGED_MARK = "was.dragged";
 

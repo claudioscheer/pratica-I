@@ -2,15 +2,14 @@ package forms;
 
 import com.alee.laf.WebLookAndFeel;
 import com.alee.managers.language.LanguageManager;
-import components.DesktopPaneIconMoveAdapter;
+import components.MoverComponente;
 import components.IconDesktop;
 import components.PanelNotificacoes;
+import components.PanelWidgetSaldo;
 import helper.Helper;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,6 +18,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private static FormPrincipal instance = null;
     private PanelNotificacoes notificacoes;
+    private PanelWidgetSaldo saldo;
 
     public FormPrincipal() {
         initComponents();
@@ -38,48 +38,53 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void loadComponents() {
         this.loadEspecificacao();
         this.loadBackgroud();
+        this.loadWidgetSaldo();
+    }
+
+    private void loadWidgetSaldo() {
+        this.saldo = PanelWidgetSaldo.getInstance();
+
+        int w = this.desktopPanel.getWidth() / 4;
+        int h = this.desktopPanel.getHeight() / 4;
+        int x = this.desktopPanel.getWidth() - w;
+        this.saldo.setBounds(x, 0, w, h);
+        this.desktopPanel.add(this.saldo);
+        this.desktopPanel.setComponentZOrder(this.saldo, 1);
     }
 
     private void loadBackgroud() {
-        desktopPanel.setOpaque(true);
-        desktopPanel.setBackground(Helper.CoresPadrao.fundoDesktop);
+        this.desktopPanel.setOpaque(true);
+        this.desktopPanel.setBackground(Helper.CoresPadrao.fundoDesktop);
 
         ImageIcon logoImagem = Helper.getImage(Helper.Image.logo);
         JLabel logo = new JLabel(logoImagem);
-        logo.setBounds(desktopPanel.getWidth() - logoImagem.getIconWidth() - 2, desktopPanel.getHeight() - logoImagem.getIconHeight() - 2, logoImagem.getIconWidth(), logoImagem.getIconHeight());
-        desktopPanel.add(logo);
+        logo.setBounds(this.desktopPanel.getWidth() - logoImagem.getIconWidth() - 2, this.desktopPanel.getHeight() - logoImagem.getIconHeight() - 2, logoImagem.getIconWidth(), logoImagem.getIconHeight());
+        this.desktopPanel.add(logo);
 
-        panelInformacoes.setBackground(Helper.CoresPadrao.fundoPadrao);
+        this.panelInformacoes.setBackground(Helper.CoresPadrao.fundoPadrao);
 
-        lblNotificacoes.setIcon(Helper.getImage(Helper.Image.notificacao));
-
-        lblNotificacoes.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent me) {
-                toggleNotificacoes();
-            }
-        });
+        this.lblNotificacoes.setIcon(Helper.getImage(Helper.Image.notificacao));
 
     }
 
     public void toggleNotificacoes() {
-        if (!notificacoes.isOpen) {
-            int w = desktopPanel.getWidth() / 4;
-            int h = desktopPanel.getHeight();
-            int x = desktopPanel.getWidth() - w;
-            notificacoes.setBounds(x, 15, w, h - 15);
-            desktopPanel.add(notificacoes);
-            desktopPanel.setComponentZOrder(notificacoes, 1);
+        if (!this.notificacoes.isOpen) {
+            int w = this.desktopPanel.getWidth() / 4;
+            int h = this.desktopPanel.getHeight();
+            int x = this.desktopPanel.getWidth() - w;
+            this.notificacoes.setBounds(x + 3, 15, w, h - 12);
+            this.desktopPanel.add(this.notificacoes);
+            this.desktopPanel.setComponentZOrder(this.notificacoes, 1);
         } else {
-            desktopPanel.remove(notificacoes);
-            desktopPanel.repaint();
+            this.desktopPanel.remove(this.notificacoes);
+            this.desktopPanel.repaint();
         }
-        notificacoes.isOpen = !notificacoes.isOpen;
+        this.notificacoes.isOpen = !this.notificacoes.isOpen;
     }
 
     private void carrregarNotificacoes() {
-        if (notificacoes == null) {
-            notificacoes = new PanelNotificacoes();
+        if (this.notificacoes == null) {
+            this.notificacoes = new PanelNotificacoes();
         }
     }
 
@@ -88,16 +93,16 @@ public class FormPrincipal extends javax.swing.JFrame {
         final IconDesktop iconDesktop = new IconDesktop("Especificação", Helper.getImage(Helper.Image.delete));
 
         iconDesktop.setActionListener((e) -> {
-            if (iconDesktop.getClientProperty(DesktopPaneIconMoveAdapter.DRAGGED_MARK) != null) {
+            if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
                 return;
             }
             FormEspecificacao form = new FormEspecificacao();
-            desktopPanel.add(form);
+            this.desktopPanel.add(form);
             form.open();
         });
 
         iconDesktop.setLocation(new Point(0, 0));
-        desktopPanel.add(iconDesktop);
+        this.desktopPanel.add(iconDesktop);
     }
 
     @SuppressWarnings("unchecked")
@@ -132,6 +137,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         panelDetalhesNotificacao.setOpaque(false);
 
         lblNotificacoes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblNotificacoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNotificacoesMouseClicked(evt);
+            }
+        });
 
         lblQntdNotificacoes.setBackground(new java.awt.Color(255, 255, 255));
         lblQntdNotificacoes.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
@@ -206,6 +216,10 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblNotificacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotificacoesMouseClicked
+        this.toggleNotificacoes();
+    }//GEN-LAST:event_lblNotificacoesMouseClicked
 
     public static void start() {
 

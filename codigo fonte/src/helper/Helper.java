@@ -13,6 +13,7 @@ public class Helper {
 
         public static Color fundoDesktop = Color.decode("#B0BEC5");
         public static Color fundoPadrao = Color.decode("#263238");
+        public static Color verde = Color.decode("#4caf50");
     }
 
     public static enum TipoNotificacao {
@@ -33,6 +34,8 @@ public class Helper {
         notificacao,
         gifCarregando,
         fechar,
+        anterior,
+        proximo,
     }
 
     public static ImageIcon getImage(Image icone) {
@@ -83,6 +86,14 @@ public class Helper {
 
             case fechar:
                 url = "fechar.png";
+                break;
+
+            case anterior:
+                url = "anterior.png";
+                break;
+
+            case proximo:
+                url = "proximo.png";
                 break;
         }
 
