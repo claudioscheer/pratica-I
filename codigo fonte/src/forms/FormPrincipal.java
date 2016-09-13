@@ -7,6 +7,7 @@ import components.IconDesktop;
 import components.PanelNotificacoes;
 import components.PanelWidgetSaldo;
 import helper.Helper;
+import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -44,8 +45,10 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void loadWidgetSaldo() {
         this.saldo = PanelWidgetSaldo.getInstance();
 
-        int w = this.desktopPanel.getWidth() / 4;
-        int h = this.desktopPanel.getHeight() / 4;
+        Dimension d = this.saldo.getMinimumSize();
+        
+        int w = (int)d.getWidth();
+        int h = (int)d.getHeight();
         int x = this.desktopPanel.getWidth() - w;
         this.saldo.setBounds(x, 0, w, h);
         this.desktopPanel.add(this.saldo);

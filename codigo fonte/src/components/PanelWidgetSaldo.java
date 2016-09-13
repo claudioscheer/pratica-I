@@ -24,12 +24,7 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
 
     public PanelWidgetSaldo() {
         initComponents();
-        this.calendar = Calendar.getInstance();
-        this.loadSaldo();
-        this.setMesAno();
-
-        //só pra teste
-        this.saldo = 200;
+        this.setMesAtual();
 
         Border border = BorderFactory.createEmptyBorder(borda, borda, borda, borda);
         this.setBorder(BorderFactory.createCompoundBorder(this.getBorder(), border));
@@ -105,6 +100,15 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
         this.lblAtualizar.setIcon(Helper.getImage(Helper.Image.atualizar));
     }
 
+    private void setMesAtual() {
+        this.calendar = Calendar.getInstance();
+        this.loadSaldo();
+        this.setMesAno();
+
+        //só pra teste
+        this.saldo = 200;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -116,7 +120,10 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
         lblValorSaldo = new javax.swing.JLabel();
         lblAtualizar = new javax.swing.JLabel();
 
+        setMaximumSize(new java.awt.Dimension(350, 150));
+        setMinimumSize(new java.awt.Dimension(350, 150));
         setOpaque(false);
+        setPreferredSize(new java.awt.Dimension(350, 150));
 
         lblAnterior.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblAnterior.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -164,7 +171,7 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelItensLayout.createSequentialGroup()
                                 .addComponent(lblAnterior)
                                 .addGap(18, 18, 18)
-                                .addComponent(lblMesAno, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                                .addComponent(lblMesAno, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
                                 .addComponent(lblProximo)))))
                 .addGap(5, 5, 5))
@@ -177,7 +184,7 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
                     .addComponent(lblProximo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblMesAno, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(lblValorSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
+                .addComponent(lblValorSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
                 .addGap(21, 21, 21)
                 .addComponent(lblAtualizar)
                 .addGap(5, 5, 5))
@@ -197,10 +204,10 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
 
     private void lblAnteriorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAnteriorMouseClicked
         this.calendar.add(Calendar.MONTH, -1);
-        
+
         //só pra teste
         this.saldo -= 100;
-        
+
         this.setMesAno();
         this.loadSaldo();
     }//GEN-LAST:event_lblAnteriorMouseClicked
@@ -216,9 +223,7 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
     }//GEN-LAST:event_lblProximoMouseClicked
 
     private void lblMesAnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMesAnoMouseClicked
-        this.calendar = Calendar.getInstance();
-        this.setMesAno();
-        this.loadSaldo();
+        this.setMesAtual();
     }//GEN-LAST:event_lblMesAnoMouseClicked
 
 
