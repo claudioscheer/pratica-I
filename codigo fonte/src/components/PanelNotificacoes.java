@@ -5,7 +5,7 @@ import com.alee.laf.label.WebLabel;
 import com.alee.laf.panel.WebPanel;
 import com.alee.utils.ThreadUtils;
 import forms.FormPrincipal;
-import helper.Helper;
+import utils.Utils;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.BorderFactory;
@@ -33,9 +33,9 @@ public class PanelNotificacoes extends WebPanel {
 
         this.carregarNotificacoes();
 
-        this.lblFechar.setIcon(Helper.getImage(Helper.Image.fechar));
+        this.lblFechar.setIcon(Utils.getImage(Utils.Image.fechar));
 
-        this.lblAtualizar.setIcon(Helper.getImage(Helper.Image.atualizar));
+        this.lblAtualizar.setIcon(Utils.getImage(Utils.Image.atualizar));
         this.scrollPanel.getVerticalScrollBar().setUnitIncrement(20);
     }
 
@@ -53,7 +53,7 @@ public class PanelNotificacoes extends WebPanel {
     private void loadPanelNotificacoes() {
         if (this.notificacoesPanel == null) {
             this.notificacoesPanel = new WebPanel(new VerticalFlowLayout());
-            this.notificacoesPanel.setBackground(Helper.CoresPadrao.fundoPadrao);
+            this.notificacoesPanel.setBackground(Utils.CoresPadrao.fundoPadrao);
             this.scrollPanel.setViewportView(this.notificacoesPanel);
         }
     }
@@ -101,7 +101,7 @@ public class PanelNotificacoes extends WebPanel {
     private void mostrarCarregando() {
 
         if (this.loadding == null) {
-            this.gif = Helper.getImage(Helper.Image.gifCarregando);
+            this.gif = Utils.getImage(Utils.Image.gifcarregando);
             this.loadding = new WebLabel(this.gif);
         }
 

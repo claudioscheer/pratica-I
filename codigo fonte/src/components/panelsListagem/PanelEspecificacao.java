@@ -1,9 +1,7 @@
 package components.panelsListagem;
 
-import com.alee.laf.button.WebButton;
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.table.WebTable;
-import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +11,10 @@ public class PanelEspecificacao extends WebPanel implements ActionListener {
     public PanelEspecificacao() {
         initComponents();
         this.loadDatas();
-        this.loadTextBuscar();
+
+        this.txtBuscar.setEventBuscar((e) -> {
+            System.out.println("buscar");
+        });
     }
 
     public void setEvents(ActionListener add, ActionListener edit, ActionListener delete) {
@@ -39,16 +40,6 @@ public class PanelEspecificacao extends WebPanel implements ActionListener {
         tableLista.setAutoResizeMode(WebTable.AUTO_RESIZE_ALL_COLUMNS);
     }
 
-    private void loadTextBuscar() {
-        WebButton button = new WebButton("Buscar");
-        button.addActionListener(this);
-        button.setCursor(Cursor.getDefaultCursor());
-        button.setLeftRightSpacing(10);
-
-        textBusca.setTrailingComponent(button);
-        textBusca.setFieldMargin(0, 6, 0, 6);
-    }
-
     @Override
     public void actionPerformed(ActionEvent ae) {
         System.out.println("asdjkfaksldjfnkajsdfnk");
@@ -60,11 +51,11 @@ public class PanelEspecificacao extends WebPanel implements ActionListener {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tableLista = new com.alee.laf.table.WebTable();
-        textBusca = new com.alee.laf.text.WebTextField();
         panelOpcoes = new javax.swing.JPanel();
         buttonAdd = new com.alee.laf.button.WebButton();
         buttonExcluir = new com.alee.laf.button.WebButton();
         buttonEditar = new com.alee.laf.button.WebButton();
+        txtBuscar = new components.TextFieldBuscar();
 
         setMinimumSize(new java.awt.Dimension(565, 496));
 
@@ -101,7 +92,7 @@ public class PanelEspecificacao extends WebPanel implements ActionListener {
         panelOpcoesLayout.setHorizontalGroup(
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcoesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(316, Short.MAX_VALUE)
                 .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -125,20 +116,15 @@ public class PanelEspecificacao extends WebPanel implements ActionListener {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(textBusca, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE))
-                .addGap(5, 5, 5))
+            .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(textBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                 .addGap(3, 3, 3)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -151,6 +137,6 @@ public class PanelEspecificacao extends WebPanel implements ActionListener {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelOpcoes;
     private com.alee.laf.table.WebTable tableLista;
-    private com.alee.laf.text.WebTextField textBusca;
+    private components.TextFieldBuscar txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

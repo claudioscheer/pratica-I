@@ -1,7 +1,7 @@
 package components;
 
-import forms.FormEspecificacao;
-import helper.Helper;
+import forms.FormNotaFiscal;
+import utils.Utils;
 import java.awt.Color;
 import java.awt.Container;
 import model.Notificacao;
@@ -14,7 +14,7 @@ public class ItemNotificacao extends javax.swing.JPanel {
 
     public ItemNotificacao() {
         initComponents();
-        this.setBackground(Helper.CoresPadrao.fundoPadrao);
+        this.setBackground(Utils.CoresPadrao.fundoPadrao);
 
         DropShadowBorder shadow = new DropShadowBorder();
         shadow.setShadowColor(Color.BLACK);
@@ -123,7 +123,7 @@ public class ItemNotificacao extends javax.swing.JPanel {
 
         switch (n.getLink()) {
             case especificacao:
-                FormEspecificacao form = new FormEspecificacao();
+                FormNotaFiscal form = new FormNotaFiscal();
                 Container c = this.getParent().getParent().getParent().getParent().getParent();
                 c.add(form);
                 form.open();

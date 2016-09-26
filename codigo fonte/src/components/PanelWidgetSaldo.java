@@ -3,11 +3,10 @@ package components;
 import com.alee.managers.language.data.TooltipWay;
 import com.alee.managers.tooltip.TooltipManager;
 import com.alee.utils.ThreadUtils;
-import helper.Helper;
+import utils.Utils;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.BorderFactory;
@@ -77,9 +76,9 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
         if (this.saldo < 0) {
             c = Color.RED;
         } else if (this.saldo > 0) {
-            c = Helper.CoresPadrao.verde;
+            c = Utils.CoresPadrao.verde;
         } else {
-            c = Helper.CoresPadrao.fundoDesktop;
+            c = Utils.CoresPadrao.fundoDesktop;
         }
         this.lblValorSaldo.setForeground(c);
         this.lblValorSaldo.setText("R$ " + new DecimalFormat("#0.00").format(this.saldo));
@@ -95,9 +94,9 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
     }
 
     private void loadIcones() {
-        this.lblAnterior.setIcon(Helper.getImage(Helper.Image.anterior));
-        this.lblProximo.setIcon(Helper.getImage(Helper.Image.proximo));
-        this.lblAtualizar.setIcon(Helper.getImage(Helper.Image.atualizar));
+        this.lblAnterior.setIcon(Utils.getImage(Utils.Image.anterior));
+        this.lblProximo.setIcon(Utils.getImage(Utils.Image.proximo));
+        this.lblAtualizar.setIcon(Utils.getImage(Utils.Image.atualizar));
     }
 
     private void setMesAtual() {

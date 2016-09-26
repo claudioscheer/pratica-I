@@ -6,7 +6,7 @@ import components.MoverComponente;
 import components.IconDesktop;
 import components.PanelNotificacoes;
 import components.PanelWidgetSaldo;
-import helper.Helper;
+import utils.Utils;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
@@ -32,6 +32,14 @@ public class FormPrincipal extends javax.swing.JFrame {
         return instance;
     }
 
+    public static void setBloqueado(boolean bloqueado) {
+        FormPrincipal f = getInstance();
+        f.setEnabled(!bloqueado);
+        if (!bloqueado) {
+            f.setVisible(true);
+        }
+    }
+
     public void setQntdNotificacoes(String qntd) {
         this.lblQntdNotificacoes.setText(qntd);
     }
@@ -46,9 +54,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.saldo = PanelWidgetSaldo.getInstance();
 
         Dimension d = this.saldo.getMinimumSize();
-        
-        int w = (int)d.getWidth();
-        int h = (int)d.getHeight();
+
+        int w = (int) d.getWidth();
+        int h = (int) d.getHeight();
         int x = this.desktopPanel.getWidth() - w;
         this.saldo.setBounds(x, 0, w, h);
         this.desktopPanel.add(this.saldo);
@@ -57,16 +65,16 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void loadBackgroud() {
         this.desktopPanel.setOpaque(true);
-        this.desktopPanel.setBackground(Helper.CoresPadrao.fundoDesktop);
+        this.desktopPanel.setBackground(Utils.CoresPadrao.fundoDesktop);
 
-        ImageIcon logoImagem = Helper.getImage(Helper.Image.logo);
+        ImageIcon logoImagem = Utils.getImage(Utils.Image.logo);
         JLabel logo = new JLabel(logoImagem);
         logo.setBounds(this.desktopPanel.getWidth() - logoImagem.getIconWidth() - 2, this.desktopPanel.getHeight() - logoImagem.getIconHeight() - 2, logoImagem.getIconWidth(), logoImagem.getIconHeight());
         this.desktopPanel.add(logo);
 
-        this.panelInformacoes.setBackground(Helper.CoresPadrao.fundoPadrao);
+        this.panelInformacoes.setBackground(Utils.CoresPadrao.fundoPadrao);
 
-        this.lblNotificacoes.setIcon(Helper.getImage(Helper.Image.notificacao));
+        this.lblNotificacoes.setIcon(Utils.getImage(Utils.Image.notificacao));
 
     }
 
@@ -93,13 +101,13 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void loadEspecificacao() {
 
-        final IconDesktop iconDesktop = new IconDesktop("Especificação", Helper.getImage(Helper.Image.delete));
+        final IconDesktop iconDesktop = new IconDesktop("Notas Fiscais", Utils.getImage(Utils.Image.notafiscal));
 
         iconDesktop.setActionListener((e) -> {
             if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
                 return;
             }
-            FormEspecificacao form = new FormEspecificacao();
+            FormNotaFiscal form = new FormNotaFiscal();
             this.desktopPanel.add(form);
             form.open();
         });

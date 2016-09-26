@@ -2,7 +2,7 @@ package components;
 
 import com.alee.managers.language.data.TooltipWay;
 import com.alee.managers.tooltip.TooltipManager;
-import helper.Helper;
+import utils.Utils;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -187,13 +187,13 @@ public class Validador {
 
             if (valido) {
                 if (tipoValidator == TipoValidator.ICONE) {
-                    this.label.setIcon(Helper.getImage(Helper.Image.ok));
+                    this.label.setIcon(Utils.getImage(Utils.Image.ok));
                     TooltipManager.setTooltip(this.label, "Válido", TooltipWay.left, 0);
                 } else {
                     this.label.setText("");
                 }
             } else if (tipoValidator == TipoValidator.ICONE) {
-                this.label.setIcon(Helper.getImage(Helper.Image.erro));
+                this.label.setIcon(Utils.getImage(Utils.Image.erro));
                 TooltipManager.setTooltip(this.label, this.mensagem, TooltipWay.left, 0);
             } else {
                 this.label.setText(this.mensagem);

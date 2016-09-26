@@ -13,7 +13,7 @@ import com.alee.laf.label.WebLabel;
 import com.alee.laf.toolbar.WebToolBar;
 import com.alee.managers.language.LanguageManager;
 import com.alee.utils.SwingUtils;
-import helper.Helper;
+import utils.Utils;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +27,7 @@ public class teste extends javax.swing.JFrame {
 
     public void b() {
 
-        WebLabel loader = new WebLabel(Helper.getImage(Helper.Image.gifCarregando));
+        WebLabel loader = new WebLabel(Utils.getImage(Utils.Image.gifcarregando));
         loader.setPreferredSize(new Dimension(48, 48));
         loader.setOpaque(true);
         
@@ -50,12 +50,12 @@ public class teste extends javax.swing.JFrame {
         // Toolbar #1
         final WebToolBar toolBar1 = new WebToolBar(WebToolBar.HORIZONTAL);
         toolBar1.setFloatable(false);
-        toolBar1.add(WebButton.createIconWebButton(Helper.getImage(Helper.Image.add), true));
+        toolBar1.add(WebButton.createIconWebButton(Utils.getImage(Utils.Image.adicionar), true));
         toolBar1.addSeparator();
-        toolBar1.add(WebButton.createIconWebButton(Helper.getImage(Helper.Image.delete), true));
+        toolBar1.add(WebButton.createIconWebButton(Utils.getImage(Utils.Image.deletar), true));
         toolBar1.addSeparator();
-        toolBar1.add(WebButton.createIconWebButton(Helper.getImage(Helper.Image.edit), true));
-        toolBar1.addToEnd(WebButton.createIconWebButton(Helper.getImage(Helper.Image.erro), true));
+        toolBar1.add(WebButton.createIconWebButton(Utils.getImage(Utils.Image.editar), true));
+        toolBar1.addToEnd(WebButton.createIconWebButton(Utils.getImage(Utils.Image.erro), true));
 
         // Toolbar #2
         final WebToolBar toolBar2 = new WebToolBar(WebToolBar.HORIZONTAL);
@@ -70,7 +70,7 @@ public class teste extends javax.swing.JFrame {
         componentTransition.setPreferredSize(SwingUtils.max(toolBar1, toolBar2));
 
         // States switch button
-        final WebButton switchView = new WebButton(Helper.getImage(Helper.Image.frame));
+        final WebButton switchView = new WebButton(Utils.getImage(Utils.Image.frame));
         switchView.setDrawFocus(false);
         switchView.addActionListener(new ActionListener() {
             @Override
@@ -114,11 +114,11 @@ public class teste extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 446, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 330, Short.MAX_VALUE)
         );
 
         pack();

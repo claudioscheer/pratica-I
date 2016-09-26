@@ -1,13 +1,16 @@
-package helper;
+package utils;
 
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 
-public class Helper {
+public class Utils {
 
     public static int TempoPadrao = 5000;
+
+    public static int wPadrao = 600;
+    public static int hPadrao = 500;
 
     public static class CoresPadrao {
 
@@ -27,22 +30,24 @@ public class Helper {
         frame,
         erro,
         ok,
-        add,
-        edit,
-        delete,
+        adicionar,
+        editar,
+        deletar,
         atualizar,
         notificacao,
-        gifCarregando,
+        gifcarregando,
         fechar,
         anterior,
         proximo,
+        buscar,
+        notafiscal,
     }
 
     public static ImageIcon getImage(Image icone) {
         String url = "";
         switch (icone) {
             case fundo:
-                url = "fundo2.jpg";
+                url = "fundo.jpg";
                 break;
 
             case logo:
@@ -60,16 +65,16 @@ public class Helper {
                 url = "ok.png";
                 break;
 
-            case add:
-                url = "add.png";
+            case adicionar:
+                url = "adicionar.png";
                 break;
 
-            case edit:
-                url = "edit.png";
+            case editar:
+                url = "editar.png";
                 break;
 
-            case delete:
-                url = "delete.png";
+            case deletar:
+                url = "deletar.png";
                 break;
 
             case atualizar:
@@ -80,7 +85,7 @@ public class Helper {
                 url = "notificacao2.png";
                 break;
 
-            case gifCarregando:
+            case gifcarregando:
                 url = "carregando.gif";
                 break;
 
@@ -95,9 +100,17 @@ public class Helper {
             case proximo:
                 url = "proximo.png";
                 break;
+
+            case buscar:
+                url = "buscar.png";
+                break;
+
+            case notafiscal:
+                url = "notafiscal.png";
+                break;
         }
 
-        return new ImageIcon(Helper.class.getResource("/imagens/" + url));
+        return new ImageIcon(Utils.class.getResource("/imagens/" + url));
     }
 
     public static void notificacao(String mensagem, TipoNotificacao tipoNotificacao, int tempo) {
