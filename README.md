@@ -7,7 +7,7 @@ Trabalho da Prática I de Sistemas de Informação!
 * Clique com o botão direito do mouse em alguma pasta do computador.
 * Selecione a opção SVN Checkout...
 * Cole esse link https://github.com/claudioscheer/praticaI no campo Url of repository.
-* Clique em ok.
+* Clique em OK.
 * Como o repositório é privado, ele vai pedir o seu login. Faça-o e espere os arquivos serem baixados.
 
 ### Enviar as mudanças para o GitHub (commit)
@@ -27,6 +27,6 @@ Trabalho da Prática I de Sistemas de Informação!
 * Clique com o botão direito do mouse em cima do arquivo com conflito e selecione 'Edit conflicts' ou algo do tipo.
 * Clique em OK e estará resolvido o conflito. Fácil não? Nem precisou da polícia!
 
-### Avisos
-* CUIDE PRA NÃO FAZER CAGADA! CASO HAJA A NECESSIDADE DE ESTRAGAR COM TUDO, SE VIRE PRA ARRUMAR!
+### Avisos importantíssimos
 * NÃO ENVIE ARQUIVOS COM ERRO.
+* CUIDE PRA NÃO FAZER CAGADA! CASO HAJA A NECESSIDADE DE ESTRAGAR COM TUDO, SE VIRE PRA ARRUMAR!
