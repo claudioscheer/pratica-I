@@ -30,3 +30,5 @@ Trabalho da Prática I de Sistemas de Informação!
 ### Avisos importantíssimos
 * NÃO ENVIE ARQUIVOS COM ERRO.
 * CUIDE PRA NÃO FAZER CAGADA! CASO HAJA A NECESSIDADE DE ESTRAGAR COM TUDO, SE VIRE PRA ARRUMAR!
+
+Obs: se você ainda não tem acesso ao repositório, no rodapé do site tem meu GitHub. Me siga lá! Assim vou saber seu usuário e te adiciono!
