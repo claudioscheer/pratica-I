@@ -24,7 +24,7 @@ Trabalho da Prática I de Sistemas de Informação!
 
 ### Resolver conflitos de arquivos
 * Isso vai acontecer quando for feito o update e outro usuário tiver dado o commit em um arquivo que você também mudou.
-* Clique com o botão direito do mouse em cima do arquivo com conflito e selecione 'Edit conflicts' ou algo do tipo.
+* Clique com o botão direito do mouse em cima do arquivo com conflito e na opção TortoiseSVN selecione Resolve...
 * Clique em OK e estará resolvido o conflito. Fácil não? Nem precisou da polícia!
 
 ### Avisos importantíssimos
