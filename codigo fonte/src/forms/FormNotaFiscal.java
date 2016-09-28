@@ -1,6 +1,8 @@
 package forms;
 
 import com.alee.laf.desktoppane.WebInternalFrame;
+import components.panelsCads.PanelCadNotaFiscal;
+import components.panelsListagem.PanelConsultaNotaFiscal;
 import dao.NotaFiscalDAO;
 import utils.Utils;
 import java.awt.Dimension;
@@ -10,20 +12,10 @@ public class FormNotaFiscal extends WebInternalFrame {
 
     public FormNotaFiscal() {
         super("Notas Fiscais", true, true, true, true);
-        initComponents();
+        this.initComponents();
     }
 
-    private void initFormCad() {
-        this.panelCadCadastro = new components.panelsCads.PanelCadNotaFiscal();
-        this.panelCadCadastro.init();
-
-        this.panelCadCadastro.setEvents((e) -> {
-            this.salvarEspecificacao();
-        }, (e) -> {
-            this.cancelarEspecificacao();
-        });
-    }
-
+    //carrega os componentes do form
     private void initComponents() {
         this.setBounds(10, 10, Utils.wPadrao, Utils.hPadrao);
         this.setMinimumSize(new Dimension(Utils.wPadrao, Utils.hPadrao));
@@ -31,69 +23,83 @@ public class FormNotaFiscal extends WebInternalFrame {
 
         this.setFrameIcon(Utils.getImage(Utils.Image.frame));
 
-        this.panelCadastro = new components.panelsListagem.PanelEspecificacao();
+        this.panelConsultaNotaFiscal = new PanelConsultaNotaFiscal();
 
-        panelCadastro.setEvents((e) -> {
-            this.addEspecificacao();
+        this.panelConsultaNotaFiscal.setEvents((e) -> {
+            this.addNotaFiscal();
         }, (e) -> {
-            this.editEspecificacao();
+            this.editNotaFiscal();
         }, (e) -> {
-            this.deleteEspecificacao();
+            this.deleteNotaFiscal();
         });
 
-        this.add(panelCadastro);
+        this.add(this.panelConsultaNotaFiscal);
     }
 
-    private void salvarEspecificacao() {
+    //inicia o form de cadastro
+    private void initFormCad() {
+        this.panelCadastroNotaFiscal = new PanelCadNotaFiscal();
+        this.panelCadastroNotaFiscal.init();
 
-        if (!panelCadCadastro.validador.isValid()) {
+        //seta os eventos para o cancelar e o cadastrar da nota fiscal
+        this.panelCadastroNotaFiscal.setEvents((e) -> {
+            this.salvarNotaFiscal();
+        }, (e) -> {
+            this.cancelarCadNotaFiscal();
+        });
+    }
+
+    //evento para salvar a nota fiscal
+    private void salvarNotaFiscal() {
+
+        if (!this.panelCadastroNotaFiscal.validador.isValid()) {
             return;
         }
 
         NotaFiscalDAO especificacaoDAO = new NotaFiscalDAO();
-        NotaFiscal especificacao = panelCadCadastro.getEspecificacao();
-//        if (especificacaoDAO.insert(especificacao)) {
-//            this.fecharAbrirPanelCadastro(true);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Erro ao inserir");
-//        }
+        NotaFiscal nota = this.panelCadastroNotaFiscal.getNotaFiscal();
     }
 
+    //toggle o form de cadastro de nota fiscal
     private void fecharAbrirPanelCadastro(Boolean fechar) {
         if (fechar) {
-            this.remove(this.panelCadCadastro);
-            this.add(this.panelCadastro);
+            this.remove(this.panelCadastroNotaFiscal);
+            this.add(this.panelConsultaNotaFiscal);
         } else {
-            this.remove(this.panelCadastro);
-            this.add(this.panelCadCadastro);
+            this.remove(this.panelConsultaNotaFiscal);
+            this.add(this.panelCadastroNotaFiscal);
         }
 
-        this.panelCadastro.revalidate();
+        this.panelConsultaNotaFiscal.revalidate();
     }
 
-    private void cancelarEspecificacao() {
+    //evento para cancelar o cadastro
+    private void cancelarCadNotaFiscal() {
 
         Utils.notificacao("Blzasdfsaldk fjsd sjdfg kd!as", Utils.TipoNotificacao.erro, 2000);
 
-        //this.fecharAbrirPanelCadastro(true);
+        this.fecharAbrirPanelCadastro(true);
     }
 
-    private void addEspecificacao() {
+    //evento para adicionar uma nota fiscal
+    private void addNotaFiscal() {
         this.initFormCad();
         this.fecharAbrirPanelCadastro(false);
 
-        panelCadCadastro.revalidate();
+        this.panelCadastroNotaFiscal.revalidate();
     }
 
-    private void editEspecificacao() {
-        System.out.println("editEspecificacao");
+    //evento para editar uma nota fiscal
+    private void editNotaFiscal() {
+        System.out.println("editNotaFiscal");
     }
 
-    private void deleteEspecificacao() {
-        System.out.println("deleteEspecificacao");
+    //evento para deletar uma nota fiscal
+    private void deleteNotaFiscal() {
+        System.out.println("deleteNotaFiscal");
     }
 
-    private components.panelsListagem.PanelEspecificacao panelCadastro;
-    private components.panelsCads.PanelCadNotaFiscal panelCadCadastro;
+    private PanelConsultaNotaFiscal panelConsultaNotaFiscal;
+    private PanelCadNotaFiscal panelCadastroNotaFiscal;
 
 }

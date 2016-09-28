@@ -6,9 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 
-public class PanelEspecificacao extends WebPanel implements ActionListener {
+public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener {
 
-    public PanelEspecificacao() {
+    public PanelConsultaNotaFiscal() {
         initComponents();
         this.loadDatas();
 

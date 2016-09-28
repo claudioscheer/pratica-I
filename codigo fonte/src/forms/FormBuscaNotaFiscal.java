@@ -1,20 +1,70 @@
 package forms;
 
+import components.JFrameBuscar;
+import components.TextFieldFK;
 import components.panelsCads.PanelCadNotaFiscal;
 import javax.swing.table.DefaultTableModel;
+import model.NotaFiscal;
 
-public class FormBuscaEspecificacao extends javax.swing.JFrame {
+public class FormBuscaNotaFiscal extends JFrameBuscar {
 
-    private PanelCadNotaFiscal cadastro;
+    private PanelCadNotaFiscal panelCadastro;
 
-    public FormBuscaEspecificacao() {
+    public FormBuscaNotaFiscal() {
         initComponents();
 
+        //o form fica centralizado na tela
         this.setLocationRelativeTo(null);
-        this.loadDatas();
+        //carrega as notas fiscais
+        this.loadNotasFiscais();
+        this.loadEvents();
     }
 
-    private void loadDatas() {
+    //carrega os eventos para buscar, inserir e selecionar uma nota fiscal
+    private void loadEvents() {
+        this.txtBuscar.setEventBuscar((e) -> {
+            System.out.println("setEventBuscar");
+        });
+    }
+
+    //abre o form de cadastro
+    private void initFormCadastro() {
+        this.panelCadastro = new PanelCadNotaFiscal();
+        this.panelCadastro.init();
+        this.panelCadastro.setEvents((e) -> {
+            this.salvarNotaFiscal();
+        }, (e) -> {
+            this.cancelarCadastroNotaFiscal();
+        });
+        this.panelCadastro.setBounds(0, 0, this.panelPanels.getWidth(), this.panelPanels.getHeight());
+        this.fecharAbrirPanelCadastro(false);
+    }
+
+    //salva a nota fiscal
+    private void salvarNotaFiscal() {
+        NotaFiscal notaFiscal = this.panelCadastro.getNotaFiscal();
+    }
+
+    //cancela a nota fiscal
+    private void cancelarCadastroNotaFiscal() {
+        this.fecharAbrirPanelCadastro(true);
+    }
+
+    //toggle o panel de cadastro de not
+    private void fecharAbrirPanelCadastro(Boolean fechar) {
+        if (fechar) {
+            this.panelPanels.remove(this.panelCadastro);
+            this.panelPanels.add(this.panelConsulta);
+        } else {
+            this.panelPanels.remove(this.panelConsulta);
+            this.panelPanels.add(this.panelCadastro);
+        }
+
+        this.panelPanels.revalidate();
+        this.panelPanels.repaint();
+    }
+
+    private void loadNotasFiscais() {
         String[] headers = {"Header 1", "Header 2", "Header 3", "Header 4", "Header 5", "Header 6"};
 
         String[][] data = {
@@ -175,20 +225,18 @@ public class FormBuscaEspecificacao extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void buttonSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelecionarActionPerformed
+        TextFieldFK text = this.getTextFieldFK();
+        text.setText("opa");
+
+        FormPrincipal f = FormPrincipal.getInstance();
+        f.setEnabled(true);
+
+        this.dispose();
 
     }//GEN-LAST:event_buttonSelecionarActionPerformed
 
     private void buttonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoActionPerformed
-        this.cadastro = new PanelCadNotaFiscal();
-        this.cadastro.init();
-        this.cadastro.setBounds(0, 0, this.panelPanels.getWidth(), this.panelPanels.getHeight());
-        
-        this.panelPanels.remove(this.panelConsulta);
-        this.panelPanels.revalidate();
-        this.panelPanels.repaint();
-        this.panelPanels.add(this.cadastro);
-        this.panelPanels.revalidate();
-        this.panelPanels.repaint();
+        this.initFormCadastro();
     }//GEN-LAST:event_buttonNovoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

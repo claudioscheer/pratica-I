@@ -1,11 +1,14 @@
 package model;
 
-public class ItensNota {
+import java.util.List;
+
+public class ItemNota {
 
     private Produto produto;
     private NotaFiscal nota;
     private int quantidade;
     private double valorUnitario;
+    private List<ImpostoItemNota> impostos;
 
     public Produto getProduto() {
         return produto;
@@ -37,6 +40,14 @@ public class ItensNota {
 
     public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
+    }
+
+    public List<ImpostoItemNota> getImpostos() {
+        return impostos;
+    }
+
+    public void setImpostos(List<ImpostoItemNota> impostos) {
+        this.impostos = impostos;
     }
 
 }

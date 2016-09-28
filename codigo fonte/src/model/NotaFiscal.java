@@ -17,7 +17,8 @@ public class NotaFiscal {
     private String chaveAcesso;
     private Date dataEntrada;
     private Fornecedor fornecedor;
-    private List<ItensNota> itensNota;
+    private List<ItemNota> itensNota;
+    private List<ImpostoNotaFiscal> impostos;
 
     public int getCodigo() {
         return codigo;
@@ -67,12 +68,20 @@ public class NotaFiscal {
         this.fornecedor = fornecedor;
     }
 
-    public List<ItensNota> getItensNota() {
+    public List<ItemNota> getItensNota() {
         return itensNota;
     }
 
-    public void setItensNota(List<ItensNota> itensNota) {
+    public void setItensNota(List<ItemNota> itensNota) {
         this.itensNota = itensNota;
+    }
+
+    public List<ImpostoNotaFiscal> getImpostos() {
+        return impostos;
+    }
+
+    public void setImpostos(List<ImpostoNotaFiscal> impostos) {
+        this.impostos = impostos;
     }
 
     @Override
