@@ -4,6 +4,7 @@ import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.laf.panel.WebPanel;
 import components.Validador;
 import forms.FormPrincipal;
+import forms.busca.FormBuscaImposto;
 import forms.busca.FormBuscaProdutoImposto;
 import forms.busca.FormBuscarFornecedor;
 import java.awt.event.ActionListener;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import model.Imposto;
+import model.ImpostoItemNota;
 import model.ImpostoNotaFiscal;
 import model.ItemNota;
 import model.NotaFiscal;
@@ -34,6 +37,8 @@ public class PanelCadNotaFiscal extends WebPanel {
         FormBuscarFornecedor f = new FormBuscarFornecedor();
         f.setFrameBloquear(FormPrincipal.getInstance());
         this.txtFornecedor.setFrame(f);
+        
+        scrollCadastro.getVerticalScrollBar().setUnitIncrement(20);
     }
 
     public void setEvents(ActionListener salvar, ActionListener cancelar) {
@@ -52,9 +57,6 @@ public class PanelCadNotaFiscal extends WebPanel {
     private void initComponents() {
 
         scrollCadastro = new javax.swing.JScrollPane();
-        panelOpcoes = new javax.swing.JPanel();
-        btnSalvar = new com.alee.laf.button.WebButton();
-        btnCancelar = new com.alee.laf.button.WebButton();
         panelItens = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -76,39 +78,15 @@ public class PanelCadNotaFiscal extends WebPanel {
         tabelaImpostosNotaFiscal = new javax.swing.JTable();
         btnRemoverImpostoNotaFiscal = new javax.swing.JButton();
         btnAdicionarImpostoNotaFiscal = new javax.swing.JButton();
+        panelOpcoes = new javax.swing.JPanel();
+        btnSalvar = new com.alee.laf.button.WebButton();
+        btnCancelar = new com.alee.laf.button.WebButton();
 
         setMinimumSize(null);
 
         scrollCadastro.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollCadastro.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollCadastro.setMaximumSize(new java.awt.Dimension(0, 0));
-
-        panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
-
-        btnSalvar.setText("Salvar");
-
-        btnCancelar.setText("Cancelar");
-
-        javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
-        panelOpcoes.setLayout(panelOpcoesLayout);
-        panelOpcoesLayout.setHorizontalGroup(
-            panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
-                .addContainerGap(619, Short.MAX_VALUE)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        panelOpcoesLayout.setVerticalGroup(
-            panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
-        );
 
         panelItens.setBackground(new java.awt.Color(255, 255, 255));
         panelItens.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -162,20 +140,35 @@ public class PanelCadNotaFiscal extends WebPanel {
 
         tabelaImpostosNotaFiscal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Imposto", "Valor"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(tabelaImpostosNotaFiscal);
 
         btnRemoverImpostoNotaFiscal.setText("Remover");
+        btnRemoverImpostoNotaFiscal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverImpostoNotaFiscalActionPerformed(evt);
+            }
+        });
 
         btnAdicionarImpostoNotaFiscal.setText("Adicionar");
+        btnAdicionarImpostoNotaFiscal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarImpostoNotaFiscalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
@@ -194,7 +187,7 @@ public class PanelCadNotaFiscal extends WebPanel {
                                 .addComponent(btnRemoverImpostoNotaFiscal)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAdicionarImpostoNotaFiscal))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelItensLayout.createSequentialGroup()
                                 .addComponent(btnRemoverProduto)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -224,6 +217,7 @@ public class PanelCadNotaFiscal extends WebPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtChaveAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
@@ -258,23 +252,46 @@ public class PanelCadNotaFiscal extends WebPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        scrollCadastro.setViewportView(panelItens);
+
+        panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnSalvar.setText("Salvar");
+
+        btnCancelar.setText("Cancelar");
+
+        javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
+        panelOpcoes.setLayout(panelOpcoesLayout);
+        panelOpcoesLayout.setHorizontalGroup(
+            panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
+                .addContainerGap(619, Short.MAX_VALUE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        panelOpcoesLayout.setVerticalGroup(
+            panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(scrollCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelItens, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(scrollCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE)
-                    .addComponent(panelItens, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE))
+                .addComponent(scrollCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -302,6 +319,47 @@ public class PanelCadNotaFiscal extends WebPanel {
         }
         this.removerItemNotaTabela(linhaselecionada);
     }//GEN-LAST:event_btnRemoverProdutoActionPerformed
+
+    private void btnAdicionarImpostoNotaFiscalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarImpostoNotaFiscalActionPerformed
+        FormBuscaImposto f = new FormBuscaImposto();
+        f.setVisible(true);
+        f.setFunction(n -> {
+            Imposto imposto = (Imposto) n;
+            addImpostoNota(imposto);
+        });
+
+        FormPrincipal form = FormPrincipal.getInstance();
+        f.setFrameBloquear(form);
+        form.setEnabled(false);
+    }//GEN-LAST:event_btnAdicionarImpostoNotaFiscalActionPerformed
+
+    private void btnRemoverImpostoNotaFiscalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverImpostoNotaFiscalActionPerformed
+        int linhaselecionada = this.tabelaImpostosNotaFiscal.getSelectedRow();
+        if (linhaselecionada < 0) {
+            Utils.notificacao("Selecione um imposto!", Utils.TipoNotificacao.erro, 0);
+            return;
+        }
+        this.removerImpostoNota(linhaselecionada);
+    }//GEN-LAST:event_btnRemoverImpostoNotaFiscalActionPerformed
+
+    private void addImpostoNota(Imposto imposto) {
+        ImpostoNotaFiscal item = new ImpostoNotaFiscal();
+        item.setImposto(imposto);
+        item.setValor(100);
+        DefaultTableModel model = (DefaultTableModel) this.tabelaImpostosNotaFiscal.getModel();
+        model.addRow(new Object[]{
+            imposto.getNome(),
+            item.getValor()
+        });
+
+        this.impostosNotaFiscal.add(item);
+    }
+
+    private void removerImpostoNota(int index) {
+        ((DefaultTableModel) this.tabelaImpostosNotaFiscal.getModel()).removeRow(index);
+        this.impostosNotaFiscal.remove(index);
+        Utils.notificacao("Removido!", Utils.TipoNotificacao.ok, 0);
+    }
 
     private void addItemNotaTabela() {
         ItemNota item = this.itensNota.get(this.itensNota.size() - 1);

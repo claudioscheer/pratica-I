@@ -1,9 +1,12 @@
 package forms.busca;
 
 import components.JFrameBusca;
+import components.Validador;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import model.Imposto;
 import model.ImpostoItemNota;
@@ -14,16 +17,31 @@ import utils.Utils;
 public class FormBuscaProdutoImposto extends JFrameBusca {
 
     private List<ImpostoItemNota> impostosItens;
+    private Validador validador;
 
     public FormBuscaProdutoImposto() {
         initComponents();
         this.setLocationRelativeTo(null);
 
         this.impostosItens = new ArrayList<>();
+        this.init();
+        this.loadValidator();
+    }
+
+    private void init() {
 
         FormBuscaProduto f = new FormBuscaProduto();
         f.setFrameBloquear(this);
         this.txtProduto.setFrame(f);
+
+    }
+
+    private void loadValidator() {
+        this.validador = new Validador(Validador.TipoValidator.ICONE);
+        validador.addObrigatorioValidator(txtProduto);
+        validador.addObrigatorioValidator(txtQuantidade);
+        validador.addObrigatorioValidator(txtValorUnitario);
+        validador.addObrigatorioValidator(txtValorTotal);
     }
 
     @SuppressWarnings("unchecked")
@@ -64,7 +82,21 @@ public class FormBuscaProdutoImposto extends JFrameBusca {
 
         jLabel3.setText("Quantidade");
 
+        txtQuantidade.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        txtQuantidade.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                txtQuantidadeStateChanged(evt);
+            }
+        });
+
         jLabel4.setText("Valor unitário");
+
+        txtValorUnitario.setText("0.0");
+        txtValorUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtValorUnitarioKeyReleased(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +139,8 @@ public class FormBuscaProdutoImposto extends JFrameBusca {
             }
         });
 
+        txtValorTotal.setText("0.0");
+
         jLabel2.setText("Valor total");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -116,7 +150,6 @@ public class FormBuscaProdutoImposto extends JFrameBusca {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtProduto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -133,24 +166,21 @@ public class FormBuscaProdutoImposto extends JFrameBusca {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(180, 180, 180)
-                                                .addComponent(jLabel4))
-                                            .addComponent(jLabel3))
-                                        .addGap(104, 104, 104)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 181, Short.MAX_VALUE)))
+                            .addComponent(txtProduto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(80, 80, 80)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(80, 80, 80)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(47, 47, 47)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -198,6 +228,10 @@ public class FormBuscaProdutoImposto extends JFrameBusca {
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
 
+        if (!validador.isValid()) {
+            return;
+        }
+
         ItemNota n = new ItemNota();
         Produto p = new Produto();
         p.setDescricao("produto");
@@ -239,6 +273,14 @@ public class FormBuscaProdutoImposto extends JFrameBusca {
         this.removerImpostoTabela(linhaselecionada);
     }//GEN-LAST:event_btnRemoverImpostoActionPerformed
 
+    private void txtQuantidadeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_txtQuantidadeStateChanged
+        this.calculaValorTotal();
+    }//GEN-LAST:event_txtQuantidadeStateChanged
+
+    private void txtValorUnitarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorUnitarioKeyReleased
+        this.calculaValorTotal();
+    }//GEN-LAST:event_txtValorUnitarioKeyReleased
+
     private void addImpostoTabela(Imposto imposto) {
         ImpostoItemNota item = new ImpostoItemNota();
         item.setImposto(imposto);
@@ -248,7 +290,7 @@ public class FormBuscaProdutoImposto extends JFrameBusca {
             imposto.getNome(),
             imposto.getPorcentagem() * 10
         });
-        
+
         this.impostosItens.add(item);
     }
 
@@ -256,6 +298,25 @@ public class FormBuscaProdutoImposto extends JFrameBusca {
         ((DefaultTableModel) this.tabelaImpostos.getModel()).removeRow(index);
         this.impostosItens.remove(index);
         Utils.notificacao("Removido!", Utils.TipoNotificacao.ok, 0);
+    }
+
+    private void calculaValorTotal() {
+        int quantidade;
+        try {
+            quantidade = Integer.parseInt(String.valueOf(this.txtQuantidade.getValue()));
+        } catch (Exception e) {
+            quantidade = 0;
+        }
+
+        double valor;
+        try {
+            valor = Double.parseDouble(txtValorUnitario.getText().replace(",", "."));
+        } catch (Exception e) {
+            valor = 0;
+        }
+
+        double valortotal = quantidade * valor;
+        this.txtValorTotal.setText(String.valueOf(valortotal));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
