@@ -3,15 +3,15 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="0,0" last-zoom="1"
+<dbmodel pgmodeler-ver="0.8.2" last-position="795,232" last-zoom="0.7"
 	 default-schema="public" default-owner="postgres">
-<database name="aula_lp">
+<database name="praticaI">
 </database>
 
 <schema name="public" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
-<sequence name="sequencia_marca"
+<sequence name="ativo_imobilizado_sequencia"
 	 start="1" increment="1"
 	 min-value="0" max-value="2147483647"
 	 cache="1" cycle="false">
@@ -19,19 +19,718 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="marca">
+<table name="AtivoImobilizado">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="409" y="124"/>
-	<column name="id" not-null="true" sequence="public.sequencia_marca">
+	<position x="2289.81" y="333.508"/>
+	<column name="ativoImobilizado" not-null="true" sequence="public.ativo_imobilizado_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="descricao" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="valorOriginal" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="valorAtual" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="taxaValorResidual" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="valorResidual" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="estadoBem" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="utilizacao" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="AtivoImobilizado_PK" type="pk-constr" table="public.&quot;AtivoImobilizado&quot;">
+		<columns names="ativoImobilizado" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="tipo_baixa_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="TipoBaixa">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2587.01" y="92.0119"/>
+	<column name="tipoBaixa" not-null="true" sequence="public.tipo_baixa_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="descricao" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<constraint name="TipoBaixa_PK" type="pk-constr" table="public.&quot;TipoBaixa&quot;">
+		<columns names="tipoBaixa" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="baixa_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="Baixa">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2576.33" y="222.794"/>
+	<column name="baixa" not-null="true" sequence="public.baixa_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="dataBaixa" not-null="true">
+		<type name="date"/>
+	</column>
+	<constraint name="Baixa_PK" type="pk-constr" table="public.&quot;Baixa&quot;">
+		<columns names="baixa" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="depreciacao_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="Depreciacao">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2130.29" y="172.214"/>
+	<column name="depreciacao" not-null="true" sequence="public.depreciacao_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="taxaAnual" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="vidaUtil" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="taxaMensal" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<constraint name="Depreciacao_PK" type="pk-constr" table="public.&quot;Depreciacao&quot;">
+		<columns names="depreciacao" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="nota_fiscal_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="NotaFiscal">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1711.05" y="681.044"/>
+	<column name="notaFiscal" not-null="true" sequence="public.nota_fiscal_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="valor" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="dataEmissao" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="chaveAcesso" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="dataEntrada" not-null="true">
+		<type name="date"/>
+	</column>
+	<constraint name="NotaFiscal_PK" type="pk-constr" table="public.&quot;NotaFiscal&quot;">
+		<columns names="notaFiscal" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="imposto_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="Imposto">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2575.66" y="811.048"/>
+	<column name="imposto" not-null="true" sequence="public.imposto_sequencia">
 		<type name="integer"/>
 	</column>
 	<column name="nome" not-null="true">
-		<type name="varchar" length="50"/>
+		<type name="varchar" length="100"/>
 	</column>
-	<constraint name="marca_pk" type="pk-constr" table="public.marca">
-		<columns names="id" ref-type="src-columns"/>
+	<column name="aliquota" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<constraint name="Imposto_PK" type="pk-constr" table="public.&quot;Imposto&quot;">
+		<columns names="imposto" ref-type="src-columns"/>
 	</constraint>
+</table>
+
+<sequence name="item_nota_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="ItemNota">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2095.28" y="586.948"/>
+	<column name="itemNota" not-null="true" sequence="public.item_nota_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="quantidade" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="valorUnitario" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="valorTotal" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<constraint name="ItemNota_PK" type="pk-constr" table="public.&quot;ItemNota&quot;">
+		<columns names="itemNota" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="notaFiscal" index="4"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="NotaFiscal_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="NotaFiscal_tem_muitos_ItemNota" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;NotaFiscal&quot;"
+	 dst-table="public.&quot;ItemNota&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<sequence name="imposto_item_nota_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="ImpostoItemNota">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2532.13" y="595.933"/>
+	<column name="impostoItemNota" not-null="true" sequence="public.imposto_item_nota_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="valorImposto" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<constraint name="ImpostoItemNota_PK" type="pk-constr" table="public.&quot;ImpostoItemNota&quot;">
+		<columns names="impostoItemNota" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="imposto" index="3"/>
+		<object name="itemNota" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Imposto_fk" index="2"/>
+		<object name="ItemNota_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="ItemNota_tem_muitos_ImpostoItemNota" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;ItemNota&quot;"
+	 dst-table="public.&quot;ImpostoItemNota&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Imposto_tem_muitos_ImpostoItemNota" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;Imposto&quot;"
+	 dst-table="public.&quot;ImpostoItemNota&quot;"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="imposto_nota_fiscal_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="ImpostoNotaFiscal">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2159.42" y="822.826"/>
+	<column name="impostoNotaFiscal" not-null="true" sequence="public.imposto_nota_fiscal_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="valor" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<constraint name="ImpostoNotaFiscal_PK" type="pk-constr" table="public.&quot;ImpostoNotaFiscal&quot;">
+		<columns names="impostoNotaFiscal" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="imposto" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="Imposto_fk" index="0"/>
+	</customidxs>
+</table>
+
+<relationship name="Imposto_tem_muitos_ImpostoNotaFiscal" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;Imposto&quot;"
+	 dst-table="public.&quot;ImpostoNotaFiscal&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="NotaFiscal_tem_muitos_ImpostoNotaFiscal" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;NotaFiscal&quot;"
+	 dst-table="public.&quot;ImpostoNotaFiscal&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="NotaFiscal_tem_muitos_AtivoImobilizado" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;NotaFiscal&quot;"
+	 dst-table="public.&quot;AtivoImobilizado&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Baixa_tem_um_AtivoImobilizado" type="rel11"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;AtivoImobilizado&quot;"
+	 dst-table="public.&quot;Baixa&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="dst-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="TipoBaixa_tem_muitos_Baixa" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;TipoBaixa&quot;"
+	 dst-table="public.&quot;Baixa&quot;"
+	 src-required="false" dst-required="false">
+	<label ref-type="dst-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<sequence name="categoria_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="Categoria">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="780.405" y="196.405"/>
+	<column name="categoria" not-null="true" sequence="public.categoria_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="descricao" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<constraint name="Categoria_PK" type="pk-constr" table="public.&quot;Categoria&quot;">
+		<columns names="categoria" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Depreciacao_tem_um_Categoria" type="rel11"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;Categoria&quot;"
+	 dst-table="public.&quot;Depreciacao&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Categoria_tem_muitos_AtivoImobilizado" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;Categoria&quot;"
+	 dst-table="public.&quot;AtivoImobilizado&quot;"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="marca_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="Marca">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="853.929" y="322"/>
+	<column name="marca" not-null="true" sequence="public.marca_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="descricao" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<constraint name="Marca_PK" type="pk-constr" table="public.&quot;Marca&quot;">
+		<columns names="marca" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Marca_tem_muitos_AtivoImobilizado" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;Marca&quot;"
+	 dst-table="public.&quot;AtivoImobilizado&quot;"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="unidade_medida_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="UnidadeMedida">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="399.107" y="70.9286"/>
+	<column name="unidadeMedida" not-null="true" sequence="public.unidade_medida_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="descricao" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<constraint name="UnidadeMedida_PK" type="pk-constr" table="public.&quot;UnidadeMedida&quot;">
+		<columns names="unidadeMedida" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="produto_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="Produto">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="446.151" y="251.583"/>
+	<column name="produto" not-null="true" sequence="public.produto_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="referencia" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="descricao" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<column name="status" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="Produto_PK" type="pk-constr" table="public.&quot;Produto&quot;">
+		<columns names="produto" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="Marca_tem_muitos_Produto" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;Marca&quot;"
+	 dst-table="public.&quot;Produto&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Categoria_tem_muitos_Produto" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;Categoria&quot;"
+	 dst-table="public.&quot;Produto&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="UnidadeMedida_tem_muitos_Produto" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;UnidadeMedida&quot;"
+	 dst-table="public.&quot;Produto&quot;"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="saldo_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="Saldo">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="274.802" y="526.702"/>
+	<column name="saldo" not-null="true" sequence="public.saldo_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="lote" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="dataValidade" not-null="true">
+		<type name="date"/>
+	</column>
+	<constraint name="Saldo_PK" type="pk-constr" table="public.&quot;Saldo&quot;">
+		<columns names="saldo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="tipo_operacao_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="movimentacao_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="Movimentacao">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="554.222" y="502.75"/>
+	<column name="movimentacao" not-null="true" sequence="public.movimentacao_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="dataMovimentacao" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="quantidade" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="valorUnitario" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="total" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<constraint name="Movimentacao_PK" type="pk-constr" table="public.&quot;Movimentacao&quot;">
+		<columns names="movimentacao" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="TipoOperacao">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="992.444" y="444"/>
+	<column name="tipoOperacao" not-null="true" sequence="public.tipo_operacao_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="descricao" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="nome" not-null="true">
+		<type name="varchar" length="100"/>
+	</column>
+	<column name="tipo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="TipoOperacao_PK" type="pk-constr" table="public.&quot;TipoOperacao&quot;">
+		<columns names="tipoOperacao" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="TipoOperacao_tem_muitos_Movimentacao" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;TipoOperacao&quot;"
+	 dst-table="public.&quot;Movimentacao&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Produto_tem_muitos_Movimentacao" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;Produto&quot;"
+	 dst-table="public.&quot;Movimentacao&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Produto_tem_muitos_Saldo" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;Produto&quot;"
+	 dst-table="public.&quot;Saldo&quot;"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="parcelas_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="Parcela">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="762.024" y="842.56"/>
+	<column name="parcela" not-null="true" sequence="public.parcelas_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="dataPagamento" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="dataVencimento" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="acrescimos" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="valorParcela" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="valorPago" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<constraint name="Parcela_PK" type="pk-constr" table="public.&quot;Parcela&quot;">
+		<columns names="parcela" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="conta_pagar_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="ContaPagar">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1240.24" y="844.345"/>
+	<column name="contaPagar" not-null="true" sequence="public.conta_pagar_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="valorTotal" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="dataEmissao" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="numParcelas" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="valorPago" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<constraint name="ContaPagar_PK" type="pk-constr" table="public.&quot;ContaPagar&quot;">
+		<columns names="contaPagar" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="ContaPagar_tem_muitos_Parcela" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;ContaPagar&quot;"
+	 dst-table="public.&quot;Parcela&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="ContaPagar_tem_um_NotaFiscal" type="rel11"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;NotaFiscal&quot;"
+	 dst-table="public.&quot;ContaPagar&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="Operacao">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1322.5" y="1135"/>
+</table>
+
+<table name="Pessoa">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1530" y="1132.5"/>
 </table>
 
 </dbmodel>
