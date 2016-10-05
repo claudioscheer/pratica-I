@@ -11,6 +11,9 @@ import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,9 +38,6 @@ public class FormPrincipal extends javax.swing.JFrame {
     public static void setBloqueado(boolean bloqueado) {
         FormPrincipal f = getInstance();
         f.setEnabled(!bloqueado);
-        if (!bloqueado) {
-            f.setVisible(true);
-        }
     }
 
     public void setQntdNotificacoes(String qntd) {
@@ -110,6 +110,10 @@ public class FormPrincipal extends javax.swing.JFrame {
             FormNotaFiscal form = new FormNotaFiscal();
             this.desktopPanel.add(form);
             form.open();
+            try {
+                form.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
         });
 
         iconDesktop.setLocation(new Point(0, 0));

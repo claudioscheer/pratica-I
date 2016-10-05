@@ -1,20 +1,20 @@
 package forms.busca;
 
-import components.JFrameBuscar;
+import components.JFrameBusca;
 import components.TextFieldFK;
 import components.panelsCads.PanelCadNotaFiscal;
 import forms.FormPrincipal;
 import javax.swing.table.DefaultTableModel;
 import model.NotaFiscal;
 
-public class FormBuscaNotaFiscal extends JFrameBuscar {
+public class FormBuscaNotaFiscal extends JFrameBusca {
 
     private PanelCadNotaFiscal panelCadastro;
 
     public FormBuscaNotaFiscal() {
         initComponents();
 
-        this.setLocationRelativeTo(null);
+        //this.setLocationRelativeTo(null);
         //carrega as notas fiscais
         this.loadNotasFiscais();
         this.loadEvents();
@@ -103,7 +103,6 @@ public class FormBuscaNotaFiscal extends JFrameBuscar {
         buttonSelecionar = new com.alee.laf.button.WebButton();
 
         setMinimumSize(new java.awt.Dimension(600, 500));
-        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -237,6 +236,11 @@ public class FormBuscaNotaFiscal extends JFrameBuscar {
     private void buttonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoActionPerformed
         this.initFormCadastro();
     }//GEN-LAST:event_buttonNovoActionPerformed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        FormPrincipal f = FormPrincipal.getInstance();
+        f.setEnabled(true);
+    }//GEN-LAST:event_formInternalFrameClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.button.WebButton buttonNovo;

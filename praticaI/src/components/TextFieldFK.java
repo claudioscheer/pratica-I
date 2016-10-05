@@ -11,7 +11,7 @@ import java.awt.event.MouseListener;
 public class TextFieldFK extends WebTextField implements MouseListener {
 
     private Object value;
-    private JFrameBuscar frame;
+    private JFrameBusca frame;
 
     public TextFieldFK() {
         this.addMouseListener(this);
@@ -23,7 +23,7 @@ public class TextFieldFK extends WebTextField implements MouseListener {
         this.setEditable(false);
     }
 
-    public void setFrame(JFrameBuscar frame) {
+    public void setFrame(JFrameBusca frame) {
         this.frame = frame;
         this.frame.setTextFieldFK(this);
     }
@@ -32,8 +32,7 @@ public class TextFieldFK extends WebTextField implements MouseListener {
     public void mouseClicked(MouseEvent me) {
         this.frame.setVisible(true);
 
-        FormPrincipal f = FormPrincipal.getInstance();
-        f.setEnabled(false);
+        this.frame.getFrameBloquear().setEnabled(false);
     }
 
     @Override

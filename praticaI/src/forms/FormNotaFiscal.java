@@ -6,6 +6,9 @@ import components.panelsListagem.PanelConsultaNotaFiscal;
 import dao.NotaFiscalDAO;
 import utils.Utils;
 import java.awt.Dimension;
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.NotaFiscal;
 
 public class FormNotaFiscal extends WebInternalFrame {

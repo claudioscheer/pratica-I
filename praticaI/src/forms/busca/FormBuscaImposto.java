@@ -2,10 +2,12 @@ package forms.busca;
 
 import components.JFrameBusca;
 import components.TextFieldFK;
+import java.util.function.Consumer;
+import model.Imposto;
 
-public class FormBuscarFornecedor extends JFrameBusca {
+public class FormBuscaImposto extends JFrameBusca {
 
-    public FormBuscarFornecedor() {
+    public FormBuscaImposto() {
         initComponents();
 
         this.setLocationRelativeTo(null);
@@ -15,7 +17,7 @@ public class FormBuscarFornecedor extends JFrameBusca {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSelecionarFornecedor = new javax.swing.JButton();
+        btnSelecionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -24,10 +26,10 @@ public class FormBuscarFornecedor extends JFrameBusca {
             }
         });
 
-        btnSelecionarFornecedor.setText("Selecionar");
-        btnSelecionarFornecedor.addActionListener(new java.awt.event.ActionListener() {
+        btnSelecionar.setText("Selecionar");
+        btnSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSelecionarFornecedorActionPerformed(evt);
+                btnSelecionarActionPerformed(evt);
             }
         });
 
@@ -37,44 +39,43 @@ public class FormBuscarFornecedor extends JFrameBusca {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(309, Short.MAX_VALUE)
-                .addComponent(btnSelecionarFornecedor)
+                .addComponent(btnSelecionar)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(266, Short.MAX_VALUE)
-                .addComponent(btnSelecionarFornecedor)
+                .addComponent(btnSelecionar)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSelecionarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarFornecedorActionPerformed
-
-        if (this.getFrameBuscaTipo() == JFrameBuscaTipo.textFieldFK) {
-            TextFieldFK text = this.getTextFieldFK();
-            text.setText("fornecedor");
-        }
-        else
-        {
-            
-        }
-
-        this.getFrameBloquear().setEnabled(true);
-        this.dispose();
-    }//GEN-LAST:event_btnSelecionarFornecedorActionPerformed
-
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.getFrameBloquear().setEnabled(true);
     }//GEN-LAST:event_formWindowClosing
 
-    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+    private void btnSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarActionPerformed
+
+        if (this.getFrameBuscaTipo() == JFrameBuscaTipo.textFieldFK) {
+            TextFieldFK text = this.getTextFieldFK();
+            text.setText("imposto");
+        } else {
+            Imposto imposto = new Imposto();
+            imposto.setNome("imposto louco");
+            imposto.setPorcentagem(10);
+            
+            Consumer<Object> function = this.getFunction();
+            function.accept(imposto);
+        }
+
         this.getFrameBloquear().setEnabled(true);
-    }//GEN-LAST:event_formInternalFrameClosing
+        this.dispose();
+    }//GEN-LAST:event_btnSelecionarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSelecionarFornecedor;
+    private javax.swing.JButton btnSelecionar;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,27 +1,39 @@
 package components.panelsCads;
 
+import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.laf.panel.WebPanel;
 import components.Validador;
-import forms.busca.FormBuscaNotaFiscal;
+import forms.FormPrincipal;
+import forms.busca.FormBuscaProdutoImposto;
 import forms.busca.FormBuscarFornecedor;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import model.ImpostoNotaFiscal;
+import model.ItemNota;
 import model.NotaFiscal;
+import utils.Utils;
 
 public class PanelCadNotaFiscal extends WebPanel {
 
     public Validador validador;
+    private List<ItemNota> itensNota;
+    private List<ImpostoNotaFiscal> impostosNotaFiscal;
 
     public PanelCadNotaFiscal() {
     }
 
     public void init() {
         this.initComponents();
-        this.txtFornecedor.setFrame(new FormBuscarFornecedor());
-        
-//        this.validador = new Validador(Validador.TipoValidator.ICONE);
-//        this.validador.addObrigatorioValidator(txtCodigo);
-//        this.validador.addObrigatorioValidator(txtValor);
-//        this.validador.addApenasNumeroValidator(txtValor);
+
+        this.itensNota = new ArrayList<>();
+        this.impostosNotaFiscal = new ArrayList<>();
+
+        FormBuscarFornecedor f = new FormBuscarFornecedor();
+        f.setFrameBloquear(FormPrincipal.getInstance());
+        this.txtFornecedor.setFrame(f);
     }
 
     public void setEvents(ActionListener salvar, ActionListener cancelar) {
@@ -40,6 +52,9 @@ public class PanelCadNotaFiscal extends WebPanel {
     private void initComponents() {
 
         scrollCadastro = new javax.swing.JScrollPane();
+        panelOpcoes = new javax.swing.JPanel();
+        btnSalvar = new com.alee.laf.button.WebButton();
+        btnCancelar = new com.alee.laf.button.WebButton();
         panelItens = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -61,15 +76,39 @@ public class PanelCadNotaFiscal extends WebPanel {
         tabelaImpostosNotaFiscal = new javax.swing.JTable();
         btnRemoverImpostoNotaFiscal = new javax.swing.JButton();
         btnAdicionarImpostoNotaFiscal = new javax.swing.JButton();
-        panelOpcoes = new javax.swing.JPanel();
-        btnSalvar = new com.alee.laf.button.WebButton();
-        btnCancelar = new com.alee.laf.button.WebButton();
 
         setMinimumSize(null);
 
         scrollCadastro.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollCadastro.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         scrollCadastro.setMaximumSize(new java.awt.Dimension(0, 0));
+
+        panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
+
+        btnSalvar.setText("Salvar");
+
+        btnCancelar.setText("Cancelar");
+
+        javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
+        panelOpcoes.setLayout(panelOpcoesLayout);
+        panelOpcoesLayout.setHorizontalGroup(
+            panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
+                .addContainerGap(619, Short.MAX_VALUE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        panelOpcoesLayout.setVerticalGroup(
+            panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6))
+        );
 
         panelItens.setBackground(new java.awt.Color(255, 255, 255));
         panelItens.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -89,20 +128,35 @@ public class PanelCadNotaFiscal extends WebPanel {
 
         tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Produto", "Qntd.", "Valor Unitário", "Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tabelaProdutos);
 
-        btnAdicionarProduto.setText("Novo");
+        btnAdicionarProduto.setText("Adicionar");
+        btnAdicionarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarProdutoActionPerformed(evt);
+            }
+        });
 
         btnRemoverProduto.setText("Remover");
+        btnRemoverProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverProdutoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Impostos");
 
@@ -121,7 +175,7 @@ public class PanelCadNotaFiscal extends WebPanel {
 
         btnRemoverImpostoNotaFiscal.setText("Remover");
 
-        btnAdicionarImpostoNotaFiscal.setText("Novo");
+        btnAdicionarImpostoNotaFiscal.setText("Adicionar");
 
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
@@ -129,37 +183,39 @@ public class PanelCadNotaFiscal extends WebPanel {
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelItensLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
                     .addGroup(panelItensLayout.createSequentialGroup()
-                        .addComponent(btnRemoverImpostoNotaFiscal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAdicionarImpostoNotaFiscal))
-                    .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel3)
-                        .addComponent(txtChaveAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(panelItensLayout.createSequentialGroup()
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelItensLayout.createSequentialGroup()
+                                .addComponent(btnRemoverImpostoNotaFiscal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAdicionarImpostoNotaFiscal))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
+                            .addGroup(panelItensLayout.createSequentialGroup()
+                                .addComponent(btnRemoverProduto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAdicionarProduto))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addContainerGap())
+                    .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtChaveAcesso, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtFornecedor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelItensLayout.createSequentialGroup()
                             .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel2))
-                            .addGap(60, 60, 60)
+                            .addGap(18, 18, 18)
                             .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel4))
-                            .addGap(60, 60, 60)
+                            .addGap(18, 18, 18)
                             .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(jLabel6)
-                        .addComponent(jScrollPane2)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelItensLayout.createSequentialGroup()
-                            .addComponent(btnRemoverProduto)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnAdicionarProduto))
-                        .addComponent(jLabel7)
-                        .addComponent(jScrollPane3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5))))))
         );
         panelItensLayout.setVerticalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,20 +224,17 @@ public class PanelCadNotaFiscal extends WebPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtChaveAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelItensLayout.createSequentialGroup()
+                    .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelItensLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelItensLayout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel2))
+                    .addGroup(panelItensLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -205,50 +258,67 @@ public class PanelCadNotaFiscal extends WebPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        scrollCadastro.setViewportView(panelItens);
-
-        panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
-
-        btnSalvar.setText("Salvar");
-
-        btnCancelar.setText("Cancelar");
-
-        javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
-        panelOpcoes.setLayout(panelOpcoesLayout);
-        panelOpcoesLayout.setHorizontalGroup(
-            panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
-                .addContainerGap(738, Short.MAX_VALUE)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        panelOpcoesLayout.setVerticalGroup(
-            panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(scrollCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(scrollCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelItens, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(scrollCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE)
+                    .addComponent(panelItens, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAdicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarProdutoActionPerformed
+        FormBuscaProdutoImposto f = new FormBuscaProdutoImposto();
+        f.setVisible(true);
+        f.setFunction(n -> {
+            ItemNota nota = (ItemNota) n;
+            this.itensNota.add(nota);
+            addItemNotaTabela();
+        });
+
+        FormPrincipal form = FormPrincipal.getInstance();
+        f.setFrameBloquear(form);
+        form.setEnabled(false);
+    }//GEN-LAST:event_btnAdicionarProdutoActionPerformed
+
+    private void btnRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProdutoActionPerformed
+        int linhaselecionada = this.tabelaProdutos.getSelectedRow();
+        if (linhaselecionada < 0) {
+            Utils.notificacao("Selecione um produto!", Utils.TipoNotificacao.erro, 0);
+            return;
+        }
+        this.removerItemNotaTabela(linhaselecionada);
+    }//GEN-LAST:event_btnRemoverProdutoActionPerformed
+
+    private void addItemNotaTabela() {
+        ItemNota item = this.itensNota.get(this.itensNota.size() - 1);
+        DefaultTableModel model = (DefaultTableModel) this.tabelaProdutos.getModel();
+        model.addRow(new Object[]{
+            item.getProduto().getDescricao(),
+            item.getQuantidade(),
+            item.getValorUnitario(),
+            item.getValorTotal()
+        });
+    }
+
+    private void removerItemNotaTabela(int index) {
+        ((DefaultTableModel) this.tabelaProdutos.getModel()).removeRow(index);
+        this.itensNota.remove(index);
+        Utils.notificacao("Removido!", Utils.TipoNotificacao.ok, 0);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarImpostoNotaFiscal;

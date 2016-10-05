@@ -4,12 +4,22 @@ import java.util.List;
 
 public class ItemNota {
 
+    private int codigo;
     private Produto produto;
     private NotaFiscal nota;
     private int quantidade;
     private double valorUnitario;
+    private double valorTotal;
     private List<ImpostoItemNota> impostos;
 
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+    
     public Produto getProduto() {
         return produto;
     }
@@ -40,6 +50,14 @@ public class ItemNota {
 
     public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
     public List<ImpostoItemNota> getImpostos() {
