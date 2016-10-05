@@ -27,6 +27,11 @@ Trabalho da Prática I de Sistemas de Informação!
 * Clique com o botão direito do mouse em cima do arquivo com conflito e na opção TortoiseSVN selecione Resolve...
 * Clique em OK e estará resolvido o conflito. Fácil não? Nem precisou da polícia!
 
+### Para modelagem do banco de dados
+* Baixe o [pgModeler](https://github.com/pgmodeler/pgmodeler/archive/v0.8.2.zip). Instale-o.
+* O arquivo do modelo ER está dentro da pasta `modelagem`.
+* Modele o que é preciso e faça o commit do arquivo.
+
 ### Avisos importantíssimos
 * NÃO ENVIE ARQUIVOS COM ERRO.
 * CUIDE PRA NÃO FAZER CAGADA! CASO HAJA A NECESSIDADE DE ESTRAGAR COM TUDO, SE VIRE PRA ARRUMAR!
