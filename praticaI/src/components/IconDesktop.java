@@ -25,7 +25,7 @@ public class IconDesktop extends WebButton {
         this.setRolloverDecoratedOnly(true);
         this.setHorizontalTextPosition(WebButton.CENTER);
         this.setVerticalTextPosition(WebButton.BOTTOM);
-        this.setSize(100, 75);
+        this.setSize(120, 75);
 
         MoverComponente moveItem = new MoverComponente();
         this.addMouseListener(moveItem);

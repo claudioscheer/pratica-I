@@ -41,6 +41,7 @@ public class Utils {
         proximo,
         buscar,
         notafiscal,
+        ativoimobilizado,
     }
 
     public static ImageIcon getImage(Image icone) {
@@ -107,6 +108,10 @@ public class Utils {
 
             case notafiscal:
                 url = "notafiscal.png";
+                break;
+
+            case ativoimobilizado:
+                url = "ativoimobilizado.png";
                 break;
         }
 

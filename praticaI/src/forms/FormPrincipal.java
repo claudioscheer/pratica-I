@@ -45,7 +45,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     }
 
     private void loadComponents() {
-        this.loadEspecificacao();
+        this.loadNotaFiscal();
+        this.loadAtivoImobilizado();
         this.loadBackgroud();
         this.loadWidgetSaldo();
     }
@@ -99,7 +100,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         }
     }
 
-    private void loadEspecificacao() {
+    private void loadNotaFiscal() {
 
         final IconDesktop iconDesktop = new IconDesktop("Notas Fiscais", Utils.getImage(Utils.Image.notafiscal));
 
@@ -117,6 +118,27 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
 
         iconDesktop.setLocation(new Point(0, 0));
+        this.desktopPanel.add(iconDesktop);
+    }
+
+    private void loadAtivoImobilizado() {
+
+        final IconDesktop iconDesktop = new IconDesktop("Ativos Imobilizados", Utils.getImage(Utils.Image.ativoimobilizado));
+
+        iconDesktop.setActionListener((e) -> {
+            if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
+                return;
+            }
+            FormAtivoImobilizado form = new FormAtivoImobilizado();
+            this.desktopPanel.add(form);
+            form.open();
+            try {
+                form.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
+        });
+
+        iconDesktop.setLocation(new Point(0, 80));
         this.desktopPanel.add(iconDesktop);
     }
 

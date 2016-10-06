@@ -14,7 +14,7 @@ public class FormBuscaNotaFiscal extends JFrameBusca {
     public FormBuscaNotaFiscal() {
         initComponents();
 
-        //this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         //carrega as notas fiscais
         this.loadNotasFiscais();
         this.loadEvents();
@@ -224,7 +224,7 @@ public class FormBuscaNotaFiscal extends JFrameBusca {
 
     private void buttonSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelecionarActionPerformed
         TextFieldFK text = this.getTextFieldFK();
-        text.setText("opa");
+        text.setText("nota fiscal");
 
         FormPrincipal f = FormPrincipal.getInstance();
         f.setEnabled(true);
