@@ -55,6 +55,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
         buttonAdd = new com.alee.laf.button.WebButton();
         buttonExcluir = new com.alee.laf.button.WebButton();
         buttonEditar = new com.alee.laf.button.WebButton();
+        btnReavaliarAtivo = new com.alee.laf.button.WebButton();
+        btnGerarQrCode = new com.alee.laf.button.WebButton();
         txtBuscar = new components.TextFieldBuscar();
 
         setMinimumSize(new java.awt.Dimension(565, 496));
@@ -87,12 +89,20 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
 
         buttonEditar.setText("Editar");
 
+        btnReavaliarAtivo.setText("Reavaliar");
+
+        btnGerarQrCode.setText("QrCode");
+
         javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
         panelOpcoes.setLayout(panelOpcoesLayout);
         panelOpcoesLayout.setHorizontalGroup(
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcoesLayout.createSequentialGroup()
-                .addContainerGap(316, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btnReavaliarAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGerarQrCode, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -107,7 +117,9 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
                 .addGroup(panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReavaliarAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGerarQrCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6))
         );
 
@@ -131,6 +143,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.alee.laf.button.WebButton btnGerarQrCode;
+    private com.alee.laf.button.WebButton btnReavaliarAtivo;
     private com.alee.laf.button.WebButton buttonAdd;
     private com.alee.laf.button.WebButton buttonEditar;
     private com.alee.laf.button.WebButton buttonExcluir;

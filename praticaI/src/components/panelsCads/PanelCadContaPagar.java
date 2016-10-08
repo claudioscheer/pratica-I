@@ -4,6 +4,7 @@ import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.laf.panel.WebPanel;
 import components.Validador;
 import forms.FormPrincipal;
+import forms.busca.FormBuscaContaContabil;
 import forms.busca.FormBuscaImposto;
 import forms.busca.FormBuscaNotaFiscal;
 import forms.busca.FormBuscaProdutoImposto;
@@ -31,6 +32,10 @@ public class PanelCadContaPagar extends WebPanel {
 
     public void init() {
         this.initComponents();
+        
+        FormBuscaContaContabil formContaContabil = new FormBuscaContaContabil();
+        formContaContabil.setFrameBloquear(FormPrincipal.getInstance());
+        this.txtContaDebito.setFrame(formContaContabil);
 
         FormBuscaFornecedor formFornecedor = new FormBuscaFornecedor();
         formFornecedor.setFrameBloquear(FormPrincipal.getInstance());
@@ -58,6 +63,7 @@ public class PanelCadContaPagar extends WebPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         scrollCadastro = new javax.swing.JScrollPane();
         panelItens = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -78,11 +84,13 @@ public class PanelCadContaPagar extends WebPanel {
         checkParcelarAutomaticamente = new com.alee.laf.checkbox.WebCheckBox();
         jLabel7 = new javax.swing.JLabel();
         txtValor1 = new javax.swing.JTextField();
-        ComboBoxContas = new javax.swing.JComboBox<>();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         RadioBtnEstoque = new javax.swing.JRadioButton();
         RadioBtnPatrimonio = new javax.swing.JRadioButton();
+        jLabel11 = new javax.swing.JLabel();
+        txtContaDebito = new components.TextFieldFK();
+        jLabel9 = new javax.swing.JLabel();
+        txtDataEmissao1 = new com.alee.extended.date.WebDateField();
         panelOpcoes = new javax.swing.JPanel();
         btnSalvar = new com.alee.laf.button.WebButton();
         btnCancelar = new com.alee.laf.button.WebButton();
@@ -95,7 +103,7 @@ public class PanelCadContaPagar extends WebPanel {
 
         panelItens.setBackground(new java.awt.Color(255, 255, 255));
         panelItens.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        panelItens.setPreferredSize(new java.awt.Dimension(0, 570));
+        panelItens.setPreferredSize(new java.awt.Dimension(0, 700));
 
         jLabel2.setText("Valor");
 
@@ -154,20 +162,22 @@ public class PanelCadContaPagar extends WebPanel {
 
         txtValor1.setText("0");
 
-        ComboBoxContas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel9.setText("Conta de débito:");
-
         jLabel10.setText("Destino:");
 
+        buttonGroup1.add(RadioBtnEstoque);
         RadioBtnEstoque.setText("Estoque");
 
+        buttonGroup1.add(RadioBtnPatrimonio);
         RadioBtnPatrimonio.setText("Patrimônio");
         RadioBtnPatrimonio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RadioBtnPatrimonioActionPerformed(evt);
             }
         });
+
+        jLabel11.setText("Conta débito");
+
+        jLabel9.setText("Data primeiro vencimento");
 
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
@@ -178,102 +188,103 @@ public class PanelCadContaPagar extends WebPanel {
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelItensLayout.createSequentialGroup()
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(txtContaDebito, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(65, 65, 65)
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addGroup(panelItensLayout.createSequentialGroup()
+                                .addComponent(RadioBtnEstoque)
+                                .addGap(8, 8, 8)
+                                .addComponent(RadioBtnPatrimonio))))
+                    .addGroup(panelItensLayout.createSequentialGroup()
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(42, 42, 42)
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(txtValor1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelItensLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel10))
-                            .addGroup(panelItensLayout.createSequentialGroup()
-                                .addComponent(ComboBoxContas, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(RadioBtnPatrimonio)
-                                    .addComponent(RadioBtnEstoque)))))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 755, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
+                            .addComponent(jLabel4)))
                     .addComponent(jLabel8)
-                    .addComponent(txtNotaFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addGroup(panelItensLayout.createSequentialGroup()
-                        .addComponent(txtNumeroParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(checkParcelarAutomaticamente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 755, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addGroup(panelItensLayout.createSequentialGroup()
                         .addGap(597, 597, 597)
                         .addComponent(btnRemoverProduto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAdicionarProduto)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnAdicionarProduto))
+                    .addComponent(jLabel3)
+                    .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtNotaFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(txtValor1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelItensLayout.createSequentialGroup()
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(panelItensLayout.createSequentialGroup()
+                                .addComponent(txtNumeroParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(checkParcelarAutomaticamente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDataEmissao1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))))
+                .addContainerGap())
         );
         panelItensLayout.setVerticalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelItensLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtContaDebito, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RadioBtnEstoque)
+                    .addComponent(RadioBtnPatrimonio))
+                .addGap(18, 18, 18)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
                     .addGroup(panelItensLayout.createSequentialGroup()
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(panelItensLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel4)
                             .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNotaFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(panelItensLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtNumeroParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(checkParcelarAutomaticamente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6))
+                            .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtValor1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNotaFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
                     .addGroup(panelItensLayout.createSequentialGroup()
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10))
-                                .addGroup(panelItensLayout.createSequentialGroup()
-                                    .addGap(20, 20, 20)
-                                    .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(ComboBoxContas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(RadioBtnEstoque))))
-                            .addGroup(panelItensLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(txtValor1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(RadioBtnPatrimonio)))
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNumeroParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkParcelarAutomaticamente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDataEmissao1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarProduto)
                     .addComponent(btnRemoverProduto))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(43, 43, 43))
         );
 
         scrollCadastro.setViewportView(panelItens);
@@ -315,7 +326,7 @@ public class PanelCadContaPagar extends WebPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(scrollCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -373,15 +384,16 @@ public class PanelCadContaPagar extends WebPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ComboBoxContas;
     private javax.swing.JRadioButton RadioBtnEstoque;
     private javax.swing.JRadioButton RadioBtnPatrimonio;
     private javax.swing.JButton btnAdicionarProduto;
     private com.alee.laf.button.WebButton btnCancelar;
     private javax.swing.JButton btnRemoverProduto;
     private com.alee.laf.button.WebButton btnSalvar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private com.alee.laf.checkbox.WebCheckBox checkParcelarAutomaticamente;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -395,7 +407,9 @@ public class PanelCadContaPagar extends WebPanel {
     private javax.swing.JPanel panelOpcoes;
     private javax.swing.JScrollPane scrollCadastro;
     private javax.swing.JTable tabelaParcelar;
+    private components.TextFieldFK txtContaDebito;
     private com.alee.extended.date.WebDateField txtDataEmissao;
+    private com.alee.extended.date.WebDateField txtDataEmissao1;
     private components.TextFieldFK txtFornecedor;
     private components.TextFieldFK txtNotaFiscal;
     private javax.swing.JTextField txtNumeroParcelas;

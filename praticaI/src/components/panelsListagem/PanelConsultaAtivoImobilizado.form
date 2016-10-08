@@ -79,7 +79,11 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="316" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnReavaliarAtivo" min="-2" pref="66" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="btnGerarQrCode" min="-2" pref="66" max="-2" attributes="0"/>
+                  <EmptySpace pref="168" max="32767" attributes="0"/>
                   <Component id="buttonExcluir" min="-2" pref="66" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonEditar" min="-2" pref="61" max="-2" attributes="0"/>
@@ -97,6 +101,8 @@
                       <Component id="buttonAdd" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="buttonExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonEditar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnReavaliarAtivo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnGerarQrCode" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               </Group>
@@ -123,6 +129,16 @@
         <Component class="com.alee.laf.button.WebButton" name="buttonEditar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Editar"/>
+          </Properties>
+        </Component>
+        <Component class="com.alee.laf.button.WebButton" name="btnReavaliarAtivo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Reavaliar"/>
+          </Properties>
+        </Component>
+        <Component class="com.alee.laf.button.WebButton" name="btnGerarQrCode">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="QrCode"/>
           </Properties>
         </Component>
       </SubComponents>

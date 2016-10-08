@@ -2,15 +2,9 @@ package model;
 
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "NotaFiscal")
 public class NotaFiscal {
 
-    @Id
     private int codigo;
     private double valor;
     private Date dataEmissao;

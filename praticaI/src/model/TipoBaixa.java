@@ -1,22 +1,18 @@
 package model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "TipoBaixa")
 public class TipoBaixa {
 
-    @Id
-    @Column(name = "codigo")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Id
+//    @Column(name = "codigo")
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private int codigo;
 
-    @Column(name = "descricao")
+//    @Column(name = "descricao")
     private String descricao;
 
     public int getCodigo() {
