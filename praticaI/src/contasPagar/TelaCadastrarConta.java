@@ -406,7 +406,7 @@ public class TelaCadastrarConta extends javax.swing.JFrame {
     }//GEN-LAST:event_FieldAcrescimosMouseClicked
 
     private void FieldValorParcelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FieldValorParcelaMouseClicked
-        FieldValorParcela.setText("");        
+              
     }//GEN-LAST:event_FieldValorParcelaMouseClicked
 
     private void FieldValorPagoParcMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FieldValorPagoParcMouseClicked
@@ -431,7 +431,7 @@ public class TelaCadastrarConta extends javax.swing.JFrame {
     }//GEN-LAST:event_FieldAcrescimosFocusGained
 
     private void FieldValorParcelaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FieldValorParcelaFocusGained
-        FieldValorParcela.setText("");
+        
     }//GEN-LAST:event_FieldValorParcelaFocusGained
 
     private void FieldValorPagoParcFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_FieldValorPagoParcFocusGained
@@ -447,6 +447,7 @@ public class TelaCadastrarConta extends javax.swing.JFrame {
     }//GEN-LAST:event_FieldNumParcMouseExited
 
     private void FieldNumParcKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FieldNumParcKeyReleased
+        FieldValorParcela.setText("R$ " + Integer.parseInt(FieldValorConta.getText()) / Integer.parseInt(FieldNumParc.getText()));
         int p = Integer.parseInt(FieldNumParc.getText());
         if (p > 1) {
             PainelParcelas.setEnabled(true);
