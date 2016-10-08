@@ -28,7 +28,7 @@ Trabalho da Prática I de Sistemas de Informação!
 * Clique em OK e estará resolvido o conflito. Fácil não? Nem precisou da polícia!
 
 ### Para modelagem do banco de dados
-* Baixe o [pgModeler](https://github.com/pgmodeler/pgmodeler/archive/v0.8.2.zip). Instale-o.
+* Baixe o pgModeler. Instale-o.
 * O arquivo do modelo ER está dentro da pasta `modelagem`.
 * Modele o que é preciso e faça o commit do arquivo.
 
