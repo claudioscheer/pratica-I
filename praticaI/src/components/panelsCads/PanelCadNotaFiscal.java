@@ -6,7 +6,7 @@ import components.Validador;
 import forms.FormPrincipal;
 import forms.busca.FormBuscaImposto;
 import forms.busca.FormBuscaProdutoImposto;
-import forms.busca.FormBuscarFornecedor;
+import forms.busca.FormBuscaFornecedor;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class PanelCadNotaFiscal extends WebPanel {
         this.itensNota = new ArrayList<>();
         this.impostosNotaFiscal = new ArrayList<>();
 
-        FormBuscarFornecedor f = new FormBuscarFornecedor();
+        FormBuscaFornecedor f = new FormBuscaFornecedor();
         f.setFrameBloquear(FormPrincipal.getInstance());
         this.txtFornecedor.setFrame(f);
         

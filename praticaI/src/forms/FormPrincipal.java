@@ -47,6 +47,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void loadComponents() {
         this.loadNotaFiscal();
         this.loadAtivoImobilizado();
+        this.loadContasPagar();
         this.loadBackgroud();
         this.loadWidgetSaldo();
     }
@@ -139,6 +140,27 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
 
         iconDesktop.setLocation(new Point(0, 80));
+        this.desktopPanel.add(iconDesktop);
+    }
+
+    private void loadContasPagar() {
+
+        final IconDesktop iconDesktop = new IconDesktop("Contas à pagar", Utils.getImage(Utils.Image.pagar));
+
+        iconDesktop.setActionListener((e) -> {
+            if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
+                return;
+            }
+            FormContaPagar form = new FormContaPagar();
+            this.desktopPanel.add(form);
+            form.open();
+            try {
+                form.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+            }
+        });
+
+        iconDesktop.setLocation(new Point(0, 160));
         this.desktopPanel.add(iconDesktop);
     }
 

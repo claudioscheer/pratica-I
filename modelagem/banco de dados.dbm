@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="795,232" last-zoom="0.7"
+<dbmodel pgmodeler-ver="0.8.2" last-position="515,166" last-zoom="0.8"
 	 default-schema="public" default-owner="postgres">
 <database name="praticaI">
 </database>
@@ -138,7 +138,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="NotaFiscal">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1711.05" y="681.044"/>
+	<position x="1661.05" y="669.794"/>
 	<column name="notaFiscal" not-null="true" sequence="public.nota_fiscal_sequencia">
 		<type name="integer"/>
 	</column>
@@ -727,10 +727,86 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<position x="1322.5" y="1135"/>
 </table>
 
+<sequence name="pessoa_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
 <table name="Pessoa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1530" y="1132.5"/>
+	<position x="1186.43" y="664.405"/>
+	<column name="pessoa" not-null="true" sequence="public.pessoa_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="nome" not-null="true">
+		<type name="varchar" length="200"/>
+	</column>
+	<constraint name="Pessoa_PK" type="pk-constr" table="public.&quot;Pessoa&quot;">
+		<columns names="pessoa" ref-type="src-columns"/>
+	</constraint>
 </table>
+
+<relationship name="Pessoa_tem_muitos_ContaPagar" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;Pessoa&quot;"
+	 dst-table="public.&quot;ContaPagar&quot;"
+	 src-required="false" dst-required="false"/>
+
+<sequence name="historico_depreciacao_sequencia"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<table name="HistoricoDepreciacao">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2886.11" y="397.778"/>
+	<column name="historicoDepreciacao" not-null="true" sequence="public.historico_depreciacao_sequencia">
+		<type name="integer"/>
+	</column>
+	<column name="dia" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="mes" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="ano" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="valor" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<constraint name="HistoricoDepreciacao_PK" type="pk-constr" table="public.&quot;HistoricoDepreciacao&quot;">
+		<columns names="historicoDepreciacao" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="AtivoImobilizado_tem_muitos_HistoricoDepreciacao" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;AtivoImobilizado&quot;"
+	 dst-table="public.&quot;HistoricoDepreciacao&quot;"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="NotaFiscal_tem_um_Pessoa" type="rel11"
+	 src-col-pattern="fornecedor"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.&quot;Pessoa&quot;"
+	 dst-table="public.&quot;NotaFiscal&quot;"
+	 src-required="false" dst-required="false"/>
 
 </dbmodel>

@@ -3,6 +3,8 @@ package utils;
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 
 public class Utils {
@@ -42,6 +44,7 @@ public class Utils {
         buscar,
         notafiscal,
         ativoimobilizado,
+        pagar,
     }
 
     public static ImageIcon getImage(Image icone) {
@@ -113,6 +116,10 @@ public class Utils {
             case ativoimobilizado:
                 url = "ativoimobilizado.png";
                 break;
+
+            case pagar:
+                url = "pagar.png";
+                break;
         }
 
         return new ImageIcon(Utils.class.getResource("/imagens/" + url));
@@ -128,6 +135,11 @@ public class Utils {
         notificationPopup.setDisplayTime(tempo <= 0 ? TempoPadrao : tempo);
         notificationPopup.setContent(mensagem);
         NotificationManager.showNotification(notificationPopup);
+    }
+
+    public static String formatData(Date data) {
+        SimpleDateFormat dataFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dataFormat.format(data);
     }
 
 }

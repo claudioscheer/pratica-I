@@ -3,9 +3,9 @@ package forms.busca;
 import components.JFrameBusca;
 import components.TextFieldFK;
 
-public class FormBuscarFornecedor extends JFrameBusca {
+public class FormBuscaFornecedor extends JFrameBusca {
 
-    public FormBuscarFornecedor() {
+    public FormBuscaFornecedor() {
         initComponents();
 
         this.setLocationRelativeTo(null);
