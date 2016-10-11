@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="515,166" last-zoom="0.8"
+<dbmodel pgmodeler-ver="0.8.2" last-position="313,372" last-zoom="0.95"
 	 default-schema="public" default-owner="postgres">
 <database name="praticaI">
 </database>
@@ -19,10 +19,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="AtivoImobilizado">
+<table name="ativoimobilizado">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2289.81" y="333.508"/>
+	<position x="2280" y="340"/>
 	<column name="ativoImobilizado" not-null="true" sequence="public.ativo_imobilizado_sequencia">
 		<type name="integer"/>
 	</column>
@@ -47,9 +47,21 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="utilizacao" not-null="true">
 		<type name="integer"/>
 	</column>
-	<constraint name="AtivoImobilizado_PK" type="pk-constr" table="public.&quot;AtivoImobilizado&quot;">
+	<constraint name="AtivoImobilizado_PK" type="pk-constr" table="public.ativoimobilizado">
 		<columns names="ativoImobilizado" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="categoria" index="9"/>
+		<object name="marca" index="10"/>
+		<object name="notaFiscal" index="8"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="categoria_fk" index="2"/>
+		<object name="marca_fk" index="3"/>
+		<object name="nota_fiscal_fk" index="1"/>
+	</customidxs>
 </table>
 
 <sequence name="tipo_baixa_sequencia"
@@ -60,17 +72,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="TipoBaixa">
+<table name="tipo_baixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2587.01" y="92.0119"/>
+	<position x="2580" y="100"/>
 	<column name="tipoBaixa" not-null="true" sequence="public.tipo_baixa_sequencia">
 		<type name="integer"/>
 	</column>
 	<column name="descricao" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
-	<constraint name="TipoBaixa_PK" type="pk-constr" table="public.&quot;TipoBaixa&quot;">
+	<constraint name="TipoBaixa_PK" type="pk-constr" table="public.tipo_baixa">
 		<columns names="tipoBaixa" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -83,19 +95,30 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="Baixa">
+<table name="baixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2576.33" y="222.794"/>
+	<position x="2580" y="220"/>
 	<column name="baixa" not-null="true" sequence="public.baixa_sequencia">
 		<type name="integer"/>
 	</column>
 	<column name="dataBaixa" not-null="true">
 		<type name="date"/>
 	</column>
-	<constraint name="Baixa_PK" type="pk-constr" table="public.&quot;Baixa&quot;">
+	<constraint name="Baixa_PK" type="pk-constr" table="public.baixa">
 		<columns names="baixa" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="ativoImobilizado" index="2"/>
+		<object name="tipoBaixa" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="ativoimobilizado_fk" index="1"/>
+		<object name="baixa_uq" index="2"/>
+		<object name="tipo_baixa_fk" index="3"/>
+	</customidxs>
 </table>
 
 <sequence name="depreciacao_sequencia"
@@ -106,10 +129,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="Depreciacao">
+<table name="depreciacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2130.29" y="172.214"/>
+	<position x="2140" y="180"/>
 	<column name="depreciacao" not-null="true" sequence="public.depreciacao_sequencia">
 		<type name="integer"/>
 	</column>
@@ -122,9 +145,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="taxaMensal" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<constraint name="Depreciacao_PK" type="pk-constr" table="public.&quot;Depreciacao&quot;">
+	<constraint name="Depreciacao_PK" type="pk-constr" table="public.depreciacao">
 		<columns names="depreciacao" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="categoria" index="4"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="categoria_fk" index="1"/>
+		<object name="depreciacao_uq" index="2"/>
+	</customidxs>
 </table>
 
 <sequence name="nota_fiscal_sequencia"
@@ -135,10 +167,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="NotaFiscal">
+<table name="nota_fiscal">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1661.05" y="669.794"/>
+	<position x="1660" y="660"/>
 	<column name="notaFiscal" not-null="true" sequence="public.nota_fiscal_sequencia">
 		<type name="integer"/>
 	</column>
@@ -154,9 +186,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="dataEntrada" not-null="true">
 		<type name="date"/>
 	</column>
-	<constraint name="NotaFiscal_PK" type="pk-constr" table="public.&quot;NotaFiscal&quot;">
+	<constraint name="NotaFiscal_PK" type="pk-constr" table="public.nota_fiscal">
 		<columns names="notaFiscal" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="fornecedor" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="nota_fiscal_uq" index="2"/>
+		<object name="pessoa_fk" index="1"/>
+	</customidxs>
 </table>
 
 <sequence name="imposto_sequencia"
@@ -167,10 +208,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="Imposto">
+<table name="imposto">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2575.66" y="811.048"/>
+	<position x="2580" y="820"/>
 	<column name="imposto" not-null="true" sequence="public.imposto_sequencia">
 		<type name="integer"/>
 	</column>
@@ -180,7 +221,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="aliquota" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<constraint name="Imposto_PK" type="pk-constr" table="public.&quot;Imposto&quot;">
+	<constraint name="Imposto_PK" type="pk-constr" table="public.imposto">
 		<columns names="imposto" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -193,10 +234,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="ItemNota">
+<table name="item_nota">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2095.28" y="586.948"/>
+	<position x="2100" y="580"/>
 	<column name="itemNota" not-null="true" sequence="public.item_nota_sequencia">
 		<type name="integer"/>
 	</column>
@@ -209,7 +250,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="valorTotal" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<constraint name="ItemNota_PK" type="pk-constr" table="public.&quot;ItemNota&quot;">
+	<constraint name="ItemNota_PK" type="pk-constr" table="public.item_nota">
 		<columns names="itemNota" ref-type="src-columns"/>
 	</constraint>
 
@@ -218,7 +259,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</customidxs>
 
 	<customidxs object-type="constraint">
-		<object name="NotaFiscal_fk" index="1"/>
+		<object name="nota_fiscal_fk" index="1"/>
 	</customidxs>
 </table>
 
@@ -227,8 +268,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;NotaFiscal&quot;"
-	 dst-table="public.&quot;ItemNota&quot;"
+	 src-table="public.nota_fiscal"
+	 dst-table="public.item_nota"
 	 src-required="false" dst-required="false">
 	<label ref-type="name-label">
 		<position x="0" y="0"/>
@@ -243,17 +284,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="ImpostoItemNota">
+<table name="imposto_item_nota">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2532.13" y="595.933"/>
+	<position x="2540" y="600"/>
 	<column name="impostoItemNota" not-null="true" sequence="public.imposto_item_nota_sequencia">
 		<type name="integer"/>
 	</column>
 	<column name="valorImposto" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<constraint name="ImpostoItemNota_PK" type="pk-constr" table="public.&quot;ImpostoItemNota&quot;">
+	<constraint name="ImpostoItemNota_PK" type="pk-constr" table="public.imposto_item_nota">
 		<columns names="impostoItemNota" ref-type="src-columns"/>
 	</constraint>
 
@@ -263,8 +304,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</customidxs>
 
 	<customidxs object-type="constraint">
-		<object name="Imposto_fk" index="2"/>
-		<object name="ItemNota_fk" index="1"/>
+		<object name="imposto_fk" index="2"/>
+		<object name="item_nota_fk" index="1"/>
 	</customidxs>
 </table>
 
@@ -273,8 +314,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;ItemNota&quot;"
-	 dst-table="public.&quot;ImpostoItemNota&quot;"
+	 src-table="public.item_nota"
+	 dst-table="public.imposto_item_nota"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="Imposto_tem_muitos_ImpostoItemNota" type="rel1n"
@@ -282,8 +323,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;Imposto&quot;"
-	 dst-table="public.&quot;ImpostoItemNota&quot;"
+	 src-table="public.imposto"
+	 dst-table="public.imposto_item_nota"
 	 src-required="false" dst-required="false"/>
 
 <sequence name="imposto_nota_fiscal_sequencia"
@@ -294,26 +335,28 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="ImpostoNotaFiscal">
+<table name="imposto_nota_fiscal">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2159.42" y="822.826"/>
+	<position x="2160" y="820"/>
 	<column name="impostoNotaFiscal" not-null="true" sequence="public.imposto_nota_fiscal_sequencia">
 		<type name="integer"/>
 	</column>
 	<column name="valor" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<constraint name="ImpostoNotaFiscal_PK" type="pk-constr" table="public.&quot;ImpostoNotaFiscal&quot;">
+	<constraint name="ImpostoNotaFiscal_PK" type="pk-constr" table="public.imposto_nota_fiscal">
 		<columns names="impostoNotaFiscal" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
 		<object name="imposto" index="2"/>
+		<object name="notaFiscal" index="3"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
-		<object name="Imposto_fk" index="0"/>
+		<object name="imposto_fk" index="2"/>
+		<object name="nota_fiscal_fk" index="1"/>
 	</customidxs>
 </table>
 
@@ -322,8 +365,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;Imposto&quot;"
-	 dst-table="public.&quot;ImpostoNotaFiscal&quot;"
+	 src-table="public.imposto"
+	 dst-table="public.imposto_nota_fiscal"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="NotaFiscal_tem_muitos_ImpostoNotaFiscal" type="rel1n"
@@ -331,8 +374,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;NotaFiscal&quot;"
-	 dst-table="public.&quot;ImpostoNotaFiscal&quot;"
+	 src-table="public.nota_fiscal"
+	 dst-table="public.imposto_nota_fiscal"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="NotaFiscal_tem_muitos_AtivoImobilizado" type="rel1n"
@@ -340,8 +383,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;NotaFiscal&quot;"
-	 dst-table="public.&quot;AtivoImobilizado&quot;"
+	 src-table="public.nota_fiscal"
+	 dst-table="public.ativoimobilizado"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="Baixa_tem_um_AtivoImobilizado" type="rel11"
@@ -349,8 +392,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;AtivoImobilizado&quot;"
-	 dst-table="public.&quot;Baixa&quot;"
+	 src-table="public.ativoimobilizado"
+	 dst-table="public.baixa"
 	 src-required="false" dst-required="false">
 	<label ref-type="dst-label">
 		<position x="0" y="0"/>
@@ -362,8 +405,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;TipoBaixa&quot;"
-	 dst-table="public.&quot;Baixa&quot;"
+	 src-table="public.tipo_baixa"
+	 dst-table="public.baixa"
 	 src-required="false" dst-required="false">
 	<label ref-type="dst-label">
 		<position x="0" y="0"/>
@@ -378,17 +421,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="Categoria">
+<table name="categoria">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="780.405" y="196.405"/>
+	<position x="780" y="200"/>
 	<column name="categoria" not-null="true" sequence="public.categoria_sequencia">
 		<type name="integer"/>
 	</column>
 	<column name="descricao" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
-	<constraint name="Categoria_PK" type="pk-constr" table="public.&quot;Categoria&quot;">
+	<constraint name="Categoria_PK" type="pk-constr" table="public.categoria">
 		<columns names="categoria" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -398,8 +441,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;Categoria&quot;"
-	 dst-table="public.&quot;Depreciacao&quot;"
+	 src-table="public.categoria"
+	 dst-table="public.depreciacao"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="Categoria_tem_muitos_AtivoImobilizado" type="rel1n"
@@ -407,8 +450,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;Categoria&quot;"
-	 dst-table="public.&quot;AtivoImobilizado&quot;"
+	 src-table="public.categoria"
+	 dst-table="public.ativoimobilizado"
 	 src-required="false" dst-required="false"/>
 
 <sequence name="marca_sequencia"
@@ -419,17 +462,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="Marca">
+<table name="marca">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="853.929" y="322"/>
+	<position x="860" y="320"/>
 	<column name="marca" not-null="true" sequence="public.marca_sequencia">
 		<type name="integer"/>
 	</column>
 	<column name="descricao" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
-	<constraint name="Marca_PK" type="pk-constr" table="public.&quot;Marca&quot;">
+	<constraint name="Marca_PK" type="pk-constr" table="public.marca">
 		<columns names="marca" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -439,8 +482,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;Marca&quot;"
-	 dst-table="public.&quot;AtivoImobilizado&quot;"
+	 src-table="public.marca"
+	 dst-table="public.ativoimobilizado"
 	 src-required="false" dst-required="false"/>
 
 <sequence name="unidade_medida_sequencia"
@@ -451,17 +494,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="UnidadeMedida">
+<table name="unidade_medida">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="399.107" y="70.9286"/>
+	<position x="400" y="80"/>
 	<column name="unidadeMedida" not-null="true" sequence="public.unidade_medida_sequencia">
 		<type name="integer"/>
 	</column>
 	<column name="descricao" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
-	<constraint name="UnidadeMedida_PK" type="pk-constr" table="public.&quot;UnidadeMedida&quot;">
+	<constraint name="UnidadeMedida_PK" type="pk-constr" table="public.unidade_medida">
 		<columns names="unidadeMedida" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -474,10 +517,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="Produto">
+<table name="produto">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="446.151" y="251.583"/>
+	<position x="440" y="260"/>
 	<column name="produto" not-null="true" sequence="public.produto_sequencia">
 		<type name="integer"/>
 	</column>
@@ -490,9 +533,21 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="status" not-null="true">
 		<type name="integer"/>
 	</column>
-	<constraint name="Produto_PK" type="pk-constr" table="public.&quot;Produto&quot;">
+	<constraint name="Produto_PK" type="pk-constr" table="public.produto">
 		<columns names="produto" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="categoria" index="5"/>
+		<object name="marca" index="4"/>
+		<object name="unidadeMedida" index="6"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="categoria_fk" index="2"/>
+		<object name="marca_fk" index="1"/>
+		<object name="unidade_medida_fk" index="3"/>
+	</customidxs>
 </table>
 
 <relationship name="Marca_tem_muitos_Produto" type="rel1n"
@@ -500,8 +555,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;Marca&quot;"
-	 dst-table="public.&quot;Produto&quot;"
+	 src-table="public.marca"
+	 dst-table="public.produto"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="Categoria_tem_muitos_Produto" type="rel1n"
@@ -509,8 +564,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;Categoria&quot;"
-	 dst-table="public.&quot;Produto&quot;"
+	 src-table="public.categoria"
+	 dst-table="public.produto"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="UnidadeMedida_tem_muitos_Produto" type="rel1n"
@@ -518,8 +573,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;UnidadeMedida&quot;"
-	 dst-table="public.&quot;Produto&quot;"
+	 src-table="public.unidade_medida"
+	 dst-table="public.produto"
 	 src-required="false" dst-required="false"/>
 
 <sequence name="saldo_sequencia"
@@ -530,10 +585,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="Saldo">
+<table name="saldo">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="274.802" y="526.702"/>
+	<position x="280" y="520"/>
 	<column name="saldo" not-null="true" sequence="public.saldo_sequencia">
 		<type name="integer"/>
 	</column>
@@ -543,9 +598,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="dataValidade" not-null="true">
 		<type name="date"/>
 	</column>
-	<constraint name="Saldo_PK" type="pk-constr" table="public.&quot;Saldo&quot;">
+	<constraint name="Saldo_PK" type="pk-constr" table="public.saldo">
 		<columns names="saldo" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="produto" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="produto_fk" index="1"/>
+	</customidxs>
 </table>
 
 <sequence name="tipo_operacao_sequencia"
@@ -564,10 +627,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="Movimentacao">
+<table name="movimentacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="554.222" y="502.75"/>
+	<position x="600" y="520"/>
 	<column name="movimentacao" not-null="true" sequence="public.movimentacao_sequencia">
 		<type name="integer"/>
 	</column>
@@ -583,15 +646,25 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="total" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<constraint name="Movimentacao_PK" type="pk-constr" table="public.&quot;Movimentacao&quot;">
+	<constraint name="Movimentacao_PK" type="pk-constr" table="public.movimentacao">
 		<columns names="movimentacao" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="produto" index="6"/>
+		<object name="tipoOperacao" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="produto_fk" index="2"/>
+		<object name="tipo_operacao_fk" index="1"/>
+	</customidxs>
 </table>
 
-<table name="TipoOperacao">
+<table name="tipo_operacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="992.444" y="444"/>
+	<position x="1000" y="440"/>
 	<column name="tipoOperacao" not-null="true" sequence="public.tipo_operacao_sequencia">
 		<type name="integer"/>
 	</column>
@@ -604,7 +677,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="tipo" not-null="true">
 		<type name="integer"/>
 	</column>
-	<constraint name="TipoOperacao_PK" type="pk-constr" table="public.&quot;TipoOperacao&quot;">
+	<constraint name="TipoOperacao_PK" type="pk-constr" table="public.tipo_operacao">
 		<columns names="tipoOperacao" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -614,8 +687,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;TipoOperacao&quot;"
-	 dst-table="public.&quot;Movimentacao&quot;"
+	 src-table="public.tipo_operacao"
+	 dst-table="public.movimentacao"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="Produto_tem_muitos_Movimentacao" type="rel1n"
@@ -623,8 +696,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;Produto&quot;"
-	 dst-table="public.&quot;Movimentacao&quot;"
+	 src-table="public.produto"
+	 dst-table="public.movimentacao"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="Produto_tem_muitos_Saldo" type="rel1n"
@@ -632,8 +705,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;Produto&quot;"
-	 dst-table="public.&quot;Saldo&quot;"
+	 src-table="public.produto"
+	 dst-table="public.saldo"
 	 src-required="false" dst-required="false"/>
 
 <sequence name="parcelas_sequencia"
@@ -644,10 +717,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="Parcela">
+<table name="parcela">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="762.024" y="842.56"/>
+	<position x="760" y="840"/>
 	<column name="parcela" not-null="true" sequence="public.parcelas_sequencia">
 		<type name="integer"/>
 	</column>
@@ -666,9 +739,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="valorPago" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<constraint name="Parcela_PK" type="pk-constr" table="public.&quot;Parcela&quot;">
+	<constraint name="Parcela_PK" type="pk-constr" table="public.parcela">
 		<columns names="parcela" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="contaPagar" index="6"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="contas_fk" index="1"/>
+	</customidxs>
 </table>
 
 <sequence name="conta_pagar_sequencia"
@@ -679,10 +760,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="ContaPagar">
+<table name="contas">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1240.24" y="844.345"/>
+	<position x="1140" y="740"/>
 	<column name="contaPagar" not-null="true" sequence="public.conta_pagar_sequencia">
 		<type name="integer"/>
 	</column>
@@ -698,9 +779,30 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="valorPago" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<constraint name="ContaPagar_PK" type="pk-constr" table="public.&quot;ContaPagar&quot;">
+	<column name="ContasStatus" not-null="true">
+		<type name="integer"/>
+		<comment><![CDATA[0 - Em ser, 1- Vencido, 2- Quitado]]></comment>
+	</column>
+	<column name="contasTipo" not-null="true">
+		<type name="integer"/>
+		<comment><![CDATA[0 - a pagar, 1 - a receber]]></comment>
+	</column>
+	<constraint name="ContaPagar_PK" type="pk-constr" table="public.contas">
 		<columns names="contaPagar" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="ContasStatusCodigo" index="9"/>
+		<object name="notaFiscal" index="5"/>
+		<object name="pessoa" index="6"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="contas_status_fk" index="4"/>
+		<object name="contas_uq" index="2"/>
+		<object name="nota_fiscal_fk" index="1"/>
+		<object name="pessoa_fk" index="3"/>
+	</customidxs>
 </table>
 
 <relationship name="ContaPagar_tem_muitos_Parcela" type="rel1n"
@@ -708,8 +810,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;ContaPagar&quot;"
-	 dst-table="public.&quot;Parcela&quot;"
+	 src-table="public.contas"
+	 dst-table="public.parcela"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="ContaPagar_tem_um_NotaFiscal" type="rel11"
@@ -717,15 +819,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;NotaFiscal&quot;"
-	 dst-table="public.&quot;ContaPagar&quot;"
+	 src-table="public.nota_fiscal"
+	 dst-table="public.contas"
 	 src-required="false" dst-required="false"/>
-
-<table name="Operacao">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="1322.5" y="1135"/>
-</table>
 
 <sequence name="pessoa_sequencia"
 	 start="1" increment="1"
@@ -735,17 +831,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="Pessoa">
+<table name="pessoa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1186.43" y="664.405"/>
+	<position x="1340" y="540"/>
 	<column name="pessoa" not-null="true" sequence="public.pessoa_sequencia">
 		<type name="integer"/>
 	</column>
 	<column name="nome" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
-	<constraint name="Pessoa_PK" type="pk-constr" table="public.&quot;Pessoa&quot;">
+	<constraint name="Pessoa_PK" type="pk-constr" table="public.pessoa">
 		<columns names="pessoa" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -755,8 +851,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;Pessoa&quot;"
-	 dst-table="public.&quot;ContaPagar&quot;"
+	 src-table="public.pessoa"
+	 dst-table="public.contas"
 	 src-required="false" dst-required="false"/>
 
 <sequence name="historico_depreciacao_sequencia"
@@ -767,10 +863,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="HistoricoDepreciacao">
+<table name="historico_depreciacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2886.11" y="397.778"/>
+	<position x="2880" y="400"/>
 	<column name="historicoDepreciacao" not-null="true" sequence="public.historico_depreciacao_sequencia">
 		<type name="integer"/>
 	</column>
@@ -786,9 +882,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="valor" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<constraint name="HistoricoDepreciacao_PK" type="pk-constr" table="public.&quot;HistoricoDepreciacao&quot;">
+	<constraint name="HistoricoDepreciacao_PK" type="pk-constr" table="public.historico_depreciacao">
 		<columns names="historicoDepreciacao" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="ativoImobilizado" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="ativoimobilizado_fk" index="1"/>
+	</customidxs>
 </table>
 
 <relationship name="AtivoImobilizado_tem_muitos_HistoricoDepreciacao" type="rel1n"
@@ -796,8 +900,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;AtivoImobilizado&quot;"
-	 dst-table="public.&quot;HistoricoDepreciacao&quot;"
+	 src-table="public.ativoimobilizado"
+	 dst-table="public.historico_depreciacao"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="NotaFiscal_tem_um_Pessoa" type="rel11"
@@ -805,8 +909,36 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#83af1f"
-	 src-table="public.&quot;Pessoa&quot;"
-	 dst-table="public.&quot;NotaFiscal&quot;"
+	 src-table="public.pessoa"
+	 dst-table="public.nota_fiscal"
+	 src-required="false" dst-required="false"/>
+
+<table name="contas_status">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1000" y="620"/>
+	<column name="ContasStatusCodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="ContasStatusDescricao" not-null="true">
+		<type name="varchar" length="50"/>
+	</column>
+	<column name="ContasStatusTipo" not-null="true">
+		<type name="integer"/>
+		<comment><![CDATA[P - a pagar, R - a receber]]></comment>
+	</column>
+	<constraint name="ContasStatusCodigoPK" type="pk-constr" table="public.contas_status">
+		<columns names="ContasStatusCodigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="ContasStatus_tem_muitos_Contas" type="rel1n"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.contas_status"
+	 dst-table="public.contas"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>
