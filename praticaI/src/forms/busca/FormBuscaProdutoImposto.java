@@ -234,11 +234,10 @@ public class FormBuscaProdutoImposto extends JFrameBusca {
 
         ItemNota n = new ItemNota();
         Produto p = new Produto();
-        p.setDescricao("produto");
-        n.setProduto(p);
-        n.setQuantidade(2);
-        n.setValorUnitario(40);
-        n.setValorTotal(n.getQuantidade() * n.getValorUnitario());
+//        p.setDescricao("produto");
+//        n.setQuantidade(2);
+//        n.setValorUnitario(40);
+//        n.setValorTotal(n.getQuantidade() * n.getValorUnitario());
 
         Consumer<Object> function = this.getFunction();
         function.accept(n);
@@ -283,13 +282,13 @@ public class FormBuscaProdutoImposto extends JFrameBusca {
 
     private void addImpostoTabela(Imposto imposto) {
         ImpostoItemNota item = new ImpostoItemNota();
-        item.setImposto(imposto);
-
-        DefaultTableModel model = (DefaultTableModel) this.tabelaImpostos.getModel();
-        model.addRow(new Object[]{
-            imposto.getNome(),
-            imposto.getPorcentagem() * 10
-        });
+//        item.setImposto(imposto);
+//
+//        DefaultTableModel model = (DefaultTableModel) this.tabelaImpostos.getModel();
+//        model.addRow(new Object[]{
+//            imposto.getNome(),
+//            imposto.getAliquota()* 10
+//        });
 
         this.impostosItens.add(item);
     }

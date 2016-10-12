@@ -1,20 +1,47 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-public class Baixa {
+@Entity
+@SequenceGenerator(name = "seq_baixa", sequenceName = "seq_baixa", allocationSize = 1)
+@Table(name = "pat_baixa")
+public class Baixa implements Serializable {
 
-    private int codigo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_baixa")
+    @Column(name = "baixa_codigo")
+    private int baixa;
+
+    @OneToOne
+    @Column(name = "baixa_ativo_imobilizado", nullable = false)
     private AtivoImobilizado ativoImobilizado;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "baixa_dia", nullable = false)
     private Date dataBaixa;
+
+    @ManyToOne
+    @Column(name = "baixa_tipo", nullable = false)
     private TipoBaixa tipoBaixa;
 
-    public int getCodigo() {
-        return codigo;
+    public int getBaixa() {
+        return baixa;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setBaixa(int baixa) {
+        this.baixa = baixa;
     }
 
     public AtivoImobilizado getAtivoImobilizado() {
@@ -39,31 +66,6 @@ public class Baixa {
 
     public void setTipoBaixa(TipoBaixa tipoBaixa) {
         this.tipoBaixa = tipoBaixa;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 79 * hash + this.codigo;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Baixa other = (Baixa) obj;
-        if (this.codigo != other.codigo) {
-            return false;
-        }
-        return true;
     }
 
 }

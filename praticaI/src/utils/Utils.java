@@ -3,9 +3,11 @@ package utils;
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
 import java.awt.Color;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
+import javax.swing.text.MaskFormatter;
 
 public class Utils {
 
@@ -19,6 +21,12 @@ public class Utils {
         public static Color fundoDesktop = Color.decode("#B0BEC5");
         public static Color fundoPadrao = Color.decode("#263238");
         public static Color verde = Color.decode("#4caf50");
+    }
+
+    public static class MascarasPadrao {
+
+        public static String valorDouble = "#######.##";
+        public static String taxa = "###.##";
     }
 
     public static enum TipoNotificacao {
@@ -121,11 +129,11 @@ public class Utils {
             case pagar:
                 url = "pagar.png";
                 break;
-            
+
             case FluxoCaixa:
                 url = "fluxoCaixa.png";
                 break;
-                
+
         }
 
         return new ImageIcon(Utils.class.getResource("/imagens/" + url));
@@ -146,6 +154,17 @@ public class Utils {
     public static String formatData(Date data) {
         SimpleDateFormat dataFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dataFormat.format(data);
+    }
+
+    public static MaskFormatter getMascara(String formato) {
+        MaskFormatter mask;
+        try {
+            mask = new MaskFormatter(formato);
+            mask.setPlaceholderCharacter('0');
+        } catch (ParseException ex) {
+            mask = new MaskFormatter();
+        }
+        return mask;
     }
 
 }

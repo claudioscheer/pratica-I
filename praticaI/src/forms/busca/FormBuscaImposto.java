@@ -64,9 +64,9 @@ public class FormBuscaImposto extends JFrameBusca {
             text.setText("imposto");
         } else {
             Imposto imposto = new Imposto();
-            imposto.setNome("imposto louco");
-            imposto.setPorcentagem(10);
-            
+//            imposto.setNome("imposto louco");
+//            imposto.setAliquota(10);
+
             Consumer<Object> function = this.getFunction();
             function.accept(imposto);
         }

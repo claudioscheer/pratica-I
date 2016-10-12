@@ -2,10 +2,6 @@ package model;
 
 public enum UtilizacaoBem {
 
-    diaria,
-    semanal,
-    mensal,
-    semestral,
-    trimestral,
-    anual
+    diaria, semanal, mensal, semestral, trimestral, anual
+
 }

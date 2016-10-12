@@ -1,106 +1,55 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-public class NotaFiscal {
+@Entity
+@SequenceGenerator(name = "seq_nota_fiscal", sequenceName = "seq_nota_fiscal", allocationSize = 1)
+@Table(name = "pat_nota_fiscal")
+public class NotaFiscal implements Serializable {
 
-    private int codigo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_fiscal")
+    @Column(name = "nota_codigo")
+    private int notaFiscal;
+
+    @Column(name = "nota_valor", nullable = false)
     private double valor;
+
+    @Column(name = "nota_data_emissao", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date dataEmissao;
+
+    @Column(name = "nota_chave_acesso", nullable = false)
     private String chaveAcesso;
+
+    @Column(name = "nota_data_entrada", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date dataEntrada;
+
+    @ManyToOne
+    @Column(name = "nota_fornecedor", nullable = false)
     private Fornecedor fornecedor;
+
+    @OneToMany
+    @Column(name = "nota_ativo_imobilizado", nullable = false)
+    private AtivoImobilizado ativoImobilizado;
+
     private List<ItemNota> itensNota;
-    private List<ImpostoNotaFiscal> impostos;
 
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public Date getDataEmissao() {
-        return dataEmissao;
-    }
-
-    public void setDataEmissao(Date dataEmissao) {
-        this.dataEmissao = dataEmissao;
-    }
-
-    public String getChaveAcesso() {
-        return chaveAcesso;
-    }
-
-    public void setChaveAcesso(String chaveAcesso) {
-        this.chaveAcesso = chaveAcesso;
-    }
-
-    public Date getDataEntrada() {
-        return dataEntrada;
-    }
-
-    public void setDataEntrada(Date dataEntrada) {
-        this.dataEntrada = dataEntrada;
-    }
-
-    public Fornecedor getFornecedor() {
-        return fornecedor;
-    }
-
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
-    }
-
-    public List<ItemNota> getItensNota() {
-        return itensNota;
-    }
-
-    public void setItensNota(List<ItemNota> itensNota) {
-        this.itensNota = itensNota;
-    }
-
-    public List<ImpostoNotaFiscal> getImpostos() {
-        return impostos;
-    }
-
-    public void setImpostos(List<ImpostoNotaFiscal> impostos) {
-        this.impostos = impostos;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 59 * hash + this.codigo;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final NotaFiscal other = (NotaFiscal) obj;
-        if (this.codigo != other.codigo) {
-            return false;
-        }
-        return true;
-    }
+    private List<ImpostoNotaFiscal> impostoNota;
 
 }

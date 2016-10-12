@@ -344,16 +344,16 @@ public class PanelCadNotaFiscal extends WebPanel {
     }//GEN-LAST:event_btnRemoverImpostoNotaFiscalActionPerformed
 
     private void addImpostoNota(Imposto imposto) {
-        ImpostoNotaFiscal item = new ImpostoNotaFiscal();
-        item.setImposto(imposto);
-        item.setValor(100);
-        DefaultTableModel model = (DefaultTableModel) this.tabelaImpostosNotaFiscal.getModel();
-        model.addRow(new Object[]{
-            imposto.getNome(),
-            item.getValor()
-        });
+//        ImpostoNotaFiscal item = new ImpostoNotaFiscal();
+//        item.setImposto(imposto);
+//        item.setValor(100);
+//        DefaultTableModel model = (DefaultTableModel) this.tabelaImpostosNotaFiscal.getModel();
+//        model.addRow(new Object[]{
+//            imposto.getNome(),
+//            item.getValor()
+//        });
 
-        this.impostosNotaFiscal.add(item);
+//        this.impostosNotaFiscal.add(item);
     }
 
     private void removerImpostoNota(int index) {
@@ -363,14 +363,14 @@ public class PanelCadNotaFiscal extends WebPanel {
     }
 
     private void addItemNotaTabela() {
-        ItemNota item = this.itensNota.get(this.itensNota.size() - 1);
-        DefaultTableModel model = (DefaultTableModel) this.tabelaProdutos.getModel();
-        model.addRow(new Object[]{
-            item.getProduto().getDescricao(),
-            item.getQuantidade(),
-            item.getValorUnitario(),
-            item.getValorTotal()
-        });
+//        ItemNota item = this.itensNota.get(this.itensNota.size() - 1);
+//        DefaultTableModel model = (DefaultTableModel) this.tabelaProdutos.getModel();
+//        model.addRow(new Object[]{
+//            item.getProduto().getDescricao(),
+//            item.getQuantidade(),
+//            item.getValorUnitario(),
+//            item.getValorTotal()
+//        });
     }
 
     private void removerItemNotaTabela(int index) {

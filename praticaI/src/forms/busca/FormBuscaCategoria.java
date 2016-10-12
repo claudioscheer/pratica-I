@@ -2,12 +2,50 @@ package forms.busca;
 
 import components.JFrameBusca;
 import components.TextFieldFK;
+import dao.CategoriaDAO;
+import java.util.List;
+import javax.swing.SwingWorker;
+import javax.swing.table.DefaultTableModel;
+import model.Categoria;
+import utils.Utils;
 
 public class FormBuscaCategoria extends JFrameBusca {
 
+    private LoadCategorias loadCategorias;
+    private List<Categoria> categorias;
+
     public FormBuscaCategoria() {
         initComponents();
+        this.buscarCategorias();
         this.setLocationRelativeTo(null);
+    }
+
+    public void buscarCategorias() {
+        this.loadCategorias = new LoadCategorias();
+        this.loadCategorias.execute();
+    }
+
+    public class LoadCategorias extends SwingWorker<Void, Void> {
+
+        protected Void doInBackground() throws Exception {
+
+            DefaultTableModel model = (DefaultTableModel) tabelaCategoria.getModel();
+
+            categorias = new CategoriaDAO().getAll();
+            for (Categoria categoria : categorias) {
+                Object[] o = new Object[2];
+                o[0] = categoria.getCodigo();
+                o[1] = categoria.getDescricao();
+                model.addRow(o);
+            }
+            tabelaCategoria.setModel(model);
+            return null;
+        }
+
+        public void done() {
+
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -62,15 +100,20 @@ public class FormBuscaCategoria extends JFrameBusca {
 
         tabelaCategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Código", "Descrição"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tabelaCategoria);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -104,8 +147,18 @@ public class FormBuscaCategoria extends JFrameBusca {
     }//GEN-LAST:event_formWindowClosing
 
     private void buttonSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelecionarActionPerformed
-        TextFieldFK text = this.getTextFieldFK();
-        text.setText("categoria");
+        int linhaselecionada = this.tabelaCategoria.getSelectedRow();
+        if (linhaselecionada < 0) {
+            Utils.notificacao("Selecione uma categoria!", Utils.TipoNotificacao.erro, 0);
+            return;
+        }
+
+        if (this.getFrameBuscaTipo() == JFrameBuscaTipo.textFieldFK) {
+            TextFieldFK text = this.getTextFieldFK();
+            Categoria categoria = this.categorias.get(linhaselecionada);
+            text.setText(categoria.getCodigo() + " - " + categoria.getDescricao());
+            text.setValue(categoria);
+        }
 
         this.getFrameBloquear().setEnabled(true);
         this.dispose();

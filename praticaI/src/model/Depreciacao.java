@@ -1,76 +1,37 @@
 package model;
 
-public class Depreciacao {
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-    private int codigo;
+@Entity
+@SequenceGenerator(name = "seq_depreciacao", sequenceName = "seq_depreciacao", allocationSize = 1)
+@Table(name = "pat_depreciacao")
+public class Depreciacao implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_depreciacao")
+    @Column(name = "depreciacao_codigo")
+    private int depreciacao;
+
+    @OneToOne
+    @Column(name = "depreciacao_categoria", nullable = false)
     private Categoria categoria;
+
+    @Column(name = "depreciacao_taxa_anual", nullable = false)
     private double taxaAnual;
+
+    @Column(name = "depreciacao_vida_util", nullable = false)
     private int vidaUtil;
+
+    @Column(name = "depreciacao_taxa_mensal", nullable = false)
     private double taxaMensal;
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public double getTaxaAnual() {
-        return taxaAnual;
-    }
-
-    public void setTaxaAnual(double taxaAnual) {
-        this.taxaAnual = taxaAnual;
-    }
-
-    public int getVidaUtil() {
-        return vidaUtil;
-    }
-
-    public void setVidaUtil(int vidaUtil) {
-        this.vidaUtil = vidaUtil;
-    }
-
-    public double getTaxaMensal() {
-        return taxaMensal;
-    }
-
-    public void setTaxaMensal(double taxaMensal) {
-        this.taxaMensal = taxaMensal;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 31 * hash + this.codigo;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Depreciacao other = (Depreciacao) obj;
-        if (this.codigo != other.codigo) {
-            return false;
-        }
-        return true;
-    }
 
 }

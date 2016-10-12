@@ -3,7 +3,7 @@ package forms;
 import com.alee.laf.desktoppane.WebInternalFrame;
 import components.panelsCads.PanelCadNotaFiscal;
 import components.panelsListagem.PanelConsultaNotaFiscal;
-import dao.NotaFiscalDAO;
+import dao.AtivoImobilizadoDAO;
 import utils.Utils;
 import java.awt.Dimension;
 import java.beans.PropertyVetoException;
@@ -59,7 +59,7 @@ public class FormNotaFiscal extends WebInternalFrame {
             return;
         }
 
-        NotaFiscalDAO especificacaoDAO = new NotaFiscalDAO();
+        AtivoImobilizadoDAO especificacaoDAO = new AtivoImobilizadoDAO();
         NotaFiscal nota = this.panelCadastroNotaFiscal.getNotaFiscal();
     }
 

@@ -3,10 +3,10 @@ package forms;
 import com.alee.laf.desktoppane.WebInternalFrame;
 import components.panelsCads.PanelCadAtivoImobilizado;
 import components.panelsListagem.PanelConsultaAtivoImobilizado;
-import dao.NotaFiscalDAO;
+import dao.AtivoImobilizadoDAO;
 import utils.Utils;
 import java.awt.Dimension;
-import model.NotaFiscal;
+import model.AtivoImobilizado;
 
 public class FormAtivoImobilizado extends WebInternalFrame {
 
@@ -49,15 +49,16 @@ public class FormAtivoImobilizado extends WebInternalFrame {
         });
     }
 
-    //evento para salvar a nota fiscal
+    //evento para salvar o ativo imobilizado
     private void salvarNotaFiscal() {
 
-//        if (!this.panelCadastroAtivoImobilizado.validador.isValid()) {
-//            return;
-//        }
+        if (!this.panelCadastroAtivoImobilizado.validador.isValid()) {
+            return;
+        }
 
-        NotaFiscalDAO especificacaoDAO = new NotaFiscalDAO();
-        NotaFiscal nota = this.panelCadastroAtivoImobilizado.getNotaFiscal();
+        AtivoImobilizado ativoImobilizado = this.panelCadastroAtivoImobilizado.getAtivoImobilizado();
+        new AtivoImobilizadoDAO().insert(ativoImobilizado);
+
     }
 
     //toggle o form de cadastro de nota fiscal

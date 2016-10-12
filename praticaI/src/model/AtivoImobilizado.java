@@ -1,25 +1,66 @@
 package model;
 
-public class AtivoImobilizado {
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-    private int codigo;
+@Entity
+@SequenceGenerator(name = "seq_ativo_imobilizado", sequenceName = "seq_ativo_imobilizado", allocationSize = 1)
+@Table(name = "pat_ativo_imobilizado")
+public class AtivoImobilizado implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_ativo_imobilizado")
+    @Column(name = "ativo_codigo")
+    private int ativoImobilizado;
+
+    @Column(name = "ativo_descricao", nullable = false)
     private String descricao;
+
+    @ManyToOne
+    @Column(name = "ativo_categoria", nullable = false)
     private Categoria categoria;
+
+    @ManyToOne
+    @Column(name = "ativo_marca", nullable = false)
     private Marca marca;
-    private double valor;
+
+//    @ManyToOne
+//    @Column(name = "ativo_nota_fiscal")
+//    private NotaFiscal notaFiscal;
+    @Column(name = "ativo_valor_original", nullable = false)
+    private double valorOriginal;
+
+    @Column(name = "ativo_valor_atual", nullable = false)
     private double valorAtual;
+
+    @Column(name = "ativo_taxa_valor_residual", nullable = false)
     private double taxaValorResidual;
+
+    @Column(name = "ativo_valor_residual", nullable = false)
     private double valorResidual;
-    private NotaFiscal nota;
+
+    @Enumerated
+    @Column(name = "ativo_estado_bem", nullable = false)
     private EstadoBem estadoBem;
+
+    @Enumerated
+    @Column(name = "ativo_utilizacao", nullable = false)
     private UtilizacaoBem utilizacao;
 
-    public int getCodigo() {
-        return codigo;
+    public int getAtivoImobilizado() {
+        return ativoImobilizado;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setAtivoImobilizado(int ativoImobilizado) {
+        this.ativoImobilizado = ativoImobilizado;
     }
 
     public String getDescricao() {
@@ -46,12 +87,12 @@ public class AtivoImobilizado {
         this.marca = marca;
     }
 
-    public double getValor() {
-        return valor;
+    public double getValorOriginal() {
+        return valorOriginal;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setValorOriginal(double valorOriginal) {
+        this.valorOriginal = valorOriginal;
     }
 
     public double getValorAtual() {
@@ -78,14 +119,13 @@ public class AtivoImobilizado {
         this.valorResidual = valorResidual;
     }
 
-    public NotaFiscal getNota() {
-        return nota;
-    }
-
-    public void setNota(NotaFiscal nota) {
-        this.nota = nota;
-    }
-
+//    public NotaFiscal getNotaFiscal() {
+//        return notaFiscal;
+//    }
+//
+//    public void setNotaFiscal(NotaFiscal notaFiscal) {
+//        this.notaFiscal = notaFiscal;
+//    }
     public EstadoBem getEstadoBem() {
         return estadoBem;
     }
@@ -102,6 +142,4 @@ public class AtivoImobilizado {
         this.utilizacao = utilizacao;
     }
 
-    
-    
 }

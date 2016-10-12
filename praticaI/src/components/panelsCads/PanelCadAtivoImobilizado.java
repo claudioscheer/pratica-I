@@ -1,50 +1,60 @@
 package components.panelsCads;
 
-import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.laf.panel.WebPanel;
 import components.Validador;
 import forms.FormPrincipal;
 import forms.busca.FormBuscaCategoria;
-import forms.busca.FormBuscaImposto;
 import forms.busca.FormBuscaMarca;
 import forms.busca.FormBuscaNotaFiscal;
-import forms.busca.FormBuscaProdutoImposto;
-import forms.busca.FormBuscaFornecedor;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import model.Imposto;
-import model.ImpostoItemNota;
-import model.ImpostoNotaFiscal;
-import model.ItemNota;
-import model.NotaFiscal;
+import model.AtivoImobilizado;
+import model.Categoria;
+import model.EstadoBem;
+import model.Marca;
+import model.UtilizacaoBem;
 import utils.Utils;
 
 public class PanelCadAtivoImobilizado extends WebPanel {
 
     public Validador validador;
-    private List<ItemNota> itensNota;
-    private List<ImpostoNotaFiscal> impostosNotaFiscal;
+    private AtivoImobilizado ativoImobilizado;
 
     public PanelCadAtivoImobilizado() {
+    }
+
+    public PanelCadAtivoImobilizado(AtivoImobilizado ativoImobilizado) {
+        this.ativoImobilizado = ativoImobilizado;
     }
 
     public void init() {
         this.initComponents();
 
-        this.itensNota = new ArrayList<>();
-        this.impostosNotaFiscal = new ArrayList<>();
+        //inicia o validador
+        this.validador = new Validador(Validador.TipoValidator.ICONE);
+        this.validador.addObrigatorioValidator(txtDescricao);
+//        this.validador.addObrigatorioValidator(txtCategoria);
+//        this.validador.addObrigatorioValidator(txtMarca);
+//        this.validador.addObrigatorioValidator(txtNotaFiscal);
+        this.validador.addObrigatorioValidator(txtValorOriginal);
+        this.validador.addApenasNumeroValidator(txtValorOriginal);
+        this.validador.addObrigatorioValidator(txtValorAtual);
+        this.validador.addApenasNumeroValidator(txtValorAtual);
+        this.validador.addObrigatorioValidator(txtTaxaValorResidual);
+        this.validador.addApenasNumeroValidator(txtTaxaValorResidual);
+        this.validador.addObrigatorioValidator(txtValorResidual);
+        this.validador.addApenasNumeroValidator(txtValorResidual);
 
+        //abre o form para buscar uma categoria
         FormBuscaCategoria formCategoria = new FormBuscaCategoria();
         formCategoria.setFrameBloquear(FormPrincipal.getInstance());
         this.txtCategoria.setFrame(formCategoria);
 
+        //abre o form para buscar uma marca
         FormBuscaMarca formMarca = new FormBuscaMarca();
         formMarca.setFrameBloquear(FormPrincipal.getInstance());
         this.txtMarca.setFrame(formMarca);
 
+        //abre o form para buscar uma nota fiscal
         FormBuscaNotaFiscal formNotaFiscal = new FormBuscaNotaFiscal();
         formNotaFiscal.setFrameBloquear(FormPrincipal.getInstance());
         this.txtNotaFiscal.setFrame(formNotaFiscal);
@@ -57,10 +67,28 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.btnCancelar.addActionListener(cancelar);
     }
 
-    public NotaFiscal getNotaFiscal() {
-        NotaFiscal nota = new NotaFiscal();
+    public AtivoImobilizado getAtivoImobilizado() {
+        AtivoImobilizado ativo = new AtivoImobilizado();
 
-        return nota;
+        ativo.setDescricao(txtDescricao.getText());
+
+        Categoria categoria = new Categoria();
+        categoria.setCodigo(1);
+        ativo.setCategoria(categoria);
+
+        Marca marca = new Marca();
+        marca.setCodigo(1);
+        ativo.setMarca(marca);
+
+        ativo.setValorOriginal(Double.parseDouble(txtValorOriginal.getText()));
+        ativo.setValorAtual(Double.parseDouble(txtValorAtual.getText()));
+        ativo.setTaxaValorResidual(Double.parseDouble(txtTaxaValorResidual.getText()));
+        ativo.setValorResidual(Double.parseDouble(txtTaxaValorResidual.getText()));
+
+        ativo.setEstadoBem(EstadoBem.novo);
+        ativo.setUtilizacao(UtilizacaoBem.diaria);
+
+        return ativo;
     }
 
     @SuppressWarnings("unchecked")
@@ -76,19 +104,23 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         txtMarca = new components.TextFieldFK();
         jLabel4 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtValorOriginal = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtValorAtual = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtNotaFiscal = new components.TextFieldFK();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtValorResidual = new javax.swing.JTextField();
-        txtTaxaValorResidual = new javax.swing.JSpinner();
         jLabel9 = new javax.swing.JLabel();
         comboEstadoBem = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         comboUtilizacaoBem = new javax.swing.JComboBox<>();
+        txtValorOriginal = new javax.swing.JFormattedTextField(
+            Utils.getMascara(Utils.MascarasPadrao.valorDouble));
+        jLabel12 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaDepreciacoes = new javax.swing.JTable();
+        txtTaxaValorResidual = new javax.swing.JFormattedTextField(Utils.getMascara(Utils.MascarasPadrao.taxa));
+        txtValorResidual = new javax.swing.JFormattedTextField(Utils.getMascara(Utils.MascarasPadrao.valorDouble));
+        txtValorAtual = new javax.swing.JFormattedTextField(Utils.getMascara(Utils.MascarasPadrao.valorDouble));
         panelOpcoes = new javax.swing.JPanel();
         btnSalvar = new com.alee.laf.button.WebButton();
         btnCancelar = new com.alee.laf.button.WebButton();
@@ -101,7 +133,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
 
         panelItens.setBackground(new java.awt.Color(255, 255, 255));
         panelItens.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        panelItens.setPreferredSize(new java.awt.Dimension(0, 1300));
+        panelItens.setPreferredSize(new java.awt.Dimension(0, 780));
 
         jLabel1.setText("Descrição");
 
@@ -119,8 +151,6 @@ public class PanelCadAtivoImobilizado extends WebPanel {
 
         jLabel8.setText("Valor Residual");
 
-        txtTaxaValorResidual.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
-
         jLabel9.setText("Estado do bem");
 
         comboEstadoBem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Novo", "Usado" }));
@@ -129,6 +159,26 @@ public class PanelCadAtivoImobilizado extends WebPanel {
 
         comboUtilizacaoBem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diariamente", "Semanalmente", "Mensalmente", "Semestralmente", "Trimestralmente", "Anualmente" }));
 
+        jLabel12.setText("Valores depreciados");
+
+        tabelaDepreciacoes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Data", "Valor"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tabelaDepreciacoes);
+
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
         panelItensLayout.setHorizontalGroup(
@@ -136,45 +186,39 @@ public class PanelCadAtivoImobilizado extends WebPanel {
             .addGroup(panelItensLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNotaFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelItensLayout.createSequentialGroup()
+                        .addComponent(txtTaxaValorResidual, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(90, 90, 90)
+                        .addComponent(txtValorResidual, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelItensLayout.createSequentialGroup()
+                        .addGap(282, 282, 282)
+                        .addComponent(comboUtilizacaoBem, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addGroup(panelItensLayout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(211, 211, 211)
+                        .addComponent(jLabel10))
+                    .addComponent(comboEstadoBem, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6)
                     .addGroup(panelItensLayout.createSequentialGroup()
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(txtTaxaValorResidual, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(115, 115, 115)
+                            .addComponent(jLabel2)
+                            .addComponent(txtValorOriginal, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(90, 90, 90)
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
                             .addComponent(jLabel8)
-                            .addComponent(txtValorResidual, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(215, Short.MAX_VALUE))
-                    .addGroup(panelItensLayout.createSequentialGroup()
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtMarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)
-                                    .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(txtDescricao, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtCategoria, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
-                                    .addComponent(jLabel4))
-                                .addComponent(jLabel6)
-                                .addComponent(txtNotaFiscal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(panelItensLayout.createSequentialGroup()
-                                    .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtValorOriginal, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel2))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5)
-                                        .addComponent(txtValorAtual, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE))))
-                            .addGroup(panelItensLayout.createSequentialGroup()
-                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(comboEstadoBem, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(comboUtilizacaoBem, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(txtValorAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelItensLayout.setVerticalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,36 +236,41 @@ public class PanelCadAtivoImobilizado extends WebPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNotaFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelItensLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNotaFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtValorOriginal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtValorAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtValorOriginal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelItensLayout.createSequentialGroup()
+                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTaxaValorResidual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtValorResidual, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtValorResidual, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                            .addComponent(txtTaxaValorResidual))
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelItensLayout.createSequentialGroup()
+                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboEstadoBem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboUtilizacaoBem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel9)
+                        .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboEstadoBem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelItensLayout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboUtilizacaoBem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtValorAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         scrollCadastro.setViewportView(panelItens);
@@ -237,7 +286,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         panelOpcoesLayout.setHorizontalGroup(
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
-                .addContainerGap(619, Short.MAX_VALUE)
+                .addContainerGap(703, Short.MAX_VALUE)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -263,7 +312,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(scrollCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+                .addComponent(scrollCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -277,6 +326,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
     private javax.swing.JComboBox<String> comboUtilizacaoBem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -285,16 +335,18 @@ public class PanelCadAtivoImobilizado extends WebPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelItens;
     private javax.swing.JPanel panelOpcoes;
     private javax.swing.JScrollPane scrollCadastro;
+    private javax.swing.JTable tabelaDepreciacoes;
     private components.TextFieldFK txtCategoria;
     private javax.swing.JTextField txtDescricao;
     private components.TextFieldFK txtMarca;
     private components.TextFieldFK txtNotaFiscal;
-    private javax.swing.JSpinner txtTaxaValorResidual;
-    private javax.swing.JTextField txtValorAtual;
-    private javax.swing.JTextField txtValorOriginal;
-    private javax.swing.JTextField txtValorResidual;
+    private javax.swing.JFormattedTextField txtTaxaValorResidual;
+    private javax.swing.JFormattedTextField txtValorAtual;
+    private javax.swing.JFormattedTextField txtValorOriginal;
+    private javax.swing.JFormattedTextField txtValorResidual;
     // End of variables declaration//GEN-END:variables
 }

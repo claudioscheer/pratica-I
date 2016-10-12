@@ -35,6 +35,14 @@ public class TextFieldFK extends WebTextField implements MouseListener {
         this.frame.getFrameBloquear().setEnabled(false);
     }
 
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
     @Override
     public void mousePressed(MouseEvent me) {
     }

@@ -5,7 +5,7 @@ import components.panelsCads.PanelCadContaPagar;
 import components.panelsCads.PanelCadNotaFiscal;
 import components.panelsListagem.PanelConsultaContaPagar;
 import components.panelsListagem.PanelConsultaNotaFiscal;
-import dao.NotaFiscalDAO;
+import dao.AtivoImobilizadoDAO;
 import utils.Utils;
 import java.awt.Dimension;
 import java.beans.PropertyVetoException;
@@ -61,7 +61,7 @@ public class FormContaPagar extends WebInternalFrame {
             return;
         }
 
-        NotaFiscalDAO especificacaoDAO = new NotaFiscalDAO();
+        AtivoImobilizadoDAO especificacaoDAO = new AtivoImobilizadoDAO();
         NotaFiscal nota = this.panelCadContaPagar.getNotaFiscal();
     }
 
