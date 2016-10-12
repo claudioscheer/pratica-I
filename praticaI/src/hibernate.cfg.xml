@@ -4,10 +4,11 @@
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/praticaI</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/pratica_1</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">claudio123</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
-        <mapping class="model.TipoBaixa"/>
+        <mapping class="model.Categoria"/>
+        <mapping class="model.Marca"/>
     </session-factory>
 </hibernate-configuration>
