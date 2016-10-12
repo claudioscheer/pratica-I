@@ -3,500 +3,14 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="54,0" last-zoom="0.4"
+<dbmodel pgmodeler-ver="0.8.2" last-position="0,427" last-zoom="0.7"
 	 default-schema="public" default-owner="postgres">
-<database name="pratica_1">
-	<appended-sql><![CDATA[/*
-Created		24/09/2016
-Modified		12/10/2016
-Project		
-Model			
-Company		
-Author		
-Version		
-Database		PostgreSQL 8.0 
-*/
-
-
-/* Drop Referential Integrity Triggers */
-
-
-/* Drop User-Defined Triggers */
-
-
-/* Drop Domains */
-
-
-/* Drop Procedures */
-
-
-/* Drop Views */
-
-
-/* Drop Indexes */
-
-
-/* Drop Tables */
-Drop table "movimentos_especificacoes" Restrict;
-Drop table "lancamentos_especificacoes" Restrict;
-Drop table "fluxo_caixa_fechamento" Restrict;
-Drop table "esp_fluxo_caixa" Restrict;
-Drop table "especificacoes" Restrict;
-Drop table "pessoa" Restrict;
-Drop table "fluxo_caixa" Restrict;
-Drop table "lancamentos" Restrict;
-Drop table "movimento_bancario" Restrict;
-Drop table "operacao_tributacao" Restrict;
-Drop table "tributacao" Restrict;
-Drop table "operacoes" Restrict;
-Drop table "livro_caixa" Restrict;
-
-
-/* Create Domains */
-
-
-/* Create Tables */
-
-
-Create table "livro_caixa"
-(
-	"lvr_cx_codigo" Integer NOT NULL,
-	"lvr_cx_saldo_anterior" Numeric(14,2),
-	"lvr_cx_saldo_atual" Numeric(14,2),
-	"lvr_cx_total_entrada" Numeric(14,2),
-	"lvr_cx_total_saida" Numeric(14,2),
-	"lvr_cx_data_inicial" Date,
-	"lvr_cx_data_final" Date,
- primary key ("lvr_cx_codigo")
-) Without Oids;
-
-
-Create table "operacoes"
-(
-	"op_codigo" Integer NOT NULL,
-	"op_descricao" Varchar(250),
- primary key ("op_codigo")
-) Without Oids;
-
-
-Create table "tributacao"
-(
-	"trib_codigo" Integer NOT NULL,
-	"trib_descricao" Char(20),
- primary key ("trib_codigo")
-) Without Oids;
-
-
-Create table "operacao_tributacao"
-(
-	"op_codigo" Integer NOT NULL,
-	"trib_codigo" Integer NOT NULL,
- primary key ("op_codigo","trib_codigo")
-) Without Oids;
-
-
-Create table "movimento_bancario"
-(
-	"mov_ban_codigo" Integer NOT NULL,
-	"mov_ban_data" Date,
-	"mov_ban_documento" Numeric(30,0),
-	"mov_ban_numero" Numeric(30,0),
-	"mov_ban_entrada" Numeric(14,2),
-	"mov_ban_saida" Numeric(14,2),
-	"op_codigo" Integer NOT NULL,
-	"pes_codigo" Integer NOT NULL,
- primary key ("mov_ban_codigo")
-) Without Oids;
-
-
-Create table "lancamentos"
-(
-	"lan_codigo" Integer NOT NULL,
-	"op_codigo" Integer NOT NULL,
- primary key ("lan_codigo")
-) Without Oids;
-
-
-Create table "fluxo_caixa"
-(
-	"flux_codigo" Integer NOT NULL,
-	"flux_item" Integer,
-	"flux_data" Date,
-	"flux_qtd_colaboradores" Integer,
-	"pes_codigo" Integer NOT NULL,
- primary key ("flux_codigo")
-) Without Oids;
-
-
-Create table "pessoa"
-(
-	"pes_codigo" Integer NOT NULL,
- primary key ("pes_codigo")
-) Without Oids;
-
-
-Create table "especificacoes"
-(
-	"esp_codigo" Integer NOT NULL,
-	"esp_descricao" Varchar(250),
-	"esp_codigo_pai" Integer,
- primary key ("esp_codigo")
-) Without Oids;
-
-
-Create table "esp_fluxo_caixa"
-(
-	"esp_codigo" Integer NOT NULL,
-	"flux_codigo" Integer NOT NULL,
-	"esp_flux_data" Date,
- primary key ("esp_codigo","flux_codigo")
-) Without Oids;
-
-
-Create table "fluxo_caixa_fechamento"
-(
-	"fech_codigo" Integer NOT NULL,
-	"fech_data" Date,
-	"fech_saldo_mes" Numeric(14,2),
-	"fech_saldo_disponivel" Numeric(14,2),
- primary key ("fech_codigo")
-) Without Oids;
-
-
-Create table "lancamentos_especificacoes"
-(
-	"lan_codigo" Integer NOT NULL,
-	"esp_codigo" Integer NOT NULL,
- primary key ("lan_codigo","esp_codigo")
-) Without Oids;
-
-
-Create table "movimentos_especificacoes"
-(
-	"mov_ban_codigo" Integer NOT NULL,
-	"esp_codigo" Integer NOT NULL,
- primary key ("mov_ban_codigo","esp_codigo")
-) Without Oids;
-
-
-/* Create Tab 'Others' for Selected Tables */
-
-
-/* Create Alternate Keys */
-
-
-/* Create Indexes */
-
-
-/* Create Foreign Keys */
-
-Alter table "operacao_tributacao" add  foreign key ("op_codigo") references "operacoes" ("op_codigo") on update restrict on delete restrict;
-
-Alter table "lancamentos" add  foreign key ("op_codigo") references "operacoes" ("op_codigo") on update restrict on delete restrict;
-
-Alter table "movimento_bancario" add  foreign key ("op_codigo") references "operacoes" ("op_codigo") on update restrict on delete restrict;
-
-Alter table "operacao_tributacao" add  foreign key ("trib_codigo") references "tributacao" ("trib_codigo") on update restrict on delete restrict;
-
-Alter table "movimentos_especificacoes" add  foreign key ("mov_ban_codigo") references "movimento_bancario" ("mov_ban_codigo") on update restrict on delete restrict;
-
-Alter table "lancamentos_especificacoes" add  foreign key ("lan_codigo") references "lancamentos" ("lan_codigo") on update restrict on delete restrict;
-
-Alter table "esp_fluxo_caixa" add  foreign key ("flux_codigo") references "fluxo_caixa" ("flux_codigo") on update restrict on delete restrict;
-
-Alter table "fluxo_caixa" add  foreign key ("pes_codigo") references "pessoa" ("pes_codigo") on update restrict on delete restrict;
-
-Alter table "movimento_bancario" add  foreign key ("pes_codigo") references "pessoa" ("pes_codigo") on update restrict on delete restrict;
-
-Alter table "esp_fluxo_caixa" add  foreign key ("esp_codigo") references "especificacoes" ("esp_codigo") on update restrict on delete restrict;
-
-Alter table "lancamentos_especificacoes" add  foreign key ("esp_codigo") references "especificacoes" ("esp_codigo") on update restrict on delete restrict;
-
-Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") references "especificacoes" ("esp_codigo") on update restrict on delete restrict;
-
-
-/* Create Procedures */
-
-
-/* Create Views */
-
-
-/* Create Referential Integrity Triggers */
-
-
-/* Create User-Defined Triggers */
-
-
-/* Create Groups */
-
-
-/* Add Users To Groups */
-
-
-/* Create Group Permissions */
-/* Group permissions on tables */
-
-/* Group permissions on views */
-
-/* Group permissions on procedures */
-
-
-/* Create User Permissions */
-/* User permissions on tables */
-
-/* User permissions on views */
-
-/* User permissions on procedures */
-
-
-]]></appended-sql>
-	<prepended-sql><![CDATA[/*
-Created		24/09/2016
-Modified		12/10/2016
-Project		
-Model			
-Company		
-Author		
-Version		
-Database		PostgreSQL 8.0 
-*/
-
-
-/* Drop Referential Integrity Triggers */
-
-
-/* Drop User-Defined Triggers */
-
-
-/* Drop Domains */
-
-
-/* Drop Procedures */
-
-
-/* Drop Views */
-
-
-/* Drop Indexes */
-
-
-/* Drop Tables */
-Drop table "movimentos_especificacoes" Restrict;
-Drop table "lancamentos_especificacoes" Restrict;
-Drop table "fluxo_caixa_fechamento" Restrict;
-Drop table "esp_fluxo_caixa" Restrict;
-Drop table "especificacoes" Restrict;
-Drop table "pessoa" Restrict;
-Drop table "fluxo_caixa" Restrict;
-Drop table "lancamentos" Restrict;
-Drop table "movimento_bancario" Restrict;
-Drop table "operacao_tributacao" Restrict;
-Drop table "tributacao" Restrict;
-Drop table "operacoes" Restrict;
-Drop table "livro_caixa" Restrict;
-
-
-/* Create Domains */
-
-
-/* Create Tables */
-
-
-Create table "livro_caixa"
-(
-	"lvr_cx_codigo" Integer NOT NULL,
-	"lvr_cx_saldo_anterior" Numeric(14,2),
-	"lvr_cx_saldo_atual" Numeric(14,2),
-	"lvr_cx_total_entrada" Numeric(14,2),
-	"lvr_cx_total_saida" Numeric(14,2),
-	"lvr_cx_data_inicial" Date,
-	"lvr_cx_data_final" Date,
- primary key ("lvr_cx_codigo")
-) Without Oids;
-
-
-Create table "operacoes"
-(
-	"op_codigo" Integer NOT NULL,
-	"op_descricao" Varchar(250),
- primary key ("op_codigo")
-) Without Oids;
-
-
-Create table "tributacao"
-(
-	"trib_codigo" Integer NOT NULL,
-	"trib_descricao" Char(20),
- primary key ("trib_codigo")
-) Without Oids;
-
-
-Create table "operacao_tributacao"
-(
-	"op_codigo" Integer NOT NULL,
-	"trib_codigo" Integer NOT NULL,
- primary key ("op_codigo","trib_codigo")
-) Without Oids;
-
-
-Create table "movimento_bancario"
-(
-	"mov_ban_codigo" Integer NOT NULL,
-	"mov_ban_data" Date,
-	"mov_ban_documento" Numeric(30,0),
-	"mov_ban_numero" Numeric(30,0),
-	"mov_ban_entrada" Numeric(14,2),
-	"mov_ban_saida" Numeric(14,2),
-	"op_codigo" Integer NOT NULL,
-	"pes_codigo" Integer NOT NULL,
- primary key ("mov_ban_codigo")
-) Without Oids;
-
-
-Create table "lancamentos"
-(
-	"lan_codigo" Integer NOT NULL,
-	"op_codigo" Integer NOT NULL,
- primary key ("lan_codigo")
-) Without Oids;
-
-
-Create table "fluxo_caixa"
-(
-	"flux_codigo" Integer NOT NULL,
-	"flux_item" Integer,
-	"flux_data" Date,
-	"flux_qtd_colaboradores" Integer,
-	"pes_codigo" Integer NOT NULL,
- primary key ("flux_codigo")
-) Without Oids;
-
-
-Create table "pessoa"
-(
-	"pes_codigo" Integer NOT NULL,
- primary key ("pes_codigo")
-) Without Oids;
-
-
-Create table "especificacoes"
-(
-	"esp_codigo" Integer NOT NULL,
-	"esp_descricao" Varchar(250),
-	"esp_codigo_pai" Integer,
- primary key ("esp_codigo")
-) Without Oids;
-
-
-Create table "esp_fluxo_caixa"
-(
-	"esp_codigo" Integer NOT NULL,
-	"flux_codigo" Integer NOT NULL,
-	"esp_flux_data" Date,
- primary key ("esp_codigo","flux_codigo")
-) Without Oids;
-
-
-Create table "fluxo_caixa_fechamento"
-(
-	"fech_codigo" Integer NOT NULL,
-	"fech_data" Date,
-	"fech_saldo_mes" Numeric(14,2),
-	"fech_saldo_disponivel" Numeric(14,2),
- primary key ("fech_codigo")
-) Without Oids;
-
-
-Create table "lancamentos_especificacoes"
-(
-	"lan_codigo" Integer NOT NULL,
-	"esp_codigo" Integer NOT NULL,
- primary key ("lan_codigo","esp_codigo")
-) Without Oids;
-
-
-Create table "movimentos_especificacoes"
-(
-	"mov_ban_codigo" Integer NOT NULL,
-	"esp_codigo" Integer NOT NULL,
- primary key ("mov_ban_codigo","esp_codigo")
-) Without Oids;
-
-
-/* Create Tab 'Others' for Selected Tables */
-
-
-/* Create Alternate Keys */
-
-
-/* Create Indexes */
-
-
-/* Create Foreign Keys */
-
-Alter table "operacao_tributacao" add  foreign key ("op_codigo") references "operacoes" ("op_codigo") on update restrict on delete restrict;
-
-Alter table "lancamentos" add  foreign key ("op_codigo") references "operacoes" ("op_codigo") on update restrict on delete restrict;
-
-Alter table "movimento_bancario" add  foreign key ("op_codigo") references "operacoes" ("op_codigo") on update restrict on delete restrict;
-
-Alter table "operacao_tributacao" add  foreign key ("trib_codigo") references "tributacao" ("trib_codigo") on update restrict on delete restrict;
-
-Alter table "movimentos_especificacoes" add  foreign key ("mov_ban_codigo") references "movimento_bancario" ("mov_ban_codigo") on update restrict on delete restrict;
-
-Alter table "lancamentos_especificacoes" add  foreign key ("lan_codigo") references "lancamentos" ("lan_codigo") on update restrict on delete restrict;
-
-Alter table "esp_fluxo_caixa" add  foreign key ("flux_codigo") references "fluxo_caixa" ("flux_codigo") on update restrict on delete restrict;
-
-Alter table "fluxo_caixa" add  foreign key ("pes_codigo") references "pessoa" ("pes_codigo") on update restrict on delete restrict;
-
-Alter table "movimento_bancario" add  foreign key ("pes_codigo") references "pessoa" ("pes_codigo") on update restrict on delete restrict;
-
-Alter table "esp_fluxo_caixa" add  foreign key ("esp_codigo") references "especificacoes" ("esp_codigo") on update restrict on delete restrict;
-
-Alter table "lancamentos_especificacoes" add  foreign key ("esp_codigo") references "especificacoes" ("esp_codigo") on update restrict on delete restrict;
-
-Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") references "especificacoes" ("esp_codigo") on update restrict on delete restrict;
-
-
-/* Create Procedures */
-
-
-/* Create Views */
-
-
-/* Create Referential Integrity Triggers */
-
-
-/* Create User-Defined Triggers */
-
-
-/* Create Groups */
-
-
-/* Add Users To Groups */
-
-
-/* Create Group Permissions */
-/* Group permissions on tables */
-
-/* Group permissions on views */
-
-/* Group permissions on procedures */
-
-
-/* Create User Permissions */
-/* User permissions on tables */
-
-/* User permissions on views */
-
-/* User permissions on procedures */
-
-
-]]></prepended-sql>
+<database name="pratica_1" encoding="UTF8" lc-collate="Portuguese_Brazil" lc-ctype="Portuguese_Brazil">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
 </database>
 
-<schema name="public" fill-color="#e1e1e1" sql-disabled="true">
+<schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
 <sequence name="ativo_imobilizado_sequencia"
@@ -510,48 +24,49 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="ativoimobilizado">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1840" y="240"/>
-	<column name="ativImobilizado_id" not-null="true" sequence="public.ativo_imobilizado_sequencia">
+	<position x="60" y="60"/>
+	<column name="ativoImobilizado" not-null="true" sequence="public.ativo_imobilizado_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="ativImobilizado_descricao" not-null="true">
-		<type name="varchar" length="200"/>
+	<column name="descricao" not-null="true">
+		<type name="character varying" length="200"/>
 	</column>
-	<column name="ativImobilizado_vlrOriginal" not-null="true">
+	<column name="valorOriginal" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="ativImobilizado_vlrAtual" not-null="true">
+	<column name="valorAtual" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="ativImobilizado_txVlrResidual" not-null="true">
+	<column name="taxaValorResidual" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="ativImobilizado_vlrResidual" not-null="true">
+	<column name="valorResidual" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="ativImobilizado_estadoBem" not-null="true">
+	<column name="estadoBem" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="ativImobilizado_utilizacao" not-null="true">
+	<column name="utilizacao" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="notaFiscal">
+		<type name="integer"/>
+	</column>
+	<column name="categoria">
+		<type name="integer"/>
+	</column>
+	<column name="marca">
 		<type name="integer"/>
 	</column>
 	<constraint name="AtivoImobilizado_PK" type="pk-constr" table="public.ativoimobilizado">
-		<columns names="ativImobilizado_id" ref-type="src-columns"/>
+		<columns names="ativoImobilizado" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="categoria_id" index="10"/>
-		<object name="marca_id" index="9"/>
-		<object name="nota_id" index="8"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="ativoimobilizado_uq" index="3"/>
-		<object name="ativoimobilizado_uq1" index="5"/>
-		<object name="categoria_ativoimobilizado_fk" index="4"/>
-		<object name="marca_ativoimobilizado_fk" index="2"/>
-		<object name="nota_fiscal_ativoimobilizado_fk" index="1"/>
-	</customidxs>
+	<constraint name="ativoimobilizado_uq" type="uq-constr" table="public.ativoimobilizado">
+		<columns names="categoria" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="ativoimobilizado_uq1" type="uq-constr" table="public.ativoimobilizado">
+		<columns names="marca" ref-type="src-columns"/>
+	</constraint>
 </table>
 
 <sequence name="tipo_baixa_sequencia"
@@ -565,15 +80,15 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="tipo_baixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2360" y="20"/>
-	<column name="tpBaixa_id" not-null="true" sequence="public.tipo_baixa_sequencia">
+	<position x="420" y="60"/>
+	<column name="tipoBaixa" not-null="true" sequence="public.tipo_baixa_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="tpBaixa_descricao" not-null="true">
-		<type name="varchar" length="200"/>
+	<column name="descricao" not-null="true">
+		<type name="character varying" length="200"/>
 	</column>
 	<constraint name="TipoBaixa_PK" type="pk-constr" table="public.tipo_baixa">
-		<columns names="tpBaixa_id" ref-type="src-columns"/>
+		<columns names="tipoBaixa" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -588,27 +103,25 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="baixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2780" y="100"/>
-	<column name="baixa_id" not-null="true" sequence="public.baixa_sequencia">
+	<position x="740" y="60"/>
+	<column name="baixa" not-null="true" sequence="public.baixa_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="baixa_data" not-null="true">
+	<column name="dataBaixa" not-null="true">
 		<type name="date"/>
 	</column>
+	<column name="tipoBaixa">
+		<type name="integer"/>
+	</column>
+	<column name="ativoImobilizado">
+		<type name="integer"/>
+	</column>
 	<constraint name="Baixa_PK" type="pk-constr" table="public.baixa">
-		<columns names="baixa_id" ref-type="src-columns"/>
+		<columns names="baixa" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="ativImobilizado_id" index="3"/>
-		<object name="tpBaixa_id" index="2"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="ativoimobilizado_baixa_fk" index="2"/>
-		<object name="baixa_uq" index="3"/>
-		<object name="tipo_baixa_baixa_fk" index="1"/>
-	</customidxs>
+	<constraint name="baixa_uq" type="uq-constr" table="public.baixa">
+		<columns names="ativoImobilizado" ref-type="src-columns"/>
+	</constraint>
 </table>
 
 <sequence name="depreciacao_sequencia"
@@ -622,31 +135,28 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="depreciacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1760" y="20"/>
-	<column name="deprec_id" not-null="true" sequence="public.depreciacao_sequencia">
+	<position x="1000" y="60"/>
+	<column name="depreciacao" not-null="true" sequence="public.depreciacao_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="deprec_txAnual" not-null="true">
+	<column name="taxaAnual" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="deprec_vidaUtil" not-null="true">
+	<column name="vidaUtil" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="deprec_txMensal" not-null="true">
+	<column name="taxaMensal" not-null="true">
 		<type name="double precision"/>
+	</column>
+	<column name="categoria">
+		<type name="integer"/>
 	</column>
 	<constraint name="Depreciacao_PK" type="pk-constr" table="public.depreciacao">
-		<columns names="deprec_id" ref-type="src-columns"/>
+		<columns names="depreciacao" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="categoria_id" index="4"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="categoria_depreciacao_fk" index="1"/>
-		<object name="depreciacao_uq" index="2"/>
-	</customidxs>
+	<constraint name="depreciacao_uq" type="uq-constr" table="public.depreciacao">
+		<columns names="categoria" ref-type="src-columns"/>
+	</constraint>
 </table>
 
 <sequence name="nota_fiscal_sequencia"
@@ -660,34 +170,31 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="nota_fiscal">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1680" y="680"/>
-	<column name="nota_id" not-null="true" sequence="public.nota_fiscal_sequencia">
+	<position x="1300" y="60"/>
+	<column name="notaFiscal" not-null="true" sequence="public.nota_fiscal_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="nota_valor" not-null="true">
+	<column name="valor" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="nota_dtEmissao" not-null="true">
+	<column name="dataEmissao" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="nota_chaveAcesso" not-null="true">
-		<type name="varchar" length="100"/>
+	<column name="chaveAcesso" not-null="true">
+		<type name="character varying" length="100"/>
 	</column>
-	<column name="nota_dtEntrada" not-null="true">
+	<column name="dataEntrada" not-null="true">
 		<type name="date"/>
+	</column>
+	<column name="pessoa">
+		<type name="integer"/>
 	</column>
 	<constraint name="NotaFiscal_PK" type="pk-constr" table="public.nota_fiscal">
-		<columns names="nota_id" ref-type="src-columns"/>
+		<columns names="notaFiscal" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="pessoa_id" index="5"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="nota_fiscal_uq" index="2"/>
-		<object name="pessoa_nota_fiscal_fk" index="1"/>
-	</customidxs>
+	<constraint name="nota_fiscal_uq" type="uq-constr" table="public.nota_fiscal">
+		<columns names="pessoa" ref-type="src-columns"/>
+	</constraint>
 </table>
 
 <sequence name="imposto_sequencia"
@@ -701,18 +208,18 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="imposto">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2700" y="780"/>
-	<column name="imposto_id" not-null="true" sequence="public.imposto_sequencia">
+	<position x="60" y="280"/>
+	<column name="imposto" not-null="true" sequence="public.imposto_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="imposto_nome" not-null="true">
-		<type name="varchar" length="100"/>
+	<column name="nome" not-null="true">
+		<type name="character varying" length="100"/>
 	</column>
-	<column name="imposto_aliquota" not-null="true">
+	<column name="aliquota" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<constraint name="Imposto_PK" type="pk-constr" table="public.imposto">
-		<columns names="imposto_id" ref-type="src-columns"/>
+		<columns names="imposto" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -727,47 +234,32 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="item_nota">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2180" y="460"/>
-	<column name="itemNt_id" not-null="true" sequence="public.item_nota_sequencia">
+	<position x="360" y="280"/>
+	<column name="itemNota" not-null="true" sequence="public.item_nota_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="itemNt_quant" not-null="true">
+	<column name="quantidade" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="itemNt_vlrUnit" not-null="true">
+	<column name="valorUnitario" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="itemNt_vlrTotal" not-null="true">
+	<column name="valorTotal" not-null="true">
 		<type name="double precision"/>
+	</column>
+	<column name="notaFiscal">
+		<type name="integer"/>
+	</column>
+	<column name="produto">
+		<type name="integer"/>
 	</column>
 	<constraint name="ItemNota_PK" type="pk-constr" table="public.item_nota">
-		<columns names="itemNt_id" ref-type="src-columns"/>
+		<columns names="itemNota" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="nota_id" index="5"/>
-		<object name="prod_id" index="4"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="item_nota_uq" index="3"/>
-		<object name="nota_fiscal_item_nota_fk" index="1"/>
-		<object name="produto_item_nota_fk" index="2"/>
-	</customidxs>
+	<constraint name="item_nota_uq" type="uq-constr" table="public.item_nota">
+		<columns names="produto" ref-type="src-columns"/>
+	</constraint>
 </table>
-
-<relationship name="NotaFiscal_tem_muitos_ItemNota" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.nota_fiscal"
-	 dst-table="public.item_nota"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
 
 <sequence name="imposto_item_nota_sequencia"
 	 start="1" increment="1"
@@ -780,45 +272,23 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="imposto_item_nota">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2640" y="580"/>
-	<column name="impostoItemNt_id" not-null="true" sequence="public.imposto_item_nota_sequencia">
+	<position x="660" y="280"/>
+	<column name="impostoItemNota" not-null="true" sequence="public.imposto_item_nota_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="impostoItemNt_vlr" not-null="true">
+	<column name="valorImposto" not-null="true">
 		<type name="double precision"/>
 	</column>
+	<column name="itemNota">
+		<type name="integer"/>
+	</column>
+	<column name="imposto">
+		<type name="integer"/>
+	</column>
 	<constraint name="ImpostoItemNota_PK" type="pk-constr" table="public.imposto_item_nota">
-		<columns names="impostoItemNt_id" ref-type="src-columns"/>
+		<columns names="impostoItemNota" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="imposto_id" index="3"/>
-		<object name="itemNt_id" index="2"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="imposto_imposto_item_nota_fk" index="2"/>
-		<object name="item_nota_imposto_item_nota_fk" index="1"/>
-	</customidxs>
 </table>
-
-<relationship name="ItemNota_tem_muitos_ImpostoItemNota" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.item_nota"
-	 dst-table="public.imposto_item_nota"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="Imposto_tem_muitos_ImpostoItemNota" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.imposto"
-	 dst-table="public.imposto_item_nota"
-	 src-required="false" dst-required="false"/>
 
 <sequence name="imposto_nota_fiscal_sequencia"
 	 start="1" increment="1"
@@ -831,71 +301,23 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="imposto_nota_fiscal">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2200" y="780"/>
-	<column name="impostoNt_id" not-null="true" sequence="public.imposto_nota_fiscal_sequencia">
+	<position x="980" y="280"/>
+	<column name="impostoNotaFiscal" not-null="true" sequence="public.imposto_nota_fiscal_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="impostoNt_valor" not-null="true">
+	<column name="valor" not-null="true">
 		<type name="double precision"/>
 	</column>
+	<column name="imposto">
+		<type name="integer"/>
+	</column>
+	<column name="notaFiscal">
+		<type name="integer"/>
+	</column>
 	<constraint name="ImpostoNotaFiscal_PK" type="pk-constr" table="public.imposto_nota_fiscal">
-		<columns names="impostoNt_id" ref-type="src-columns"/>
+		<columns names="impostoNotaFiscal" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="imposto_id" index="2"/>
-		<object name="nota_id" index="3"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="imposto_imposto_nota_fiscal_fk" index="2"/>
-		<object name="nota_fiscal_imposto_nota_fiscal_fk" index="1"/>
-	</customidxs>
 </table>
-
-<relationship name="Imposto_tem_muitos_ImpostoNotaFiscal" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.imposto"
-	 dst-table="public.imposto_nota_fiscal"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="NotaFiscal_tem_muitos_ImpostoNotaFiscal" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.nota_fiscal"
-	 dst-table="public.imposto_nota_fiscal"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="NotaFiscal_tem_muitos_AtivoImobilizado" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.nota_fiscal"
-	 dst-table="public.ativoimobilizado"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="-82.7303" y="-10.6607"/>
-	</label>
-</relationship>
-
-<relationship name="TipoBaixa_tem_muitos_Baixa" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.tipo_baixa"
-	 dst-table="public.baixa"
-	 src-required="false" dst-required="false">
-	<label ref-type="dst-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
 
 <sequence name="categoria_sequencia"
 	 start="1" increment="1"
@@ -908,26 +330,17 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="categoria">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="880" y="80"/>
-	<column name="categoria_id" not-null="true" sequence="public.categoria_sequencia">
+	<position x="1320" y="280"/>
+	<column name="categoria" not-null="true" sequence="public.categoria_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="categoria_descricao" not-null="true">
-		<type name="varchar" length="200"/>
+	<column name="descricao" not-null="true">
+		<type name="character varying" length="200"/>
 	</column>
 	<constraint name="Categoria_PK" type="pk-constr" table="public.categoria">
-		<columns names="categoria_id" ref-type="src-columns"/>
+		<columns names="categoria" ref-type="src-columns"/>
 	</constraint>
 </table>
-
-<relationship name="Depreciacao_tem_um_Categoria" type="rel11"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.categoria"
-	 dst-table="public.depreciacao"
-	 src-required="false" dst-required="false"/>
 
 <sequence name="marca_sequencia"
 	 start="1" increment="1"
@@ -940,15 +353,15 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="marca">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="980" y="300"/>
-	<column name="marca_id" not-null="true" sequence="public.marca_sequencia">
+	<position x="60" y="440"/>
+	<column name="marca" not-null="true" sequence="public.marca_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="marca_descricao" not-null="true">
-		<type name="varchar" length="200"/>
+	<column name="descricao" not-null="true">
+		<type name="character varying" length="200"/>
 	</column>
 	<constraint name="Marca_PK" type="pk-constr" table="public.marca">
-		<columns names="marca_id" ref-type="src-columns"/>
+		<columns names="marca" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -963,15 +376,15 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="unidade_medida">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="360" y="40"/>
-	<column name="unidMed_id" not-null="true" sequence="public.unidade_medida_sequencia">
+	<position x="360" y="440"/>
+	<column name="unidadeMedida" not-null="true" sequence="public.unidade_medida_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="unidMed_descricao" not-null="true">
-		<type name="varchar" length="200"/>
+	<column name="descricao" not-null="true">
+		<type name="character varying" length="200"/>
 	</column>
 	<constraint name="UnidadeMedida_PK" type="pk-constr" table="public.unidade_medida">
-		<columns names="unidMed_id" ref-type="src-columns"/>
+		<columns names="unidadeMedida" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -986,62 +399,32 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="produto">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="420" y="280"/>
-	<column name="prod_id" not-null="true" sequence="public.produto_sequencia">
+	<position x="720" y="440"/>
+	<column name="produto" not-null="true" sequence="public.produto_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="prod_referencia" not-null="true">
-		<type name="varchar" length="100"/>
+	<column name="referencia" not-null="true">
+		<type name="character varying" length="100"/>
 	</column>
-	<column name="prod_descricao" not-null="true">
-		<type name="varchar" length="200"/>
+	<column name="descricao" not-null="true">
+		<type name="character varying" length="200"/>
 	</column>
-	<column name="prod_status" not-null="true">
+	<column name="status" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="marca">
+		<type name="integer"/>
+	</column>
+	<column name="categoria">
+		<type name="integer"/>
+	</column>
+	<column name="unidadeMedida">
 		<type name="integer"/>
 	</column>
 	<constraint name="Produto_PK" type="pk-constr" table="public.produto">
-		<columns names="prod_id" ref-type="src-columns"/>
+		<columns names="produto" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="categoria_id" index="5"/>
-		<object name="marca_id" index="4"/>
-		<object name="unidMed_id" index="6"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="categoria_produto_fk" index="2"/>
-		<object name="marca_produto_fk" index="1"/>
-		<object name="unidade_medida_produto_fk" index="3"/>
-	</customidxs>
 </table>
-
-<relationship name="Marca_tem_muitos_Produto" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.marca"
-	 dst-table="public.produto"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="Categoria_tem_muitos_Produto" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.categoria"
-	 dst-table="public.produto"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="UnidadeMedida_tem_muitos_Produto" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.unidade_medida"
-	 dst-table="public.produto"
-	 src-required="false" dst-required="false"/>
 
 <sequence name="saldo_sequencia"
 	 start="1" increment="1"
@@ -1054,27 +437,22 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="saldo">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="240" y="580"/>
-	<column name="saldo_id" not-null="true" sequence="public.saldo_sequencia">
+	<position x="1060" y="440"/>
+	<column name="saldo" not-null="true" sequence="public.saldo_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="saldo_lote" not-null="true">
+	<column name="lote" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="saldo_dataValidade" not-null="true">
+	<column name="dataValidade" not-null="true">
 		<type name="date"/>
 	</column>
+	<column name="produto">
+		<type name="integer"/>
+	</column>
 	<constraint name="Saldo_PK" type="pk-constr" table="public.saldo">
-		<columns names="saldo_id" ref-type="src-columns"/>
+		<columns names="saldo" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="prod_id" index="3"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="produto_saldo_fk" index="1"/>
-	</customidxs>
 </table>
 
 <sequence name="tipo_operacao_sequencia"
@@ -1096,96 +474,53 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="movimentacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="600" y="620"/>
-	<column name="mov_id" not-null="true" sequence="public.movimentacao_sequencia">
+	<position x="1320" y="420"/>
+	<column name="movimentacao" not-null="true" sequence="public.movimentacao_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="mov_data" not-null="true">
+	<column name="dataMovimentacao" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="mov_quantidade" not-null="true">
+	<column name="quantidade" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="mov_valorUnitario" not-null="true">
+	<column name="valorUnitario" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="mov_total" not-null="true">
+	<column name="total" not-null="true">
 		<type name="double precision"/>
+	</column>
+	<column name="tipoOperacao">
+		<type name="integer"/>
+	</column>
+	<column name="produto">
+		<type name="integer"/>
 	</column>
 	<constraint name="Movimentacao_PK" type="pk-constr" table="public.movimentacao">
-		<columns names="mov_id" ref-type="src-columns"/>
+		<columns names="movimentacao" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="prod_id" index="6"/>
-		<object name="tpOp_id" index="5"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="produto_movimentacao_fk" index="2"/>
-		<object name="tipo_operacao_movimentacao_fk" index="1"/>
-	</customidxs>
 </table>
 
 <table name="tipo_operacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1020" y="440"/>
-	<column name="tpOp_id" not-null="true" sequence="public.tipo_operacao_sequencia">
+	<position x="60" y="600"/>
+	<column name="tipoOperacao" not-null="true" sequence="public.tipo_operacao_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="tpOp_descricao" not-null="true">
-		<type name="varchar" length="100"/>
+	<column name="descricao" not-null="true">
+		<type name="character varying" length="100"/>
 	</column>
-	<column name="tpOp_nome" not-null="true">
-		<type name="varchar" length="100"/>
+	<column name="nome" not-null="true">
+		<type name="character varying" length="100"/>
 	</column>
-	<column name="tpOp_tipo" not-null="true">
+	<column name="tipo" not-null="true">
 		<type name="integer"/>
 	</column>
 	<constraint name="TipoOperacao_PK" type="pk-constr" table="public.tipo_operacao">
-		<columns names="tpOp_id" ref-type="src-columns"/>
+		<columns names="tipoOperacao" ref-type="src-columns"/>
 	</constraint>
 </table>
-
-<relationship name="TipoOperacao_tem_muitos_Movimentacao" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.tipo_operacao"
-	 dst-table="public.movimentacao"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="21.7697" y="-49.6607"/>
-	</label>
-</relationship>
-
-<relationship name="Produto_tem_muitos_Movimentacao" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.produto"
-	 dst-table="public.movimentacao"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="-50.6303" y="-16.6607"/>
-	</label>
-</relationship>
-
-<relationship name="Produto_tem_muitos_Saldo" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.produto"
-	 dst-table="public.saldo"
-	 src-required="false" dst-required="false">
-	<label ref-type="name-label">
-		<position x="33.6697" y="-55.6607"/>
-	</label>
-</relationship>
 
 <sequence name="parcelas_sequencia"
 	 start="1" increment="1"
@@ -1198,36 +533,31 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="parcela">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="620" y="860"/>
-	<column name="parcela_id" not-null="true" sequence="public.parcelas_sequencia">
+	<position x="400" y="600"/>
+	<column name="parcela" not-null="true" sequence="public.parcelas_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="parcela_dtPag" not-null="true">
+	<column name="dataPagamento" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="parcela_dtVencimento" not-null="true">
+	<column name="dataVencimento" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="parcela_acrescimos" not-null="true">
+	<column name="acrescimos" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="parcela_vlrParcela" not-null="true">
+	<column name="valorParcela" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="parcela_vlrPago" not-null="true">
+	<column name="valorPago" not-null="true">
 		<type name="double precision"/>
+	</column>
+	<column name="contaPagar">
+		<type name="integer"/>
 	</column>
 	<constraint name="Parcela_PK" type="pk-constr" table="public.parcela">
-		<columns names="parcela_id" ref-type="src-columns"/>
+		<columns names="parcela" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="conta_id" index="6"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="contas_parcela_fk" index="1"/>
-	</customidxs>
 </table>
 
 <sequence name="conta_pagar_sequencia"
@@ -1241,65 +571,46 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="contas">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1160" y="780"/>
-	<column name="conta_id" not-null="true" sequence="public.conta_pagar_sequencia">
+	<position x="700" y="600"/>
+	<column name="contaPagar" not-null="true" sequence="public.conta_pagar_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="conta_vlrTotal" not-null="true">
+	<column name="valorTotal" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="conta_dtEmissao" not-null="true">
+	<column name="dataEmissao" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="conta_nroParc" not-null="true">
+	<column name="numParcelas" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="conta_vlrPago" not-null="true">
+	<column name="valorPago" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="conta_status" not-null="true">
+	<column name="notaFiscal">
+		<type name="integer"/>
+	</column>
+	<column name="pessoa">
+		<type name="integer"/>
+	</column>
+	<column name="ContasStatus" not-null="true">
 		<type name="integer"/>
 		<comment><![CDATA[0 - Em ser, 1- Vencido, 2- Quitado]]></comment>
 	</column>
-	<column name="contas_tipo" not-null="true">
+	<column name="contasTipo" not-null="true">
 		<type name="integer"/>
 		<comment><![CDATA[0 - a pagar, 1 - a receber]]></comment>
 	</column>
+	<column name="ContasStatusCodigo">
+		<type name="integer"/>
+	</column>
 	<constraint name="ContaPagar_PK" type="pk-constr" table="public.contas">
-		<columns names="conta_id" ref-type="src-columns"/>
+		<columns names="contaPagar" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="contasStatus_id" index="9"/>
-		<object name="nota_id" index="7"/>
-		<object name="pessoa_id" index="8"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="contas_status_contas_fk" index="4"/>
-		<object name="contas_uq" index="2"/>
-		<object name="nota_fiscal_contas_fk" index="1"/>
-		<object name="pessoa_contas_fk" index="3"/>
-	</customidxs>
+	<constraint name="contas_uq" type="uq-constr" table="public.contas">
+		<columns names="notaFiscal" ref-type="src-columns"/>
+	</constraint>
 </table>
-
-<relationship name="ContaPagar_tem_muitos_Parcela" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.contas"
-	 dst-table="public.parcela"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="ContaPagar_tem_um_NotaFiscal" type="rel11"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.nota_fiscal"
-	 dst-table="public.contas"
-	 src-required="false" dst-required="false"/>
 
 <sequence name="pessoa_sequencia"
 	 start="1" increment="1"
@@ -1312,26 +623,17 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="pessoa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1340" y="540"/>
-	<column name="pessoa_id" not-null="true" sequence="public.pessoa_sequencia">
+	<position x="1020" y="660"/>
+	<column name="pessoa" not-null="true" sequence="public.pessoa_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="pessoa_nome" not-null="true">
-		<type name="varchar" length="200"/>
+	<column name="nome" not-null="true">
+		<type name="character varying" length="200"/>
 	</column>
 	<constraint name="Pessoa_PK" type="pk-constr" table="public.pessoa">
-		<columns names="pessoa_id" ref-type="src-columns"/>
+		<columns names="pessoa" ref-type="src-columns"/>
 	</constraint>
 </table>
-
-<relationship name="Pessoa_tem_muitos_ContaPagar" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.pessoa"
-	 dst-table="public.contas"
-	 src-required="false" dst-required="false"/>
 
 <sequence name="historico_depreciacao_sequencia"
 	 start="1" increment="1"
@@ -1344,128 +646,713 @@ Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") referenc
 <table name="historico_depreciacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2900" y="360"/>
-	<column name="histDeprec_id" not-null="true" sequence="public.historico_depreciacao_sequencia">
+	<position x="1340" y="600"/>
+	<column name="historicoDepreciacao" not-null="true" sequence="public.historico_depreciacao_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="histDeprec_dia" not-null="true">
+	<column name="dia" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="histDeprec_mes" not-null="true">
+	<column name="mes" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="histDeprec_ano" not-null="true">
+	<column name="ano" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="histDeprec_vlr" not-null="true">
+	<column name="valor" not-null="true">
 		<type name="double precision"/>
 	</column>
+	<column name="ativoImobilizado">
+		<type name="integer"/>
+	</column>
 	<constraint name="HistoricoDepreciacao_PK" type="pk-constr" table="public.historico_depreciacao">
-		<columns names="histDeprec_id" ref-type="src-columns"/>
+		<columns names="historicoDepreciacao" ref-type="src-columns"/>
 	</constraint>
-
-	<customidxs object-type="column">
-		<object name="ativImobilizado_id" index="5"/>
-	</customidxs>
-
-	<customidxs object-type="constraint">
-		<object name="ativoimobilizado_historico_depreciacao_fk" index="1"/>
-	</customidxs>
 </table>
-
-<relationship name="NotaFiscal_tem_um_Pessoa" type="rel11"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.pessoa"
-	 dst-table="public.nota_fiscal"
-	 src-required="false" dst-required="false"/>
 
 <table name="contas_status">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1060" y="620"/>
-	<column name="contasStatus_id" not-null="true">
+	<position x="60" y="820"/>
+	<column name="ContasStatusCodigo" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="contasStatus_descricao" not-null="true">
-		<type name="varchar" length="50"/>
+	<column name="ContasStatusDescricao" not-null="true">
+		<type name="character varying" length="50"/>
 	</column>
-	<column name="contasStatus_tipo" not-null="true">
+	<column name="ContasStatusTipo" not-null="true">
 		<type name="integer"/>
 		<comment><![CDATA[P - a pagar, R - a receber]]></comment>
 	</column>
 	<constraint name="ContasStatusCodigoPK" type="pk-constr" table="public.contas_status">
-		<columns names="contasStatus_id" ref-type="src-columns"/>
+		<columns names="ContasStatusCodigo" ref-type="src-columns"/>
 	</constraint>
 </table>
 
-<relationship name="ContasStatus_tem_muitos_Contas" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.contas_status"
-	 dst-table="public.contas"
-	 src-required="false" dst-required="false"/>
+<table name="livro_caixa">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="420" y="820"/>
+	<column name="lvr_cx_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="lvr_cx_saldo_anterior">
+		<type name="numeric" length="14" precision="2"/>
+	</column>
+	<column name="lvr_cx_saldo_atual">
+		<type name="numeric" length="14" precision="2"/>
+	</column>
+	<column name="lvr_cx_total_entrada">
+		<type name="numeric" length="14" precision="2"/>
+	</column>
+	<column name="lvr_cx_total_saida">
+		<type name="numeric" length="14" precision="2"/>
+	</column>
+	<column name="lvr_cx_data_inicial">
+		<type name="date"/>
+	</column>
+	<column name="lvr_cx_data_final">
+		<type name="date"/>
+	</column>
+	<constraint name="livro_caixa_pkey" type="pk-constr" table="public.livro_caixa">
+		<columns names="lvr_cx_codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
 
-<relationship name="ativoimobilizado_tem_muitos_historico_depreciacao" type="rel1n"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.ativoimobilizado"
-	 dst-table="public.historico_depreciacao"
-	 src-required="false" dst-required="false"/>
+<table name="operacoes">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="740" y="820"/>
+	<column name="op_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="op_descricao">
+		<type name="character varying" length="250"/>
+	</column>
+	<constraint name="operacoes_pkey" type="pk-constr" table="public.operacoes">
+		<columns names="op_codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
 
-<relationship name="baixa_tem_um_ativoimobilizado" type="rel11"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.ativoimobilizado"
-	 dst-table="public.baixa"
-	 src-required="false" dst-required="false"/>
+<table name="tributacao">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1080" y="820"/>
+	<column name="trib_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="trib_descricao">
+		<type name="character" length="20"/>
+	</column>
+	<constraint name="tributacao_pkey" type="pk-constr" table="public.tributacao">
+		<columns names="trib_codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
 
-<relationship name="item_nota_tem_um_produto" type="rel11"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.produto"
-	 dst-table="public.item_nota"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="ativoimobilizado_tem_um_categoria" type="rel11"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.categoria"
-	 dst-table="public.ativoimobilizado"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="ativoimobilizado_tem_um_marca" type="rel11"
-	 src-col-pattern="{sc}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_{dt}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.marca"
-	 dst-table="public.ativoimobilizado"
-	 src-required="false" dst-required="false"/>
+<table name="operacao_tributacao">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1340" y="820"/>
+	<column name="op_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="trib_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="operacao_tributacao_pkey" type="pk-constr" table="public.operacao_tributacao">
+		<columns names="op_codigo,trib_codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
 
 <table name="movimento_bancario">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1700" y="940"/>
+	<position x="60" y="1000"/>
 	<column name="mov_ban_codigo" not-null="true">
 		<type name="integer"/>
 	</column>
-	<constraint name="pk_movCod" type="pk-constr" table="public.movimento_bancario">
-		<tablespace name="pg_default"/>
+	<column name="mov_ban_data">
+		<type name="date"/>
+	</column>
+	<column name="mov_ban_documento">
+		<type name="numeric" length="30" precision="0"/>
+	</column>
+	<column name="mov_ban_numero">
+		<type name="numeric" length="30" precision="0"/>
+	</column>
+	<column name="mov_ban_entrada">
+		<type name="numeric" length="14" precision="2"/>
+	</column>
+	<column name="mov_ban_saida">
+		<type name="numeric" length="14" precision="2"/>
+	</column>
+	<column name="op_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="pessoa" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="movimento_bancario_pkey" type="pk-constr" table="public.movimento_bancario">
 		<columns names="mov_ban_codigo" ref-type="src-columns"/>
 	</constraint>
 </table>
+
+<table name="lancamentos">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="640" y="1020"/>
+	<column name="lan_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="op_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="lancamentos_pkey" type="pk-constr" table="public.lancamentos">
+		<columns names="lan_codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="fluxo_caixa">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="960" y="980"/>
+	<column name="flux_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="flux_item">
+		<type name="integer"/>
+	</column>
+	<column name="flux_data">
+		<type name="date"/>
+	</column>
+	<column name="flux_qtd_colaboradores">
+		<type name="integer"/>
+	</column>
+	<column name="pessoa" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="fluxo_caixa_pkey" type="pk-constr" table="public.fluxo_caixa">
+		<columns names="flux_codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="especificacoes">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1060" y="1160"/>
+	<column name="esp_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="esp_descricao">
+		<type name="character varying" length="250"/>
+	</column>
+	<column name="esp_codigo_pai">
+		<type name="integer"/>
+	</column>
+	<constraint name="especificacoes_pkey" type="pk-constr" table="public.especificacoes">
+		<columns names="esp_codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="esp_fluxo_caixa">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1400" y="1040"/>
+	<column name="esp_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="flux_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="esp_flux_data">
+		<type name="date"/>
+	</column>
+	<constraint name="esp_fluxo_caixa_pkey" type="pk-constr" table="public.esp_fluxo_caixa">
+		<columns names="esp_codigo,flux_codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="fluxo_caixa_fechamento">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="60" y="1180"/>
+	<column name="fech_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="fech_data">
+		<type name="date"/>
+	</column>
+	<column name="fech_saldo_mes">
+		<type name="numeric" length="14" precision="2"/>
+	</column>
+	<column name="fech_saldo_disponivel">
+		<type name="numeric" length="14" precision="2"/>
+	</column>
+	<constraint name="fluxo_caixa_fechamento_pkey" type="pk-constr" table="public.fluxo_caixa_fechamento">
+		<columns names="fech_codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="lancamentos_especificacoes">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="380" y="1180"/>
+	<column name="lan_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="esp_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="lancamentos_especificacoes_pkey" type="pk-constr" table="public.lancamentos_especificacoes">
+		<columns names="lan_codigo,esp_codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="movimentos_especificacoes">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="640" y="1180"/>
+	<column name="mov_ban_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="esp_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="movimentos_especificacoes_pkey" type="pk-constr" table="public.movimentos_especificacoes">
+		<columns names="mov_ban_codigo,esp_codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="nota_fiscal_ativoimobilizado_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.nota_fiscal" table="public.ativoimobilizado">
+	<columns names="notaFiscal" ref-type="src-columns"/>
+	<columns names="notaFiscal" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="categoria_ativoimobilizado_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.categoria" table="public.ativoimobilizado">
+	<columns names="categoria" ref-type="src-columns"/>
+	<columns names="categoria" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="marca_ativoimobilizado_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.marca" table="public.ativoimobilizado">
+	<columns names="marca" ref-type="src-columns"/>
+	<columns names="marca" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="tipo_baixa_baixa_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.tipo_baixa" table="public.baixa">
+	<columns names="tipoBaixa" ref-type="src-columns"/>
+	<columns names="tipoBaixa" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="ativoimobilizado_baixa_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.ativoimobilizado" table="public.baixa">
+	<columns names="ativoImobilizado" ref-type="src-columns"/>
+	<columns names="ativoImobilizado" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="categoria_depreciacao_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.categoria" table="public.depreciacao">
+	<columns names="categoria" ref-type="src-columns"/>
+	<columns names="categoria" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="pessoa_nota_fiscal_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pessoa" table="public.nota_fiscal">
+	<columns names="pessoa" ref-type="src-columns"/>
+	<columns names="pessoa" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="nota_fiscal_item_nota_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.nota_fiscal" table="public.item_nota">
+	<columns names="notaFiscal" ref-type="src-columns"/>
+	<columns names="notaFiscal" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="produto_item_nota_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.produto" table="public.item_nota">
+	<columns names="produto" ref-type="src-columns"/>
+	<columns names="produto" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="item_nota_imposto_item_nota_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.item_nota" table="public.imposto_item_nota">
+	<columns names="itemNota" ref-type="src-columns"/>
+	<columns names="itemNota" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="imposto_imposto_item_nota_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.imposto" table="public.imposto_item_nota">
+	<columns names="imposto" ref-type="src-columns"/>
+	<columns names="imposto" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="imposto_imposto_nota_fiscal_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.imposto" table="public.imposto_nota_fiscal">
+	<columns names="imposto" ref-type="src-columns"/>
+	<columns names="imposto" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="nota_fiscal_imposto_nota_fiscal_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.nota_fiscal" table="public.imposto_nota_fiscal">
+	<columns names="notaFiscal" ref-type="src-columns"/>
+	<columns names="notaFiscal" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="marca_produto_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.marca" table="public.produto">
+	<columns names="marca" ref-type="src-columns"/>
+	<columns names="marca" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="categoria_produto_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.categoria" table="public.produto">
+	<columns names="categoria" ref-type="src-columns"/>
+	<columns names="categoria" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="unidade_medida_produto_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.unidade_medida" table="public.produto">
+	<columns names="unidadeMedida" ref-type="src-columns"/>
+	<columns names="unidadeMedida" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="produto_saldo_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.produto" table="public.saldo">
+	<columns names="produto" ref-type="src-columns"/>
+	<columns names="produto" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="tipo_operacao_movimentacao_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.tipo_operacao" table="public.movimentacao">
+	<columns names="tipoOperacao" ref-type="src-columns"/>
+	<columns names="tipoOperacao" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="produto_movimentacao_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.produto" table="public.movimentacao">
+	<columns names="produto" ref-type="src-columns"/>
+	<columns names="produto" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="contas_parcela_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.contas" table="public.parcela">
+	<columns names="contaPagar" ref-type="src-columns"/>
+	<columns names="contaPagar" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="nota_fiscal_contas_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.nota_fiscal" table="public.contas">
+	<columns names="notaFiscal" ref-type="src-columns"/>
+	<columns names="notaFiscal" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="pessoa_contas_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pessoa" table="public.contas">
+	<columns names="pessoa" ref-type="src-columns"/>
+	<columns names="pessoa" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="contas_status_contas_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.contas_status" table="public.contas">
+	<columns names="ContasStatusCodigo" ref-type="src-columns"/>
+	<columns names="ContasStatusCodigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="ativoimobilizado_historico_depreciacao_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.ativoimobilizado" table="public.historico_depreciacao">
+	<columns names="ativoImobilizado" ref-type="src-columns"/>
+	<columns names="ativoImobilizado" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="operacao_tributacao_op_codigo_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.operacoes" table="public.operacao_tributacao">
+	<columns names="op_codigo" ref-type="src-columns"/>
+	<columns names="op_codigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="operacao_tributacao_trib_codigo_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.tributacao" table="public.operacao_tributacao">
+	<columns names="trib_codigo" ref-type="src-columns"/>
+	<columns names="trib_codigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="movimento_bancario_op_codigo_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.operacoes" table="public.movimento_bancario">
+	<columns names="op_codigo" ref-type="src-columns"/>
+	<columns names="op_codigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="movimento_bancario_pessoa_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.pessoa" table="public.movimento_bancario">
+	<columns names="pessoa" ref-type="src-columns"/>
+	<columns names="pessoa" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="lancamentos_op_codigo_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.operacoes" table="public.lancamentos">
+	<columns names="op_codigo" ref-type="src-columns"/>
+	<columns names="op_codigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fluxo_caixa_pessoa_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.pessoa" table="public.fluxo_caixa">
+	<columns names="pessoa" ref-type="src-columns"/>
+	<columns names="pessoa" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="esp_fluxo_caixa_flux_codigo_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.fluxo_caixa" table="public.esp_fluxo_caixa">
+	<columns names="flux_codigo" ref-type="src-columns"/>
+	<columns names="flux_codigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="esp_fluxo_caixa_esp_codigo_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.especificacoes" table="public.esp_fluxo_caixa">
+	<columns names="esp_codigo" ref-type="src-columns"/>
+	<columns names="esp_codigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="lancamentos_especificacoes_lan_codigo_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.lancamentos" table="public.lancamentos_especificacoes">
+	<columns names="lan_codigo" ref-type="src-columns"/>
+	<columns names="lan_codigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="lancamentos_especificacoes_esp_codigo_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.especificacoes" table="public.lancamentos_especificacoes">
+	<columns names="esp_codigo" ref-type="src-columns"/>
+	<columns names="esp_codigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="movimentos_especificacoes_mov_ban_codigo_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.movimento_bancario" table="public.movimentos_especificacoes">
+	<columns names="mov_ban_codigo" ref-type="src-columns"/>
+	<columns names="mov_ban_codigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="movimentos_especificacoes_esp_codigo_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="RESTRICT" del-action="RESTRICT" ref-table="public.especificacoes" table="public.movimentos_especificacoes">
+	<columns names="esp_codigo" ref-type="src-columns"/>
+	<columns names="esp_codigo" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_ativoimobilizado_nota_fiscal" type="relfk"
+	 custom-color="#83af1f"
+	 src-table="public.ativoimobilizado"
+	 dst-table="public.nota_fiscal"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_ativoimobilizado_categoria" type="relfk"
+	 custom-color="#5aa578"
+	 src-table="public.ativoimobilizado"
+	 dst-table="public.categoria"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_ativoimobilizado_marca" type="relfk"
+	 custom-color="#4b3e56"
+	 src-table="public.ativoimobilizado"
+	 dst-table="public.marca"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_baixa_tipo_baixa" type="relfk"
+	 custom-color="#9ac721"
+	 src-table="public.baixa"
+	 dst-table="public.tipo_baixa"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_baixa_ativoimobilizado" type="relfk"
+	 custom-color="#249b49"
+	 src-table="public.baixa"
+	 dst-table="public.ativoimobilizado"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_depreciacao_categoria" type="relfk"
+	 custom-color="#942665"
+	 src-table="public.depreciacao"
+	 dst-table="public.categoria"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_nota_fiscal_pessoa" type="relfk"
+	 custom-color="#abb258"
+	 src-table="public.nota_fiscal"
+	 dst-table="public.pessoa"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_item_nota_nota_fiscal" type="relfk"
+	 custom-color="#94e1e5"
+	 src-table="public.item_nota"
+	 dst-table="public.nota_fiscal"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_item_nota_produto" type="relfk"
+	 custom-color="#a239f5"
+	 src-table="public.item_nota"
+	 dst-table="public.produto"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_imposto_item_nota_item_nota" type="relfk"
+	 custom-color="#4e132e"
+	 src-table="public.imposto_item_nota"
+	 dst-table="public.item_nota"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_imposto_item_nota_imposto" type="relfk"
+	 custom-color="#081cb1"
+	 src-table="public.imposto_item_nota"
+	 dst-table="public.imposto"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_imposto_nota_fiscal_imposto" type="relfk"
+	 custom-color="#87ec86"
+	 src-table="public.imposto_nota_fiscal"
+	 dst-table="public.imposto"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_imposto_nota_fiscal_nota_fiscal" type="relfk"
+	 custom-color="#63e1f3"
+	 src-table="public.imposto_nota_fiscal"
+	 dst-table="public.nota_fiscal"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_produto_marca" type="relfk"
+	 custom-color="#e41bea"
+	 src-table="public.produto"
+	 dst-table="public.marca"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_produto_categoria" type="relfk"
+	 custom-color="#36beed"
+	 src-table="public.produto"
+	 dst-table="public.categoria"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_produto_unidade_medida" type="relfk"
+	 custom-color="#871fa4"
+	 src-table="public.produto"
+	 dst-table="public.unidade_medida"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_saldo_produto" type="relfk"
+	 custom-color="#484368"
+	 src-table="public.saldo"
+	 dst-table="public.produto"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_movimentacao_tipo_operacao" type="relfk"
+	 custom-color="#ce5d86"
+	 src-table="public.movimentacao"
+	 dst-table="public.tipo_operacao"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_movimentacao_produto" type="relfk"
+	 custom-color="#132c5f"
+	 src-table="public.movimentacao"
+	 dst-table="public.produto"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_parcela_contas" type="relfk"
+	 custom-color="#3aff7d"
+	 src-table="public.parcela"
+	 dst-table="public.contas"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_contas_nota_fiscal" type="relfk"
+	 custom-color="#5cce88"
+	 src-table="public.contas"
+	 dst-table="public.nota_fiscal"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_contas_pessoa" type="relfk"
+	 custom-color="#264253"
+	 src-table="public.contas"
+	 dst-table="public.pessoa"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_contas_contas_status" type="relfk"
+	 custom-color="#e55a24"
+	 src-table="public.contas"
+	 dst-table="public.contas_status"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_historico_depreciacao_ativoimobilizado" type="relfk"
+	 custom-color="#044d5b"
+	 src-table="public.historico_depreciacao"
+	 dst-table="public.ativoimobilizado"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_operacao_tributacao_operacoes" type="relfk"
+	 custom-color="#713b0a"
+	 src-table="public.operacao_tributacao"
+	 dst-table="public.operacoes"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_operacao_tributacao_tributacao" type="relfk"
+	 custom-color="#6217d0"
+	 src-table="public.operacao_tributacao"
+	 dst-table="public.tributacao"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_movimento_bancario_operacoes" type="relfk"
+	 custom-color="#aa9ef1"
+	 src-table="public.movimento_bancario"
+	 dst-table="public.operacoes"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_movimento_bancario_pessoa" type="relfk"
+	 custom-color="#468d0a"
+	 src-table="public.movimento_bancario"
+	 dst-table="public.pessoa"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_lancamentos_operacoes" type="relfk"
+	 custom-color="#822586"
+	 src-table="public.lancamentos"
+	 dst-table="public.operacoes"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_fluxo_caixa_pessoa" type="relfk"
+	 custom-color="#1edf72"
+	 src-table="public.fluxo_caixa"
+	 dst-table="public.pessoa"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_esp_fluxo_caixa_fluxo_caixa" type="relfk"
+	 custom-color="#e86279"
+	 src-table="public.esp_fluxo_caixa"
+	 dst-table="public.fluxo_caixa"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_esp_fluxo_caixa_especificacoes" type="relfk"
+	 custom-color="#acfe05"
+	 src-table="public.esp_fluxo_caixa"
+	 dst-table="public.especificacoes"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_lancamentos_especificacoes_lancamentos" type="relfk"
+	 custom-color="#593164"
+	 src-table="public.lancamentos_especificacoes"
+	 dst-table="public.lancamentos"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_lancamentos_especificacoes_especificacoes" type="relfk"
+	 custom-color="#4f7b62"
+	 src-table="public.lancamentos_especificacoes"
+	 dst-table="public.especificacoes"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_movimentos_especificacoes_movimento_bancario" type="relfk"
+	 custom-color="#cc5671"
+	 src-table="public.movimentos_especificacoes"
+	 dst-table="public.movimento_bancario"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_movimentos_especificacoes_especificacoes" type="relfk"
+	 custom-color="#247722"
+	 src-table="public.movimentos_especificacoes"
+	 dst-table="public.especificacoes"
+	 src-required="false" dst-required="false"/>
 
 </dbmodel>
