@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="0,427" last-zoom="0.7"
+<dbmodel pgmodeler-ver="0.8.2" last-position="125,0" last-zoom="0.7"
 	 default-schema="public" default-owner="postgres">
 <database name="pratica_1" encoding="UTF8" lc-collate="Portuguese_Brazil" lc-ctype="Portuguese_Brazil">
 	<role name="postgres"/>
@@ -21,32 +21,32 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="ativoimobilizado">
+<table name="pat_ativo_imobilizado">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="60" y="60"/>
-	<column name="ativoImobilizado" not-null="true" sequence="public.ativo_imobilizado_sequencia">
+	<position x="28.5714" y="60"/>
+	<column name="ativo_codigo" not-null="true" sequence="public.ativo_imobilizado_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="descricao" not-null="true">
+	<column name="ativo_descricao" not-null="true">
 		<type name="character varying" length="200"/>
 	</column>
-	<column name="valorOriginal" not-null="true">
+	<column name="ativo_valor_original" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="valorAtual" not-null="true">
+	<column name="ativo_valor_atual" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="taxaValorResidual" not-null="true">
+	<column name="ativo_taxa_valor_residual" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="valorResidual" not-null="true">
+	<column name="ativo_valor_residual" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="estadoBem" not-null="true">
+	<column name="ativo_estado_bem" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="utilizacao" not-null="true">
+	<column name="ativo_utilizacao" not-null="true">
 		<type name="integer"/>
 	</column>
 	<column name="notaFiscal">
@@ -58,13 +58,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="marca">
 		<type name="integer"/>
 	</column>
-	<constraint name="AtivoImobilizado_PK" type="pk-constr" table="public.ativoimobilizado">
-		<columns names="ativoImobilizado" ref-type="src-columns"/>
+	<constraint name="AtivoImobilizado_PK" type="pk-constr" table="public.pat_ativo_imobilizado">
+		<columns names="ativo_codigo" ref-type="src-columns"/>
 	</constraint>
-	<constraint name="ativoimobilizado_uq" type="uq-constr" table="public.ativoimobilizado">
+	<constraint name="ativoimobilizado_uq" type="uq-constr" table="public.pat_ativo_imobilizado">
 		<columns names="categoria" ref-type="src-columns"/>
 	</constraint>
-	<constraint name="ativoimobilizado_uq1" type="uq-constr" table="public.ativoimobilizado">
+	<constraint name="ativoimobilizado_uq1" type="uq-constr" table="public.pat_ativo_imobilizado">
 		<columns names="marca" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -77,18 +77,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="tipo_baixa">
+<table name="pat_tipo_baixa">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="420" y="60"/>
-	<column name="tipoBaixa" not-null="true" sequence="public.tipo_baixa_sequencia">
+	<column name="tipo_baixa_codigo" not-null="true" sequence="public.tipo_baixa_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="descricao" not-null="true">
+	<column name="tipo_baixa_descricao" not-null="true">
 		<type name="character varying" length="200"/>
 	</column>
-	<constraint name="TipoBaixa_PK" type="pk-constr" table="public.tipo_baixa">
-		<columns names="tipoBaixa" ref-type="src-columns"/>
+	<constraint name="TipoBaixa_PK" type="pk-constr" table="public.pat_tipo_baixa">
+		<columns names="tipo_baixa_codigo" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -100,14 +100,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="baixa">
+<table name="pat_baixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="740" y="60"/>
-	<column name="baixa" not-null="true" sequence="public.baixa_sequencia">
+	<position x="738.571" y="58.5714"/>
+	<column name="baixa_codigo" not-null="true" sequence="public.baixa_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="dataBaixa" not-null="true">
+	<column name="baixa_data_baixa" not-null="true">
 		<type name="date"/>
 	</column>
 	<column name="tipoBaixa">
@@ -116,10 +116,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="ativoImobilizado">
 		<type name="integer"/>
 	</column>
-	<constraint name="Baixa_PK" type="pk-constr" table="public.baixa">
-		<columns names="baixa" ref-type="src-columns"/>
+	<constraint name="Baixa_PK" type="pk-constr" table="public.pat_baixa">
+		<columns names="baixa_codigo" ref-type="src-columns"/>
 	</constraint>
-	<constraint name="baixa_uq" type="uq-constr" table="public.baixa">
+	<constraint name="baixa_uq" type="uq-constr" table="public.pat_baixa">
 		<columns names="ativoImobilizado" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -132,29 +132,29 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="depreciacao">
+<table name="pat_depreciacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1000" y="60"/>
-	<column name="depreciacao" not-null="true" sequence="public.depreciacao_sequencia">
+	<position x="978.571" y="57.1429"/>
+	<column name="depreciacao_codigo" not-null="true" sequence="public.depreciacao_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="taxaAnual" not-null="true">
+	<column name="depreciacao_taxa_anual" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="vidaUtil" not-null="true">
+	<column name="depreciacao_vida_util" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="taxaMensal" not-null="true">
+	<column name="depreciacao_taxa_mensal" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<column name="categoria">
 		<type name="integer"/>
 	</column>
-	<constraint name="Depreciacao_PK" type="pk-constr" table="public.depreciacao">
-		<columns names="depreciacao" ref-type="src-columns"/>
+	<constraint name="Depreciacao_PK" type="pk-constr" table="public.pat_depreciacao">
+		<columns names="depreciacao_codigo" ref-type="src-columns"/>
 	</constraint>
-	<constraint name="depreciacao_uq" type="uq-constr" table="public.depreciacao">
+	<constraint name="depreciacao_uq" type="uq-constr" table="public.pat_depreciacao">
 		<columns names="categoria" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -167,32 +167,32 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="nota_fiscal">
+<table name="pat_nota_fiscal">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1300" y="60"/>
-	<column name="notaFiscal" not-null="true" sequence="public.nota_fiscal_sequencia">
+	<position x="1344.29" y="60"/>
+	<column name="nota_codigo" not-null="true" sequence="public.nota_fiscal_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="valor" not-null="true">
+	<column name="nota_valor" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="dataEmissao" not-null="true">
+	<column name="nota_data_emissao" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="chaveAcesso" not-null="true">
+	<column name="nota_chave_acesso" not-null="true">
 		<type name="character varying" length="100"/>
 	</column>
-	<column name="dataEntrada" not-null="true">
+	<column name="nota_data_entrada" not-null="true">
 		<type name="date"/>
 	</column>
 	<column name="pessoa">
 		<type name="integer"/>
 	</column>
-	<constraint name="NotaFiscal_PK" type="pk-constr" table="public.nota_fiscal">
-		<columns names="notaFiscal" ref-type="src-columns"/>
+	<constraint name="NotaFiscal_PK" type="pk-constr" table="public.pat_nota_fiscal">
+		<columns names="nota_codigo" ref-type="src-columns"/>
 	</constraint>
-	<constraint name="nota_fiscal_uq" type="uq-constr" table="public.nota_fiscal">
+	<constraint name="nota_fiscal_uq" type="uq-constr" table="public.pat_nota_fiscal">
 		<columns names="pessoa" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -205,21 +205,21 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="imposto">
+<table name="pat_imposto">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="60" y="280"/>
-	<column name="imposto" not-null="true" sequence="public.imposto_sequencia">
+	<column name="imposto_codigo" not-null="true" sequence="public.imposto_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="nome" not-null="true">
+	<column name="imposto_nome" not-null="true">
 		<type name="character varying" length="100"/>
 	</column>
-	<column name="aliquota" not-null="true">
+	<column name="imposto_aliquota" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<constraint name="Imposto_PK" type="pk-constr" table="public.imposto">
-		<columns names="imposto" ref-type="src-columns"/>
+	<constraint name="Imposto_PK" type="pk-constr" table="public.pat_imposto">
+		<columns names="imposto_codigo" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -231,20 +231,20 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="item_nota">
+<table name="pat_item_nota">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="360" y="280"/>
-	<column name="itemNota" not-null="true" sequence="public.item_nota_sequencia">
+	<position x="361.429" y="280"/>
+	<column name="item_nota_codigo" not-null="true" sequence="public.item_nota_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="quantidade" not-null="true">
+	<column name="item_nota_quantidade" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="valorUnitario" not-null="true">
+	<column name="item_nota_valor_unitario" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="valorTotal" not-null="true">
+	<column name="item_nota_valor_total" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<column name="notaFiscal">
@@ -253,10 +253,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="produto">
 		<type name="integer"/>
 	</column>
-	<constraint name="ItemNota_PK" type="pk-constr" table="public.item_nota">
-		<columns names="itemNota" ref-type="src-columns"/>
+	<constraint name="ItemNota_PK" type="pk-constr" table="public.pat_item_nota">
+		<columns names="item_nota_codigo" ref-type="src-columns"/>
 	</constraint>
-	<constraint name="item_nota_uq" type="uq-constr" table="public.item_nota">
+	<constraint name="item_nota_uq" type="uq-constr" table="public.pat_item_nota">
 		<columns names="produto" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -269,14 +269,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="imposto_item_nota">
+<table name="pat_imposto_item_nota">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="660" y="280"/>
-	<column name="impostoItemNota" not-null="true" sequence="public.imposto_item_nota_sequencia">
+	<position x="688.571" y="280"/>
+	<column name="imposto_item_nota_codigo" not-null="true" sequence="public.imposto_item_nota_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="valorImposto" not-null="true">
+	<column name="imposto_item_nota_valor_imposto" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<column name="itemNota">
@@ -285,8 +285,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="imposto">
 		<type name="integer"/>
 	</column>
-	<constraint name="ImpostoItemNota_PK" type="pk-constr" table="public.imposto_item_nota">
-		<columns names="impostoItemNota" ref-type="src-columns"/>
+	<constraint name="ImpostoItemNota_PK" type="pk-constr" table="public.pat_imposto_item_nota">
+		<columns names="imposto_item_nota_codigo" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -298,14 +298,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="imposto_nota_fiscal">
+<table name="pat_imposto_nota_fiscal">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="980" y="280"/>
-	<column name="impostoNotaFiscal" not-null="true" sequence="public.imposto_nota_fiscal_sequencia">
+	<column name="imposto_nota_fiscal_codigo" not-null="true" sequence="public.imposto_nota_fiscal_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="valor" not-null="true">
+	<column name="imposto_nota_fiscal_valor" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<column name="imposto">
@@ -314,8 +314,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="notaFiscal">
 		<type name="integer"/>
 	</column>
-	<constraint name="ImpostoNotaFiscal_PK" type="pk-constr" table="public.imposto_nota_fiscal">
-		<columns names="impostoNotaFiscal" ref-type="src-columns"/>
+	<constraint name="ImpostoNotaFiscal_PK" type="pk-constr" table="public.pat_imposto_nota_fiscal">
+		<columns names="imposto_nota_fiscal_codigo" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -643,30 +643,30 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="historico_depreciacao">
+<table name="pat_historico_depreciacao">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1340" y="600"/>
-	<column name="historicoDepreciacao" not-null="true" sequence="public.historico_depreciacao_sequencia">
+	<column name="historico_depreciacao_codigo" not-null="true" sequence="public.historico_depreciacao_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="dia" not-null="true">
+	<column name="historico_depreciacao_dia" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="mes" not-null="true">
+	<column name="historico_depreciacao_mes" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="ano" not-null="true">
+	<column name="historico_depreciacao_ano" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="valor" not-null="true">
+	<column name="historico_depreciacao_valor" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<column name="ativoImobilizado">
 		<type name="integer"/>
 	</column>
-	<constraint name="HistoricoDepreciacao_PK" type="pk-constr" table="public.historico_depreciacao">
-		<columns names="historicoDepreciacao" ref-type="src-columns"/>
+	<constraint name="HistoricoDepreciacao_PK" type="pk-constr" table="public.pat_historico_depreciacao">
+		<columns names="historico_depreciacao_codigo" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -924,81 +924,81 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </table>
 
 <constraint name="nota_fiscal_ativoimobilizado_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.nota_fiscal" table="public.ativoimobilizado">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_nota_fiscal" table="public.pat_ativo_imobilizado">
 	<columns names="notaFiscal" ref-type="src-columns"/>
-	<columns names="notaFiscal" ref-type="dst-columns"/>
+	<columns names="nota_codigo" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="categoria_ativoimobilizado_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.categoria" table="public.ativoimobilizado">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.categoria" table="public.pat_ativo_imobilizado">
 	<columns names="categoria" ref-type="src-columns"/>
 	<columns names="categoria" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="marca_ativoimobilizado_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.marca" table="public.ativoimobilizado">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.marca" table="public.pat_ativo_imobilizado">
 	<columns names="marca" ref-type="src-columns"/>
 	<columns names="marca" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="tipo_baixa_baixa_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.tipo_baixa" table="public.baixa">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_tipo_baixa" table="public.pat_baixa">
 	<columns names="tipoBaixa" ref-type="src-columns"/>
-	<columns names="tipoBaixa" ref-type="dst-columns"/>
+	<columns names="tipo_baixa_codigo" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="ativoimobilizado_baixa_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.ativoimobilizado" table="public.baixa">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_ativo_imobilizado" table="public.pat_baixa">
 	<columns names="ativoImobilizado" ref-type="src-columns"/>
-	<columns names="ativoImobilizado" ref-type="dst-columns"/>
+	<columns names="ativo_codigo" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="categoria_depreciacao_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.categoria" table="public.depreciacao">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.categoria" table="public.pat_depreciacao">
 	<columns names="categoria" ref-type="src-columns"/>
 	<columns names="categoria" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="pessoa_nota_fiscal_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pessoa" table="public.nota_fiscal">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pessoa" table="public.pat_nota_fiscal">
 	<columns names="pessoa" ref-type="src-columns"/>
 	<columns names="pessoa" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="nota_fiscal_item_nota_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.nota_fiscal" table="public.item_nota">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_nota_fiscal" table="public.pat_item_nota">
 	<columns names="notaFiscal" ref-type="src-columns"/>
-	<columns names="notaFiscal" ref-type="dst-columns"/>
+	<columns names="nota_codigo" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="produto_item_nota_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.produto" table="public.item_nota">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.produto" table="public.pat_item_nota">
 	<columns names="produto" ref-type="src-columns"/>
 	<columns names="produto" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="item_nota_imposto_item_nota_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.item_nota" table="public.imposto_item_nota">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_item_nota" table="public.pat_imposto_item_nota">
 	<columns names="itemNota" ref-type="src-columns"/>
-	<columns names="itemNota" ref-type="dst-columns"/>
+	<columns names="item_nota_codigo" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="imposto_imposto_item_nota_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.imposto" table="public.imposto_item_nota">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_imposto" table="public.pat_imposto_item_nota">
 	<columns names="imposto" ref-type="src-columns"/>
-	<columns names="imposto" ref-type="dst-columns"/>
+	<columns names="imposto_codigo" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="imposto_imposto_nota_fiscal_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.imposto" table="public.imposto_nota_fiscal">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_imposto" table="public.pat_imposto_nota_fiscal">
 	<columns names="imposto" ref-type="src-columns"/>
-	<columns names="imposto" ref-type="dst-columns"/>
+	<columns names="imposto_codigo" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="nota_fiscal_imposto_nota_fiscal_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.nota_fiscal" table="public.imposto_nota_fiscal">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_nota_fiscal" table="public.pat_imposto_nota_fiscal">
 	<columns names="notaFiscal" ref-type="src-columns"/>
-	<columns names="notaFiscal" ref-type="dst-columns"/>
+	<columns names="nota_codigo" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="marca_produto_fk" type="fk-constr" comparison-type="MATCH FULL"
@@ -1044,9 +1044,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </constraint>
 
 <constraint name="nota_fiscal_contas_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.nota_fiscal" table="public.contas">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_nota_fiscal" table="public.contas">
 	<columns names="notaFiscal" ref-type="src-columns"/>
-	<columns names="notaFiscal" ref-type="dst-columns"/>
+	<columns names="nota_codigo" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="pessoa_contas_fk" type="fk-constr" comparison-type="MATCH FULL"
@@ -1062,9 +1062,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </constraint>
 
 <constraint name="ativoimobilizado_historico_depreciacao_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.ativoimobilizado" table="public.historico_depreciacao">
+	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_ativo_imobilizado" table="public.pat_historico_depreciacao">
 	<columns names="ativoImobilizado" ref-type="src-columns"/>
-	<columns names="ativoImobilizado" ref-type="dst-columns"/>
+	<columns names="ativo_codigo" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="operacao_tributacao_op_codigo_fkey" type="fk-constr" comparison-type="MATCH SIMPLE"
@@ -1141,80 +1141,80 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <relationship name="rel_ativoimobilizado_nota_fiscal" type="relfk"
 	 custom-color="#83af1f"
-	 src-table="public.ativoimobilizado"
-	 dst-table="public.nota_fiscal"
+	 src-table="public.pat_ativo_imobilizado"
+	 dst-table="public.pat_nota_fiscal"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_ativoimobilizado_categoria" type="relfk"
 	 custom-color="#5aa578"
-	 src-table="public.ativoimobilizado"
+	 src-table="public.pat_ativo_imobilizado"
 	 dst-table="public.categoria"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_ativoimobilizado_marca" type="relfk"
 	 custom-color="#4b3e56"
-	 src-table="public.ativoimobilizado"
+	 src-table="public.pat_ativo_imobilizado"
 	 dst-table="public.marca"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_baixa_tipo_baixa" type="relfk"
 	 custom-color="#9ac721"
-	 src-table="public.baixa"
-	 dst-table="public.tipo_baixa"
+	 src-table="public.pat_baixa"
+	 dst-table="public.pat_tipo_baixa"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_baixa_ativoimobilizado" type="relfk"
 	 custom-color="#249b49"
-	 src-table="public.baixa"
-	 dst-table="public.ativoimobilizado"
+	 src-table="public.pat_baixa"
+	 dst-table="public.pat_ativo_imobilizado"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_depreciacao_categoria" type="relfk"
 	 custom-color="#942665"
-	 src-table="public.depreciacao"
+	 src-table="public.pat_depreciacao"
 	 dst-table="public.categoria"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_nota_fiscal_pessoa" type="relfk"
 	 custom-color="#abb258"
-	 src-table="public.nota_fiscal"
+	 src-table="public.pat_nota_fiscal"
 	 dst-table="public.pessoa"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_item_nota_nota_fiscal" type="relfk"
 	 custom-color="#94e1e5"
-	 src-table="public.item_nota"
-	 dst-table="public.nota_fiscal"
+	 src-table="public.pat_item_nota"
+	 dst-table="public.pat_nota_fiscal"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_item_nota_produto" type="relfk"
 	 custom-color="#a239f5"
-	 src-table="public.item_nota"
+	 src-table="public.pat_item_nota"
 	 dst-table="public.produto"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_imposto_item_nota_item_nota" type="relfk"
 	 custom-color="#4e132e"
-	 src-table="public.imposto_item_nota"
-	 dst-table="public.item_nota"
+	 src-table="public.pat_imposto_item_nota"
+	 dst-table="public.pat_item_nota"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_imposto_item_nota_imposto" type="relfk"
 	 custom-color="#081cb1"
-	 src-table="public.imposto_item_nota"
-	 dst-table="public.imposto"
+	 src-table="public.pat_imposto_item_nota"
+	 dst-table="public.pat_imposto"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_imposto_nota_fiscal_imposto" type="relfk"
 	 custom-color="#87ec86"
-	 src-table="public.imposto_nota_fiscal"
-	 dst-table="public.imposto"
+	 src-table="public.pat_imposto_nota_fiscal"
+	 dst-table="public.pat_imposto"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_imposto_nota_fiscal_nota_fiscal" type="relfk"
 	 custom-color="#63e1f3"
-	 src-table="public.imposto_nota_fiscal"
-	 dst-table="public.nota_fiscal"
+	 src-table="public.pat_imposto_nota_fiscal"
+	 dst-table="public.pat_nota_fiscal"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_produto_marca" type="relfk"
@@ -1262,7 +1262,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <relationship name="rel_contas_nota_fiscal" type="relfk"
 	 custom-color="#5cce88"
 	 src-table="public.contas"
-	 dst-table="public.nota_fiscal"
+	 dst-table="public.pat_nota_fiscal"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_contas_pessoa" type="relfk"
@@ -1279,8 +1279,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <relationship name="rel_historico_depreciacao_ativoimobilizado" type="relfk"
 	 custom-color="#044d5b"
-	 src-table="public.historico_depreciacao"
-	 dst-table="public.ativoimobilizado"
+	 src-table="public.pat_historico_depreciacao"
+	 dst-table="public.pat_ativo_imobilizado"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_operacao_tributacao_operacoes" type="relfk"
