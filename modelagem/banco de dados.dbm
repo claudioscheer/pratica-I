@@ -3,9 +3,497 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="379,0" last-zoom="0.55"
+<dbmodel pgmodeler-ver="0.8.2" last-position="54,0" last-zoom="0.4"
 	 default-schema="public" default-owner="postgres">
 <database name="pratica_1">
+	<appended-sql><![CDATA[/*
+Created		24/09/2016
+Modified		12/10/2016
+Project		
+Model			
+Company		
+Author		
+Version		
+Database		PostgreSQL 8.0 
+*/
+
+
+/* Drop Referential Integrity Triggers */
+
+
+/* Drop User-Defined Triggers */
+
+
+/* Drop Domains */
+
+
+/* Drop Procedures */
+
+
+/* Drop Views */
+
+
+/* Drop Indexes */
+
+
+/* Drop Tables */
+Drop table "movimentos_especificacoes" Restrict;
+Drop table "lancamentos_especificacoes" Restrict;
+Drop table "fluxo_caixa_fechamento" Restrict;
+Drop table "esp_fluxo_caixa" Restrict;
+Drop table "especificacoes" Restrict;
+Drop table "pessoa" Restrict;
+Drop table "fluxo_caixa" Restrict;
+Drop table "lancamentos" Restrict;
+Drop table "movimento_bancario" Restrict;
+Drop table "operacao_tributacao" Restrict;
+Drop table "tributacao" Restrict;
+Drop table "operacoes" Restrict;
+Drop table "livro_caixa" Restrict;
+
+
+/* Create Domains */
+
+
+/* Create Tables */
+
+
+Create table "livro_caixa"
+(
+	"lvr_cx_codigo" Integer NOT NULL,
+	"lvr_cx_saldo_anterior" Numeric(14,2),
+	"lvr_cx_saldo_atual" Numeric(14,2),
+	"lvr_cx_total_entrada" Numeric(14,2),
+	"lvr_cx_total_saida" Numeric(14,2),
+	"lvr_cx_data_inicial" Date,
+	"lvr_cx_data_final" Date,
+ primary key ("lvr_cx_codigo")
+) Without Oids;
+
+
+Create table "operacoes"
+(
+	"op_codigo" Integer NOT NULL,
+	"op_descricao" Varchar(250),
+ primary key ("op_codigo")
+) Without Oids;
+
+
+Create table "tributacao"
+(
+	"trib_codigo" Integer NOT NULL,
+	"trib_descricao" Char(20),
+ primary key ("trib_codigo")
+) Without Oids;
+
+
+Create table "operacao_tributacao"
+(
+	"op_codigo" Integer NOT NULL,
+	"trib_codigo" Integer NOT NULL,
+ primary key ("op_codigo","trib_codigo")
+) Without Oids;
+
+
+Create table "movimento_bancario"
+(
+	"mov_ban_codigo" Integer NOT NULL,
+	"mov_ban_data" Date,
+	"mov_ban_documento" Numeric(30,0),
+	"mov_ban_numero" Numeric(30,0),
+	"mov_ban_entrada" Numeric(14,2),
+	"mov_ban_saida" Numeric(14,2),
+	"op_codigo" Integer NOT NULL,
+	"pes_codigo" Integer NOT NULL,
+ primary key ("mov_ban_codigo")
+) Without Oids;
+
+
+Create table "lancamentos"
+(
+	"lan_codigo" Integer NOT NULL,
+	"op_codigo" Integer NOT NULL,
+ primary key ("lan_codigo")
+) Without Oids;
+
+
+Create table "fluxo_caixa"
+(
+	"flux_codigo" Integer NOT NULL,
+	"flux_item" Integer,
+	"flux_data" Date,
+	"flux_qtd_colaboradores" Integer,
+	"pes_codigo" Integer NOT NULL,
+ primary key ("flux_codigo")
+) Without Oids;
+
+
+Create table "pessoa"
+(
+	"pes_codigo" Integer NOT NULL,
+ primary key ("pes_codigo")
+) Without Oids;
+
+
+Create table "especificacoes"
+(
+	"esp_codigo" Integer NOT NULL,
+	"esp_descricao" Varchar(250),
+	"esp_codigo_pai" Integer,
+ primary key ("esp_codigo")
+) Without Oids;
+
+
+Create table "esp_fluxo_caixa"
+(
+	"esp_codigo" Integer NOT NULL,
+	"flux_codigo" Integer NOT NULL,
+	"esp_flux_data" Date,
+ primary key ("esp_codigo","flux_codigo")
+) Without Oids;
+
+
+Create table "fluxo_caixa_fechamento"
+(
+	"fech_codigo" Integer NOT NULL,
+	"fech_data" Date,
+	"fech_saldo_mes" Numeric(14,2),
+	"fech_saldo_disponivel" Numeric(14,2),
+ primary key ("fech_codigo")
+) Without Oids;
+
+
+Create table "lancamentos_especificacoes"
+(
+	"lan_codigo" Integer NOT NULL,
+	"esp_codigo" Integer NOT NULL,
+ primary key ("lan_codigo","esp_codigo")
+) Without Oids;
+
+
+Create table "movimentos_especificacoes"
+(
+	"mov_ban_codigo" Integer NOT NULL,
+	"esp_codigo" Integer NOT NULL,
+ primary key ("mov_ban_codigo","esp_codigo")
+) Without Oids;
+
+
+/* Create Tab 'Others' for Selected Tables */
+
+
+/* Create Alternate Keys */
+
+
+/* Create Indexes */
+
+
+/* Create Foreign Keys */
+
+Alter table "operacao_tributacao" add  foreign key ("op_codigo") references "operacoes" ("op_codigo") on update restrict on delete restrict;
+
+Alter table "lancamentos" add  foreign key ("op_codigo") references "operacoes" ("op_codigo") on update restrict on delete restrict;
+
+Alter table "movimento_bancario" add  foreign key ("op_codigo") references "operacoes" ("op_codigo") on update restrict on delete restrict;
+
+Alter table "operacao_tributacao" add  foreign key ("trib_codigo") references "tributacao" ("trib_codigo") on update restrict on delete restrict;
+
+Alter table "movimentos_especificacoes" add  foreign key ("mov_ban_codigo") references "movimento_bancario" ("mov_ban_codigo") on update restrict on delete restrict;
+
+Alter table "lancamentos_especificacoes" add  foreign key ("lan_codigo") references "lancamentos" ("lan_codigo") on update restrict on delete restrict;
+
+Alter table "esp_fluxo_caixa" add  foreign key ("flux_codigo") references "fluxo_caixa" ("flux_codigo") on update restrict on delete restrict;
+
+Alter table "fluxo_caixa" add  foreign key ("pes_codigo") references "pessoa" ("pes_codigo") on update restrict on delete restrict;
+
+Alter table "movimento_bancario" add  foreign key ("pes_codigo") references "pessoa" ("pes_codigo") on update restrict on delete restrict;
+
+Alter table "esp_fluxo_caixa" add  foreign key ("esp_codigo") references "especificacoes" ("esp_codigo") on update restrict on delete restrict;
+
+Alter table "lancamentos_especificacoes" add  foreign key ("esp_codigo") references "especificacoes" ("esp_codigo") on update restrict on delete restrict;
+
+Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") references "especificacoes" ("esp_codigo") on update restrict on delete restrict;
+
+
+/* Create Procedures */
+
+
+/* Create Views */
+
+
+/* Create Referential Integrity Triggers */
+
+
+/* Create User-Defined Triggers */
+
+
+/* Create Groups */
+
+
+/* Add Users To Groups */
+
+
+/* Create Group Permissions */
+/* Group permissions on tables */
+
+/* Group permissions on views */
+
+/* Group permissions on procedures */
+
+
+/* Create User Permissions */
+/* User permissions on tables */
+
+/* User permissions on views */
+
+/* User permissions on procedures */
+
+
+]]></appended-sql>
+	<prepended-sql><![CDATA[/*
+Created		24/09/2016
+Modified		12/10/2016
+Project		
+Model			
+Company		
+Author		
+Version		
+Database		PostgreSQL 8.0 
+*/
+
+
+/* Drop Referential Integrity Triggers */
+
+
+/* Drop User-Defined Triggers */
+
+
+/* Drop Domains */
+
+
+/* Drop Procedures */
+
+
+/* Drop Views */
+
+
+/* Drop Indexes */
+
+
+/* Drop Tables */
+Drop table "movimentos_especificacoes" Restrict;
+Drop table "lancamentos_especificacoes" Restrict;
+Drop table "fluxo_caixa_fechamento" Restrict;
+Drop table "esp_fluxo_caixa" Restrict;
+Drop table "especificacoes" Restrict;
+Drop table "pessoa" Restrict;
+Drop table "fluxo_caixa" Restrict;
+Drop table "lancamentos" Restrict;
+Drop table "movimento_bancario" Restrict;
+Drop table "operacao_tributacao" Restrict;
+Drop table "tributacao" Restrict;
+Drop table "operacoes" Restrict;
+Drop table "livro_caixa" Restrict;
+
+
+/* Create Domains */
+
+
+/* Create Tables */
+
+
+Create table "livro_caixa"
+(
+	"lvr_cx_codigo" Integer NOT NULL,
+	"lvr_cx_saldo_anterior" Numeric(14,2),
+	"lvr_cx_saldo_atual" Numeric(14,2),
+	"lvr_cx_total_entrada" Numeric(14,2),
+	"lvr_cx_total_saida" Numeric(14,2),
+	"lvr_cx_data_inicial" Date,
+	"lvr_cx_data_final" Date,
+ primary key ("lvr_cx_codigo")
+) Without Oids;
+
+
+Create table "operacoes"
+(
+	"op_codigo" Integer NOT NULL,
+	"op_descricao" Varchar(250),
+ primary key ("op_codigo")
+) Without Oids;
+
+
+Create table "tributacao"
+(
+	"trib_codigo" Integer NOT NULL,
+	"trib_descricao" Char(20),
+ primary key ("trib_codigo")
+) Without Oids;
+
+
+Create table "operacao_tributacao"
+(
+	"op_codigo" Integer NOT NULL,
+	"trib_codigo" Integer NOT NULL,
+ primary key ("op_codigo","trib_codigo")
+) Without Oids;
+
+
+Create table "movimento_bancario"
+(
+	"mov_ban_codigo" Integer NOT NULL,
+	"mov_ban_data" Date,
+	"mov_ban_documento" Numeric(30,0),
+	"mov_ban_numero" Numeric(30,0),
+	"mov_ban_entrada" Numeric(14,2),
+	"mov_ban_saida" Numeric(14,2),
+	"op_codigo" Integer NOT NULL,
+	"pes_codigo" Integer NOT NULL,
+ primary key ("mov_ban_codigo")
+) Without Oids;
+
+
+Create table "lancamentos"
+(
+	"lan_codigo" Integer NOT NULL,
+	"op_codigo" Integer NOT NULL,
+ primary key ("lan_codigo")
+) Without Oids;
+
+
+Create table "fluxo_caixa"
+(
+	"flux_codigo" Integer NOT NULL,
+	"flux_item" Integer,
+	"flux_data" Date,
+	"flux_qtd_colaboradores" Integer,
+	"pes_codigo" Integer NOT NULL,
+ primary key ("flux_codigo")
+) Without Oids;
+
+
+Create table "pessoa"
+(
+	"pes_codigo" Integer NOT NULL,
+ primary key ("pes_codigo")
+) Without Oids;
+
+
+Create table "especificacoes"
+(
+	"esp_codigo" Integer NOT NULL,
+	"esp_descricao" Varchar(250),
+	"esp_codigo_pai" Integer,
+ primary key ("esp_codigo")
+) Without Oids;
+
+
+Create table "esp_fluxo_caixa"
+(
+	"esp_codigo" Integer NOT NULL,
+	"flux_codigo" Integer NOT NULL,
+	"esp_flux_data" Date,
+ primary key ("esp_codigo","flux_codigo")
+) Without Oids;
+
+
+Create table "fluxo_caixa_fechamento"
+(
+	"fech_codigo" Integer NOT NULL,
+	"fech_data" Date,
+	"fech_saldo_mes" Numeric(14,2),
+	"fech_saldo_disponivel" Numeric(14,2),
+ primary key ("fech_codigo")
+) Without Oids;
+
+
+Create table "lancamentos_especificacoes"
+(
+	"lan_codigo" Integer NOT NULL,
+	"esp_codigo" Integer NOT NULL,
+ primary key ("lan_codigo","esp_codigo")
+) Without Oids;
+
+
+Create table "movimentos_especificacoes"
+(
+	"mov_ban_codigo" Integer NOT NULL,
+	"esp_codigo" Integer NOT NULL,
+ primary key ("mov_ban_codigo","esp_codigo")
+) Without Oids;
+
+
+/* Create Tab 'Others' for Selected Tables */
+
+
+/* Create Alternate Keys */
+
+
+/* Create Indexes */
+
+
+/* Create Foreign Keys */
+
+Alter table "operacao_tributacao" add  foreign key ("op_codigo") references "operacoes" ("op_codigo") on update restrict on delete restrict;
+
+Alter table "lancamentos" add  foreign key ("op_codigo") references "operacoes" ("op_codigo") on update restrict on delete restrict;
+
+Alter table "movimento_bancario" add  foreign key ("op_codigo") references "operacoes" ("op_codigo") on update restrict on delete restrict;
+
+Alter table "operacao_tributacao" add  foreign key ("trib_codigo") references "tributacao" ("trib_codigo") on update restrict on delete restrict;
+
+Alter table "movimentos_especificacoes" add  foreign key ("mov_ban_codigo") references "movimento_bancario" ("mov_ban_codigo") on update restrict on delete restrict;
+
+Alter table "lancamentos_especificacoes" add  foreign key ("lan_codigo") references "lancamentos" ("lan_codigo") on update restrict on delete restrict;
+
+Alter table "esp_fluxo_caixa" add  foreign key ("flux_codigo") references "fluxo_caixa" ("flux_codigo") on update restrict on delete restrict;
+
+Alter table "fluxo_caixa" add  foreign key ("pes_codigo") references "pessoa" ("pes_codigo") on update restrict on delete restrict;
+
+Alter table "movimento_bancario" add  foreign key ("pes_codigo") references "pessoa" ("pes_codigo") on update restrict on delete restrict;
+
+Alter table "esp_fluxo_caixa" add  foreign key ("esp_codigo") references "especificacoes" ("esp_codigo") on update restrict on delete restrict;
+
+Alter table "lancamentos_especificacoes" add  foreign key ("esp_codigo") references "especificacoes" ("esp_codigo") on update restrict on delete restrict;
+
+Alter table "movimentos_especificacoes" add  foreign key ("esp_codigo") references "especificacoes" ("esp_codigo") on update restrict on delete restrict;
+
+
+/* Create Procedures */
+
+
+/* Create Views */
+
+
+/* Create Referential Integrity Triggers */
+
+
+/* Create User-Defined Triggers */
+
+
+/* Create Groups */
+
+
+/* Add Users To Groups */
+
+
+/* Create Group Permissions */
+/* Group permissions on tables */
+
+/* Group permissions on views */
+
+/* Group permissions on procedures */
+
+
+/* Create User Permissions */
+/* User permissions on tables */
+
+/* User permissions on views */
+
+/* User permissions on procedures */
+
+
+]]></prepended-sql>
 </database>
 
 <schema name="public" fill-color="#e1e1e1" sql-disabled="true">
@@ -22,43 +510,46 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="ativoimobilizado">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2280" y="340"/>
-	<column name="ativoImobilizado" not-null="true" sequence="public.ativo_imobilizado_sequencia">
+	<position x="1840" y="240"/>
+	<column name="ativImobilizado_id" not-null="true" sequence="public.ativo_imobilizado_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="descricao" not-null="true">
+	<column name="ativImobilizado_descricao" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
-	<column name="valorOriginal" not-null="true">
+	<column name="ativImobilizado_vlrOriginal" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="valorAtual" not-null="true">
+	<column name="ativImobilizado_vlrAtual" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="taxaValorResidual" not-null="true">
+	<column name="ativImobilizado_txVlrResidual" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="valorResidual" not-null="true">
+	<column name="ativImobilizado_vlrResidual" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="estadoBem" not-null="true">
+	<column name="ativImobilizado_estadoBem" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="utilizacao" not-null="true">
+	<column name="ativImobilizado_utilizacao" not-null="true">
 		<type name="integer"/>
 	</column>
 	<constraint name="AtivoImobilizado_PK" type="pk-constr" table="public.ativoimobilizado">
-		<columns names="ativoImobilizado" ref-type="src-columns"/>
+		<columns names="ativImobilizado_id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="categoria" index="9"/>
-		<object name="notaFiscal" index="8"/>
+		<object name="categoria_id" index="10"/>
+		<object name="marca_id" index="9"/>
+		<object name="nota_id" index="8"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
 		<object name="ativoimobilizado_uq" index="3"/>
-		<object name="categoria_ativoimobilizado_fk" index="2"/>
+		<object name="ativoimobilizado_uq1" index="5"/>
+		<object name="categoria_ativoimobilizado_fk" index="4"/>
+		<object name="marca_ativoimobilizado_fk" index="2"/>
 		<object name="nota_fiscal_ativoimobilizado_fk" index="1"/>
 	</customidxs>
 </table>
@@ -74,15 +565,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tipo_baixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2580" y="100"/>
-	<column name="tipoBaixa" not-null="true" sequence="public.tipo_baixa_sequencia">
+	<position x="2360" y="20"/>
+	<column name="tpBaixa_id" not-null="true" sequence="public.tipo_baixa_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="descricao" not-null="true">
+	<column name="tpBaixa_descricao" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
 	<constraint name="TipoBaixa_PK" type="pk-constr" table="public.tipo_baixa">
-		<columns names="tipoBaixa" ref-type="src-columns"/>
+		<columns names="tpBaixa_id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -97,20 +588,20 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="baixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2697.33" y="208"/>
-	<column name="baixa" not-null="true" sequence="public.baixa_sequencia">
+	<position x="2780" y="100"/>
+	<column name="baixa_id" not-null="true" sequence="public.baixa_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="dataBaixa" not-null="true">
+	<column name="baixa_data" not-null="true">
 		<type name="date"/>
 	</column>
 	<constraint name="Baixa_PK" type="pk-constr" table="public.baixa">
-		<columns names="baixa" ref-type="src-columns"/>
+		<columns names="baixa_id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="ativoImobilizado" index="3"/>
-		<object name="tipoBaixa" index="2"/>
+		<object name="ativImobilizado_id" index="3"/>
+		<object name="tpBaixa_id" index="2"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -131,25 +622,25 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="depreciacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2141.33" y="177.333"/>
-	<column name="depreciacao" not-null="true" sequence="public.depreciacao_sequencia">
+	<position x="1760" y="20"/>
+	<column name="deprec_id" not-null="true" sequence="public.depreciacao_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="taxaAnual" not-null="true">
+	<column name="deprec_txAnual" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="vidaUtil" not-null="true">
+	<column name="deprec_vidaUtil" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="taxaMensal" not-null="true">
+	<column name="deprec_txMensal" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<constraint name="Depreciacao_PK" type="pk-constr" table="public.depreciacao">
-		<columns names="depreciacao" ref-type="src-columns"/>
+		<columns names="deprec_id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="categoria" index="4"/>
+		<object name="categoria_id" index="4"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -169,28 +660,28 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="nota_fiscal">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1660" y="660"/>
-	<column name="notaFiscal" not-null="true" sequence="public.nota_fiscal_sequencia">
+	<position x="1680" y="680"/>
+	<column name="nota_id" not-null="true" sequence="public.nota_fiscal_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="valor" not-null="true">
+	<column name="nota_valor" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="dataEmissao" not-null="true">
+	<column name="nota_dtEmissao" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="chaveAcesso" not-null="true">
+	<column name="nota_chaveAcesso" not-null="true">
 		<type name="varchar" length="100"/>
 	</column>
-	<column name="dataEntrada" not-null="true">
+	<column name="nota_dtEntrada" not-null="true">
 		<type name="date"/>
 	</column>
 	<constraint name="NotaFiscal_PK" type="pk-constr" table="public.nota_fiscal">
-		<columns names="notaFiscal" ref-type="src-columns"/>
+		<columns names="nota_id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="pessoa" index="5"/>
+		<object name="pessoa_id" index="5"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -210,18 +701,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="imposto">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2580" y="820"/>
-	<column name="imposto" not-null="true" sequence="public.imposto_sequencia">
+	<position x="2700" y="780"/>
+	<column name="imposto_id" not-null="true" sequence="public.imposto_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="nome" not-null="true">
+	<column name="imposto_nome" not-null="true">
 		<type name="varchar" length="100"/>
 	</column>
-	<column name="aliquota" not-null="true">
+	<column name="imposto_aliquota" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<constraint name="Imposto_PK" type="pk-constr" table="public.imposto">
-		<columns names="imposto" ref-type="src-columns"/>
+		<columns names="imposto_id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -236,29 +727,32 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="item_nota">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2100" y="580"/>
-	<column name="itemNota" not-null="true" sequence="public.item_nota_sequencia">
+	<position x="2180" y="460"/>
+	<column name="itemNt_id" not-null="true" sequence="public.item_nota_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="quantidade" not-null="true">
+	<column name="itemNt_quant" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="valorUnitario" not-null="true">
+	<column name="itemNt_vlrUnit" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="valorTotal" not-null="true">
+	<column name="itemNt_vlrTotal" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<constraint name="ItemNota_PK" type="pk-constr" table="public.item_nota">
-		<columns names="itemNota" ref-type="src-columns"/>
+		<columns names="itemNt_id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="notaFiscal" index="4"/>
+		<object name="nota_id" index="5"/>
+		<object name="prod_id" index="4"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
+		<object name="item_nota_uq" index="3"/>
 		<object name="nota_fiscal_item_nota_fk" index="1"/>
+		<object name="produto_item_nota_fk" index="2"/>
 	</customidxs>
 </table>
 
@@ -286,20 +780,20 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="imposto_item_nota">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2540" y="600"/>
-	<column name="impostoItemNota" not-null="true" sequence="public.imposto_item_nota_sequencia">
+	<position x="2640" y="580"/>
+	<column name="impostoItemNt_id" not-null="true" sequence="public.imposto_item_nota_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="valorImposto" not-null="true">
+	<column name="impostoItemNt_vlr" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<constraint name="ImpostoItemNota_PK" type="pk-constr" table="public.imposto_item_nota">
-		<columns names="impostoItemNota" ref-type="src-columns"/>
+		<columns names="impostoItemNt_id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="imposto" index="3"/>
-		<object name="itemNota" index="2"/>
+		<object name="imposto_id" index="3"/>
+		<object name="itemNt_id" index="2"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -337,20 +831,20 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="imposto_nota_fiscal">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2160" y="820"/>
-	<column name="impostoNotaFiscal" not-null="true" sequence="public.imposto_nota_fiscal_sequencia">
+	<position x="2200" y="780"/>
+	<column name="impostoNt_id" not-null="true" sequence="public.imposto_nota_fiscal_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="valor" not-null="true">
+	<column name="impostoNt_valor" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<constraint name="ImpostoNotaFiscal_PK" type="pk-constr" table="public.imposto_nota_fiscal">
-		<columns names="impostoNotaFiscal" ref-type="src-columns"/>
+		<columns names="impostoNt_id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="imposto" index="2"/>
-		<object name="notaFiscal" index="3"/>
+		<object name="imposto_id" index="2"/>
+		<object name="nota_id" index="3"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -384,7 +878,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#83af1f"
 	 src-table="public.nota_fiscal"
 	 dst-table="public.ativoimobilizado"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-82.7303" y="-10.6607"/>
+	</label>
+</relationship>
 
 <relationship name="TipoBaixa_tem_muitos_Baixa" type="rel1n"
 	 src-col-pattern="{sc}"
@@ -410,15 +908,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="categoria">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="780" y="200"/>
-	<column name="categoria" not-null="true" sequence="public.categoria_sequencia">
+	<position x="880" y="80"/>
+	<column name="categoria_id" not-null="true" sequence="public.categoria_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="descricao" not-null="true">
+	<column name="categoria_descricao" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
 	<constraint name="Categoria_PK" type="pk-constr" table="public.categoria">
-		<columns names="categoria" ref-type="src-columns"/>
+		<columns names="categoria_id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -442,15 +940,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="marca">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="860" y="320"/>
-	<column name="marca" not-null="true" sequence="public.marca_sequencia">
+	<position x="980" y="300"/>
+	<column name="marca_id" not-null="true" sequence="public.marca_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="descricao" not-null="true">
+	<column name="marca_descricao" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
 	<constraint name="Marca_PK" type="pk-constr" table="public.marca">
-		<columns names="marca" ref-type="src-columns"/>
+		<columns names="marca_id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -465,15 +963,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="unidade_medida">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="400" y="80"/>
-	<column name="unidadeMedida" not-null="true" sequence="public.unidade_medida_sequencia">
+	<position x="360" y="40"/>
+	<column name="unidMed_id" not-null="true" sequence="public.unidade_medida_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="descricao" not-null="true">
+	<column name="unidMed_descricao" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
 	<constraint name="UnidadeMedida_PK" type="pk-constr" table="public.unidade_medida">
-		<columns names="unidadeMedida" ref-type="src-columns"/>
+		<columns names="unidMed_id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -488,27 +986,27 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="produto">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="440" y="260"/>
-	<column name="produto" not-null="true" sequence="public.produto_sequencia">
+	<position x="420" y="280"/>
+	<column name="prod_id" not-null="true" sequence="public.produto_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="referencia" not-null="true">
+	<column name="prod_referencia" not-null="true">
 		<type name="varchar" length="100"/>
 	</column>
-	<column name="descricao" not-null="true">
+	<column name="prod_descricao" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
-	<column name="status" not-null="true">
+	<column name="prod_status" not-null="true">
 		<type name="integer"/>
 	</column>
 	<constraint name="Produto_PK" type="pk-constr" table="public.produto">
-		<columns names="produto" ref-type="src-columns"/>
+		<columns names="prod_id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="categoria" index="5"/>
-		<object name="marca" index="4"/>
-		<object name="unidadeMedida" index="6"/>
+		<object name="categoria_id" index="5"/>
+		<object name="marca_id" index="4"/>
+		<object name="unidMed_id" index="6"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -556,22 +1054,22 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="saldo">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="280" y="520"/>
-	<column name="saldo" not-null="true" sequence="public.saldo_sequencia">
+	<position x="240" y="580"/>
+	<column name="saldo_id" not-null="true" sequence="public.saldo_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="lote" not-null="true">
+	<column name="saldo_lote" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="dataValidade" not-null="true">
+	<column name="saldo_dataValidade" not-null="true">
 		<type name="date"/>
 	</column>
 	<constraint name="Saldo_PK" type="pk-constr" table="public.saldo">
-		<columns names="saldo" ref-type="src-columns"/>
+		<columns names="saldo_id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="produto" index="3"/>
+		<object name="prod_id" index="3"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -598,29 +1096,29 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="movimentacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="600" y="520"/>
-	<column name="movimentacao" not-null="true" sequence="public.movimentacao_sequencia">
+	<position x="600" y="620"/>
+	<column name="mov_id" not-null="true" sequence="public.movimentacao_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="dataMovimentacao" not-null="true">
+	<column name="mov_data" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="quantidade" not-null="true">
+	<column name="mov_quantidade" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="valorUnitario" not-null="true">
+	<column name="mov_valorUnitario" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="total" not-null="true">
+	<column name="mov_total" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<constraint name="Movimentacao_PK" type="pk-constr" table="public.movimentacao">
-		<columns names="movimentacao" ref-type="src-columns"/>
+		<columns names="mov_id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="produto" index="6"/>
-		<object name="tipoOperacao" index="5"/>
+		<object name="prod_id" index="6"/>
+		<object name="tpOp_id" index="5"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -632,21 +1130,21 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tipo_operacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1000" y="440"/>
-	<column name="tipoOperacao" not-null="true" sequence="public.tipo_operacao_sequencia">
+	<position x="1020" y="440"/>
+	<column name="tpOp_id" not-null="true" sequence="public.tipo_operacao_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="descricao" not-null="true">
+	<column name="tpOp_descricao" not-null="true">
 		<type name="varchar" length="100"/>
 	</column>
-	<column name="nome" not-null="true">
+	<column name="tpOp_nome" not-null="true">
 		<type name="varchar" length="100"/>
 	</column>
-	<column name="tipo" not-null="true">
+	<column name="tpOp_tipo" not-null="true">
 		<type name="integer"/>
 	</column>
 	<constraint name="TipoOperacao_PK" type="pk-constr" table="public.tipo_operacao">
-		<columns names="tipoOperacao" ref-type="src-columns"/>
+		<columns names="tpOp_id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -657,7 +1155,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#83af1f"
 	 src-table="public.tipo_operacao"
 	 dst-table="public.movimentacao"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="21.7697" y="-49.6607"/>
+	</label>
+</relationship>
 
 <relationship name="Produto_tem_muitos_Movimentacao" type="rel1n"
 	 src-col-pattern="{sc}"
@@ -666,7 +1168,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#83af1f"
 	 src-table="public.produto"
 	 dst-table="public.movimentacao"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-50.6303" y="-16.6607"/>
+	</label>
+</relationship>
 
 <relationship name="Produto_tem_muitos_Saldo" type="rel1n"
 	 src-col-pattern="{sc}"
@@ -675,7 +1181,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#83af1f"
 	 src-table="public.produto"
 	 dst-table="public.saldo"
-	 src-required="false" dst-required="false"/>
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="33.6697" y="-55.6607"/>
+	</label>
+</relationship>
 
 <sequence name="parcelas_sequencia"
 	 start="1" increment="1"
@@ -688,31 +1198,31 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="parcela">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="760" y="840"/>
-	<column name="parcela" not-null="true" sequence="public.parcelas_sequencia">
+	<position x="620" y="860"/>
+	<column name="parcela_id" not-null="true" sequence="public.parcelas_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="dataPagamento" not-null="true">
+	<column name="parcela_dtPag" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="dataVencimento" not-null="true">
+	<column name="parcela_dtVencimento" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="acrescimos" not-null="true">
+	<column name="parcela_acrescimos" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="valorParcela" not-null="true">
+	<column name="parcela_vlrParcela" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="valorPago" not-null="true">
+	<column name="parcela_vlrPago" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<constraint name="Parcela_PK" type="pk-constr" table="public.parcela">
-		<columns names="parcela" ref-type="src-columns"/>
+		<columns names="parcela_id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="contaPagar" index="6"/>
+		<object name="conta_id" index="6"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -731,38 +1241,38 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="contas">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1140" y="740"/>
-	<column name="contaPagar" not-null="true" sequence="public.conta_pagar_sequencia">
+	<position x="1160" y="780"/>
+	<column name="conta_id" not-null="true" sequence="public.conta_pagar_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="valorTotal" not-null="true">
+	<column name="conta_vlrTotal" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="dataEmissao" not-null="true">
+	<column name="conta_dtEmissao" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="numParcelas" not-null="true">
+	<column name="conta_nroParc" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="valorPago" not-null="true">
+	<column name="conta_vlrPago" not-null="true">
 		<type name="double precision"/>
 	</column>
-	<column name="ContasStatus" not-null="true">
+	<column name="conta_status" not-null="true">
 		<type name="integer"/>
 		<comment><![CDATA[0 - Em ser, 1- Vencido, 2- Quitado]]></comment>
 	</column>
-	<column name="contasTipo" not-null="true">
+	<column name="contas_tipo" not-null="true">
 		<type name="integer"/>
 		<comment><![CDATA[0 - a pagar, 1 - a receber]]></comment>
 	</column>
 	<constraint name="ContaPagar_PK" type="pk-constr" table="public.contas">
-		<columns names="contaPagar" ref-type="src-columns"/>
+		<columns names="conta_id" ref-type="src-columns"/>
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="ContasStatusCodigo" index="9"/>
-		<object name="notaFiscal" index="5"/>
-		<object name="pessoa" index="6"/>
+		<object name="contasStatus_id" index="9"/>
+		<object name="nota_id" index="7"/>
+		<object name="pessoa_id" index="8"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
@@ -803,14 +1313,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="1340" y="540"/>
-	<column name="pessoa" not-null="true" sequence="public.pessoa_sequencia">
+	<column name="pessoa_id" not-null="true" sequence="public.pessoa_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="nome" not-null="true">
+	<column name="pessoa_nome" not-null="true">
 		<type name="varchar" length="200"/>
 	</column>
 	<constraint name="Pessoa_PK" type="pk-constr" table="public.pessoa">
-		<columns names="pessoa" ref-type="src-columns"/>
+		<columns names="pessoa_id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -834,25 +1344,33 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="historico_depreciacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2880" y="400"/>
-	<column name="historicoDepreciacao" not-null="true" sequence="public.historico_depreciacao_sequencia">
+	<position x="2900" y="360"/>
+	<column name="histDeprec_id" not-null="true" sequence="public.historico_depreciacao_sequencia">
 		<type name="integer"/>
 	</column>
-	<column name="dia" not-null="true">
+	<column name="histDeprec_dia" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="mes" not-null="true">
+	<column name="histDeprec_mes" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="ano" not-null="true">
+	<column name="histDeprec_ano" not-null="true">
 		<type name="date"/>
 	</column>
-	<column name="valor" not-null="true">
+	<column name="histDeprec_vlr" not-null="true">
 		<type name="double precision"/>
 	</column>
 	<constraint name="HistoricoDepreciacao_PK" type="pk-constr" table="public.historico_depreciacao">
-		<columns names="historicoDepreciacao" ref-type="src-columns"/>
+		<columns names="histDeprec_id" ref-type="src-columns"/>
 	</constraint>
+
+	<customidxs object-type="column">
+		<object name="ativImobilizado_id" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="ativoimobilizado_historico_depreciacao_fk" index="1"/>
+	</customidxs>
 </table>
 
 <relationship name="NotaFiscal_tem_um_Pessoa" type="rel11"
@@ -867,19 +1385,19 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="contas_status">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1000" y="620"/>
-	<column name="ContasStatusCodigo" not-null="true">
+	<position x="1060" y="620"/>
+	<column name="contasStatus_id" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="ContasStatusDescricao" not-null="true">
+	<column name="contasStatus_descricao" not-null="true">
 		<type name="varchar" length="50"/>
 	</column>
-	<column name="ContasStatusTipo" not-null="true">
+	<column name="contasStatus_tipo" not-null="true">
 		<type name="integer"/>
 		<comment><![CDATA[P - a pagar, R - a receber]]></comment>
 	</column>
 	<constraint name="ContasStatusCodigoPK" type="pk-constr" table="public.contas_status">
-		<columns names="ContasStatusCodigo" ref-type="src-columns"/>
+		<columns names="contasStatus_id" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -936,5 +1454,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-table="public.marca"
 	 dst-table="public.ativoimobilizado"
 	 src-required="false" dst-required="false"/>
+
+<table name="movimento_bancario">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1700" y="940"/>
+	<column name="mov_ban_codigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="pk_movCod" type="pk-constr" table="public.movimento_bancario">
+		<tablespace name="pg_default"/>
+		<columns names="mov_ban_codigo" ref-type="src-columns"/>
+	</constraint>
+</table>
 
 </dbmodel>
