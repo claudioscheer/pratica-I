@@ -50,6 +50,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.loadContasPagar();
         this.loadBackgroud();
         this.loadWidgetSaldo();
+        this.loadFluxoCaixa();
     }
 
     private void loadWidgetSaldo() {
@@ -162,6 +163,29 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         iconDesktop.setLocation(new Point(0, 160));
         this.desktopPanel.add(iconDesktop);
+    }
+    
+    private void loadFluxoCaixa(){
+        
+        final IconDesktop iconDesktop = new IconDesktop("Fluxo de Caixa", Utils.getImage(Utils.Image.FluxoCaixa));
+
+        iconDesktop.setActionListener((e) -> {
+            if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
+                return;
+            }
+            FormFluxodeCaixa form = new FormFluxodeCaixa();
+            this.desktopPanel.add(form);
+            form.open();
+            try {
+                form.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(FormPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        iconDesktop.setLocation(new Point(0, 240));
+        this.desktopPanel.add(iconDesktop);
+        
     }
 
     @SuppressWarnings("unchecked")

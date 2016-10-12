@@ -45,6 +45,7 @@ public class Utils {
         notafiscal,
         ativoimobilizado,
         pagar,
+        FluxoCaixa
     }
 
     public static ImageIcon getImage(Image icone) {
@@ -120,6 +121,11 @@ public class Utils {
             case pagar:
                 url = "pagar.png";
                 break;
+            
+            case FluxoCaixa:
+                url = "fluxoCaixa.png";
+                break;
+                
         }
 
         return new ImageIcon(Utils.class.getResource("/imagens/" + url));
