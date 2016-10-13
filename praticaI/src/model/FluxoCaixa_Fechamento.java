@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ import javax.persistence.TemporalType;
 @Entity
 @SequenceGenerator(name = "seq_FlxCxFechamento", sequenceName = "seq_FlxCxFechamento", allocationSize = 1)
 @Table(name = "flxCx_fluxo_caixa_fechamento")
-public class FluxoCaixa_Fechamento {
+public class FluxoCaixa_Fechamento implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_FlxCxFechamento")

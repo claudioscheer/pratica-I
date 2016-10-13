@@ -66,7 +66,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
       <SubComponents>
-        <Container class="com.alee.laf.splitpane.WebSplitPane" name="webSplitPane2">
+        <Container class="com.alee.laf.splitpane.WebSplitPane" name="webPanel_Split">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
               <BorderConstraints direction="Center"/>
@@ -140,7 +140,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="com.alee.laf.table.WebTable" name="webTable2">
+                <Component class="com.alee.laf.table.WebTable" name="webTable_lista">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="4">
@@ -188,9 +188,9 @@
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="webCheckBox3" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkbox_Grafico" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="webCheckBox4" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkbox_Lista" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="webLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -214,8 +214,8 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="webCheckBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="webCheckBox2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="webCheckBox3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="webCheckBox4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkbox_Grafico" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkbox_Lista" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" alignment="0" groupAlignment="1" attributes="0">
@@ -295,18 +295,21 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="com.alee.laf.checkbox.WebCheckBox" name="webCheckBox3">
+        <Component class="com.alee.laf.checkbox.WebCheckBox" name="checkbox_Grafico">
           <Properties>
             <Property name="text" type="java.lang.String" value="Gr&#xe1;fico"/>
           </Properties>
           <Events>
-            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="webCheckBox3StateChanged"/>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="checkbox_GraficoStateChanged"/>
           </Events>
         </Component>
-        <Component class="com.alee.laf.checkbox.WebCheckBox" name="webCheckBox4">
+        <Component class="com.alee.laf.checkbox.WebCheckBox" name="checkbox_Lista">
           <Properties>
             <Property name="text" type="java.lang.String" value="Lista"/>
           </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="checkbox_ListaStateChanged"/>
+          </Events>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="webButton1">
           <Properties>
