@@ -7,6 +7,15 @@ import org.hibernate.Session;
 import utils.HibernateUtil;
 
 public class AtivoImobilizadoDAO {
+    
+    public Boolean update(AtivoImobilizado ativoImobilizado) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        session.update(ativoImobilizado);
+        session.getTransaction().commit();
+        session.close();
+        return true;
+    }
 
     public Boolean insert(AtivoImobilizado ativoImobilizado) {
         Session session = HibernateUtil.getSessionFactory().openSession();

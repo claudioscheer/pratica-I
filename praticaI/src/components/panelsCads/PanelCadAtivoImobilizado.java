@@ -39,7 +39,8 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.txtValorOriginal.setText(String.valueOf(this.ativoImobilizado.getValorOriginal()));
         this.txtValorAtual.setText(String.valueOf(this.ativoImobilizado.getValorAtual()));
         this.txtTaxaValorResidual.setText(String.valueOf(this.ativoImobilizado.getTaxaValorResidual()));
-        this.txtValorResidual.setText(String.valueOf(this.ativoImobilizado.getTaxaValorResidual()));
+        //this.txtValorResidual.setText(String.valueOf(this.ativoImobilizado.getValorResidual()));
+        //System.out.println(this.ativoImobilizado.getValorResidual());
     }
 
     public void init() {

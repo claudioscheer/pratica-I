@@ -57,7 +57,12 @@ public class FormAtivoImobilizado extends WebInternalFrame {
         }
 
         AtivoImobilizado ativoImobilizado = this.panelCadastroAtivoImobilizado.getAtivoImobilizado();
-        new AtivoImobilizadoDAO().insert(ativoImobilizado);
+        if (!this.panelCadastroAtivoImobilizado.editando) {
+            new AtivoImobilizadoDAO().insert(ativoImobilizado);
+        } else {
+            new AtivoImobilizadoDAO().update(ativoImobilizado);
+            this.panelCadastroAtivoImobilizado.editando = false;
+        }
 
         this.panelConsultaAtivoImobilizado.addAtivoImobilizado(ativoImobilizado);
 
