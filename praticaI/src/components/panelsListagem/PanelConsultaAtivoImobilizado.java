@@ -2,11 +2,19 @@ package components.panelsListagem;
 
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.table.WebTable;
+import dao.AtivoImobilizadoDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+import model.AtivoImobilizado;
+import utils.Utils;
 
 public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionListener {
+
+    private LoadAtivosImobilizados loadAtivosImobilizados;
+    private List<AtivoImobilizado> ativosImobilizados;
 
     public PanelConsultaAtivoImobilizado() {
         initComponents();
@@ -17,27 +25,65 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
         });
     }
 
+    public class LoadAtivosImobilizados extends SwingWorker<Void, Void> {
+
+        protected Void doInBackground() throws Exception {
+
+            ativosImobilizados = new AtivoImobilizadoDAO().getAll();
+            atualizarTabela();
+            return null;
+        }
+
+        public void done() {
+
+        }
+    }
+
+    public void addAtivoImobilizado(AtivoImobilizado ativo) {
+        DefaultTableModel model = (DefaultTableModel) tabelaAtivosImobilizados.getModel();
+        model.insertRow(0, ativoToArray(ativo));
+        tabelaAtivosImobilizados.setModel(model);
+    }
+
+    private void atualizarTabela() {
+        DefaultTableModel model = (DefaultTableModel) tabelaAtivosImobilizados.getModel();
+
+        for (AtivoImobilizado ativo : ativosImobilizados) {
+            model.addRow(ativoToArray(ativo));
+        }
+
+        tabelaAtivosImobilizados.setModel(model);
+    }
+
+    private Object[] ativoToArray(AtivoImobilizado ativo) {
+        Object[] o = new Object[5];
+        o[0] = ativo.getAtivoImobilizado();
+        o[1] = ativo.getDescricao();
+        o[2] = ativo.getCategoria().getDescricao();
+        o[3] = ativo.getMarca().getDescricao();
+        o[4] = ativo.getValorAtual();
+        return o;
+    }
+
     public void setEvents(ActionListener add, ActionListener edit, ActionListener delete) {
         buttonAdd.addActionListener(add);
-        buttonAdd.addActionListener(edit);
-        buttonAdd.addActionListener(delete);
+        buttonEditar.addActionListener(edit);
+        buttonExcluir.addActionListener(delete);
     }
 
     private void loadDatas() {
-        String[] headers = {"Header 1", "Header 2", "Header 3", "Header 4", "Header 5", "Header 6"};
+        this.loadAtivosImobilizados = new LoadAtivosImobilizados();
+        this.loadAtivosImobilizados.execute();
+    }
 
-        String[][] data = {
-            {"1", "2", "3", "4", "5", "6"},
-            {"7", "8", "9", "10", "11", "12"},
-            {"13", "14", "15", "16", "17", "18"},
-            {"19", "20", "21", "22", "23", "24"},
-            {"25", "26", "27", "28", "29", "30"},
-            {"31", "32", "33", "34", "35", "36"},
-            {"37", "38", "39", "40", "41", "42"}
-        };
-
-        tableLista.setModel(new DefaultTableModel(data, headers));
-        tableLista.setAutoResizeMode(WebTable.AUTO_RESIZE_ALL_COLUMNS);
+    public AtivoImobilizado getAtivoImobilizadoSelecionado() {
+        int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
+        if (linhaselecionada < 0) {
+            Utils.notificacao("Selecione um ativo imobilizado!", Utils.TipoNotificacao.erro, 0);
+            return null;
+        }
+        
+        return this.ativosImobilizados.get(linhaselecionada);
     }
 
     @Override
@@ -50,7 +96,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableLista = new com.alee.laf.table.WebTable();
+        tabelaAtivosImobilizados = new com.alee.laf.table.WebTable();
         panelOpcoes = new javax.swing.JPanel();
         buttonAdd = new com.alee.laf.button.WebButton();
         buttonExcluir = new com.alee.laf.button.WebButton();
@@ -63,21 +109,26 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
 
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        tableLista.setAutoCreateRowSorter(true);
-        tableLista.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaAtivosImobilizados.setAutoCreateRowSorter(true);
+        tabelaAtivosImobilizados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Código", "Descrição", "Categoria", "Marca", "Valor atual"
             }
-        ));
-        tableLista.setEditable(false);
-        tableLista.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        jScrollPane1.setViewportView(tableLista);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaAtivosImobilizados.setEditable(false);
+        tabelaAtivosImobilizados.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        jScrollPane1.setViewportView(tabelaAtivosImobilizados);
 
         panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -150,7 +201,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
     private com.alee.laf.button.WebButton buttonExcluir;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelOpcoes;
-    private com.alee.laf.table.WebTable tableLista;
+    private com.alee.laf.table.WebTable tabelaAtivosImobilizados;
     private components.TextFieldBuscar txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

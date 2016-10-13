@@ -54,7 +54,6 @@ public class FormBuscaCategoria extends JFrameBusca {
 
         txtBuscar = new components.TextFieldBuscar();
         panelOpcoes = new javax.swing.JPanel();
-        buttonNovo = new com.alee.laf.button.WebButton();
         buttonSelecionar = new com.alee.laf.button.WebButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaCategoria = new javax.swing.JTable();
@@ -67,8 +66,6 @@ public class FormBuscaCategoria extends JFrameBusca {
         });
 
         panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
-
-        buttonNovo.setText("Novo");
 
         buttonSelecionar.setText("Selecionar");
         buttonSelecionar.addActionListener(new java.awt.event.ActionListener() {
@@ -83,8 +80,6 @@ public class FormBuscaCategoria extends JFrameBusca {
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcoesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(buttonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -92,9 +87,7 @@ public class FormBuscaCategoria extends JFrameBusca {
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addGroup(panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(buttonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
         );
 
@@ -165,7 +158,6 @@ public class FormBuscaCategoria extends JFrameBusca {
     }//GEN-LAST:event_buttonSelecionarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.alee.laf.button.WebButton buttonNovo;
     private com.alee.laf.button.WebButton buttonSelecionar;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelOpcoes;

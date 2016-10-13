@@ -26,11 +26,11 @@ public class FormAtivoImobilizado extends WebInternalFrame {
         this.panelConsultaAtivoImobilizado = new PanelConsultaAtivoImobilizado();
 
         this.panelConsultaAtivoImobilizado.setEvents((e) -> {
-            this.addNotaFiscal();
+            this.addAtivoImobilizado();
         }, (e) -> {
-            this.editNotaFiscal();
+            this.editarAtivoImobilizado();
         }, (e) -> {
-            this.deleteNotaFiscal();
+            this.excluirAtivoImobilizado();
         });
 
         this.add(this.panelConsultaAtivoImobilizado);
@@ -43,14 +43,14 @@ public class FormAtivoImobilizado extends WebInternalFrame {
 
         //seta os eventos para o cancelar e o cadastrar da nota fiscal
         this.panelCadastroAtivoImobilizado.setEvents((e) -> {
-            this.salvarNotaFiscal();
+            this.salvarAtivoImobilizado();
         }, (e) -> {
-            this.cancelarCadNotaFiscal();
+            this.cancelarCadAtivoImobilizado();
         });
     }
 
     //evento para salvar o ativo imobilizado
-    private void salvarNotaFiscal() {
+    private void salvarAtivoImobilizado() {
 
         if (!this.panelCadastroAtivoImobilizado.validador.isValid()) {
             return;
@@ -59,10 +59,14 @@ public class FormAtivoImobilizado extends WebInternalFrame {
         AtivoImobilizado ativoImobilizado = this.panelCadastroAtivoImobilizado.getAtivoImobilizado();
         new AtivoImobilizadoDAO().insert(ativoImobilizado);
 
+        this.panelConsultaAtivoImobilizado.addAtivoImobilizado(ativoImobilizado);
+
+        Utils.notificacao("Ativo imobilizado salvo!", Utils.TipoNotificacao.ok, 0);
+        this.fecharAbrirPanelCadastro(true);
     }
 
     //toggle o form de cadastro de nota fiscal
-    private void fecharAbrirPanelCadastro(Boolean fechar) {
+    private void fecharAbrirPanelCadastro(boolean fechar) {
         if (fechar) {
             this.remove(this.panelCadastroAtivoImobilizado);
             this.add(this.panelConsultaAtivoImobilizado);
@@ -76,15 +80,12 @@ public class FormAtivoImobilizado extends WebInternalFrame {
     }
 
     //evento para cancelar o cadastro
-    private void cancelarCadNotaFiscal() {
-
-        Utils.notificacao("Blzasdfsaldk fjsd sjdfg kd!as", Utils.TipoNotificacao.erro, 2000);
-
+    private void cancelarCadAtivoImobilizado() {
         this.fecharAbrirPanelCadastro(true);
     }
 
     //evento para adicionar uma nota fiscal
-    private void addNotaFiscal() {
+    private void addAtivoImobilizado() {
         this.initFormCad();
         this.fecharAbrirPanelCadastro(false);
 
@@ -92,12 +93,23 @@ public class FormAtivoImobilizado extends WebInternalFrame {
     }
 
     //evento para editar uma nota fiscal
-    private void editNotaFiscal() {
-        System.out.println("editNotaFiscal");
+    private void editarAtivoImobilizado() {
+
+        AtivoImobilizado ativoImobilizado = this.panelConsultaAtivoImobilizado.getAtivoImobilizadoSelecionado();
+
+        if (ativoImobilizado == null) {
+            return;
+        }
+
+        this.initFormCad();
+        this.fecharAbrirPanelCadastro(false);
+
+        this.panelCadastroAtivoImobilizado.setDadosEditar(ativoImobilizado);
+        this.panelCadastroAtivoImobilizado.revalidate();
     }
 
     //evento para deletar uma nota fiscal
-    private void deleteNotaFiscal() {
+    private void excluirAtivoImobilizado() {
         System.out.println("deleteNotaFiscal");
     }
 

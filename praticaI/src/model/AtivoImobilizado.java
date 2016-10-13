@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -25,11 +26,11 @@ public class AtivoImobilizado implements Serializable {
     private String descricao;
 
     @ManyToOne
-    @Column(name = "ativo_categoria", nullable = false)
+    @JoinColumn(name = "ativo_categoria", nullable = false)
     private Categoria categoria;
 
     @ManyToOne
-    @Column(name = "ativo_marca", nullable = false)
+    @JoinColumn(name = "ativo_marca", nullable = false)
     private Marca marca;
 
 //    @ManyToOne

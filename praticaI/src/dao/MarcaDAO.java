@@ -1,6 +1,9 @@
 package dao;
 
+import java.util.List;
+import model.Categoria;
 import model.Marca;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
@@ -15,12 +18,15 @@ public class MarcaDAO {
         return true;
     }
     
-    public static void main(String[] args) {
-        Marca marca = new Marca();
-        marca.setCodigo(1);
-        marca.setDescricao("marca 1");
-        
-        new MarcaDAO().insert(marca);
+    public List<Marca> getAll() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("from Marca as m ");
+        List<Marca> marcas = query.list();
+        session.getTransaction().commit();
+        session.close();
+
+        return marcas;
     }
 
 }

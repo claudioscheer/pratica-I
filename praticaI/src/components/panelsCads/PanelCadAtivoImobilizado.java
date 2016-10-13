@@ -19,11 +19,27 @@ public class PanelCadAtivoImobilizado extends WebPanel {
     public Validador validador;
     private AtivoImobilizado ativoImobilizado;
 
+    public boolean editando;
+
     public PanelCadAtivoImobilizado() {
     }
 
-    public PanelCadAtivoImobilizado(AtivoImobilizado ativoImobilizado) {
+    public void setDadosEditar(AtivoImobilizado ativoImobilizado) {
         this.ativoImobilizado = ativoImobilizado;
+        this.editando = true;
+        this.setDadosForm();
+    }
+
+    private void setDadosForm() {
+        this.txtDescricao.setText(this.ativoImobilizado.getDescricao());
+        this.txtCategoria.setValue(this.ativoImobilizado.getCategoria());
+        this.txtCategoria.setText(this.ativoImobilizado.getCategoria().getCodigo() + " - " + this.ativoImobilizado.getCategoria().getDescricao());
+        this.txtMarca.setValue(this.ativoImobilizado.getMarca());
+        this.txtMarca.setText(this.ativoImobilizado.getMarca().getCodigo() + " - " + this.ativoImobilizado.getMarca().getDescricao());
+        this.txtValorOriginal.setText(String.valueOf(this.ativoImobilizado.getValorOriginal()));
+        this.txtValorAtual.setText(String.valueOf(this.ativoImobilizado.getValorAtual()));
+        this.txtTaxaValorResidual.setText(String.valueOf(this.ativoImobilizado.getTaxaValorResidual()));
+        this.txtValorResidual.setText(String.valueOf(this.ativoImobilizado.getTaxaValorResidual()));
     }
 
     public void init() {
@@ -31,18 +47,18 @@ public class PanelCadAtivoImobilizado extends WebPanel {
 
         //inicia o validador
         this.validador = new Validador(Validador.TipoValidator.ICONE);
-        this.validador.addObrigatorioValidator(txtDescricao);
-//        this.validador.addObrigatorioValidator(txtCategoria);
-//        this.validador.addObrigatorioValidator(txtMarca);
+        this.validador.addObrigatorioValidator(this.txtDescricao);
+        this.validador.addObrigatorioValidator(this.txtCategoria);
+        this.validador.addObrigatorioValidator(this.txtMarca);
 //        this.validador.addObrigatorioValidator(txtNotaFiscal);
-        this.validador.addObrigatorioValidator(txtValorOriginal);
-        this.validador.addApenasNumeroValidator(txtValorOriginal);
-        this.validador.addObrigatorioValidator(txtValorAtual);
-        this.validador.addApenasNumeroValidator(txtValorAtual);
-        this.validador.addObrigatorioValidator(txtTaxaValorResidual);
-        this.validador.addApenasNumeroValidator(txtTaxaValorResidual);
-        this.validador.addObrigatorioValidator(txtValorResidual);
-        this.validador.addApenasNumeroValidator(txtValorResidual);
+        this.validador.addObrigatorioValidator(this.txtValorOriginal);
+        this.validador.addApenasNumeroValidator(this.txtValorOriginal);
+        this.validador.addObrigatorioValidator(this.txtValorAtual);
+        this.validador.addApenasNumeroValidator(this.txtValorAtual);
+        this.validador.addObrigatorioValidator(this.txtTaxaValorResidual);
+        this.validador.addApenasNumeroValidator(this.txtTaxaValorResidual);
+        this.validador.addObrigatorioValidator(this.txtValorResidual);
+        this.validador.addApenasNumeroValidator(this.txtValorResidual);
 
         //abre o form para buscar uma categoria
         FormBuscaCategoria formCategoria = new FormBuscaCategoria();
@@ -68,27 +84,25 @@ public class PanelCadAtivoImobilizado extends WebPanel {
     }
 
     public AtivoImobilizado getAtivoImobilizado() {
-        AtivoImobilizado ativo = new AtivoImobilizado();
+        if (!this.editando) {
+            this.ativoImobilizado = new AtivoImobilizado();
+        }
 
-        ativo.setDescricao(txtDescricao.getText());
+        this.ativoImobilizado.setDescricao(this.txtDescricao.getText());
 
-        Categoria categoria = new Categoria();
-        categoria.setCodigo(1);
-        ativo.setCategoria(categoria);
+        this.ativoImobilizado.setCategoria((Categoria) this.txtCategoria.getValue());
 
-        Marca marca = new Marca();
-        marca.setCodigo(1);
-        ativo.setMarca(marca);
+        this.ativoImobilizado.setMarca((Marca) this.txtMarca.getValue());
 
-        ativo.setValorOriginal(Double.parseDouble(txtValorOriginal.getText()));
-        ativo.setValorAtual(Double.parseDouble(txtValorAtual.getText()));
-        ativo.setTaxaValorResidual(Double.parseDouble(txtTaxaValorResidual.getText()));
-        ativo.setValorResidual(Double.parseDouble(txtTaxaValorResidual.getText()));
+        this.ativoImobilizado.setValorOriginal(Double.parseDouble(this.txtValorOriginal.getText()));
+        this.ativoImobilizado.setValorAtual(Double.parseDouble(this.txtValorAtual.getText()));
+        this.ativoImobilizado.setTaxaValorResidual(Double.parseDouble(this.txtTaxaValorResidual.getText()));
+        this.ativoImobilizado.setValorResidual(Double.parseDouble(this.txtTaxaValorResidual.getText()));
 
-        ativo.setEstadoBem(EstadoBem.novo);
-        ativo.setUtilizacao(UtilizacaoBem.diaria);
+        this.ativoImobilizado.setEstadoBem(EstadoBem.novo);
+        this.ativoImobilizado.setUtilizacao(UtilizacaoBem.diaria);
 
-        return ativo;
+        return this.ativoImobilizado;
     }
 
     @SuppressWarnings("unchecked")
