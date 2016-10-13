@@ -4,6 +4,8 @@ public class Pessoa {
 
     private int pessoa;
     private String nome;
+    private int tipo;
+    
 
     public int getPessoa() {
         return pessoa;
@@ -19,6 +21,14 @@ public class Pessoa {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
 }
