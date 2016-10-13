@@ -1,6 +1,7 @@
 package forms;
 
 import com.alee.laf.desktoppane.WebInternalFrame;
+import com.alee.laf.optionpane.WebOptionPane;
 import components.panelsCads.PanelCadAtivoImobilizado;
 import components.panelsListagem.PanelConsultaAtivoImobilizado;
 import dao.AtivoImobilizadoDAO;
@@ -9,6 +10,8 @@ import java.awt.Dimension;
 import model.AtivoImobilizado;
 
 public class FormAtivoImobilizado extends WebInternalFrame {
+
+    public int indexEditando;
 
     public FormAtivoImobilizado() {
         super("Ativos Imobilizados", true, true, true, true);
@@ -62,6 +65,9 @@ public class FormAtivoImobilizado extends WebInternalFrame {
         } else {
             new AtivoImobilizadoDAO().update(ativoImobilizado);
             this.panelCadastroAtivoImobilizado.editando = false;
+            this.panelConsultaAtivoImobilizado.removeAtivoImobilizado(this.indexEditando);
+            this.indexEditando = -1;
+
         }
 
         this.panelConsultaAtivoImobilizado.addAtivoImobilizado(ativoImobilizado);
@@ -106,6 +112,8 @@ public class FormAtivoImobilizado extends WebInternalFrame {
             return;
         }
 
+        this.indexEditando = this.panelConsultaAtivoImobilizado.getIndiceSelecionado();
+
         this.initFormCad();
         this.fecharAbrirPanelCadastro(false);
 
@@ -115,7 +123,23 @@ public class FormAtivoImobilizado extends WebInternalFrame {
 
     //evento para deletar uma nota fiscal
     private void excluirAtivoImobilizado() {
-        System.out.println("deleteNotaFiscal");
+        if (WebOptionPane.showConfirmDialog(this.panelConsultaAtivoImobilizado, "Deseja deletar o ativo imobilizado?", "Excluir",
+                WebOptionPane.YES_NO_OPTION,
+                WebOptionPane.QUESTION_MESSAGE) == WebOptionPane.OK_OPTION) {
+
+            AtivoImobilizado ativoImobilizado = this.panelConsultaAtivoImobilizado.getAtivoImobilizadoSelecionado();
+
+            if (ativoImobilizado == null) {
+                return;
+            }
+
+            int index = this.panelConsultaAtivoImobilizado.getIndiceSelecionado();
+
+            new AtivoImobilizadoDAO().delete(ativoImobilizado);
+            this.panelConsultaAtivoImobilizado.removeAtivoImobilizado(index);
+            Utils.notificacao("Ativo imobilizado removido!", Utils.TipoNotificacao.ok, 0);
+        }
+
     }
 
     private PanelConsultaAtivoImobilizado panelConsultaAtivoImobilizado;

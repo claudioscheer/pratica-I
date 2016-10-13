@@ -40,4 +40,52 @@ public class HistoricoDepreciacao implements Serializable {
     @Column(name = "historico_depreciacao_valor", nullable = false)
     private double valor;
 
+    public int getHistoricoDepreciacao() {
+        return historicoDepreciacao;
+    }
+
+    public void setHistoricoDepreciacao(int historicoDepreciacao) {
+        this.historicoDepreciacao = historicoDepreciacao;
+    }
+
+    public AtivoImobilizado getAtivoImobilizado() {
+        return ativoImobilizado;
+    }
+
+    public void setAtivoImobilizado(AtivoImobilizado ativoImobilizado) {
+        this.ativoImobilizado = ativoImobilizado;
+    }
+
+    public Date getDia() {
+        return dia;
+    }
+
+    public void setDia(Date dia) {
+        this.dia = dia;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
 }

@@ -3,44 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< .mine
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/Depreciacao.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/hibernate.cfg.xml</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/AtivoImobilizado.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/forms/FormPrincipal.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/Pessoa.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/Especificacao.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/components/IconDesktop.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/forms/FormContaPagar.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/Categoria.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/dao/MarcaDAO.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/EstadoBem.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/FluxodeCaixa.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/utils/Utils.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/utils/IniciarDadosBasicos.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/Tributacao.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/components/panelsListagem/PanelConsultaAtivoImobilizado.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/Notificacoes.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/Notificacao.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/Baixa.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/LivroCaixa.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/forms/FormFluxodeCaixa.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/MovimentoBancario.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/FluxoCaixa_Fechamento.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/model/Operacoes.java</file>
-            <file>file:/C:/Users/Alisson%20Ap/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/utils/HibernateUtil.java</file>
-||||||| .r52
-            <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/forms/FormFluxodeCaixa.java</file>
-            <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/forms/FormAtivoImobilizado.java</file>
-            <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/forms/busca/FormBuscaProdutoImposto.java</file>
-            <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/forms/FormPrincipal.java</file>
-            <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/forms/busca/FormBuscaImposto.java</file>
-            <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/components/JFrameBusca.java</file>
-            <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/components/panelsCads/PanelCadAtivoImobilizado.java</file>
-            <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/forms/busca/FormBuscaCategoria.java</file>
-            <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/hibernate.cfg.xml</file>
-            <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/components/TextFieldFK.java</file>
-=======
             <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/forms/busca/FormBuscaProdutoImposto.java</file>
             <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/forms/FormPrincipal.java</file>
             <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/dao/AtivoImobilizadoDAO.java</file>
@@ -57,7 +19,6 @@
             <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/components/JFrameBusca.java</file>
             <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/forms/busca/FormBuscaCategoria.java</file>
             <file>file:/C:/Users/claudio/Documents/NetBeansProjects/praticaI/trunk/praticaI/src/hibernate.cfg.xml</file>
->>>>>>> .r58
         </group>
     </open-files>
 </project-private>

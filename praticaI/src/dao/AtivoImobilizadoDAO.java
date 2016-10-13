@@ -25,6 +25,15 @@ public class AtivoImobilizadoDAO {
         session.close();
         return true;
     }
+    
+    public Boolean delete(AtivoImobilizado ativoImobilizado) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        session.delete(ativoImobilizado);
+        session.getTransaction().commit();
+        session.close();
+        return true;
+    }
 
     public List<AtivoImobilizado> getAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();

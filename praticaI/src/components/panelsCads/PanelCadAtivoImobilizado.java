@@ -39,8 +39,9 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.txtValorOriginal.setText(String.valueOf(this.ativoImobilizado.getValorOriginal()));
         this.txtValorAtual.setText(String.valueOf(this.ativoImobilizado.getValorAtual()));
         this.txtTaxaValorResidual.setText(String.valueOf(this.ativoImobilizado.getTaxaValorResidual()));
-        //this.txtValorResidual.setText(String.valueOf(this.ativoImobilizado.getValorResidual()));
-        //System.out.println(this.ativoImobilizado.getValorResidual());
+        this.txtValorResidual.setText(String.valueOf(this.ativoImobilizado.getValorResidual()));
+        this.comboEstadoBem.setSelectedIndex(this.ativoImobilizado.getEstadoBem().ordinal());
+        this.comboUtilizacaoBem.setSelectedIndex(this.ativoImobilizado.getUtilizacao().ordinal());
     }
 
     public void init() {
@@ -90,18 +91,14 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         }
 
         this.ativoImobilizado.setDescricao(this.txtDescricao.getText());
-
         this.ativoImobilizado.setCategoria((Categoria) this.txtCategoria.getValue());
-
         this.ativoImobilizado.setMarca((Marca) this.txtMarca.getValue());
-
         this.ativoImobilizado.setValorOriginal(Double.parseDouble(this.txtValorOriginal.getText()));
         this.ativoImobilizado.setValorAtual(Double.parseDouble(this.txtValorAtual.getText()));
         this.ativoImobilizado.setTaxaValorResidual(Double.parseDouble(this.txtTaxaValorResidual.getText()));
-        this.ativoImobilizado.setValorResidual(Double.parseDouble(this.txtTaxaValorResidual.getText()));
-
-        this.ativoImobilizado.setEstadoBem(EstadoBem.novo);
-        this.ativoImobilizado.setUtilizacao(UtilizacaoBem.diaria);
+        this.ativoImobilizado.setValorResidual(Double.parseDouble(this.txtValorResidual.getText()));
+        this.ativoImobilizado.setEstadoBem(EstadoBem.values()[this.comboEstadoBem.getSelectedIndex()]);
+        this.ativoImobilizado.setUtilizacao(UtilizacaoBem.values()[this.comboUtilizacaoBem.getSelectedIndex()]);
 
         return this.ativoImobilizado;
     }

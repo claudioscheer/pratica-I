@@ -1,6 +1,7 @@
 package forms;
 
 import com.alee.laf.WebLookAndFeel;
+import com.alee.laf.desktoppane.WebDesktopPane;
 import com.alee.managers.language.LanguageManager;
 import components.MoverComponente;
 import components.IconDesktop;
@@ -33,6 +34,10 @@ public class FormPrincipal extends javax.swing.JFrame {
             instance = new FormPrincipal();
         }
         return instance;
+    }
+
+    public WebDesktopPane getDesktopPanel() {
+        return this.desktopPanel;
     }
 
     public static void setBloqueado(boolean bloqueado) {
@@ -164,9 +169,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         iconDesktop.setLocation(new Point(0, 160));
         this.desktopPanel.add(iconDesktop);
     }
-    
-    private void loadFluxoCaixa(){
-        
+
+    private void loadFluxoCaixa() {
+
         final IconDesktop iconDesktop = new IconDesktop("Fluxo de Caixa", Utils.getImage(Utils.Image.FluxoCaixa));
 
         iconDesktop.setActionListener((e) -> {
@@ -185,7 +190,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         iconDesktop.setLocation(new Point(0, 240));
         this.desktopPanel.add(iconDesktop);
-        
+
     }
 
     @SuppressWarnings("unchecked")

@@ -3,6 +3,9 @@ package components.panelsListagem;
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.table.WebTable;
 import dao.AtivoImobilizadoDAO;
+import forms.FormAtivoImobilizado;
+import forms.FormHistoricoDepreciacoes;
+import forms.FormPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -16,6 +19,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
     private LoadAtivosImobilizados loadAtivosImobilizados;
     private List<AtivoImobilizado> ativosImobilizados;
 
+    private int indexSelecionado;
+
     public PanelConsultaAtivoImobilizado() {
         initComponents();
         this.loadDatas();
@@ -23,6 +28,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
         this.txtBuscar.setEventBuscar((e) -> {
             System.out.println("buscar");
         });
+        this.txtBuscar.addOpcoesBuscar(new String[] {"Código", "Descrição"});
     }
 
     public class LoadAtivosImobilizados extends SwingWorker<Void, Void> {
@@ -39,9 +45,19 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
         }
     }
 
+    public int getIndiceSelecionado() {
+        return this.indexSelecionado;
+    }
+
     public void addAtivoImobilizado(AtivoImobilizado ativo) {
         DefaultTableModel model = (DefaultTableModel) tabelaAtivosImobilizados.getModel();
         model.insertRow(0, ativoToArray(ativo));
+        tabelaAtivosImobilizados.setModel(model);
+    }
+
+    public void removeAtivoImobilizado(int index) {
+        DefaultTableModel model = (DefaultTableModel) tabelaAtivosImobilizados.getModel();
+        model.removeRow(index);
         tabelaAtivosImobilizados.setModel(model);
     }
 
@@ -82,7 +98,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
             Utils.notificacao("Selecione um ativo imobilizado!", Utils.TipoNotificacao.erro, 0);
             return null;
         }
-        
+        this.indexSelecionado = linhaselecionada;
         return this.ativosImobilizados.get(linhaselecionada);
     }
 
@@ -103,6 +119,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
         buttonEditar = new com.alee.laf.button.WebButton();
         btnReavaliarAtivo = new com.alee.laf.button.WebButton();
         btnGerarQrCode = new com.alee.laf.button.WebButton();
+        buttonHistoricoDepreciacao = new com.alee.laf.button.WebButton();
         txtBuscar = new components.TextFieldBuscar();
 
         setMinimumSize(new java.awt.Dimension(565, 496));
@@ -144,6 +161,13 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
 
         btnGerarQrCode.setText("QrCode");
 
+        buttonHistoricoDepreciacao.setText("Depreciações");
+        buttonHistoricoDepreciacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHistoricoDepreciacaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
         panelOpcoes.setLayout(panelOpcoesLayout);
         panelOpcoesLayout.setHorizontalGroup(
@@ -153,11 +177,13 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
                 .addComponent(btnReavaliarAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGerarQrCode, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonHistoricoDepreciacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
                 .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -170,7 +196,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
                     .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReavaliarAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGerarQrCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGerarQrCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonHistoricoDepreciacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6))
         );
 
@@ -193,12 +220,23 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void buttonHistoricoDepreciacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistoricoDepreciacaoActionPerformed
+        FormPrincipal formBloquear = FormPrincipal.getInstance();
+        
+        FormHistoricoDepreciacoes form = new FormHistoricoDepreciacoes();
+        form.setFrameBloquear(formBloquear);
+        form.setVisible(true);
+        
+        formBloquear.setEnabled(false);
+    }//GEN-LAST:event_buttonHistoricoDepreciacaoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.button.WebButton btnGerarQrCode;
     private com.alee.laf.button.WebButton btnReavaliarAtivo;
     private com.alee.laf.button.WebButton buttonAdd;
     private com.alee.laf.button.WebButton buttonEditar;
     private com.alee.laf.button.WebButton buttonExcluir;
+    private com.alee.laf.button.WebButton buttonHistoricoDepreciacao;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelOpcoes;
     private com.alee.laf.table.WebTable tabelaAtivosImobilizados;
