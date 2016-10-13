@@ -1,3 +1,5 @@
+# NÃO DEEM COMMIT NA PASTA `nbproject`!! PLEASE!
+
 ### Prática I
 Trabalho da Prática I de Sistemas de Informação!
 
