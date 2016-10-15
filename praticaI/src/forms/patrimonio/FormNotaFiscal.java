@@ -1,4 +1,4 @@
-package forms;
+package forms.patrimonio;
 
 import com.alee.laf.desktoppane.WebInternalFrame;
 import components.panelsCads.PanelCadNotaFiscal;

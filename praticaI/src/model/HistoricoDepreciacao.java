@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -24,7 +25,7 @@ public class HistoricoDepreciacao implements Serializable {
     private int historicoDepreciacao;
 
     @ManyToOne
-    @Column(name = "historico_depreciacao_ativo_imobilizado", nullable = false)
+    @JoinColumn(name = "historico_depreciacao_ativo_imobilizado", nullable = false)
     private AtivoImobilizado ativoImobilizado;
 
     @Temporal(TemporalType.DATE)

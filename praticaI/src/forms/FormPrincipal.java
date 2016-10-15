@@ -1,5 +1,7 @@
 package forms;
 
+import forms.patrimonio.FormNotaFiscal;
+import forms.patrimonio.FormAtivoImobilizado;
 import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.desktoppane.WebDesktopPane;
 import com.alee.managers.language.LanguageManager;

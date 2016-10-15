@@ -21,12 +21,11 @@ public class HistoricoDepreciacaoDAO {
     public List<HistoricoDepreciacao> getAll(AtivoImobilizado ativo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from HistoricoDepreciacao as hd where hd.AtivoImobilizado.ativoImobilizado = :ativo");
-        query.setParameter(":ativo", ativo.getAtivoImobilizado());
+        Query query = session.createQuery("from HistoricoDepreciacao hd where hd.ativoImobilizado.ativoImobilizado = :ativoImobilizado");
+        query.setParameter("ativoImobilizado", ativo.getAtivoImobilizado());
         List<HistoricoDepreciacao> marcas = query.list();
         session.getTransaction().commit();
         session.close();
-
         return marcas;
     }
 

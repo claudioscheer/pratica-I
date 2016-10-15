@@ -3,9 +3,10 @@ package components.panelsListagem;
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.table.WebTable;
 import dao.AtivoImobilizadoDAO;
-import forms.FormAtivoImobilizado;
-import forms.FormHistoricoDepreciacoes;
+import forms.patrimonio.FormAtivoImobilizado;
+import forms.patrimonio.FormHistoricoDepreciacoes;
 import forms.FormPrincipal;
+import forms.patrimonio.FormQrCodeAtivoImobilizado;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -28,7 +29,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
         this.txtBuscar.setEventBuscar((e) -> {
             System.out.println("buscar");
         });
-        this.txtBuscar.addOpcoesBuscar(new String[] {"Código", "Descrição"});
+        this.txtBuscar.addOpcoesBuscar(new String[]{"Código", "Descrição"});
     }
 
     public class LoadAtivosImobilizados extends SwingWorker<Void, Void> {
@@ -160,6 +161,11 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
         btnReavaliarAtivo.setText("Reavaliar");
 
         btnGerarQrCode.setText("QrCode");
+        btnGerarQrCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerarQrCodeActionPerformed(evt);
+            }
+        });
 
         buttonHistoricoDepreciacao.setText("Depreciações");
         buttonHistoricoDepreciacao.addActionListener(new java.awt.event.ActionListener() {
@@ -221,14 +227,39 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonHistoricoDepreciacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistoricoDepreciacaoActionPerformed
+
+        int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
+        if (linhaselecionada < 0) {
+            Utils.notificacao("Selecione um ativo imobilizado!", Utils.TipoNotificacao.erro, 0);
+            return;
+        }
+
         FormPrincipal formBloquear = FormPrincipal.getInstance();
-        
+
         FormHistoricoDepreciacoes form = new FormHistoricoDepreciacoes();
         form.setFrameBloquear(formBloquear);
+        form.setAtivoImobilizado(this.ativosImobilizados.get(linhaselecionada));
         form.setVisible(true);
-        
+
         formBloquear.setEnabled(false);
     }//GEN-LAST:event_buttonHistoricoDepreciacaoActionPerformed
+
+    private void btnGerarQrCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarQrCodeActionPerformed
+        int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
+        if (linhaselecionada < 0) {
+            Utils.notificacao("Selecione um ativo imobilizado!", Utils.TipoNotificacao.erro, 0);
+            return;
+        }
+
+        FormPrincipal formBloquear = FormPrincipal.getInstance();
+
+        FormQrCodeAtivoImobilizado form = new FormQrCodeAtivoImobilizado();
+        form.setFrameBloquear(formBloquear);
+        form.setAtivoImobilizado(this.ativosImobilizados.get(linhaselecionada));
+        form.setVisible(true);
+
+        formBloquear.setEnabled(false);
+    }//GEN-LAST:event_btnGerarQrCodeActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.button.WebButton btnGerarQrCode;

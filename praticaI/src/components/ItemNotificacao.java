@@ -1,6 +1,6 @@
 package components;
 
-import forms.FormNotaFiscal;
+import forms.patrimonio.FormNotaFiscal;
 import utils.Utils;
 import java.awt.Color;
 import java.awt.Container;

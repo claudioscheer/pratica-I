@@ -1,18 +1,25 @@
-package forms;
+package forms.patrimonio;
 
 import components.JFrameBusca;
 import dao.HistoricoDepreciacaoDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+import model.AtivoImobilizado;
 import model.HistoricoDepreciacao;
 
 public class FormHistoricoDepreciacoes extends JFrameBusca {
+
+    private AtivoImobilizado ativoImobilizado;
 
     public FormHistoricoDepreciacoes() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.txtBuscar.showComboOpcoes(false);
+    }
+
+    public void setAtivoImobilizado(AtivoImobilizado ativoImobilizado) {
+        this.ativoImobilizado = ativoImobilizado;
         this.atualizarTabela();
     }
 
@@ -27,7 +34,7 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
 
             DefaultTableModel model = (DefaultTableModel) tabelaHistoricoDepreciacoes.getModel();
 
-            List<HistoricoDepreciacao> historicoDepreciacoes = new HistoricoDepreciacaoDAO().getAll(null);
+            List<HistoricoDepreciacao> historicoDepreciacoes = new HistoricoDepreciacaoDAO().getAll(ativoImobilizado);
             for (HistoricoDepreciacao hd : historicoDepreciacoes) {
                 Object[] o = new Object[2];
                 o[0] = hd.getDia();

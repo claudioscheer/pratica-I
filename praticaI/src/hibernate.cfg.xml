@@ -8,8 +8,10 @@
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">claudio123</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.show_sql">true</property>
         <mapping class="model.Categoria"/>
         <mapping class="model.Marca"/>
         <mapping class="model.AtivoImobilizado"/>
+        <mapping class="model.HistoricoDepreciacao"/>
     </session-factory>
 </hibernate-configuration>

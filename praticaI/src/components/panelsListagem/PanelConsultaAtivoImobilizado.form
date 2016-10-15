@@ -144,6 +144,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="QrCode"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGerarQrCodeActionPerformed"/>
+          </Events>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="buttonHistoricoDepreciacao">
           <Properties>

@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import utils.HibernateUtil;
 
 public class AtivoImobilizadoDAO {
-    
+
     public Boolean update(AtivoImobilizado ativoImobilizado) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
@@ -25,7 +25,7 @@ public class AtivoImobilizadoDAO {
         session.close();
         return true;
     }
-    
+
     public Boolean delete(AtivoImobilizado ativoImobilizado) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
@@ -42,8 +42,16 @@ public class AtivoImobilizadoDAO {
         List<AtivoImobilizado> ativos = query.list();
         session.getTransaction().commit();
         session.close();
-
         return ativos;
+    }
+
+    public AtivoImobilizado get(int ativo) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        AtivoImobilizado ativoImobilizado = (AtivoImobilizado) session.get(AtivoImobilizado.class, ativo);
+        session.getTransaction().commit();
+        session.close();
+        return ativoImobilizado;
     }
 
 }
