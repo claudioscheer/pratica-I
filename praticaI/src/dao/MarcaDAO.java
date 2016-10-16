@@ -17,7 +17,7 @@ public class MarcaDAO {
         session.close();
         return true;
     }
-    
+
     public List<Marca> getAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
@@ -27,6 +27,15 @@ public class MarcaDAO {
         session.close();
 
         return marcas;
+    }
+
+    public Marca get(int m) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Marca marca = (Marca) session.get(Marca.class, m);
+        session.getTransaction().commit();
+        session.close();
+        return marca;
     }
 
 }

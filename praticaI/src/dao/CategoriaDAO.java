@@ -28,4 +28,13 @@ public class CategoriaDAO {
         return categorias;
     }
 
+    public Categoria get(int c) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Categoria categoria = (Categoria) session.get(Categoria.class, c);
+        session.getTransaction().commit();
+        session.close();
+        return categoria;
+    }
+
 }

@@ -127,9 +127,6 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         comboUtilizacaoBem = new javax.swing.JComboBox<>();
         txtValorOriginal = new javax.swing.JFormattedTextField(
             Utils.getMascara(Utils.MascarasPadrao.valorDouble));
-        jLabel12 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaDepreciacoes = new javax.swing.JTable();
         txtTaxaValorResidual = new javax.swing.JFormattedTextField(Utils.getMascara(Utils.MascarasPadrao.taxa));
         txtValorResidual = new javax.swing.JFormattedTextField(Utils.getMascara(Utils.MascarasPadrao.valorDouble));
         txtValorAtual = new javax.swing.JFormattedTextField(Utils.getMascara(Utils.MascarasPadrao.valorDouble));
@@ -145,7 +142,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
 
         panelItens.setBackground(new java.awt.Color(255, 255, 255));
         panelItens.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        panelItens.setPreferredSize(new java.awt.Dimension(0, 780));
+        panelItens.setPreferredSize(new java.awt.Dimension(0, 500));
 
         jLabel1.setText("Descrição");
 
@@ -171,26 +168,6 @@ public class PanelCadAtivoImobilizado extends WebPanel {
 
         comboUtilizacaoBem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diariamente", "Semanalmente", "Mensalmente", "Semestralmente", "Trimestralmente", "Anualmente" }));
 
-        jLabel12.setText("Valores depreciados");
-
-        tabelaDepreciacoes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Data", "Valor"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tabelaDepreciacoes);
-
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
         panelItensLayout.setHorizontalGroup(
@@ -209,14 +186,12 @@ public class PanelCadAtivoImobilizado extends WebPanel {
                     .addGroup(panelItensLayout.createSequentialGroup()
                         .addGap(282, 282, 282)
                         .addComponent(comboUtilizacaoBem, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addGroup(panelItensLayout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(211, 211, 211)
                         .addComponent(jLabel10))
                     .addComponent(comboEstadoBem, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12)
                     .addComponent(jLabel1)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
@@ -276,13 +251,9 @@ public class PanelCadAtivoImobilizado extends WebPanel {
                                     .addComponent(jLabel10))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comboEstadoBem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(comboUtilizacaoBem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboUtilizacaoBem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtValorAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         scrollCadastro.setViewportView(panelItens);
@@ -324,7 +295,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(scrollCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
+                .addComponent(scrollCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -338,7 +309,6 @@ public class PanelCadAtivoImobilizado extends WebPanel {
     private javax.swing.JComboBox<String> comboUtilizacaoBem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -347,11 +317,9 @@ public class PanelCadAtivoImobilizado extends WebPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelItens;
     private javax.swing.JPanel panelOpcoes;
     private javax.swing.JScrollPane scrollCadastro;
-    private javax.swing.JTable tabelaDepreciacoes;
     private components.TextFieldFK txtCategoria;
     private javax.swing.JTextField txtDescricao;
     private components.TextFieldFK txtMarca;

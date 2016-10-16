@@ -281,14 +281,20 @@ public class FormBuscaProdutoImposto extends JFrameBusca {
     }//GEN-LAST:event_txtValorUnitarioKeyReleased
 
     private void addImpostoTabela(Imposto imposto) {
+
+        if (this.impostosItens.stream().filter(x -> x.getImposto().getImposto() == imposto.getImposto()).count() > 0) {
+            Utils.notificacao("Imposto já adicionado!", Utils.TipoNotificacao.erro, 0);
+            return;
+        }
+
         ImpostoItemNota item = new ImpostoItemNota();
-//        item.setImposto(imposto);
-//
-//        DefaultTableModel model = (DefaultTableModel) this.tabelaImpostos.getModel();
-//        model.addRow(new Object[]{
-//            imposto.getNome(),
-//            imposto.getAliquota()* 10
-//        });
+        item.setImposto(imposto);
+
+        DefaultTableModel model = (DefaultTableModel) this.tabelaImpostos.getModel();
+        model.addRow(new Object[]{
+            imposto.getNome(),
+            imposto.getAliquota() * 10
+        });
 
         this.impostosItens.add(item);
     }

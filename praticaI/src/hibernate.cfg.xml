@@ -13,5 +13,12 @@
         <mapping class="model.Marca"/>
         <mapping class="model.AtivoImobilizado"/>
         <mapping class="model.HistoricoDepreciacao"/>
+        <mapping class="model.Imposto"/>
+        <mapping class="model.ImpostoNotaFiscal"/>
+        <mapping class="model.NotaFiscal"/>
+        <mapping class="model.Fornecedor"/>
+        <mapping class="model.Produto"/>
+        <mapping class="model.ItemNota"/>
+        <mapping class="model.ImpostoItemNota"/>
     </session-factory>
 </hibernate-configuration>

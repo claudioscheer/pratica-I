@@ -3,36 +3,62 @@ package utils;
 import dao.AtivoImobilizadoDAO;
 import dao.CategoriaDAO;
 import dao.HistoricoDepreciacaoDAO;
+import dao.ImpostoDAO;
 import dao.MarcaDAO;
+import dao.ProdutoDAO;
 import java.util.Calendar;
 import java.util.Date;
 import model.AtivoImobilizado;
 import model.Categoria;
+import model.EstadoBem;
 import model.HistoricoDepreciacao;
+import model.Imposto;
 import model.Marca;
+import model.Produto;
+import model.UtilizacaoBem;
+import org.hibernate.Session;
 
 public class IniciarDadosBasicos {
 
     public static void main(String[] args) {
 
-//        CategoriaDAO categoriaDAO = new CategoriaDAO();
-//        for (int i = 1; i <= 3; i++) {
-//            Categoria categoria = new Categoria();
-//            categoria.setCodigo(i);
-//            categoria.setDescricao("categoria " + i);
-//            categoriaDAO.insert(categoria);
-//        }
-//
-//        MarcaDAO marcaDAO = new MarcaDAO();
-//        for (int i = 1; i <= 3; i++) {
-//            Marca marca = new Marca();
-//            marca.setCodigo(i);
-//            marca.setDescricao("marca " + i);
-//            marcaDAO.insert(marca);
-//        }
+        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        for (int i = 1; i <= 3; i++) {
+            Categoria categoria = new Categoria();
+            categoria.setCodigo(i);
+            categoria.setDescricao("categoria " + i);
+            categoriaDAO.insert(categoria);
+        }
+
+        MarcaDAO marcaDAO = new MarcaDAO();
+        for (int i = 1; i <= 3; i++) {
+            Marca marca = new Marca();
+            marca.setCodigo(i);
+            marca.setDescricao("marca " + i);
+            marcaDAO.insert(marca);
+        }
+
+        AtivoImobilizadoDAO ativoImobilizadoDAO = new AtivoImobilizadoDAO();
+        Marca marca = new MarcaDAO().get(1);
+        Categoria categoria = new CategoriaDAO().get(1);
+        for (int i = 1; i <= 4; i++) {
+            AtivoImobilizado ativoImobilizado = new AtivoImobilizado();
+            ativoImobilizado.setMarca(marca);
+            ativoImobilizado.setCategoria(categoria);
+            ativoImobilizado.setDescricao("ativo imobilizado " + i);
+            ativoImobilizado.setEstadoBem(EstadoBem.usado);
+            ativoImobilizado.setTaxaValorResidual(10);
+            ativoImobilizado.setUtilizacao(UtilizacaoBem.diaria);
+            ativoImobilizado.setValorAtual(10);
+            ativoImobilizado.setValorOriginal(10);
+            ativoImobilizado.setValorResidual(10);
+
+            ativoImobilizadoDAO.insert(ativoImobilizado);
+        }
+
         HistoricoDepreciacaoDAO historicoDepreciacaoDAO = new HistoricoDepreciacaoDAO();
         Calendar data = Calendar.getInstance();
-        AtivoImobilizado ativoImobilizado = new AtivoImobilizadoDAO().get(4);
+        AtivoImobilizado ativoImobilizado = new AtivoImobilizadoDAO().get(1);
         for (int i = 1; i <= 4; i++) {
             HistoricoDepreciacao historicoDepreciacao = new HistoricoDepreciacao();
             historicoDepreciacao.setAno(data.get(Calendar.YEAR));
@@ -42,7 +68,24 @@ public class IniciarDadosBasicos {
             historicoDepreciacao.setValor(300.87);
             historicoDepreciacaoDAO.insert(historicoDepreciacao);
         }
-        
+
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        for (int i = 1; i <= 4; i++) {
+            Produto produto = new Produto();
+            produto.setCodigo(i);
+            produto.setNome("produto " + i);
+            produtoDAO.insert(produto);
+        }
+
+        ImpostoDAO impostoDAO = new ImpostoDAO();
+        for (int i = 1; i <= 4; i++) {
+            Imposto imposto = new Imposto();
+            imposto.setImposto(i);
+            imposto.setNome("imposto " + i);
+            imposto.setAliquota(459345);
+            impostoDAO.insert(imposto);
+        }
+
         System.exit(0);
 
     }

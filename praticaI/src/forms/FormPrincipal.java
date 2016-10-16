@@ -20,6 +20,8 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import org.hibernate.Session;
+import utils.HibernateUtil;
 
 public class FormPrincipal extends javax.swing.JFrame {
 

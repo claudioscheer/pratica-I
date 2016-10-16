@@ -37,7 +37,7 @@ public class PanelCadNotaFiscal extends WebPanel {
         FormBuscaFornecedor f = new FormBuscaFornecedor();
         f.setFrameBloquear(FormPrincipal.getInstance());
         this.txtFornecedor.setFrame(f);
-        
+
         scrollCadastro.getVerticalScrollBar().setUnitIncrement(20);
     }
 
@@ -250,7 +250,7 @@ public class PanelCadNotaFiscal extends WebPanel {
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarImpostoNotaFiscal)
                     .addComponent(btnRemoverImpostoNotaFiscal))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         scrollCadastro.setViewportView(panelItens);
@@ -344,16 +344,22 @@ public class PanelCadNotaFiscal extends WebPanel {
     }//GEN-LAST:event_btnRemoverImpostoNotaFiscalActionPerformed
 
     private void addImpostoNota(Imposto imposto) {
-//        ImpostoNotaFiscal item = new ImpostoNotaFiscal();
-//        item.setImposto(imposto);
-//        item.setValor(100);
-//        DefaultTableModel model = (DefaultTableModel) this.tabelaImpostosNotaFiscal.getModel();
-//        model.addRow(new Object[]{
-//            imposto.getNome(),
-//            item.getValor()
-//        });
 
-//        this.impostosNotaFiscal.add(item);
+        if (this.impostosNotaFiscal.stream().filter(x -> x.getImposto().getImposto() == imposto.getImposto()).count() > 0) {
+            Utils.notificacao("Imposto já adicionado!", Utils.TipoNotificacao.erro, 0);
+            return;
+        }
+
+        ImpostoNotaFiscal item = new ImpostoNotaFiscal();
+        item.setImposto(imposto);
+        item.setValor(100);
+        DefaultTableModel model = (DefaultTableModel) this.tabelaImpostosNotaFiscal.getModel();
+        model.addRow(new Object[]{
+            imposto.getNome(),
+            item.getValor()
+        });
+
+        this.impostosNotaFiscal.add(item);
     }
 
     private void removerImpostoNota(int index) {
@@ -363,14 +369,14 @@ public class PanelCadNotaFiscal extends WebPanel {
     }
 
     private void addItemNotaTabela() {
-//        ItemNota item = this.itensNota.get(this.itensNota.size() - 1);
-//        DefaultTableModel model = (DefaultTableModel) this.tabelaProdutos.getModel();
-//        model.addRow(new Object[]{
-//            item.getProduto().getDescricao(),
-//            item.getQuantidade(),
-//            item.getValorUnitario(),
-//            item.getValorTotal()
-//        });
+        ItemNota item = this.itensNota.get(this.itensNota.size() - 1);
+        DefaultTableModel model = (DefaultTableModel) this.tabelaProdutos.getModel();
+        model.addRow(new Object[]{
+            item.getProduto().getNome(),
+            item.getQuantidade(),
+            item.getValorUnitario(),
+            item.getValorTotal()
+        });
     }
 
     private void removerItemNotaTabela(int index) {

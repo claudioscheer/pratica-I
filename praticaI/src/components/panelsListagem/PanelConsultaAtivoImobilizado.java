@@ -51,12 +51,14 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
     }
 
     public void addAtivoImobilizado(AtivoImobilizado ativo) {
+        this.ativosImobilizados.add(0, ativo);
         DefaultTableModel model = (DefaultTableModel) tabelaAtivosImobilizados.getModel();
         model.insertRow(0, ativoToArray(ativo));
         tabelaAtivosImobilizados.setModel(model);
     }
 
     public void removeAtivoImobilizado(int index) {
+        this.ativosImobilizados.remove(index);
         DefaultTableModel model = (DefaultTableModel) tabelaAtivosImobilizados.getModel();
         model.removeRow(index);
         tabelaAtivosImobilizados.setModel(model);

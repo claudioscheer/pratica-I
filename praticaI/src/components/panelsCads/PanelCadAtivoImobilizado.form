@@ -28,7 +28,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="scrollCadastro" pref="758" max="32767" attributes="0"/>
+              <Component id="scrollCadastro" pref="494" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelOpcoes" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -56,7 +56,7 @@
               <Font name="Tahoma" size="14" style="0"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new java.awt.Dimension(0, 780)" type="code"/>
+              <Connection code="new java.awt.Dimension(0, 500)" type="code"/>
             </Property>
           </Properties>
 
@@ -79,7 +79,6 @@
                               <EmptySpace min="-2" pref="282" max="-2" attributes="0"/>
                               <Component id="comboUtilizacaoBem" min="-2" pref="268" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane2" alignment="0" min="-2" pref="550" max="-2" attributes="0"/>
                           <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
@@ -87,7 +86,6 @@
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="comboEstadoBem" alignment="0" min="-2" pref="268" max="-2" attributes="0"/>
-                          <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -161,14 +159,10 @@
                                   </Group>
                                   <Component id="comboUtilizacaoBem" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" min="-2" pref="205" max="-2" attributes="0"/>
                           </Group>
                           <Component id="txtValorAtual" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="44" max="32767" attributes="0"/>
+                      <EmptySpace pref="23" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -267,30 +261,6 @@
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(&#xa;Utils.getMascara(Utils.MascarasPadrao.valorDouble))"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel12">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Valores depreciados"/>
-              </Properties>
-            </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTable" name="tabelaDepreciacoes">
-                  <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="2" rowCount="0">
-                        <Column editable="false" title="Data" type="java.lang.Object"/>
-                        <Column editable="false" title="Valor" type="java.lang.Object"/>
-                      </Table>
-                    </Property>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
             <Component class="javax.swing.JFormattedTextField" name="txtTaxaValorResidual">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(Utils.getMascara(Utils.MascarasPadrao.taxa))"/>
