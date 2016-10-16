@@ -4,6 +4,9 @@
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="internalFrameOpened" listener="javax.swing.event.InternalFrameListener" parameters="javax.swing.event.InternalFrameEvent" handler="formInternalFrameOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -167,22 +170,22 @@
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Component id="webLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="webDateField1" min="-2" pref="107" max="-2" attributes="0"/>
+                  <Component id="txtDataInicial" min="-2" pref="107" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="webLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="webDateField2" min="-2" pref="102" max="-2" attributes="0"/>
+                  <Component id="txtDataFinal" min="-2" pref="102" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="webLabel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="webComboBox1" min="-2" pref="129" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="webLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="webCheckBox1" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkboxEntrada" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="webCheckBox2" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkboxSaida" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
@@ -212,23 +215,21 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="webCheckBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="webCheckBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkboxEntrada" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkboxSaida" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="checkbox_Grafico" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="checkbox_Lista" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="webComboBox1" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="webLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="webLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="webDateField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="webDateField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="webLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="webLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="webLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDataInicial" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDataFinal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="webLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="webButton1" alignment="0" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="webComboBox1" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
@@ -246,12 +247,12 @@
             <Property name="text" type="java.lang.String" value="Data Final:"/>
           </Properties>
         </Component>
-        <Component class="com.alee.extended.date.WebDateField" name="webDateField1">
+        <Component class="com.alee.extended.date.WebDateField" name="txtDataInicial">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="webDateField1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDataInicialActionPerformed"/>
           </Events>
         </Component>
-        <Component class="com.alee.extended.date.WebDateField" name="webDateField2">
+        <Component class="com.alee.extended.date.WebDateField" name="txtDataFinal">
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel3">
           <Properties>
@@ -277,12 +278,12 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="com.alee.laf.checkbox.WebCheckBox" name="webCheckBox1">
+        <Component class="com.alee.laf.checkbox.WebCheckBox" name="checkboxEntrada">
           <Properties>
             <Property name="text" type="java.lang.String" value="Entrada"/>
           </Properties>
         </Component>
-        <Component class="com.alee.laf.checkbox.WebCheckBox" name="webCheckBox2">
+        <Component class="com.alee.laf.checkbox.WebCheckBox" name="checkboxSaida">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sa&#xed;da"/>
           </Properties>
@@ -334,10 +335,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="webBreadcrumb4" max="32767" attributes="0"/>
-                      <Component id="webButton2" alignment="0" max="32767" attributes="0"/>
-                      <Component id="webButton3" alignment="1" pref="164" max="32767" attributes="0"/>
+                      <Component id="btn_MovRecentes" alignment="0" max="32767" attributes="0"/>
                       <Component id="webButton4" alignment="0" pref="164" max="32767" attributes="0"/>
-                      <Component id="webButton5" alignment="0" pref="164" max="32767" attributes="0"/>
+                      <Component id="btn_GerarRelatorio" alignment="0" pref="164" max="32767" attributes="0"/>
                       <Component id="webButton6" alignment="1" pref="164" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -350,13 +350,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="webBreadcrumb4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
-                  <Component id="webButton2" min="-2" pref="42" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="webButton3" min="-2" pref="42" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <Component id="btn_MovRecentes" min="-2" pref="42" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                   <Component id="webButton4" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="webButton5" min="-2" pref="42" max="-2" attributes="0"/>
+                  <Component id="btn_GerarRelatorio" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="webButton6" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace pref="111" max="32767" attributes="0"/>
@@ -365,25 +363,26 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="com.alee.laf.button.WebButton" name="webButton2">
+        <Component class="com.alee.laf.button.WebButton" name="btn_MovRecentes">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Entradas Recentes"/>
+            <Property name="text" type="java.lang.String" value="Movimenta&#xe7;&#xf5;es Recentes"/>
           </Properties>
-        </Component>
-        <Component class="com.alee.laf.button.WebButton" name="webButton3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Sa&#xed;das Recentes"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_MovRecentesActionPerformed"/>
+          </Events>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="webButton4">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ver Comparativos"/>
           </Properties>
         </Component>
-        <Component class="com.alee.laf.button.WebButton" name="webButton5">
+        <Component class="com.alee.laf.button.WebButton" name="btn_GerarRelatorio">
           <Properties>
             <Property name="text" type="java.lang.String" value="Gerar Relat&#xf3;rio"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_GerarRelatorioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="webButton6">
           <Properties>
