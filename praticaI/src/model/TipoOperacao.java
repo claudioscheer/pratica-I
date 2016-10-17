@@ -8,11 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@SequenceGenerator(name = "seq_unidadeMedida", sequenceName = "seq_unidadeMedida", allocationSize = 1)
-public class UnidadeMedida implements Serializable {
+@SequenceGenerator(name = "seq_tipoOperacao", sequenceName = "seq_tipoOperacao", allocationSize = 1)
+public class TipoOperacao implements Serializable {    
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_unidadeMedida")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tipoOperacao")
     private int codigo;
+    private String nome;
     private String descricao;
 
     public int getCodigo() {
@@ -23,6 +24,14 @@ public class UnidadeMedida implements Serializable {
         this.codigo = codigo;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public String getDescricao() {
         return descricao;
     }
@@ -30,5 +39,5 @@ public class UnidadeMedida implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
+    
 }
