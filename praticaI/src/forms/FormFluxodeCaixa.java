@@ -10,10 +10,45 @@ import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.desktoppane.WebInternalFrame;
 import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.managers.language.LanguageManager;
+<<<<<<< .mine
+import components.panelsListagem.PanelConsultaContaPagar;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import static javax.swing.JSplitPane.HORIZONTAL_SPLIT;
+
+import org.jfree.ui.RefineryUtilities;
+import utils.Utils;
+||||||| .r53
+import components.panelsListagem.PanelConsultaContaPagar;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import static javax.swing.JSplitPane.HORIZONTAL_SPLIT;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.Plot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.DomainOrder;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.Dataset;
+import org.jfree.data.general.DatasetChangeListener;
+import org.jfree.data.general.DatasetGroup;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.xy.XYDataItem;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.ui.RefineryUtilities;
+import utils.Utils;
+=======
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
 import java.util.Calendar;
 import java.util.Date;
+>>>>>>> .r69
 
 
 /**

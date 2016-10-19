@@ -60,6 +60,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.loadBackgroud();
         this.loadWidgetSaldo();
         this.loadFluxoCaixa();
+        this.loadContasReceber();
+        this.loadaddpessaoa();
+        
     }
 
     private void loadWidgetSaldo() {
@@ -196,6 +199,69 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.desktopPanel.add(iconDesktop);
 
     }
+    
+    private void loadContasReceber(){
+        
+        final IconDesktop iconDesktop = new IconDesktop("Contas a Receber", Utils.getImage(Utils.Image.ContasReceber));
+
+        iconDesktop.setActionListener((e) -> {
+            if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
+                return;
+            }
+             FormContaReceber form = new FormContaReceber();
+            this.desktopPanel.add(form);
+            form.open();
+            try {
+                form.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(FormPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        iconDesktop.setLocation(new Point(0, 320));
+        this.desktopPanel.add(iconDesktop);
+    
+    
+    }
+     private void loadaddpessaoa(){
+        
+        final IconDesktop iconDesktop = new IconDesktop("Adicionar Pessoa", Utils.getImage(Utils.Image.addpessoa));
+
+        iconDesktop.setActionListener((e) -> {
+            if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
+                return;
+            }
+             FormadicionarPessoa form = new FormadicionarPessoa();
+            this.desktopPanel.add(form);
+            form.open();
+            try {
+                form.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(FormPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+
+        iconDesktop.setLocation(new Point(900,40));
+        this.desktopPanel.add(iconDesktop);
+    
+    
+    }
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

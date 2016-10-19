@@ -53,7 +53,9 @@ public class Utils {
         notafiscal,
         ativoimobilizado,
         pagar,
-        FluxoCaixa
+        FluxoCaixa,
+        ContasReceber,
+        addpessoa,
     }
 
     public static ImageIcon getImage(Image icone) {
@@ -134,6 +136,12 @@ public class Utils {
                 url = "fluxoCaixa.png";
                 break;
 
+            case ContasReceber:
+                url = "contasReceber.png";
+                break;
+            case addpessoa:
+                url = "addPessoa.png";
+                break;    
         }
 
         return new ImageIcon(Utils.class.getResource("/imagens/" + url));
