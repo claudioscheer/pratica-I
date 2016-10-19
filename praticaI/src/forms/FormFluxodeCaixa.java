@@ -10,13 +10,10 @@ import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.desktoppane.WebInternalFrame;
 import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.managers.language.LanguageManager;
-
-
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
 import java.util.Calendar;
 import java.util.Date;
-
 
 
 /**
