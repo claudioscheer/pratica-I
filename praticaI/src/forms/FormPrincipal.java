@@ -20,8 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import org.hibernate.Session;
-import utils.HibernateUtil;
+import javax.swing.JOptionPane;
 
 public class FormPrincipal extends javax.swing.JFrame {
 
@@ -62,7 +61,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.loadFluxoCaixa();
         this.loadContasReceber();
         this.loadaddpessaoa();
-        
+        this.loadControleEstoque();
     }
 
     private void loadWidgetSaldo() {
@@ -245,6 +244,28 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.desktopPanel.add(iconDesktop);
     
     
+    }
+     
+         private void loadControleEstoque() {
+
+        final IconDesktop iconDesktop = new IconDesktop("Estoque", Utils.getImage(Utils.Image.estoque));
+
+        iconDesktop.setActionListener((e) -> {
+            if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
+                return;
+            }
+            JOptionPane.showMessageDialog(null, "Calma lá... ainda está sendo desenvolvido...", "Atenção! ", JOptionPane.INFORMATION_MESSAGE);
+            //FormAtivoImobilizado form = new FormAtivoImobilizado();
+            //this.desktopPanel.add(form);
+            //form.open();
+            //try {
+//                form.setMaximum(true);
+  //          } catch (PropertyVetoException ex) {
+    //        }
+        });
+
+        iconDesktop.setLocation(new Point(0, 440));
+        this.desktopPanel.add(iconDesktop);
     }
    
     
