@@ -1,18 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package forms;
 
 import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.desktoppane.WebInternalFrame;
 import com.alee.managers.language.LanguageManager;
 
-/**
- *
- * @author Marcos
- */
+
 public class FormadicionarPessoa extends WebInternalFrame {
 
     /**
