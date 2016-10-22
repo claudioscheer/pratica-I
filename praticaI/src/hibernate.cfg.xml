@@ -1,24 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/pratica_1</property>
-        <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">claudio123</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
-        <property name="hibernate.show_sql">true</property>
-        <mapping class="model.Categoria"/>
-        <mapping class="model.Marca"/>
-        <mapping class="model.AtivoImobilizado"/>
-        <mapping class="model.HistoricoDepreciacao"/>
-        <mapping class="model.Imposto"/>
-        <mapping class="model.ImpostoNotaFiscal"/>
-        <mapping class="model.NotaFiscal"/>
-        <mapping class="model.Fornecedor"/>
-        <mapping class="model.Produto"/>
-        <mapping class="model.ItemNota"/>
-        <mapping class="model.ImpostoItemNota"/>
-    </session-factory>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/pratica_1</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.password">root</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    <property name="hibernate.show_sql">true</property>
+     <mapping class="modelFinal.CarEstTipoOperacao"/>
+    <mapping class="modelFinal.PatNotaFiscal"/>
+    <mapping class="modelFinal.CarCapParcela"/>
+    <mapping class="modelFinal.PatDepreciacao"/>
+    <mapping class="modelFinal.PatItemNota"/>
+    <mapping class="modelFinal.FlxcxOperacoes"/>
+    <mapping class="modelFinal.CapContaStatus"/>
+    <mapping class="modelFinal.EstMovimentacao"/>
+    <mapping class="modelFinal.FlxcxMovimentoBancario"/>
+    <mapping class="modelFinal.PatHistoricoDepreciacao"/>
+    <mapping class="modelFinal.FlxcxEspFluxoCaixa"/>
+    <mapping class="modelFinal.EstUnidadeMedida"/>
+    <mapping class="modelFinal.PatImpostoItemNota"/>
+    <mapping class="modelFinal.FlxcxEspFluxoCaixaId"/>
+    <mapping class="modelFinal.EstCategoria"/>
+    <mapping class="modelFinal.FlxcxFluxoCaixa"/>
+    <mapping class="modelFinal.FlxcxTributacao"/>
+    <mapping class="modelFinal.EstProduto"/>
+    <mapping class="modelFinal.PatBaixa"/>
+    <mapping class="modelFinal.PatTipoBaixa"/>
+    <mapping class="modelFinal.FlxcxFluxoCaixaFechamento"/>
+    <mapping class="modelFinal.FlxcxLivroCaixa"/>
+    <mapping class="modelFinal.EstMarca"/>
+    <mapping class="modelFinal.Saldo"/>
+    <mapping class="modelFinal.CarCapContas"/>
+    <mapping class="modelFinal.PatImposto"/>
+    <mapping class="modelFinal.FlxcxEspecificacoes"/>
+    <mapping class="modelFinal.PatAtivoImobilizado"/>
+    <mapping class="modelFinal.CarPessoa"/>
+    <mapping class="modelFinal.PatImpostoNotaFiscal"/>
+  </session-factory>
 </hibernate-configuration>
