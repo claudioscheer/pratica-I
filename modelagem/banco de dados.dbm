@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="953,171" last-zoom="0.65"
+<dbmodel pgmodeler-ver="0.8.2" last-position="62,287" last-zoom="0.65"
 	 default-schema="public" default-owner="postgres">
 <database name="pratica_1" encoding="UTF8" lc-collate="Portuguese_Brazil" lc-ctype="Portuguese_Brazil">
 	<role name="postgres"/>
@@ -24,7 +24,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_ativo_imobilizado">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1880" y="183"/>
+	<position x="1880" y="180"/>
 	<column name="ativo_codigo" not-null="true" sequence="public.ativo_imobilizado_sequencia">
 		<type name="integer"/>
 	</column>
@@ -80,7 +80,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_tipo_baixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2740" y="183"/>
+	<position x="2740" y="180"/>
 	<column name="tipo_baixa_codigo" not-null="true" sequence="public.tipo_baixa_sequencia">
 		<type name="integer"/>
 	</column>
@@ -103,7 +103,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_baixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2380" y="163"/>
+	<position x="2380" y="160"/>
 	<column name="baixa_codigo" not-null="true" sequence="public.baixa_sequencia">
 		<type name="integer"/>
 	</column>
@@ -135,7 +135,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_depreciacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="3020" y="303"/>
+	<position x="3020" y="300"/>
 	<column name="depreciacao_codigo" not-null="true" sequence="public.depreciacao_sequencia">
 		<type name="integer"/>
 	</column>
@@ -170,7 +170,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_nota_fiscal">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1100" y="363"/>
+	<position x="1100" y="360"/>
 	<column name="nota_codigo" not-null="true" sequence="public.nota_fiscal_sequencia">
 		<type name="integer"/>
 	</column>
@@ -208,7 +208,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_imposto">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="440" y="163"/>
+	<position x="440" y="160"/>
 	<column name="imposto_codigo" not-null="true" sequence="public.imposto_sequencia">
 		<type name="integer"/>
 	</column>
@@ -234,7 +234,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_item_nota">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="380" y="503"/>
+	<position x="380" y="500"/>
 	<column name="item_nota_codigo" not-null="true" sequence="public.item_nota_sequencia">
 		<type name="integer"/>
 	</column>
@@ -272,7 +272,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_imposto_item_nota">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="400" y="303"/>
+	<position x="400" y="300"/>
 	<column name="imposto_item_nota_codigo" not-null="true" sequence="public.imposto_item_nota_sequencia">
 		<type name="integer"/>
 	</column>
@@ -301,7 +301,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_imposto_nota_fiscal">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1020" y="123"/>
+	<position x="1020" y="120"/>
 	<column name="imposto_nota_fiscal_codigo" not-null="true" sequence="public.imposto_nota_fiscal_sequencia">
 		<type name="integer"/>
 	</column>
@@ -330,7 +330,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="est_categoria">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2560" y="343"/>
+	<position x="2560" y="340"/>
 	<column name="categoria_id" not-null="true" sequence="public.categoria_sequencia">
 		<type name="integer"/>
 	</column>
@@ -353,7 +353,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="est_marca">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2580" y="503"/>
+	<position x="2580" y="500"/>
 	<column name="marca_id" not-null="true" sequence="public.marca_sequencia">
 		<type name="integer"/>
 	</column>
@@ -376,7 +376,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="est_unidade_medida">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2700" y="623"/>
+	<position x="2700" y="620"/>
 	<column name="unidade_medida_id" not-null="true" sequence="public.unidade_medida_sequencia">
 		<type name="integer"/>
 	</column>
@@ -399,7 +399,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="est_produto">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1560" y="543"/>
+	<position x="1560" y="540"/>
 	<column name="produto_id" not-null="true" sequence="public.produto_sequencia">
 		<type name="integer"/>
 	</column>
@@ -437,7 +437,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="saldo">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1980" y="423"/>
+	<position x="1980" y="420"/>
 	<column name="saldo" not-null="true" sequence="public.saldo_sequencia">
 		<type name="integer"/>
 	</column>
@@ -474,7 +474,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="est_movimentacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="760" y="643"/>
+	<position x="760" y="640"/>
 	<column name="mov_id" not-null="true" sequence="public.movimentacao_sequencia">
 		<type name="integer"/>
 	</column>
@@ -504,8 +504,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="car_est_tipo_operacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="240" y="703"/>
-	<column name="tp_op_id" not-null="true" sequence="public.tipo_operacao_sequencia">
+	<position x="240" y="680"/>
+	<column name="tp_op_id" not-null="true">
 		<type name="integer"/>
 	</column>
 	<column name="tp_op_descricao" not-null="true">
@@ -533,7 +533,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="car_cap_parcela">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="220" y="843"/>
+	<position x="220" y="840"/>
 	<column name="parcela_id" not-null="true" sequence="public.parcelas_sequencia">
 		<type name="integer"/>
 	</column>
@@ -571,7 +571,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="car_cap_contas">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="680" y="823"/>
+	<position x="680" y="820"/>
 	<column name="conta_id" not-null="true" sequence="public.conta_pagar_sequencia">
 		<type name="integer"/>
 	</column>
@@ -661,7 +661,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_historico_depreciacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1460" y="143"/>
+	<position x="1460" y="140"/>
 	<column name="historico_depreciacao_codigo" not-null="true" sequence="public.historico_depreciacao_sequencia">
 		<type name="integer"/>
 	</column>
@@ -816,7 +816,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="cap_conta_status">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="240" y="1043"/>
+	<position x="240" y="1040"/>
 	<column name="conta_status_id" not-null="true" sequence="public.conta_status_sequence">
 		<type name="integer"/>
 	</column>
@@ -835,7 +835,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcx_tributacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1640" y="940"/>
+	<position x="1560" y="880"/>
 	<column name="trib_codigo" not-null="true" sequence="public.tributacao_sequence">
 		<type name="integer"/>
 	</column>
@@ -850,7 +850,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcx_movimento_bancario">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2340" y="880"/>
+	<position x="2360" y="860"/>
 	<column name="mov_ban_codigo" not-null="true" sequence="public.mov_ban_sequence">
 		<type name="integer"/>
 	</column>
