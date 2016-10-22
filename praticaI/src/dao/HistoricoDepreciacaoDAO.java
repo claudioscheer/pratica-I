@@ -1,8 +1,8 @@
 package dao;
 
 import java.util.List;
-import model.AtivoImobilizado;
-import model.HistoricoDepreciacao;
+import modelAntigo.AtivoImobilizado;
+import modelAntigo.HistoricoDepreciacao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;

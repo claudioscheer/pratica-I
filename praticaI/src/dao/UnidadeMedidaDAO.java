@@ -1,7 +1,7 @@
 package dao;
 
 import java.util.List;
-import model.UnidadeMedida;
+import modelAntigo.UnidadeMedida;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;

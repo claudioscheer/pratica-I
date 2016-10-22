@@ -8,9 +8,9 @@ import dao.ProdutoDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
-import model.Categoria;
-import model.Marca;
-import model.Produto;
+import modelAntigo.Categoria;
+import modelAntigo.Marca;
+import modelAntigo.Produto;
 import utils.Utils;
 
 public class FormBuscaProduto extends JFrameBusca {

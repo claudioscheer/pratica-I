@@ -11,8 +11,8 @@ import java.awt.Graphics;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.border.Border;
-import model.Notificacao;
-import model.Notificacoes;
+import modelAntigo.Notificacao;
+import modelAntigo.Notificacoes;
 
 public class PanelNotificacoes extends WebPanel {
 

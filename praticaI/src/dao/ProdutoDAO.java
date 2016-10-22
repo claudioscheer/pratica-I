@@ -1,8 +1,8 @@
 package dao;
 
 import java.util.List;
-import model.Categoria;
-import model.Produto;
+import modelAntigo.Categoria;
+import modelAntigo.Produto;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;

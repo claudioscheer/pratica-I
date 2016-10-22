@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
-import model.Imposto;
+import modelAntigo.Imposto;
 import utils.Utils;
 
 public class FormBuscaImposto extends JFrameBusca {

@@ -5,7 +5,7 @@ import components.TextFieldFK;
 import components.panelsCads.PanelCadNotaFiscal;
 import forms.FormPrincipal;
 import javax.swing.table.DefaultTableModel;
-import model.NotaFiscal;
+import modelAntigo.NotaFiscal;
 
 public class FormBuscaNotaFiscal extends JFrameBusca {
 

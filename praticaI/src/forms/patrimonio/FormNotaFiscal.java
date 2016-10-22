@@ -9,7 +9,7 @@ import java.awt.Dimension;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.NotaFiscal;
+import modelAntigo.NotaFiscal;
 
 public class FormNotaFiscal extends WebInternalFrame {
 

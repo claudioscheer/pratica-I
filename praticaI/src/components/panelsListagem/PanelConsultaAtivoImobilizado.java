@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
-import model.AtivoImobilizado;
+import modelAntigo.AtivoImobilizado;
 import utils.Utils;
 
 public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionListener {

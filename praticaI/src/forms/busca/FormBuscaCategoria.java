@@ -6,7 +6,7 @@ import dao.CategoriaDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
-import model.Categoria;
+import modelAntigo.Categoria;
 import utils.Utils;
 
 public class FormBuscaCategoria extends JFrameBusca {

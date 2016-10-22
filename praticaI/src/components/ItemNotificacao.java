@@ -4,8 +4,8 @@ import forms.patrimonio.FormNotaFiscal;
 import utils.Utils;
 import java.awt.Color;
 import java.awt.Container;
-import model.Notificacao;
-import model.Notificacoes;
+import modelAntigo.Notificacao;
+import modelAntigo.Notificacoes;
 import org.jdesktop.swingx.border.DropShadowBorder;
 
 public class ItemNotificacao extends javax.swing.JPanel {

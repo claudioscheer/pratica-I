@@ -8,14 +8,14 @@ import dao.MarcaDAO;
 import dao.ProdutoDAO;
 import java.util.Calendar;
 import java.util.Date;
-import model.AtivoImobilizado;
-import model.Categoria;
-import model.EstadoBem;
-import model.HistoricoDepreciacao;
-import model.Imposto;
-import model.Marca;
-import model.Produto;
-import model.UtilizacaoBem;
+import modelAntigo.AtivoImobilizado;
+import modelAntigo.Categoria;
+import modelAntigo.EstadoBem;
+import modelAntigo.HistoricoDepreciacao;
+import modelAntigo.Imposto;
+import modelAntigo.Marca;
+import modelAntigo.Produto;
+import modelAntigo.UtilizacaoBem;
 import org.hibernate.Session;
 
 public class IniciarDadosBasicos {

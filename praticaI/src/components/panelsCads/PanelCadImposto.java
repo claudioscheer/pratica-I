@@ -3,7 +3,7 @@ package components.panelsCads;
 import com.alee.laf.panel.WebPanel;
 import components.Validador;
 import java.awt.event.ActionListener;
-import model.Imposto;
+import modelAntigo.Imposto;
 import utils.Utils;
 
 public class PanelCadImposto extends WebPanel {

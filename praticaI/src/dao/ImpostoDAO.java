@@ -1,7 +1,7 @@
 package dao;
 
 import java.util.List;
-import model.Imposto;
+import modelAntigo.Imposto;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;

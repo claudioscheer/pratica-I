@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import model.Imposto;
-import model.ImpostoItemNota;
-import model.ImpostoNotaFiscal;
-import model.ItemNota;
-import model.NotaFiscal;
+import modelAntigo.Imposto;
+import modelAntigo.ImpostoItemNota;
+import modelAntigo.ImpostoNotaFiscal;
+import modelAntigo.ItemNota;
+import modelAntigo.NotaFiscal;
 import utils.Utils;
 
 public class PanelCadNotaFiscal extends WebPanel {

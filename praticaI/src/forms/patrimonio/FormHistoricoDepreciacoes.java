@@ -5,8 +5,8 @@ import dao.HistoricoDepreciacaoDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
-import model.AtivoImobilizado;
-import model.HistoricoDepreciacao;
+import modelAntigo.AtivoImobilizado;
+import modelAntigo.HistoricoDepreciacao;
 
 public class FormHistoricoDepreciacoes extends JFrameBusca {
 

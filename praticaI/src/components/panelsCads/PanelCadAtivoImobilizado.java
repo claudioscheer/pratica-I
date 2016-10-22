@@ -7,11 +7,11 @@ import forms.busca.FormBuscaCategoria;
 import forms.busca.FormBuscaMarca;
 import forms.busca.FormBuscaNotaFiscal;
 import java.awt.event.ActionListener;
-import model.AtivoImobilizado;
-import model.Categoria;
-import model.EstadoBem;
-import model.Marca;
-import model.UtilizacaoBem;
+import modelAntigo.AtivoImobilizado;
+import modelAntigo.Categoria;
+import modelAntigo.EstadoBem;
+import modelAntigo.Marca;
+import modelAntigo.UtilizacaoBem;
 import utils.Utils;
 
 public class PanelCadAtivoImobilizado extends WebPanel {

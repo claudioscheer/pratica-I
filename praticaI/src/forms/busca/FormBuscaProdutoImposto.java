@@ -8,10 +8,10 @@ import java.util.function.Consumer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import model.Imposto;
-import model.ImpostoItemNota;
-import model.ItemNota;
-import model.Produto;
+import modelAntigo.Imposto;
+import modelAntigo.ImpostoItemNota;
+import modelAntigo.ItemNota;
+import modelAntigo.Produto;
 import utils.Utils;
 
 public class FormBuscaProdutoImposto extends JFrameBusca {

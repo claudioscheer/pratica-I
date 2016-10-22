@@ -7,7 +7,7 @@ import components.panelsListagem.PanelConsultaAtivoImobilizado;
 import dao.AtivoImobilizadoDAO;
 import utils.Utils;
 import java.awt.Dimension;
-import model.AtivoImobilizado;
+import modelAntigo.AtivoImobilizado;
 
 public class FormAtivoImobilizado extends WebInternalFrame {
 
