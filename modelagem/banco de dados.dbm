@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="62,287" last-zoom="0.65"
+<dbmodel pgmodeler-ver="0.8.2" last-position="0,228" last-zoom="0.65"
 	 default-schema="public" default-owner="postgres">
 <database name="pratica_1" encoding="UTF8" lc-collate="Portuguese_Brazil" lc-ctype="Portuguese_Brazil">
 	<role name="postgres"/>
@@ -572,7 +572,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="680" y="820"/>
-	<column name="conta_id" not-null="true" sequence="public.conta_pagar_sequencia">
+	<column name="conta_id" not-null="true">
 		<type name="integer"/>
 	</column>
 	<column name="conta_valor_total" not-null="true">
