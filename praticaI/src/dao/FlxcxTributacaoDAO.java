@@ -70,7 +70,7 @@ public class FlxcxTributacaoDAO {
         try {
             session.getTransaction().begin();
 
-            Query query = session.createQuery("select t from FlxcxTributacao as t ");
+            Query query = session.createQuery("from model.FlxcxTributacao as t ");
 
             List<FlxcxTributacao> tributacao = query.list();
 

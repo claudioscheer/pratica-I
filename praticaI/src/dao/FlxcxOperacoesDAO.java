@@ -70,7 +70,7 @@ public class FlxcxOperacoesDAO {
         try {
             session.getTransaction().begin();
 
-            Query query = session.createQuery("select t from FlxcxOperacoes as t ");
+            Query query = session.createQuery("from FlxcxOperacoes as t ");
 
             List<FlxcxOperacoes> operacoes = query.list();
 

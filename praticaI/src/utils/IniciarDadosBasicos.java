@@ -2,12 +2,14 @@ package utils;
 
 import dao.AtivoImobilizadoDAO;
 import dao.CategoriaDAO;
+import dao.FlxcxTributacaoDAO;
 import dao.HistoricoDepreciacaoDAO;
 import dao.ImpostoDAO;
 import dao.MarcaDAO;
 import dao.ProdutoDAO;
 import java.util.Calendar;
 import java.util.Date;
+import model.FlxcxTributacao;
 import modelAntigo.AtivoImobilizado;
 import modelAntigo.Categoria;
 import modelAntigo.EstadoBem;
@@ -22,7 +24,13 @@ public class IniciarDadosBasicos {
 
     public static void main(String[] args) {
 
-        CategoriaDAO categoriaDAO = new CategoriaDAO();
+       FluxoDeCaixa();
+
+    }
+
+    public static void Patrimonio(){
+    
+         CategoriaDAO categoriaDAO = new CategoriaDAO();
         for (int i = 1; i <= 3; i++) {
             Categoria categoria = new Categoria();
             categoria.setCodigo(i);
@@ -87,7 +95,36 @@ public class IniciarDadosBasicos {
         }
 
         System.exit(0);
-
+    
+    
     }
-
+    
+    public static void FluxoDeCaixa(){
+    
+        
+        FlxcxTributacaoDAO tributacaoDAO = new FlxcxTributacaoDAO();;
+//        for (int i = 1; i <= 10; i++){
+//        
+//            FlxcxTributacao tributacao =  new FlxcxTributacao();
+//            tributacao.setTribCodigo(i);
+//            tributacao.setTribDescricao("Tributacao - " + i);
+//            tributacaoDAO.Inserir(tributacao);
+//        
+//        }
+        
+        
+//        for (model.FlxcxTributacao i :tributacaoDAO.ListarTodas()){
+//        
+//            System.out.println(i.getTribCodigo());
+//            System.out.println(i.getTribDescricao());
+//        
+//        }
+           
+        FlxcxTributacao trib = tributacaoDAO.Buscar(1);
+        
+        System.out.println(trib.getTribDescricao());
+    
+    }
+    
+    
 }
