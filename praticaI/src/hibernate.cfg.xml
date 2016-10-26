@@ -9,35 +9,37 @@
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.show_sql">true</property>
-        <mapping class="PatItemNota" package="model"/>
-        <mapping class="FlxcxOperacoes" package="model"/>
-        <mapping class="CapContaStatus" package="model"/>
-        <mapping class="EstMovimentacao" package="model"/>
-        <mapping class="FlxcxMovimentoBancario" package="model"/>
-        <mapping class="PatHistoricoDepreciacao" package="model"/>
-        <mapping class="FlxcxEspFluxoCaixa" package="model"/>
-        <mapping class="EstUnidadeMedida" package="model"/>
-        <mapping class="PatImpostoItemNota" package="model"/>
-        <mapping class="FlxcxEspFluxoCaixaId" package="model"/>
-        <mapping class="EstCategoria" package="model"/>
-        <mapping class="FlxcxFluxoCaixa" package="model"/>
-        <mapping class="FlxcxTributacao" package="model"/>
-        <mapping class="EstProduto" package="model"/>
-        <mapping class="PatBaixa" package="model"/>
-        <mapping class="PatTipoBaixa" package="model"/>
-        <mapping class="FlxcxFluxoCaixaFechamento" package="model"/>
-        <mapping class="FlxcxLivroCaixa" package="model"/>
-        <mapping class="EstMarca" package="model"/>
-        <mapping class="Saldo" package="model"/>
-        <mapping class="CarCapContas" package="model"/>
-        <mapping class="PatImposto" package="model"/>
-        <mapping class="FlxcxEspecificacoes" package="model"/>
-        <mapping class="PatAtivoImobilizado" package="model"/>
-        <mapping class="CarPessoa" package="model"/>
-        <mapping class="PatImpostoNotaFiscal" package="model"/>
-        <mapping class="CarEstTipoOperacao" package="model"/>
-        <mapping class="PatNotaFiscal" package="model"/>
-        <mapping class="CarCapParcela" package="model"/>
-        <mapping class="PatDepreciacao" package="model"/>   
+        <property name="hibernate.format_sql">true</property>
+        <mapping class="model.PatItemNota" package="model"/>
+        <mapping class="model.FlxcxOperacoes" package="model"/>
+        <mapping class="model.CapContaStatus" package="model"/>
+        <mapping class="model.EstMovimentacao" package="model"/>
+        <mapping class="model.FlxcxMovimentoBancario" package="model"/>
+        <mapping class="model.PatHistoricoDepreciacao" package="model"/>
+        <mapping class="model.FlxcxEspFluxoCaixa" package="model"/>
+        <mapping class="model.EstUnidadeMedida" package="model"/>
+        <mapping class="model.PatImpostoItemNota" package="model"/>
+        <mapping class="model.FlxcxEspFluxoCaixaId" package="model"/>
+        <mapping class="model.EstCategoria" package="model"/>
+        <mapping class="model.FlxcxFluxoCaixa" package="model"/>
+        <mapping class="model.FlxcxTributacao"/>
+        <mapping class="model.EstProduto" package="model"/>
+        <mapping class="model.PatBaixa" package="model"/>
+        <mapping class="model.PatTipoBaixa" package="model"/>
+        <mapping class="model.FlxcxFluxoCaixaFechamento" package="model"/>
+        <mapping class="model.FlxcxLivroCaixa"/>
+        <mapping class="model.EstMarca" package="model"/>
+        <mapping class="model.Saldo" package="model"/>
+        <mapping class="model.CarCapContas" package="model"/>
+        <mapping class="model.PatImposto" package="model"/>
+        <mapping class="model.FlxcxEspecificacoes" package="model"/>
+        <mapping class="model.PatAtivoImobilizado" package="model"/>
+        <mapping class="model.CarPessoa" package="model"/>
+        <mapping class="model.PatImpostoNotaFiscal" package="model"/>
+        <mapping class="model.CarEstTipoOperacao" package="model"/>
+        <mapping class="model.PatNotaFiscal" package="model"/>
+        <mapping class="model.CarCapParcela" package="model"/>
+        <mapping class="model.PatDepreciacao" package="model"/>    
+      
     </session-factory>
 </hibernate-configuration>

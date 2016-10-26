@@ -6,7 +6,7 @@
 package dao;
 
 import java.util.List;
-import model.FlxcxTributacao;
+import model.FlxcxLivroCaixa;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -16,16 +16,14 @@ import utils.HibernateUtil;
  *
  * @author Diego
  */
-public class FlxcxTributacaoDAO {
+public class FlxcxLivroCaixaDAO {
+     private final Session session = HibernateUtil.getSessionFactory().openSession();
 
-    private final Session session = HibernateUtil.getSessionFactory().openSession();
-
-    public boolean Inserir(FlxcxTributacao tributacao) {
+    public boolean Inserir(FlxcxLivroCaixa livroCaixa) {
 
         try {
             this.session.getTransaction().begin();
-            System.out.println("Aqui: " + session.isConnected());
-            this.session.save(tributacao);
+            this.session.save(livroCaixa);
             this.session.getTransaction().commit();
             return true;
         } catch (HibernateException e) {
@@ -36,11 +34,11 @@ public class FlxcxTributacaoDAO {
 
     }
 
-    public boolean Alterar(FlxcxTributacao tributacao) {
+    public boolean Alterar(FlxcxLivroCaixa livroCaixa) {
 
         try {
             this.session.getTransaction().begin();
-            this.session.update(tributacao);
+            this.session.update(livroCaixa);
             this.session.getTransaction().commit();
             return true;
         } catch (HibernateException e) {
@@ -55,8 +53,8 @@ public class FlxcxTributacaoDAO {
 
         try {
 
-            FlxcxTributacao tributacao = (FlxcxTributacao) session.get(FlxcxTributacao.class, codigo);
-            this.session.delete(tributacao);
+            FlxcxLivroCaixa livroCaixa = (FlxcxLivroCaixa) session.get(FlxcxLivroCaixa.class, codigo);
+            this.session.delete(livroCaixa);
             return true;
 
         } catch (HibernateException e) {
@@ -67,15 +65,15 @@ public class FlxcxTributacaoDAO {
 
     }
 
-    public List<FlxcxTributacao> ListarTodas() {
+    public List<FlxcxLivroCaixa> ListarTodas() {
         try {
             session.getTransaction().begin();
 
-            Query query = session.createQuery("from model.FlxcxTributacao as t ");
+            Query query = session.createQuery("from FlxcxLivroCaixa as t ");
 
-            List<FlxcxTributacao> tributacao = query.list();
+            List<FlxcxLivroCaixa> livrosCaixa = query.list();
 
-            return tributacao;
+            return livrosCaixa;
 
         } catch (HibernateException e) {
             throw e;
@@ -84,18 +82,17 @@ public class FlxcxTributacaoDAO {
         }
     }
 
-    public FlxcxTributacao Buscar(int codigo) {
+    public FlxcxLivroCaixa Buscar(int codigo) {
         try {
             session.getTransaction().begin();
 
-            FlxcxTributacao tipOperacao = (FlxcxTributacao) session.get(FlxcxTributacao.class, codigo);
+            FlxcxLivroCaixa livroCaixa = (FlxcxLivroCaixa) session.get(FlxcxLivroCaixa.class, codigo);
 
-            return tipOperacao;
+            return livroCaixa;
         } catch (HibernateException e) {
             throw e;
         } finally {
             session.close();
         }
     }
-
 }

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,7 +24,7 @@ public class FlxcxTributacao  implements java.io.Serializable {
 
      private int tribCodigo;
      private String tribDescricao;
-     private Set flxcxOperacoeses = new HashSet(0);
+     private Set<FlxcxOperacoes> flxcxOperacoes = new HashSet<>();
 
     public FlxcxTributacao() {
     }
@@ -32,10 +33,10 @@ public class FlxcxTributacao  implements java.io.Serializable {
     public FlxcxTributacao(int tribCodigo) {
         this.tribCodigo = tribCodigo;
     }
-    public FlxcxTributacao(int tribCodigo, String tribDescricao, Set flxcxOperacoeses) {
+    public FlxcxTributacao(int tribCodigo, String tribDescricao, Set<FlxcxOperacoes> flxcxOperacoes) {
        this.tribCodigo = tribCodigo;
        this.tribDescricao = tribDescricao;
-       this.flxcxOperacoeses = flxcxOperacoeses;
+       this.flxcxOperacoes = flxcxOperacoes;
     }
    
      @Id 
@@ -60,13 +61,13 @@ public class FlxcxTributacao  implements java.io.Serializable {
         this.tribDescricao = tribDescricao;
     }
 
-@ManyToMany(fetch=FetchType.LAZY, mappedBy="flxcxTributacaos")
-    public Set getFlxcxOperacoeses() {
-        return this.flxcxOperacoeses;
+@OneToMany(fetch=FetchType.LAZY, mappedBy="flxcxTributacaos")
+    public Set<FlxcxOperacoes> getFlxcxOperacoes() {
+        return this.flxcxOperacoes;
     }
     
-    public void setFlxcxOperacoeses(Set flxcxOperacoeses) {
-        this.flxcxOperacoeses = flxcxOperacoeses;
+    public void setFlxcxOperacoes(Set<FlxcxOperacoes> flxcxOperacoes) {
+        this.flxcxOperacoes = flxcxOperacoes;
     }
 
 

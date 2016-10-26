@@ -2,13 +2,20 @@ package utils;
 
 import dao.AtivoImobilizadoDAO;
 import dao.CategoriaDAO;
+import dao.FlxcxLivroCaixaDAO;
+import dao.FlxcxOperacoesDAO;
 import dao.FlxcxTributacaoDAO;
 import dao.HistoricoDepreciacaoDAO;
 import dao.ImpostoDAO;
 import dao.MarcaDAO;
 import dao.ProdutoDAO;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import model.FlxcxLivroCaixa;
+import model.FlxcxOperacoes;
 import model.FlxcxTributacao;
 import modelAntigo.AtivoImobilizado;
 import modelAntigo.Categoria;
@@ -17,27 +24,29 @@ import modelAntigo.HistoricoDepreciacao;
 import modelAntigo.Imposto;
 import modelAntigo.Marca;
 import modelAntigo.Produto;
+import modelAntigo.Tributacao;
 import modelAntigo.UtilizacaoBem;
 import org.hibernate.Session;
 
 public class IniciarDadosBasicos {
-
+    
     public static void main(String[] args) {
-
-       FluxoDeCaixa();
+        
+        FluxoDeCaixa();
+//        Patrimonio();
 
     }
-
-    public static void Patrimonio(){
     
-         CategoriaDAO categoriaDAO = new CategoriaDAO();
+    public static void Patrimonio() {
+        
+        CategoriaDAO categoriaDAO = new CategoriaDAO();
         for (int i = 1; i <= 3; i++) {
             Categoria categoria = new Categoria();
             categoria.setCodigo(i);
             categoria.setDescricao("categoria " + i);
             categoriaDAO.insert(categoria);
         }
-
+        
         MarcaDAO marcaDAO = new MarcaDAO();
         for (int i = 1; i <= 3; i++) {
             Marca marca = new Marca();
@@ -45,7 +54,7 @@ public class IniciarDadosBasicos {
             marca.setDescricao("marca " + i);
             marcaDAO.insert(marca);
         }
-
+        
         AtivoImobilizadoDAO ativoImobilizadoDAO = new AtivoImobilizadoDAO();
         Marca marca = new MarcaDAO().get(1);
         Categoria categoria = new CategoriaDAO().get(1);
@@ -60,10 +69,10 @@ public class IniciarDadosBasicos {
             ativoImobilizado.setValorAtual(10);
             ativoImobilizado.setValorOriginal(10);
             ativoImobilizado.setValorResidual(10);
-
+            
             ativoImobilizadoDAO.insert(ativoImobilizado);
         }
-
+        
         HistoricoDepreciacaoDAO historicoDepreciacaoDAO = new HistoricoDepreciacaoDAO();
         Calendar data = Calendar.getInstance();
         AtivoImobilizado ativoImobilizado = new AtivoImobilizadoDAO().get(1);
@@ -76,7 +85,7 @@ public class IniciarDadosBasicos {
             historicoDepreciacao.setValor(300.87);
             historicoDepreciacaoDAO.insert(historicoDepreciacao);
         }
-
+        
         ProdutoDAO produtoDAO = new ProdutoDAO();
         for (int i = 1; i <= 4; i++) {
             Produto produto = new Produto();
@@ -84,7 +93,7 @@ public class IniciarDadosBasicos {
             produto.setNome("produto " + i);
             produtoDAO.insert(produto);
         }
-
+        
         ImpostoDAO impostoDAO = new ImpostoDAO();
         for (int i = 1; i <= 4; i++) {
             Imposto imposto = new Imposto();
@@ -93,38 +102,40 @@ public class IniciarDadosBasicos {
             imposto.setAliquota(459345);
             impostoDAO.insert(imposto);
         }
-
+        
         System.exit(0);
-    
-    
+        
     }
     
-    public static void FluxoDeCaixa(){
-    
+    public static void FluxoDeCaixa() {
+//    
+        Calendar data = Calendar.getInstance();
+//        FlxcxLivroCaixaDAO livroCaixaDao = new FlxcxLivroCaixaDAO();
+        FlxcxTributacaoDAO trib = new FlxcxTributacaoDAO();
         
-        FlxcxTributacaoDAO tributacaoDAO = new FlxcxTributacaoDAO();;
-//        for (int i = 1; i <= 10; i++){
-//        
-//            FlxcxTributacao tributacao =  new FlxcxTributacao();
-//            tributacao.setTribCodigo(i);
-//            tributacao.setTribDescricao("Tributacao - " + i);
-//            tributacaoDAO.Inserir(tributacao);
-//        
-//        }
+        Set ope = new HashSet(0);
         
-        
+        for (int i = 1; i <= 10; i++) {
+            
+            FlxcxTributacao tr = new FlxcxTributacao();
+            
+            FlxcxOperacoes op =  new FlxcxOperacoes();
+            
+            tr.setTribCodigo(i);
+            tr.setTribDescricao("Tributacao: " + i);
+            tr.setFlxcxOperacoes(ope);
+            
+        }
+
 //        for (model.FlxcxTributacao i :tributacaoDAO.ListarTodas()){
 //        
 //            System.out.println(i.getTribCodigo());
 //            System.out.println(i.getTribDescricao());
 //        
 //        }
-           
-        FlxcxTributacao trib = tributacaoDAO.Buscar(1);
-        
-        System.out.println(trib.getTribDescricao());
-    
+//        FlxcxTributacao trib = tributacaoDAO.Buscar(1);
+//        
+//        System.out.println(trib.getTribDescricao());
     }
-    
     
 }

@@ -12,8 +12,11 @@ import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.managers.language.LanguageManager;
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
+import dao.FlxcxLivroCaixaDAO;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import model.FlxcxLivroCaixa;
 
 
 /**
@@ -314,6 +317,11 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         });
 
         webButton6.setText("Calcular Saldo Operacional");
+        webButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                webButton6ActionPerformed(evt);
+            }
+        });
 
         webLabel6.setText("Menu de Ações");
         webLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -544,6 +552,10 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     
     
     }//GEN-LAST:event_btn_GerarRelatorioActionPerformed
+
+    private void webButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton6ActionPerformed
+       
+    }//GEN-LAST:event_webButton6ActionPerformed
 
     /**
      * @param args the command line arguments

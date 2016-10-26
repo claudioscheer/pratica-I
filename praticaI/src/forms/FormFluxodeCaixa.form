@@ -388,6 +388,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Calcular Saldo Operacional"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="webButton6ActionPerformed"/>
+          </Events>
         </Component>
         <Container class="com.alee.extended.breadcrumb.WebBreadcrumb" name="webBreadcrumb4">
 

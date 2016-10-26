@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="114,12" last-zoom="0.65"
+<dbmodel pgmodeler-ver="0.8.2" last-position="532,267" last-zoom="0.65"
 	 default-schema="public" default-owner="postgres">
 <database name="pratica_1" encoding="UTF8" lc-collate="Portuguese_Brazil" lc-ctype="Portuguese_Brazil">
 	<role name="postgres"/>
@@ -720,7 +720,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcx_operacao_tributacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1960" y="823"/>
+	<position x="1960" y="820"/>
 	<column name="op_codigo" not-null="true">
 		<type name="integer"/>
 	</column>
