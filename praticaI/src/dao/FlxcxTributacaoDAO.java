@@ -18,56 +18,63 @@ import utils.HibernateUtil;
  */
 public class FlxcxTributacaoDAO {
 
-    private final Session session = HibernateUtil.getSessionFactory().openSession();
-
     public boolean Inserir(FlxcxTributacao tributacao) {
 
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
         try {
-            this.session.getTransaction().begin();
+            session.getTransaction().begin();
             System.out.println("Aqui: " + session.isConnected());
-            this.session.save(tributacao);
-            this.session.getTransaction().commit();
+            session.save(tributacao);
+            session.getTransaction().commit();
             return true;
         } catch (HibernateException e) {
             throw e;
         } finally {
-            this.session.close();
+            session.close();
         }
 
     }
 
     public boolean Alterar(FlxcxTributacao tributacao) {
 
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
         try {
-            this.session.getTransaction().begin();
-            this.session.update(tributacao);
-            this.session.getTransaction().commit();
+            session.getTransaction().begin();
+            session.update(tributacao);
+            session.getTransaction().commit();
             return true;
         } catch (HibernateException e) {
             throw e;
         } finally {
-            this.session.close();
+            session.close();
         }
 
     }
 
     public boolean Excluir(int codigo) {
 
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
         try {
 
             FlxcxTributacao tributacao = (FlxcxTributacao) session.get(FlxcxTributacao.class, codigo);
-            this.session.delete(tributacao);
+            session.delete(tributacao);
             return true;
 
         } catch (HibernateException e) {
             throw e;
         } finally {
-            this.session.close();
+            session.close();
         }
 
     }
 
     public List<FlxcxTributacao> ListarTodas() {
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
         try {
             session.getTransaction().begin();
 
@@ -85,6 +92,9 @@ public class FlxcxTributacaoDAO {
     }
 
     public FlxcxTributacao Buscar(int codigo) {
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
         try {
             session.getTransaction().begin();
 

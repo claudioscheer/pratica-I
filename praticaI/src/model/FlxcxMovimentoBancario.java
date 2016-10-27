@@ -30,24 +30,24 @@ public class FlxcxMovimentoBancario  implements java.io.Serializable {
 
      private int movBanCodigo;
      private CarPessoa carPessoa;
-     private FlxcxOperacoes flxcxOperacoes;
+     private Set<FlxcxOperacoes> flxcxOperacoes;
      private Date movBanData;
      private BigDecimal movBanDocumento;
      private BigDecimal movBanNumero;
      private BigDecimal movBanEntrada;
      private BigDecimal movBanSaida;
-     private Set flxcxEspecificacoeses = new HashSet(0);
+     private Set<FlxcxEspecificacoes> flxcxEspecificacoeses = new HashSet(0);
 
     public FlxcxMovimentoBancario() {
     }
 
 	
-    public FlxcxMovimentoBancario(int movBanCodigo, CarPessoa carPessoa, FlxcxOperacoes flxcxOperacoes) {
+    public FlxcxMovimentoBancario(int movBanCodigo, CarPessoa carPessoa, Set<FlxcxOperacoes> flxcxOperacoes) {
         this.movBanCodigo = movBanCodigo;
         this.carPessoa = carPessoa;
         this.flxcxOperacoes = flxcxOperacoes;
     }
-    public FlxcxMovimentoBancario(int movBanCodigo, CarPessoa carPessoa, FlxcxOperacoes flxcxOperacoes, Date movBanData, BigDecimal movBanDocumento, BigDecimal movBanNumero, BigDecimal movBanEntrada, BigDecimal movBanSaida, Set flxcxEspecificacoeses) {
+    public FlxcxMovimentoBancario(int movBanCodigo, CarPessoa carPessoa, Set<FlxcxOperacoes> flxcxOperacoes, Date movBanData, BigDecimal movBanDocumento, BigDecimal movBanNumero, BigDecimal movBanEntrada, BigDecimal movBanSaida, Set<FlxcxEspecificacoes> flxcxEspecificacoeses) {
        this.movBanCodigo = movBanCodigo;
        this.carPessoa = carPessoa;
        this.flxcxOperacoes = flxcxOperacoes;
@@ -83,11 +83,11 @@ public class FlxcxMovimentoBancario  implements java.io.Serializable {
 
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="op_codigo", nullable=false)
-    public FlxcxOperacoes getFlxcxOperacoes() {
+    public Set<FlxcxOperacoes> getFlxcxOperacoes() {
         return this.flxcxOperacoes;
     }
     
-    public void setFlxcxOperacoes(FlxcxOperacoes flxcxOperacoes) {
+    public void setFlxcxOperacoes(Set<FlxcxOperacoes> flxcxOperacoes) {
         this.flxcxOperacoes = flxcxOperacoes;
     }
 
@@ -145,11 +145,11 @@ public class FlxcxMovimentoBancario  implements java.io.Serializable {
     @JoinTable(name="flxcx_movimentos_especificacoes", schema="public", joinColumns = { 
         @JoinColumn(name="mov_ban_codigo", nullable=false, updatable=false) }, inverseJoinColumns = { 
         @JoinColumn(name="esp_codigo", nullable=false, updatable=false) })
-    public Set getFlxcxEspecificacoeses() {
+    public Set<FlxcxEspecificacoes> getFlxcxEspecificacoeses() {
         return this.flxcxEspecificacoeses;
     }
     
-    public void setFlxcxEspecificacoeses(Set flxcxEspecificacoeses) {
+    public void setFlxcxEspecificacoeses(Set<FlxcxEspecificacoes> flxcxEspecificacoeses) {
         this.flxcxEspecificacoeses = flxcxEspecificacoeses;
     }
 

@@ -17,55 +17,63 @@ import utils.HibernateUtil;
  * @author Diego
  */
 public class FlxcxLivroCaixaDAO {
-     private final Session session = HibernateUtil.getSessionFactory().openSession();
 
     public boolean Inserir(FlxcxLivroCaixa livroCaixa) {
 
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
         try {
-            this.session.getTransaction().begin();
-            this.session.save(livroCaixa);
-            this.session.getTransaction().commit();
+            session.getTransaction().begin();
+            session.save(livroCaixa);
+            session.getTransaction().commit();
             return true;
         } catch (HibernateException e) {
             throw e;
         } finally {
-            this.session.close();
+            session.close();
         }
 
     }
 
     public boolean Alterar(FlxcxLivroCaixa livroCaixa) {
 
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
         try {
-            this.session.getTransaction().begin();
-            this.session.update(livroCaixa);
-            this.session.getTransaction().commit();
+            session.getTransaction().begin();
+            session.update(livroCaixa);
+            session.getTransaction().commit();
             return true;
         } catch (HibernateException e) {
             throw e;
         } finally {
-            this.session.close();
+            session.close();
         }
 
     }
 
     public boolean Excluir(int codigo) {
-
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
         try {
 
             FlxcxLivroCaixa livroCaixa = (FlxcxLivroCaixa) session.get(FlxcxLivroCaixa.class, codigo);
-            this.session.delete(livroCaixa);
+            session.delete(livroCaixa);
             return true;
 
         } catch (HibernateException e) {
             throw e;
         } finally {
-            this.session.close();
+            session.close();
         }
 
     }
 
     public List<FlxcxLivroCaixa> ListarTodas() {
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
         try {
             session.getTransaction().begin();
 
@@ -83,6 +91,9 @@ public class FlxcxLivroCaixaDAO {
     }
 
     public FlxcxLivroCaixa Buscar(int codigo) {
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
         try {
             session.getTransaction().begin();
 

@@ -29,16 +29,17 @@ import modelAntigo.UtilizacaoBem;
 import org.hibernate.Session;
 
 public class IniciarDadosBasicos {
-    
+
     public static void main(String[] args) {
-        
+
         FluxoDeCaixa();
 //        Patrimonio();
 
+        System.exit(0);
     }
-    
+
     public static void Patrimonio() {
-        
+
         CategoriaDAO categoriaDAO = new CategoriaDAO();
         for (int i = 1; i <= 3; i++) {
             Categoria categoria = new Categoria();
@@ -46,7 +47,7 @@ public class IniciarDadosBasicos {
             categoria.setDescricao("categoria " + i);
             categoriaDAO.insert(categoria);
         }
-        
+
         MarcaDAO marcaDAO = new MarcaDAO();
         for (int i = 1; i <= 3; i++) {
             Marca marca = new Marca();
@@ -54,7 +55,7 @@ public class IniciarDadosBasicos {
             marca.setDescricao("marca " + i);
             marcaDAO.insert(marca);
         }
-        
+
         AtivoImobilizadoDAO ativoImobilizadoDAO = new AtivoImobilizadoDAO();
         Marca marca = new MarcaDAO().get(1);
         Categoria categoria = new CategoriaDAO().get(1);
@@ -69,10 +70,10 @@ public class IniciarDadosBasicos {
             ativoImobilizado.setValorAtual(10);
             ativoImobilizado.setValorOriginal(10);
             ativoImobilizado.setValorResidual(10);
-            
+
             ativoImobilizadoDAO.insert(ativoImobilizado);
         }
-        
+
         HistoricoDepreciacaoDAO historicoDepreciacaoDAO = new HistoricoDepreciacaoDAO();
         Calendar data = Calendar.getInstance();
         AtivoImobilizado ativoImobilizado = new AtivoImobilizadoDAO().get(1);
@@ -85,7 +86,7 @@ public class IniciarDadosBasicos {
             historicoDepreciacao.setValor(300.87);
             historicoDepreciacaoDAO.insert(historicoDepreciacao);
         }
-        
+
         ProdutoDAO produtoDAO = new ProdutoDAO();
         for (int i = 1; i <= 4; i++) {
             Produto produto = new Produto();
@@ -93,7 +94,7 @@ public class IniciarDadosBasicos {
             produto.setNome("produto " + i);
             produtoDAO.insert(produto);
         }
-        
+
         ImpostoDAO impostoDAO = new ImpostoDAO();
         for (int i = 1; i <= 4; i++) {
             Imposto imposto = new Imposto();
@@ -102,29 +103,29 @@ public class IniciarDadosBasicos {
             imposto.setAliquota(459345);
             impostoDAO.insert(imposto);
         }
-        
-        System.exit(0);
-        
+
     }
-    
+
     public static void FluxoDeCaixa() {
 //    
         Calendar data = Calendar.getInstance();
 //        FlxcxLivroCaixaDAO livroCaixaDao = new FlxcxLivroCaixaDAO();
         FlxcxTributacaoDAO trib = new FlxcxTributacaoDAO();
-        
-        Set ope = new HashSet(0);
-        
+
+        FlxcxOperacoesDAO operacaoDAO = new FlxcxOperacoesDAO();
+
+        FlxcxOperacoes op = operacaoDAO.Buscar(1);
+
         for (int i = 1; i <= 10; i++) {
-            
+
             FlxcxTributacao tr = new FlxcxTributacao();
-            
-            FlxcxOperacoes op =  new FlxcxOperacoes();
-            
+
             tr.setTribCodigo(i);
             tr.setTribDescricao("Tributacao: " + i);
-            tr.setFlxcxOperacoes(ope);
-            
+//            tr.setFlxcxOperacoes(op);
+
+            trib.Inserir(tr);
+
         }
 
 //        for (model.FlxcxTributacao i :tributacaoDAO.ListarTodas()){
@@ -137,5 +138,5 @@ public class IniciarDadosBasicos {
 //        
 //        System.out.println(trib.getTribDescricao());
     }
-    
+
 }

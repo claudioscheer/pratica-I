@@ -61,7 +61,8 @@ public class FlxcxTributacao  implements java.io.Serializable {
         this.tribDescricao = tribDescricao;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="flxcxTributacaos")
+    
+    @ManyToMany(mappedBy = "flxcxTributacaos")
     public Set<FlxcxOperacoes> getFlxcxOperacoes() {
         return this.flxcxOperacoes;
     }
