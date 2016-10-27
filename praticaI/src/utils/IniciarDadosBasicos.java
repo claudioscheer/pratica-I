@@ -122,7 +122,7 @@ public class IniciarDadosBasicos {
 
             tr.setTribCodigo(i);
             tr.setTribDescricao("Tributacao: " + i);
-//            tr.setFlxcxOperacoes(op);
+            tr.getFlxcxOperacoes().add(op);
 
             trib.Inserir(tr);
 

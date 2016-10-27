@@ -30,7 +30,7 @@ public class FlxcxMovimentoBancario  implements java.io.Serializable {
 
      private int movBanCodigo;
      private CarPessoa carPessoa;
-     private Set<FlxcxOperacoes> flxcxOperacoes;
+     private Set<FlxcxOperacoes> flxcxOperacoes = new HashSet(0);
      private Date movBanData;
      private BigDecimal movBanDocumento;
      private BigDecimal movBanNumero;

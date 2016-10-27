@@ -114,8 +114,9 @@ public class CarCapContas  implements java.io.Serializable {
         this.carPessoa = carPessoa;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="op_codigo_flxcx_operacoes")
+    
+    @JoinColumn(name="op_codigo_flxcx_operacoes") 
+    @ManyToOne(targetEntity = model.FlxcxOperacoes.class)
     public FlxcxOperacoes getFlxcxOperacoes() {
         return this.flxcxOperacoes;
     }
