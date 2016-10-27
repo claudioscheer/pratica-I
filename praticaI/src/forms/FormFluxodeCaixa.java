@@ -5,7 +5,6 @@
  */
 package forms;
 
-
 import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.desktoppane.WebInternalFrame;
 import com.alee.laf.optionpane.WebOptionPane;
@@ -13,11 +12,24 @@ import com.alee.managers.language.LanguageManager;
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
 import dao.FlxcxLivroCaixaDAO;
+import java.awt.Rectangle;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import javafx.geometry.Bounds;
+import javax.swing.JSplitPane;
+import javax.swing.plaf.SplitPaneUI;
+import model.CapContaStatus;
+import model.CarCapContas;
 import model.FlxcxLivroCaixa;
-
+import modelAntigo.TipoOperacao;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import utils.Graficos;
 
 /**
  *
@@ -48,38 +60,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
         txtDataInicial.setDate(c.getTime());
 
-     //   XYDataset XY = new XYDataset() {
-//        
-//        DatasetGroup dg = new  {
-//
-//        
-//        
-//        
-//        XY.setGroup();
-//        XY.setY(6);
-//        XY.setY(9);
-//        XY.setY(13);
-//        XY.setY(17);
-//        
-        //   JFreeChart grafico = ChartFactory.createXYAreaChart("", "", "",  XY, PlotOrientation.HORIZONTAL, isClosed, closable, isClosed);
-//           
-//            
-//            WebPanelGrafico.setBounds(0, 0, 500, 500);
-//            WebPanelGrafico.setSize(300, 300);
-//
-//           ChartPanel C = new ChartPanel(grafico);
-//            C.setBounds(10, 10, 500, 500);
-//           
-//        //h    C.set
-//      WebPanelGrafico.add(C);
-//
-//      WebPanelGrafico.revalidate();
-//      WebPanelGrafico.repaint();
-//      
-//     
-        // WebPanelGrafico.add(novo);
-        // WebPanelGrafico.add(chartpanel);
-        // Left part content
+        ajustaGrafico();
     }
 ///        GroupPanel g = new GroupPanel ( splitPane );
 //        g.setBounds(0,0,500,500);
@@ -122,6 +103,10 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         webButton6 = new com.alee.laf.button.WebButton();
         webBreadcrumb4 = new com.alee.extended.breadcrumb.WebBreadcrumb();
         webLabel6 = new com.alee.laf.label.WebLabel();
+        webLabel10 = new com.alee.laf.label.WebLabel();
+        webCheckBox1 = new com.alee.laf.checkbox.WebCheckBox();
+        webCheckBox2 = new com.alee.laf.checkbox.WebCheckBox();
+        webCheckBox3 = new com.alee.laf.checkbox.WebCheckBox();
         webBreadcrumb3 = new com.alee.extended.breadcrumb.WebBreadcrumb();
         webLabel7 = new com.alee.laf.label.WebLabel();
         webLabel8 = new com.alee.laf.label.WebLabel();
@@ -150,6 +135,54 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
         webPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        webPanel_Split.setRightComponent(null);
+        webPanel_Split.setAlignmentX(-40.0F);
+        webPanel_Split.setPreferredSize(new java.awt.Dimension(7, 1));
+        webPanel_Split.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+                webPanel_SplitAncestorMoved(evt);
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        webPanel_Split.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                webPanel_SplitMouseDragged(evt);
+            }
+        });
+        webPanel_Split.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                webPanel_SplitFocusLost(evt);
+            }
+        });
+        webPanel_Split.addHierarchyBoundsListener(new java.awt.event.HierarchyBoundsListener() {
+            public void ancestorMoved(java.awt.event.HierarchyEvent evt) {
+                webPanel_SplitAncestorMoved1(evt);
+            }
+            public void ancestorResized(java.awt.event.HierarchyEvent evt) {
+            }
+        });
+        webPanel_Split.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                webPanel_SplitMousePressed(evt);
+            }
+        });
+        webPanel_Split.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentMoved(java.awt.event.ComponentEvent evt) {
+                webPanel_SplitComponentMoved(evt);
+            }
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                webPanel_SplitComponentResized(evt);
+            }
+        });
+        webPanel_Split.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                webPanel_SplitPropertyChange(evt);
+            }
+        });
+
         webTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -166,18 +199,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         webPanel_Split.setLeftComponent(jScrollPane1);
 
         WebPanelGrafico.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout WebPanelGraficoLayout = new javax.swing.GroupLayout(WebPanelGrafico);
-        WebPanelGrafico.setLayout(WebPanelGraficoLayout);
-        WebPanelGraficoLayout.setHorizontalGroup(
-            WebPanelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 138, Short.MAX_VALUE)
-        );
-        WebPanelGraficoLayout.setVerticalGroup(
-            WebPanelGraficoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 431, Short.MAX_VALUE)
-        );
-
         webPanel_Split.setLeftComponent(WebPanelGrafico);
 
         webTable_lista.setModel(new javax.swing.table.DefaultTableModel(
@@ -340,6 +361,30 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             .addComponent(webLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        webLabel10.setText("Tipo de Gráfico");
+        webLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+
+        webCheckBox1.setText("LINHAS (Entradas X Saídas)");
+        webCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                webCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        webCheckBox2.setText("BARRAS (Mensal/Anual)");
+        webCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                webCheckBox2ActionPerformed(evt);
+            }
+        });
+
+        webCheckBox3.setText("PIZZA (Tipo de Operação)");
+        webCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                webCheckBox3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout webBreadcrumb2Layout = new javax.swing.GroupLayout(webBreadcrumb2);
         webBreadcrumb2.setLayout(webBreadcrumb2Layout);
         webBreadcrumb2Layout.setHorizontalGroup(
@@ -351,23 +396,41 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                     .addComponent(btn_MovRecentes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(webButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                     .addComponent(btn_GerarRelatorio, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                    .addComponent(webButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
+                    .addComponent(webButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                    .addGroup(webBreadcrumb2Layout.createSequentialGroup()
+                        .addGroup(webBreadcrumb2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(webCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(webCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(webCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(webBreadcrumb2Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(webLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         webBreadcrumb2Layout.setVerticalGroup(
             webBreadcrumb2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(webBreadcrumb2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(webBreadcrumb4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(98, 98, 98)
+                .addGap(46, 46, 46)
                 .addComponent(btn_MovRecentes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
-                .addComponent(webButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(webButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_GerarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(webButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addComponent(webLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(webCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(webCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(webCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         webBreadcrumb3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -432,13 +495,13 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(webBreadcrumb2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(webBreadcrumb1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(webPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(webBreadcrumb3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(webBreadcrumb2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(webBreadcrumb3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -449,6 +512,71 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataInicialActionPerformed
 
+    public void ajustaGrafico(){
+   
+        System.out.println("entrouuu");
+        
+        WebPanelGrafico.removeAll();
+        
+        
+        Graficos novoGrafico = new Graficos();
+
+        List<CarCapContas> contasPagar = new ArrayList<>();
+
+        Calendar c2 = Calendar.getInstance();
+
+        for (int i = 0; i < 10; i++) {
+
+            c2.add(Calendar.DATE, +i);
+            CarCapContas pagar = new CarCapContas();
+            pagar.setContaTipo(1);
+            pagar.setContaValorTotal(i);
+            pagar.setContaDataEmissao(c2.getTime());
+            contasPagar.add(pagar);
+        }
+
+        List<CarCapContas> contasReceber = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+
+            c2.add(Calendar.DATE, +i + 1);
+            CarCapContas receber = new CarCapContas();
+            receber.setContaTipo(2);
+            receber.setContaValorTotal(i + 1);
+            receber.setContaDataEmissao(c2.getTime());
+            contasReceber.add(receber);
+        }
+
+//        contasPagar.add(pagar);
+//        contasReceber.add(receber);
+
+       // JFreeChart C = novoGrafico.SelecionarGrafico(Graficos.TiposGrafico.linha, contasPagar, contasReceber, "Gráfico comparativo");;
+        
+        JFreeChart C = novoGrafico.SelecionarGrafico(Graficos.TiposGrafico.barras, contasPagar, contasReceber, "Gráfico comparativo");;
+        ChartPanel chartPanel = new ChartPanel(C);
+        webPanel_Split.validate();
+        
+        
+        int largura = WebPanelGrafico.getWidth();
+        int altura = WebPanelGrafico.getHeight();
+        
+        
+        
+        WebPanelGrafico.setBounds(0, 0,largura , altura);
+        chartPanel.setBounds(0,0,largura,altura);
+        chartPanel.addPropertyChangeListener(null);
+
+        
+        WebPanelGrafico.add(chartPanel);
+        
+       
+        WebPanelGrafico.revalidate();
+         WebPanelGrafico.repaint();
+
+
+    }
+    
+    
     public void verificaSpliPanel() {
 
         if (checkbox_Grafico.isSelected()) {
@@ -494,17 +622,17 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     public boolean MensagensConfirmacao(String msg, String tituloPainel) {
 
-     int resposta = WebOptionPane.showConfirmDialog(null, msg, tituloPainel, WebOptionPane.YES_NO_OPTION,
+        int resposta = WebOptionPane.showConfirmDialog(null, msg, tituloPainel, WebOptionPane.YES_NO_OPTION,
                 WebOptionPane.QUESTION_MESSAGE);
-        
-        if(resposta == WebOptionPane.YES_OPTION){
-            
+
+        if (resposta == WebOptionPane.YES_OPTION) {
+
             return true;
-            
-        }else{
-            
+
+        } else {
+
             return false;
-            
+
         }
 
     }
@@ -538,25 +666,72 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     private void btn_GerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_GerarRelatorioActionPerformed
 
-        
-    boolean retornoMetodo = MensagensConfirmacao("O relatório será gerado de acordo com os filtros aplicados em tela, deseja prosseguir?", "Tela de Confirmação");
-    
-    if(retornoMetodo){
-        
-        CarregarNotificacao("Relatório gerado com sucesso!");
-        
-    }else{
-        
+        boolean retornoMetodo = MensagensConfirmacao("O relatório será gerado de acordo com os filtros aplicados em tela, deseja prosseguir?", "Tela de Confirmação");
 
-    }
-    
-    
+        if (retornoMetodo) {
+
+            CarregarNotificacao("Relatório gerado com sucesso!");
+
+        } else {
+
+        }
+
+
     }//GEN-LAST:event_btn_GerarRelatorioActionPerformed
 
     private void webButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton6ActionPerformed
-       
+
     }//GEN-LAST:event_webButton6ActionPerformed
 
+    private void webCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webCheckBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_webCheckBox1ActionPerformed
+
+    private void webCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webCheckBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_webCheckBox2ActionPerformed
+
+    private void webCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webCheckBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_webCheckBox3ActionPerformed
+
+    private void webPanel_SplitComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_webPanel_SplitComponentResized
+      
+    }//GEN-LAST:event_webPanel_SplitComponentResized
+
+    private void webPanel_SplitComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_webPanel_SplitComponentMoved
+            
+    }//GEN-LAST:event_webPanel_SplitComponentMoved
+
+    private void webPanel_SplitAncestorMoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_webPanel_SplitAncestorMoved
+      
+    }//GEN-LAST:event_webPanel_SplitAncestorMoved
+
+    private void webPanel_SplitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_webPanel_SplitFocusLost
+    
+    }//GEN-LAST:event_webPanel_SplitFocusLost
+
+    private void webPanel_SplitAncestorMoved1(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_webPanel_SplitAncestorMoved1
+     
+    }//GEN-LAST:event_webPanel_SplitAncestorMoved1
+
+    private void webPanel_SplitPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_webPanel_SplitPropertyChange
+      
+     ajustaGrafico();
+       
+    }//GEN-LAST:event_webPanel_SplitPropertyChange
+
+    
+    
+    private void webPanel_SplitMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_webPanel_SplitMouseDragged
+      // ajustaGrafico();
+    }//GEN-LAST:event_webPanel_SplitMouseDragged
+
+    private void webPanel_SplitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_webPanel_SplitMousePressed
+//ajustaGrafico();       
+    }//GEN-LAST:event_webPanel_SplitMousePressed
+ 
+    
     /**
      * @param args the command line arguments
      */
@@ -597,8 +772,12 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     private com.alee.laf.button.WebButton webButton1;
     private com.alee.laf.button.WebButton webButton4;
     private com.alee.laf.button.WebButton webButton6;
+    private com.alee.laf.checkbox.WebCheckBox webCheckBox1;
+    private com.alee.laf.checkbox.WebCheckBox webCheckBox2;
+    private com.alee.laf.checkbox.WebCheckBox webCheckBox3;
     private com.alee.laf.combobox.WebComboBox webComboBox1;
     private com.alee.laf.label.WebLabel webLabel1;
+    private com.alee.laf.label.WebLabel webLabel10;
     private com.alee.laf.label.WebLabel webLabel2;
     private com.alee.laf.label.WebLabel webLabel3;
     private com.alee.laf.label.WebLabel webLabel4;

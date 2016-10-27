@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.text.MaskFormatter;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.xy.XYDataset;
 
 public class Utils {
 
@@ -15,7 +17,9 @@ public class Utils {
 
     public static int wPadrao = 600;
     public static int hPadrao = 500;
-
+ 
+          
+        
     public static class CoresPadrao {
 
         public static Color fundoDesktop = Color.decode("#B0BEC5");
@@ -178,5 +182,7 @@ public class Utils {
         }
         return mask;
     }
+    
+  
 
 }
