@@ -21,15 +21,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javafx.geometry.Bounds;
+import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.plaf.SplitPaneUI;
 import model.CapContaStatus;
 import model.CarCapContas;
 import model.FlxcxLivroCaixa;
+import model.graficos;
 import modelAntigo.TipoOperacao;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import utils.Graficos;
+import utils.Graficos.TiposGrafico;
+import utils.Utils;
 
 /**
  *
@@ -40,8 +44,11 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     /**
      * Creates new form FormFluxodeCaixa
      */
+    int tipo;
+    String titulo;
+    
     public FormFluxodeCaixa() {
-
+            
         super("Fluxo de Caixa", true, true, true, true);
         this.initComponents();
 
@@ -49,7 +56,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         checkbox_Lista.setSelected(true);
         checkboxEntrada.setSelected(true);
         checkboxSaida.setSelected(true);
-
+        ChartPanel C;
         Date novo = new Date();
 
         Calendar c = Calendar.getInstance();
@@ -59,8 +66,13 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         c.add(Calendar.DATE, -1);
 
         txtDataInicial.setDate(c.getTime());
-
-        ajustaGrafico();
+        tipo = graficos.area;
+        titulo = "Grafico de Área";
+        
+        
+        CarregarGrafico(titulo,tipo);
+        
+        
     }
 ///        GroupPanel g = new GroupPanel ( splitPane );
 //        g.setBounds(0,0,500,500);
@@ -104,9 +116,9 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         webBreadcrumb4 = new com.alee.extended.breadcrumb.WebBreadcrumb();
         webLabel6 = new com.alee.laf.label.WebLabel();
         webLabel10 = new com.alee.laf.label.WebLabel();
-        webCheckBox1 = new com.alee.laf.checkbox.WebCheckBox();
-        webCheckBox2 = new com.alee.laf.checkbox.WebCheckBox();
-        webCheckBox3 = new com.alee.laf.checkbox.WebCheckBox();
+        GrapLinhas = new com.alee.laf.checkbox.WebCheckBox();
+        grapBarras = new com.alee.laf.checkbox.WebCheckBox();
+        grapPizza = new com.alee.laf.checkbox.WebCheckBox();
         webBreadcrumb3 = new com.alee.extended.breadcrumb.WebBreadcrumb();
         webLabel7 = new com.alee.laf.label.WebLabel();
         webLabel8 = new com.alee.laf.label.WebLabel();
@@ -135,7 +147,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
         webPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        webPanel_Split.setRightComponent(null);
         webPanel_Split.setAlignmentX(-40.0F);
         webPanel_Split.setPreferredSize(new java.awt.Dimension(7, 1));
         webPanel_Split.addAncestorListener(new javax.swing.event.AncestorListener() {
@@ -364,24 +375,39 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         webLabel10.setText("Tipo de Gráfico");
         webLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        webCheckBox1.setText("LINHAS (Entradas X Saídas)");
-        webCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        GrapLinhas.setText("LINHAS (Entradas X Saídas)");
+        GrapLinhas.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                GrapLinhasStateChanged(evt);
+            }
+        });
+        GrapLinhas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                webCheckBox1ActionPerformed(evt);
+                GrapLinhasActionPerformed(evt);
             }
         });
 
-        webCheckBox2.setText("BARRAS (Mensal/Anual)");
-        webCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        grapBarras.setText("BARRAS (Mensal/Anual)");
+        grapBarras.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                grapBarrasStateChanged(evt);
+            }
+        });
+        grapBarras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                webCheckBox2ActionPerformed(evt);
+                grapBarrasActionPerformed(evt);
             }
         });
 
-        webCheckBox3.setText("PIZZA (Tipo de Operação)");
-        webCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+        grapPizza.setText("PIZZA (Tipo de Operação)");
+        grapPizza.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                grapPizzaStateChanged(evt);
+            }
+        });
+        grapPizza.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                webCheckBox3ActionPerformed(evt);
+                grapPizzaActionPerformed(evt);
             }
         });
 
@@ -399,9 +425,9 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                     .addComponent(webButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
                     .addGroup(webBreadcrumb2Layout.createSequentialGroup()
                         .addGroup(webBreadcrumb2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(webCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(webCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(webCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(grapBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GrapLinhas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(grapPizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(webBreadcrumb2Layout.createSequentialGroup()
@@ -425,11 +451,11 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                 .addGap(32, 32, 32)
                 .addComponent(webLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(webCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(GrapLinhas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(webCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(grapBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(webCheckBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(grapPizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -512,19 +538,16 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataInicialActionPerformed
 
-    public void ajustaGrafico(){
-   
-        System.out.println("entrouuu");
+    public void CarregarGrafico(String nome, int tipo){
         
-        WebPanelGrafico.removeAll();
+        graficos grap = new graficos(tipo, this.titulo);
         
-        
-        Graficos novoGrafico = new Graficos();
-
         List<CarCapContas> contasPagar = new ArrayList<>();
 
         Calendar c2 = Calendar.getInstance();
-
+        
+        
+// somente para testes
         for (int i = 0; i < 10; i++) {
 
             c2.add(Calendar.DATE, +i);
@@ -532,6 +555,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             pagar.setContaTipo(1);
             pagar.setContaValorTotal(i);
             pagar.setContaDataEmissao(c2.getTime());
+            pagar.setContaValorPago(i * i - 10);
             contasPagar.add(pagar);
         }
 
@@ -544,38 +568,41 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             receber.setContaTipo(2);
             receber.setContaValorTotal(i + 1);
             receber.setContaDataEmissao(c2.getTime());
+            receber.setContaValorPago(i * i);
             contasReceber.add(receber);
         }
+        
+   //////////////     
+        
+        ChartPanel c = grap.informarDadosGrafico("grafico", contasPagar, contasReceber);
+ 
 
 //        contasPagar.add(pagar);
 //        contasReceber.add(receber);
 
        // JFreeChart C = novoGrafico.SelecionarGrafico(Graficos.TiposGrafico.linha, contasPagar, contasReceber, "Gráfico comparativo");;
         
-        JFreeChart C = novoGrafico.SelecionarGrafico(Graficos.TiposGrafico.barras, contasPagar, contasReceber, "Gráfico comparativo");;
-        ChartPanel chartPanel = new ChartPanel(C);
+ 
+
+        WebPanelGrafico.removeAll();
+       
         webPanel_Split.validate();
-        
         
         int largura = WebPanelGrafico.getWidth();
         int altura = WebPanelGrafico.getHeight();
-        
-        
-        
+         
         WebPanelGrafico.setBounds(0, 0,largura , altura);
-        chartPanel.setBounds(0,0,largura,altura);
-        chartPanel.addPropertyChangeListener(null);
+        
+        c.setBounds(0,0,largura,altura);
+        c.addPropertyChangeListener(null);
 
+        WebPanelGrafico.add(c);
         
-        WebPanelGrafico.add(chartPanel);
-        
-       
         WebPanelGrafico.revalidate();
-         WebPanelGrafico.repaint();
-
-
-    }
+        WebPanelGrafico.repaint();
     
+    }
+       
     
     public void verificaSpliPanel() {
 
@@ -683,17 +710,17 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     }//GEN-LAST:event_webButton6ActionPerformed
 
-    private void webCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webCheckBox1ActionPerformed
+    private void GrapLinhasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GrapLinhasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_webCheckBox1ActionPerformed
+    }//GEN-LAST:event_GrapLinhasActionPerformed
 
-    private void webCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webCheckBox2ActionPerformed
+    private void grapBarrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grapBarrasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_webCheckBox2ActionPerformed
+    }//GEN-LAST:event_grapBarrasActionPerformed
 
-    private void webCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webCheckBox3ActionPerformed
+    private void grapPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_grapPizzaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_webCheckBox3ActionPerformed
+    }//GEN-LAST:event_grapPizzaActionPerformed
 
     private void webPanel_SplitComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_webPanel_SplitComponentResized
       
@@ -716,9 +743,9 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     }//GEN-LAST:event_webPanel_SplitAncestorMoved1
 
     private void webPanel_SplitPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_webPanel_SplitPropertyChange
+
+        CarregarGrafico(titulo, tipo);
       
-     ajustaGrafico();
-       
     }//GEN-LAST:event_webPanel_SplitPropertyChange
 
     
@@ -730,6 +757,37 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     private void webPanel_SplitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_webPanel_SplitMousePressed
 //ajustaGrafico();       
     }//GEN-LAST:event_webPanel_SplitMousePressed
+
+    private void GrapLinhasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_GrapLinhasStateChanged
+
+        this.titulo = "Gráfico de Linhas";
+        this.tipo = graficos.linear;
+        
+        CarregarGrafico(titulo, tipo);
+    
+        
+    }//GEN-LAST:event_GrapLinhasStateChanged
+
+    private void grapBarrasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_grapBarrasStateChanged
+       
+       this.titulo = "Gráfico de Barras";
+       this.tipo = graficos.barras;
+        
+        CarregarGrafico(titulo, tipo);
+        
+        
+    }//GEN-LAST:event_grapBarrasStateChanged
+
+    private void grapPizzaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_grapPizzaStateChanged
+      
+        
+         this.titulo = "Gráfico de Pizza";
+       this.tipo = graficos.pizza;
+        
+        CarregarGrafico(titulo, tipo);
+        
+        
+    }//GEN-LAST:event_grapPizzaStateChanged
  
     
     /**
@@ -754,6 +812,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.alee.laf.checkbox.WebCheckBox GrapLinhas;
     private com.alee.extended.breadcrumb.WebBreadcrumbPanel WebPanelGrafico;
     private com.alee.laf.button.WebButton btn_GerarRelatorio;
     private com.alee.laf.button.WebButton btn_MovRecentes;
@@ -761,6 +820,8 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     private com.alee.laf.checkbox.WebCheckBox checkboxSaida;
     private com.alee.laf.checkbox.WebCheckBox checkbox_Grafico;
     private com.alee.laf.checkbox.WebCheckBox checkbox_Lista;
+    private com.alee.laf.checkbox.WebCheckBox grapBarras;
+    private com.alee.laf.checkbox.WebCheckBox grapPizza;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private com.alee.extended.date.WebDateField txtDataFinal;
@@ -772,9 +833,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     private com.alee.laf.button.WebButton webButton1;
     private com.alee.laf.button.WebButton webButton4;
     private com.alee.laf.button.WebButton webButton6;
-    private com.alee.laf.checkbox.WebCheckBox webCheckBox1;
-    private com.alee.laf.checkbox.WebCheckBox webCheckBox2;
-    private com.alee.laf.checkbox.WebCheckBox webCheckBox3;
     private com.alee.laf.combobox.WebComboBox webComboBox1;
     private com.alee.laf.label.WebLabel webLabel1;
     private com.alee.laf.label.WebLabel webLabel10;

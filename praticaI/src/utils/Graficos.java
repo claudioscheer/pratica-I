@@ -63,6 +63,7 @@ public class Graficos {
             series1.add(contasPagar.getContaValorTotal(), contasPagar.getContaDataEmissao().getMonth());
 
         }
+        
         XYSeries series2 = new XYSeries("Receber");
         
         for(CarCapContas contasReceber : receber){
