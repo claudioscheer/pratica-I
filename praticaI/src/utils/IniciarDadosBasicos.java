@@ -108,16 +108,16 @@ public class IniciarDadosBasicos {
         FlxcxTributacaoDAO trib = new FlxcxTributacaoDAO();
 
         FlxcxOperacoesDAO operacaoDAO = new FlxcxOperacoesDAO();
-//
-//        FlxcxOperacoes ope = new FlxcxOperacoes();
-//        
-//        CarCapContas conta = new CarCapContas(1,2.0,new Date(),2,2.0,TipoConta.Entrada);
-//                      
-//        ope.setOpCodigo(1);
-//        ope.setOpDescricao("TesteOperacao");
-//        ope.getCarCapContass().add(conta);
-//        
-//        operacaoDAO.Inserir(ope);
+
+        FlxcxOperacoes ope = new FlxcxOperacoes();
+        
+        CarCapContas conta = new CarCapContas(1,2.0,new Date(),2,2.0,TipoConta.Entrada);
+                      
+        ope.setOpCodigo(1);
+        ope.setOpDescricao("TesteOperacao");
+        ope.getCarCapContass().add(conta);
+        
+        operacaoDAO.Inserir(ope);
         
 //        FlxcxOperacoes op = operacaoDAO.Buscar(1);
 //                
@@ -133,12 +133,12 @@ public class IniciarDadosBasicos {
 //
 //        }
 
-        for (model.FlxcxTributacao i :trib.ListarTodas()){
-        
-            System.out.println(i.getTribCodigo());
-            System.out.println(i.getTribDescricao());
-        
-        }
+//        for (model.FlxcxTributacao i :trib.ListarTodas()){
+//        
+//            System.out.println(i.getTribCodigo());
+//            System.out.println(i.getTribDescricao());
+//        
+//        }
 //        FlxcxTributacao trib = tributacaoDAO.Buscar(1);
         
 //        System.out.println(trib.getTribDescricao());

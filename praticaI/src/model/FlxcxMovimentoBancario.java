@@ -33,6 +33,7 @@ public class FlxcxMovimentoBancario implements java.io.Serializable {
     private BigDecimal movBanNumero;
     private BigDecimal movBanEntrada;
     private BigDecimal movBanSaida;
+    private CarCapContas carCapContas;
     private Set<FlxcxEspecificacoes> flxcxEspecificacoeses = new HashSet(0);
 
     public FlxcxMovimentoBancario() {
@@ -143,5 +144,15 @@ public class FlxcxMovimentoBancario implements java.io.Serializable {
     public void setFlxcxEspecificacoeses(Set<FlxcxEspecificacoes> flxcxEspecificacoeses) {
         this.flxcxEspecificacoeses = flxcxEspecificacoeses;
     }
+
+    @ManyToOne
+    public CarCapContas getCarCapContas() {
+        return carCapContas;
+    }
+
+    public void setCarCapContas(CarCapContas carCapContas) {
+        this.carCapContas = carCapContas;
+    }
+    
 
 }

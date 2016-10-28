@@ -73,7 +73,10 @@ public class CarCapContas implements java.io.Serializable {
     
     @OneToMany(mappedBy = "carCapContas")
     private Set<CarCapParcela> carCapParcelas = new HashSet(0);
-
+    
+    @OneToMany(mappedBy = "carCapContas")
+    private Set<FlxcxMovimentoBancario> flxcxMovimentosBancarios;
+    
     public CarCapContas() {
     }
 
@@ -86,7 +89,7 @@ public class CarCapContas implements java.io.Serializable {
         this.contaTipo = contaTipo;
     }
 
-    public CarCapContas(int contaId, Set<CapContaStatus> capContaStatus, CarEstTipoOperacao carEstTipoOperacao, CarPessoa carPessoa, FlxcxOperacoes flxcxOperacoes, PatNotaFiscal patNotaFiscal, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, Set<FlxcxEspecificacoes> flxcxEspecificacoeses, Set<CarCapParcela> carCapParcelas) {
+    public CarCapContas(int contaId, Set<CapContaStatus> capContaStatus, CarEstTipoOperacao carEstTipoOperacao, CarPessoa carPessoa, FlxcxOperacoes flxcxOperacoes, PatNotaFiscal patNotaFiscal, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, Set<FlxcxEspecificacoes> flxcxEspecificacoeses, Set<CarCapParcela> carCapParcelas, Set<FlxcxMovimentoBancario> flxcxMovimentosBancarios) {
         this.contaId = contaId;
         this.capContaStatus = capContaStatus;
         this.carEstTipoOperacao = carEstTipoOperacao;
@@ -100,6 +103,7 @@ public class CarCapContas implements java.io.Serializable {
         this.contaTipo = contaTipo;
         this.flxcxEspecificacoeses = flxcxEspecificacoeses;
         this.carCapParcelas = carCapParcelas;
+        this.flxcxMovimentosBancarios = flxcxMovimentosBancarios;
     }
 
     public int getContaId() {
@@ -205,5 +209,15 @@ public class CarCapContas implements java.io.Serializable {
     public void setCarCapParcelas(Set<CarCapParcela> carCapParcelas) {
         this.carCapParcelas = carCapParcelas;
     }
+
+    public Set<FlxcxMovimentoBancario> getFlxcxMovimentosBancarios() {
+        return flxcxMovimentosBancarios;
+    }
+
+    public void setFlxcxMovimentosBancarios(Set<FlxcxMovimentoBancario> flxcxMovimentosBancarios) {
+        this.flxcxMovimentosBancarios = flxcxMovimentosBancarios;
+    }
+    
+    
 
 }
