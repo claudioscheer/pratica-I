@@ -2,19 +2,16 @@ package utils;
 
 import dao.AtivoImobilizadoDAO;
 import dao.CategoriaDAO;
-import dao.FlxcxLivroCaixaDAO;
 import dao.FlxcxOperacoesDAO;
 import dao.FlxcxTributacaoDAO;
 import dao.HistoricoDepreciacaoDAO;
 import dao.ImpostoDAO;
 import dao.MarcaDAO;
 import dao.ProdutoDAO;
-import java.math.BigDecimal;
+import enumeraveis.TipoConta;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import model.FlxcxLivroCaixa;
+import model.CarCapContas;
 import model.FlxcxOperacoes;
 import model.FlxcxTributacao;
 import modelAntigo.AtivoImobilizado;
@@ -24,9 +21,7 @@ import modelAntigo.HistoricoDepreciacao;
 import modelAntigo.Imposto;
 import modelAntigo.Marca;
 import modelAntigo.Produto;
-import modelAntigo.Tributacao;
 import modelAntigo.UtilizacaoBem;
-import org.hibernate.Session;
 
 public class IniciarDadosBasicos {
 
@@ -113,29 +108,39 @@ public class IniciarDadosBasicos {
         FlxcxTributacaoDAO trib = new FlxcxTributacaoDAO();
 
         FlxcxOperacoesDAO operacaoDAO = new FlxcxOperacoesDAO();
-
-        FlxcxOperacoes op = operacaoDAO.Buscar(1);
-
-        for (int i = 1; i <= 10; i++) {
-
-            FlxcxTributacao tr = new FlxcxTributacao();
-
-            tr.setTribCodigo(i);
-            tr.setTribDescricao("Tributacao: " + i);
-            tr.getFlxcxOperacoes().add(op);
-
-            trib.Inserir(tr);
-
-        }
-
-//        for (model.FlxcxTributacao i :tributacaoDAO.ListarTodas()){
+//
+//        FlxcxOperacoes ope = new FlxcxOperacoes();
 //        
-//            System.out.println(i.getTribCodigo());
-//            System.out.println(i.getTribDescricao());
+//        CarCapContas conta = new CarCapContas(1,2.0,new Date(),2,2.0,TipoConta.Entrada);
+//                      
+//        ope.setOpCodigo(1);
+//        ope.setOpDescricao("TesteOperacao");
+//        ope.getCarCapContass().add(conta);
 //        
+//        operacaoDAO.Inserir(ope);
+        
+//        FlxcxOperacoes op = operacaoDAO.Buscar(1);
+//                
+//        for (int i = 1; i <= 10; i++) {
+//
+//            FlxcxTributacao tr = new FlxcxTributacao();
+//
+//            tr.setTribCodigo(i);
+//            tr.setTribDescricao("Tributacao: " + i);
+//            tr.getFlxcxOperacoes().add(op);
+//
+//            trib.Inserir(tr);
+//
 //        }
+
+        for (model.FlxcxTributacao i :trib.ListarTodas()){
+        
+            System.out.println(i.getTribCodigo());
+            System.out.println(i.getTribDescricao());
+        
+        }
 //        FlxcxTributacao trib = tributacaoDAO.Buscar(1);
-//        
+        
 //        System.out.println(trib.getTribDescricao());
     }
 

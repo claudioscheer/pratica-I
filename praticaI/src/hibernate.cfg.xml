@@ -6,7 +6,7 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/pratica1</property>
         <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">postgres</property>
+        <property name="hibernate.connection.password">root</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
@@ -14,7 +14,7 @@
         <mapping class="model.FlxcxOperacoes"/>
         <mapping class="model.CapContaStatus" package="model"/>
         <mapping class="model.EstMovimentacao" package="model"/>
-        <mapping class="model.FlxcxMovimentoBancario" package="model"/>
+        <mapping class="model.FlxcxMovimentoBancario"/>
         <mapping class="model.PatHistoricoDepreciacao" package="model"/>
         <mapping class="model.FlxcxEspFluxoCaixa" package="model"/>
         <mapping class="model.EstUnidadeMedida" package="model"/>
@@ -22,7 +22,7 @@
         <mapping class="model.FlxcxEspFluxoCaixaId" package="model"/>
         <mapping class="model.EstCategoria" package="model"/>
         <mapping class="model.FlxcxFluxoCaixa" package="model"/>
-        <mapping class="model.FlxcxTributacao" package="model"/>
+        <mapping class="model.FlxcxTributacao"/>
         <mapping class="model.EstProduto" package="model"/>
         <mapping class="model.PatBaixa" package="model"/>
         <mapping class="model.PatTipoBaixa" package="model"/>
@@ -30,14 +30,14 @@
         <mapping class="model.FlxcxLivroCaixa"/>
         <mapping class="model.EstMarca" package="model"/>
         <mapping class="model.Saldo" package="model"/>
-        <mapping class="model.CarCapContas" package="model"/>
+        <mapping class="model.CarCapContas"/>
         <mapping class="model.PatImposto" package="model"/>
-        <mapping class="model.FlxcxEspecificacoes" package="model"/>
+        <mapping class="model.FlxcxEspecificacoes"/>
         <mapping class="model.PatAtivoImobilizado" package="model"/>
-        <mapping class="model.CarPessoa" package="model"/>
+        <mapping class="model.CarPessoa"/>
         <mapping class="model.PatImpostoNotaFiscal" package="model"/>
-        <mapping class="model.CarEstTipoOperacao" package="model"/>
-        <mapping class="model.PatNotaFiscal" package="model"/>
+        <mapping class="model.CarEstTipoOperacao"/>
+        <mapping class="model.PatNotaFiscal"/>
         <mapping class="model.CarCapParcela" package="model"/>
         <mapping class="model.PatDepreciacao" package="model"/>    
     </session-factory>

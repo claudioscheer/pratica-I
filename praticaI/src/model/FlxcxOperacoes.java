@@ -2,14 +2,10 @@ package model;
 // Generated 22/10/2016 10:09:26 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -44,8 +40,6 @@ public class FlxcxOperacoes implements java.io.Serializable {
     }
 
     @Id
-
-    @Column(name = "op_codigo", unique = true, nullable = false)
     public int getOpCodigo() {
         return this.opCodigo;
     }
@@ -54,7 +48,6 @@ public class FlxcxOperacoes implements java.io.Serializable {
         this.opCodigo = opCodigo;
     }
 
-    @Column(name = "op_descricao", length = 250)
     public String getOpDescricao() {
         return this.opDescricao;
     }
@@ -82,6 +75,7 @@ public class FlxcxOperacoes implements java.io.Serializable {
         this.flxcxMovimentoBancarios = flxcxMovimentoBancarios;
     }
 
+    
     @OneToMany(mappedBy = "flxcxOperacoes")
     public Set<CarCapContas> getCarCapContass() {
         return carCapContass;

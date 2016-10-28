@@ -2,13 +2,10 @@ package model;
 // Generated 22/10/2016 10:09:26 by Hibernate Tools 4.3.1
 
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,7 +21,7 @@ public class CapContaStatus  implements java.io.Serializable {
      private int contaStatusId;
      private String contaStatusDescricao;
      private int contaStatusTipo;
-     private Set carCapContases = new HashSet(0);
+     private CarCapContas carCapContas;
 
     public CapContaStatus() {
     }
@@ -35,11 +32,11 @@ public class CapContaStatus  implements java.io.Serializable {
         this.contaStatusDescricao = contaStatusDescricao;
         this.contaStatusTipo = contaStatusTipo;
     }
-    public CapContaStatus(int contaStatusId, String contaStatusDescricao, int contaStatusTipo, Set carCapContases) {
+    public CapContaStatus(int contaStatusId, String contaStatusDescricao, int contaStatusTipo, CarCapContas carCapContas) {
        this.contaStatusId = contaStatusId;
        this.contaStatusDescricao = contaStatusDescricao;
        this.contaStatusTipo = contaStatusTipo;
-       this.carCapContases = carCapContases;
+       this.carCapContas = carCapContas;
     }
    
      @Id 
@@ -74,13 +71,21 @@ public class CapContaStatus  implements java.io.Serializable {
         this.contaStatusTipo = contaStatusTipo;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="capContaStatus")
-    public Set getCarCapContases() {
-        return this.carCapContases;
+    public CarCapContas getCarCapContases() {
+        return this.carCapContas;
     }
     
-    public void setCarCapContases(Set carCapContases) {
-        this.carCapContases = carCapContases;
+    public void setCarCapContases(CarCapContas carCapContas) {
+        this.carCapContas = carCapContas;
+    }
+
+    @ManyToOne
+    public CarCapContas getCarCapContas() {
+        return carCapContas;
+    }
+
+    public void setCarCapContas(CarCapContas carCapContas) {
+        this.carCapContas = carCapContas;
     }
 
 

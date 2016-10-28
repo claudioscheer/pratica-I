@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -27,6 +28,7 @@ public class FlxcxEspecificacoes implements java.io.Serializable {
     private Set<CarCapContas> carCapContases = new HashSet(0);
     private Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios = new HashSet(0);
     private Set<FlxcxEspFluxoCaixa> flxcxEspFluxoCaixas = new HashSet(0);
+    private CarCapContas carCapContas;
 
     public FlxcxEspecificacoes() {
     }
@@ -95,12 +97,21 @@ public class FlxcxEspecificacoes implements java.io.Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "flxcxEspecificacoes")
-    public Set getFlxcxEspFluxoCaixas() {
+    public Set<FlxcxEspFluxoCaixa> getFlxcxEspFluxoCaixas() {
         return this.flxcxEspFluxoCaixas;
     }
 
-    public void setFlxcxEspFluxoCaixas(Set flxcxEspFluxoCaixas) {
+    public void setFlxcxEspFluxoCaixas(Set<FlxcxEspFluxoCaixa> flxcxEspFluxoCaixas) {
         this.flxcxEspFluxoCaixas = flxcxEspFluxoCaixas;
+    }
+
+    @ManyToOne
+    public CarCapContas getCarCapContas() {
+        return carCapContas;
+    }
+
+    public void setCarCapContas(CarCapContas carCapContas) {
+        this.carCapContas = carCapContas;
     }
 
 }
