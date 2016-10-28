@@ -30,9 +30,9 @@ public class EstProduto  implements java.io.Serializable {
      private String produtoReferencia;
      private String produtoDescricao;
      private int produtoStatus;
-     private Set saldos = new HashSet(0);
-     private Set patItemNotas = new HashSet(0);
-     private Set estMovimentacaos = new HashSet(0);
+     private Set<Saldo> saldos = new HashSet(0);
+     private Set<PatItemNota> patItemNotas = new HashSet(0);
+     private Set<EstMovimentacao> estMovimentacaos = new HashSet(0);
 
     public EstProduto() {
     }
@@ -44,7 +44,7 @@ public class EstProduto  implements java.io.Serializable {
         this.produtoDescricao = produtoDescricao;
         this.produtoStatus = produtoStatus;
     }
-    public EstProduto(int produtoId, EstCategoria estCategoria, EstMarca estMarca, EstUnidadeMedida estUnidadeMedida, String produtoReferencia, String produtoDescricao, int produtoStatus, Set saldos, Set patItemNotas, Set estMovimentacaos) {
+    public EstProduto(int produtoId, EstCategoria estCategoria, EstMarca estMarca, EstUnidadeMedida estUnidadeMedida, String produtoReferencia, String produtoDescricao, int produtoStatus, Set<Saldo> saldos, Set<PatItemNota> patItemNotas, Set<EstMovimentacao> estMovimentacaos) {
        this.produtoId = produtoId;
        this.estCategoria = estCategoria;
        this.estMarca = estMarca;
@@ -130,34 +130,31 @@ public class EstProduto  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="estProduto")
-    public Set getSaldos() {
+    public Set<Saldo> getSaldos() {
         return this.saldos;
     }
     
-    public void setSaldos(Set saldos) {
+    public void setSaldos(Set<Saldo> saldos) {
         this.saldos = saldos;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="estProduto")
-    public Set getPatItemNotas() {
+    public Set<PatItemNota> getPatItemNotas() {
         return this.patItemNotas;
     }
     
-    public void setPatItemNotas(Set patItemNotas) {
+    public void setPatItemNotas(Set<PatItemNota> patItemNotas) {
         this.patItemNotas = patItemNotas;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="estProduto")
-    public Set getEstMovimentacaos() {
+    public Set<EstMovimentacao> getEstMovimentacaos() {
         return this.estMovimentacaos;
     }
     
-    public void setEstMovimentacaos(Set estMovimentacaos) {
+    public void setEstMovimentacaos(Set<EstMovimentacao> estMovimentacaos) {
         this.estMovimentacaos = estMovimentacaos;
     }
-
-
-
 
 }
 

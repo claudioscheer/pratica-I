@@ -31,7 +31,7 @@ public class PatItemNota  implements java.io.Serializable {
      private int itemNotaQuantidade;
      private double itemNotaValorUnitario;
      private double itemNotaValorTotal;
-     private Set patImpostoItemNotas = new HashSet(0);
+     private Set<PatImpostoItemNota> patImpostoItemNotas = new HashSet(0);
 
     public PatItemNota() {
     }
@@ -43,7 +43,7 @@ public class PatItemNota  implements java.io.Serializable {
         this.itemNotaValorUnitario = itemNotaValorUnitario;
         this.itemNotaValorTotal = itemNotaValorTotal;
     }
-    public PatItemNota(int itemNotaCodigo, EstProduto estProduto, PatNotaFiscal patNotaFiscal, int itemNotaQuantidade, double itemNotaValorUnitario, double itemNotaValorTotal, Set patImpostoItemNotas) {
+    public PatItemNota(int itemNotaCodigo, EstProduto estProduto, PatNotaFiscal patNotaFiscal, int itemNotaQuantidade, double itemNotaValorUnitario, double itemNotaValorTotal, Set<PatImpostoItemNota> patImpostoItemNotas) {
        this.itemNotaCodigo = itemNotaCodigo;
        this.estProduto = estProduto;
        this.patNotaFiscal = patNotaFiscal;
@@ -116,11 +116,11 @@ public class PatItemNota  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="patItemNota")
-    public Set getPatImpostoItemNotas() {
+    public Set<PatImpostoItemNota> getPatImpostoItemNotas() {
         return this.patImpostoItemNotas;
     }
     
-    public void setPatImpostoItemNotas(Set patImpostoItemNotas) {
+    public void setPatImpostoItemNotas(Set<PatImpostoItemNota> patImpostoItemNotas) {
         this.patImpostoItemNotas = patImpostoItemNotas;
     }
 

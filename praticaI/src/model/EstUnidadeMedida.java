@@ -23,7 +23,7 @@ public class EstUnidadeMedida  implements java.io.Serializable {
 
      private int unidadeMedidaId;
      private String unidadeMedidaDescricao;
-     private Set estProdutos = new HashSet(0);
+     private Set<EstProduto> estProdutos = new HashSet(0);
 
     public EstUnidadeMedida() {
     }
@@ -33,7 +33,7 @@ public class EstUnidadeMedida  implements java.io.Serializable {
         this.unidadeMedidaId = unidadeMedidaId;
         this.unidadeMedidaDescricao = unidadeMedidaDescricao;
     }
-    public EstUnidadeMedida(int unidadeMedidaId, String unidadeMedidaDescricao, Set estProdutos) {
+    public EstUnidadeMedida(int unidadeMedidaId, String unidadeMedidaDescricao, Set<EstProduto> estProdutos) {
        this.unidadeMedidaId = unidadeMedidaId;
        this.unidadeMedidaDescricao = unidadeMedidaDescricao;
        this.estProdutos = estProdutos;
@@ -62,11 +62,11 @@ public class EstUnidadeMedida  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="estUnidadeMedida")
-    public Set getEstProdutos() {
+    public Set<EstProduto> getEstProdutos() {
         return this.estProdutos;
     }
     
-    public void setEstProdutos(Set estProdutos) {
+    public void setEstProdutos(Set<EstProduto> estProdutos) {
         this.estProdutos = estProdutos;
     }
 

@@ -23,7 +23,7 @@ public class PatTipoBaixa  implements java.io.Serializable {
 
      private int tipoBaixaCodigo;
      private String tipoBaixaDescricao;
-     private Set patBaixas = new HashSet(0);
+     private Set<PatBaixa> patBaixas = new HashSet(0);
 
     public PatTipoBaixa() {
     }
@@ -33,7 +33,7 @@ public class PatTipoBaixa  implements java.io.Serializable {
         this.tipoBaixaCodigo = tipoBaixaCodigo;
         this.tipoBaixaDescricao = tipoBaixaDescricao;
     }
-    public PatTipoBaixa(int tipoBaixaCodigo, String tipoBaixaDescricao, Set patBaixas) {
+    public PatTipoBaixa(int tipoBaixaCodigo, String tipoBaixaDescricao, Set<PatBaixa> patBaixas) {
        this.tipoBaixaCodigo = tipoBaixaCodigo;
        this.tipoBaixaDescricao = tipoBaixaDescricao;
        this.patBaixas = patBaixas;
@@ -62,11 +62,11 @@ public class PatTipoBaixa  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="patTipoBaixa")
-    public Set getPatBaixas() {
+    public Set<PatBaixa> getPatBaixas() {
         return this.patBaixas;
     }
     
-    public void setPatBaixas(Set patBaixas) {
+    public void setPatBaixas(Set<PatBaixa> patBaixas) {
         this.patBaixas = patBaixas;
     }
 

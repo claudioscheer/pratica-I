@@ -25,7 +25,7 @@ public class CarPessoa implements java.io.Serializable {
     private Long pessoaCnpjCpf;
     private Set<PatNotaFiscal> patNotaFiscals = new HashSet(0);
     private Set<CarCapContas> carCapContas = new HashSet(0);
-    private Set<FlxcxEspFluxoCaixa> flxcxFluxoCaixas = new HashSet(0);
+    private Set<FlxcxFluxoCaixa> flxcxFluxoCaixas = new HashSet(0);
     private Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios = new HashSet(0);
 
     public CarPessoa() {
@@ -36,7 +36,7 @@ public class CarPessoa implements java.io.Serializable {
         this.pessoaNome = pessoaNome;
     }
 
-    public CarPessoa(int pessoaId, String pessoaNome, Integer pessoaTipo, String pessoaEndereco, Long pessoaCnpjCpf, Set<PatNotaFiscal> patNotaFiscals, Set<CarCapContas> carCapContas, Set<FlxcxEspFluxoCaixa> flxcxFluxoCaixas, Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios) {
+    public CarPessoa(int pessoaId, String pessoaNome, Integer pessoaTipo, String pessoaEndereco, Long pessoaCnpjCpf, Set<PatNotaFiscal> patNotaFiscals, Set<CarCapContas> carCapContas, Set<FlxcxFluxoCaixa> flxcxFluxoCaixas, Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios) {
         this.pessoaId = pessoaId;
         this.pessoaNome = pessoaNome;
         this.pessoaTipo = pessoaTipo;
@@ -114,11 +114,11 @@ public class CarPessoa implements java.io.Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "carPessoa")
-    public Set<FlxcxEspFluxoCaixa> getFlxcxFluxoCaixas() {
+    public Set<FlxcxFluxoCaixa> getFlxcxFluxoCaixas() {
         return this.flxcxFluxoCaixas;
     }
 
-    public void setFlxcxFluxoCaixas(Set<FlxcxEspFluxoCaixa> flxcxFluxoCaixas) {
+    public void setFlxcxFluxoCaixas(Set<FlxcxFluxoCaixa> flxcxFluxoCaixas) {
         this.flxcxFluxoCaixas = flxcxFluxoCaixas;
     }
 

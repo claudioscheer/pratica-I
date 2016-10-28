@@ -23,8 +23,8 @@ public class EstMarca  implements java.io.Serializable {
 
      private int marcaId;
      private String marcaDescricao;
-     private Set patAtivoImobilizados = new HashSet(0);
-     private Set estProdutos = new HashSet(0);
+     private Set<PatAtivoImobilizado> patAtivoImobilizados = new HashSet(0);
+     private Set<EstProduto> estProdutos = new HashSet(0);
 
     public EstMarca() {
     }
@@ -34,7 +34,7 @@ public class EstMarca  implements java.io.Serializable {
         this.marcaId = marcaId;
         this.marcaDescricao = marcaDescricao;
     }
-    public EstMarca(int marcaId, String marcaDescricao, Set patAtivoImobilizados, Set estProdutos) {
+    public EstMarca(int marcaId, String marcaDescricao, Set<PatAtivoImobilizado> patAtivoImobilizados, Set<EstProduto> estProdutos) {
        this.marcaId = marcaId;
        this.marcaDescricao = marcaDescricao;
        this.patAtivoImobilizados = patAtivoImobilizados;
@@ -64,20 +64,20 @@ public class EstMarca  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="estMarca")
-    public Set getPatAtivoImobilizados() {
+    public Set<PatAtivoImobilizado> getPatAtivoImobilizados() {
         return this.patAtivoImobilizados;
     }
     
-    public void setPatAtivoImobilizados(Set patAtivoImobilizados) {
+    public void setPatAtivoImobilizados(Set<PatAtivoImobilizado> patAtivoImobilizados) {
         this.patAtivoImobilizados = patAtivoImobilizados;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="estMarca")
-    public Set getEstProdutos() {
+    public Set<EstProduto> getEstProdutos() {
         return this.estProdutos;
     }
     
-    public void setEstProdutos(Set estProdutos) {
+    public void setEstProdutos(Set<EstProduto> estProdutos) {
         this.estProdutos = estProdutos;
     }
 

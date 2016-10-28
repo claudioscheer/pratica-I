@@ -56,7 +56,8 @@ public class FlxcxOperacoes implements java.io.Serializable {
         this.opDescricao = opDescricao;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "flxcxOperacoes")   
+     
+    @ManyToMany
     public Set<FlxcxTributacao> getFlxcxTributacaos() {
         return this.flxcxTributacaos;
     }

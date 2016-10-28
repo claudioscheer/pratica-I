@@ -10,35 +10,35 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
-        <mapping class="model.PatItemNota" package="model"/>
+        <mapping class="model.PatItemNota" />
         <mapping class="model.FlxcxOperacoes"/>
-        <mapping class="model.CapContaStatus" package="model"/>
-        <mapping class="model.EstMovimentacao" package="model"/>
+        <mapping class="model.CapContaStatus"/>
+        <mapping class="model.EstMovimentacao" />
         <mapping class="model.FlxcxMovimentoBancario"/>
-        <mapping class="model.PatHistoricoDepreciacao" package="model"/>
-        <mapping class="model.FlxcxEspFluxoCaixa" package="model"/>
-        <mapping class="model.EstUnidadeMedida" package="model"/>
-        <mapping class="model.PatImpostoItemNota" package="model"/>
-        <mapping class="model.FlxcxEspFluxoCaixaId" package="model"/>
-        <mapping class="model.EstCategoria" package="model"/>
-        <mapping class="model.FlxcxFluxoCaixa" package="model"/>
+        <mapping class="model.PatHistoricoDepreciacao" />
+        <mapping class="model.FlxcxEspFluxoCaixa" />
+        <mapping class="model.EstUnidadeMedida" />
+        <mapping class="model.PatImpostoItemNota" />
+        <mapping class="model.FlxcxEspFluxoCaixaId" />
+        <mapping class="model.EstCategoria" />
+        <mapping class="model.FlxcxFluxoCaixa" />
         <mapping class="model.FlxcxTributacao"/>
-        <mapping class="model.EstProduto" package="model"/>
-        <mapping class="model.PatBaixa" package="model"/>
-        <mapping class="model.PatTipoBaixa" package="model"/>
-        <mapping class="model.FlxcxFluxoCaixaFechamento" package="model"/>
+        <mapping class="model.EstProduto" />
+        <mapping class="model.PatBaixa" />
+        <mapping class="model.PatTipoBaixa" />
+        <mapping class="model.FlxcxFluxoCaixaFechamento" />
         <mapping class="model.FlxcxLivroCaixa"/>
-        <mapping class="model.EstMarca" package="model"/>
-        <mapping class="model.Saldo" package="model"/>
+        <mapping class="model.EstMarca" />
+        <mapping class="model.Saldo" />
         <mapping class="model.CarCapContas"/>
-        <mapping class="model.PatImposto" package="model"/>
+        <mapping class="model.PatImposto" />
         <mapping class="model.FlxcxEspecificacoes"/>
-        <mapping class="model.PatAtivoImobilizado" package="model"/>
+        <mapping class="model.PatAtivoImobilizado" />
         <mapping class="model.CarPessoa"/>
-        <mapping class="model.PatImpostoNotaFiscal" package="model"/>
+        <mapping class="model.PatImpostoNotaFiscal" />
         <mapping class="model.CarEstTipoOperacao"/>
         <mapping class="model.PatNotaFiscal"/>
-        <mapping class="model.CarCapParcela" package="model"/>
-        <mapping class="model.PatDepreciacao" package="model"/>    
+        <mapping class="model.CarCapParcela" />
+        <mapping class="model.PatDepreciacao" />    
     </session-factory>
 </hibernate-configuration>

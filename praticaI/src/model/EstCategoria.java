@@ -23,9 +23,9 @@ public class EstCategoria  implements java.io.Serializable {
 
      private int categoriaId;
      private String categoriaDescricao;
-     private Set estProdutos = new HashSet(0);
-     private Set patDepreciacaos = new HashSet(0);
-     private Set patAtivoImobilizados = new HashSet(0);
+     private Set<EstProduto> estProdutos = new HashSet(0);
+     private Set<PatDepreciacao> patDepreciacaos = new HashSet(0);
+     private Set<PatAtivoImobilizado> patAtivoImobilizados = new HashSet(0);
 
     public EstCategoria() {
     }
@@ -35,7 +35,7 @@ public class EstCategoria  implements java.io.Serializable {
         this.categoriaId = categoriaId;
         this.categoriaDescricao = categoriaDescricao;
     }
-    public EstCategoria(int categoriaId, String categoriaDescricao, Set estProdutos, Set patDepreciacaos, Set patAtivoImobilizados) {
+    public EstCategoria(int categoriaId, String categoriaDescricao, Set<EstProduto> estProdutos, Set<PatDepreciacao> patDepreciacaos, Set<PatAtivoImobilizado> patAtivoImobilizados) {
        this.categoriaId = categoriaId;
        this.categoriaDescricao = categoriaDescricao;
        this.estProdutos = estProdutos;
@@ -66,29 +66,29 @@ public class EstCategoria  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="estCategoria")
-    public Set getEstProdutos() {
+    public Set<EstProduto> getEstProdutos() {
         return this.estProdutos;
     }
     
-    public void setEstProdutos(Set estProdutos) {
+    public void setEstProdutos(Set<EstProduto> estProdutos) {
         this.estProdutos = estProdutos;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="estCategoria")
-    public Set getPatDepreciacaos() {
+    public Set<PatDepreciacao> getPatDepreciacaos() {
         return this.patDepreciacaos;
     }
     
-    public void setPatDepreciacaos(Set patDepreciacaos) {
+    public void setPatDepreciacaos(Set<PatDepreciacao> patDepreciacaos) {
         this.patDepreciacaos = patDepreciacaos;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="estCategoria")
-    public Set getPatAtivoImobilizados() {
+    public Set<PatAtivoImobilizado> getPatAtivoImobilizados() {
         return this.patAtivoImobilizados;
     }
     
-    public void setPatAtivoImobilizados(Set patAtivoImobilizados) {
+    public void setPatAtivoImobilizados(Set<PatAtivoImobilizado> patAtivoImobilizados) {
         this.patAtivoImobilizados = patAtivoImobilizados;
     }
 

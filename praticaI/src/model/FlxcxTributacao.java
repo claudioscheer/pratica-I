@@ -63,6 +63,7 @@ public class FlxcxTributacao  implements java.io.Serializable {
 
     
     
+    
     @ManyToMany(mappedBy = "flxcxTributacaos")
     public Set<FlxcxOperacoes> getFlxcxOperacoes() {
         return this.flxcxOperacoes;

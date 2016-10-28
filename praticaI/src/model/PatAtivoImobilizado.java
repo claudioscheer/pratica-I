@@ -36,8 +36,8 @@ public class PatAtivoImobilizado  implements java.io.Serializable {
      private double ativoValorResidual;
      private int ativoEstadoBem;
      private int ativoUtilizacao;
-     private Set patBaixas = new HashSet(0);
-     private Set patHistoricoDepreciacaos = new HashSet(0);
+     private Set<PatBaixa> patBaixas = new HashSet(0);
+     private Set<PatHistoricoDepreciacao> patHistoricoDepreciacaos = new HashSet(0);
 
     public PatAtivoImobilizado() {
     }
@@ -53,7 +53,7 @@ public class PatAtivoImobilizado  implements java.io.Serializable {
         this.ativoEstadoBem = ativoEstadoBem;
         this.ativoUtilizacao = ativoUtilizacao;
     }
-    public PatAtivoImobilizado(int ativoCodigo, EstCategoria estCategoria, EstMarca estMarca, PatNotaFiscal patNotaFiscal, String ativoDescricao, double ativoValorOriginal, double ativoValorAtual, double ativoTaxaValorResidual, double ativoValorResidual, int ativoEstadoBem, int ativoUtilizacao, Set patBaixas, Set patHistoricoDepreciacaos) {
+    public PatAtivoImobilizado(int ativoCodigo, EstCategoria estCategoria, EstMarca estMarca, PatNotaFiscal patNotaFiscal, String ativoDescricao, double ativoValorOriginal, double ativoValorAtual, double ativoTaxaValorResidual, double ativoValorResidual, int ativoEstadoBem, int ativoUtilizacao, Set<PatBaixa> patBaixas, Set<PatHistoricoDepreciacao> patHistoricoDepreciacaos) {
        this.ativoCodigo = ativoCodigo;
        this.estCategoria = estCategoria;
        this.estMarca = estMarca;
@@ -182,20 +182,20 @@ public class PatAtivoImobilizado  implements java.io.Serializable {
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="patAtivoImobilizado")
-    public Set getPatBaixas() {
+    public Set<PatBaixa> getPatBaixas() {
         return this.patBaixas;
     }
     
-    public void setPatBaixas(Set patBaixas) {
+    public void setPatBaixas(Set<PatBaixa> patBaixas) {
         this.patBaixas = patBaixas;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="patAtivoImobilizado")
-    public Set getPatHistoricoDepreciacaos() {
+    public Set<PatHistoricoDepreciacao> getPatHistoricoDepreciacaos() {
         return this.patHistoricoDepreciacaos;
     }
     
-    public void setPatHistoricoDepreciacaos(Set patHistoricoDepreciacaos) {
+    public void setPatHistoricoDepreciacaos(Set<PatHistoricoDepreciacao> patHistoricoDepreciacaos) {
         this.patHistoricoDepreciacaos = patHistoricoDepreciacaos;
     }
 
