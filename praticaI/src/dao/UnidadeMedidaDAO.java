@@ -1,17 +1,17 @@
 package dao;
 
 import java.util.List;
+import model.EstUnidadeMedida;
 import modelAntigo.UnidadeMedida;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
-public class UnidadeMedidaDAO {
+public class UnidadeMedidaDAO {    
 
-    Session session = HibernateUtil.getSessionFactory().openSession();
-
-    public boolean Inserir(UnidadeMedida unMedida) {
+    public boolean Inserir(EstUnidadeMedida unMedida) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             session.save(unMedida);
@@ -24,7 +24,8 @@ public class UnidadeMedidaDAO {
         }
     }
 
-    public boolean Alterar(UnidadeMedida unMedida) {
+    public boolean Alterar(EstUnidadeMedida unMedida) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             session.update(unMedida);
@@ -38,25 +39,27 @@ public class UnidadeMedidaDAO {
     }
 
     public boolean Excluir(int codigo) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            UnidadeMedida unMedida = (UnidadeMedida) session.get(UnidadeMedida.class, codigo);
-            session.delete(unMedida);
-            session.close();
+            session.getTransaction().begin();
+            EstUnidadeMedida unMedida = (EstUnidadeMedida) session.get(EstUnidadeMedida.class, codigo);
+            session.delete(unMedida);                             
             return true;
         } catch (HibernateException e) {
             throw e;
         } finally {
-            session.close();
+            session.getTransaction().commit();
+            session.close();            
         }
     }
 
-    public List<UnidadeMedida> ListarTodas() {
+    public List<EstUnidadeMedida> ListarTodas() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
-            Query query = session.createQuery("from UnidadeMedida as u ");
-            List<UnidadeMedida> unMedida = query.list();
-            session.getTransaction().commit();
-            session.close();
+            Query query = session.createQuery("from EstUnidadeMedida as u ");
+            List<EstUnidadeMedida> unMedida = query.list();
+            session.getTransaction().commit();            
             return unMedida;
         } catch (HibernateException e) {
             throw e;
@@ -66,11 +69,11 @@ public class UnidadeMedidaDAO {
     }
 
     public UnidadeMedida Buscar(int codigo) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             UnidadeMedida unMedida = (UnidadeMedida) session.get(UnidadeMedida.class, codigo);
-            session.getTransaction().commit();
-            session.close();
+            session.getTransaction().commit();            
             return unMedida;
         } catch (HibernateException e) {
             throw e;

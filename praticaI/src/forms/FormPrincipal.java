@@ -62,6 +62,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.loadContasReceber();
         this.loadaddpessaoa();
         this.loadControleEstoque();
+        this.loadMateriais();
     }
 
     private void loadWidgetSaldo() {
@@ -198,16 +199,16 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.desktopPanel.add(iconDesktop);
 
     }
-    
-    private void loadContasReceber(){
-        
+
+    private void loadContasReceber() {
+
         final IconDesktop iconDesktop = new IconDesktop("Contas a Receber", Utils.getImage(Utils.Image.ContasReceber));
 
         iconDesktop.setActionListener((e) -> {
             if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
                 return;
             }
-             FormContaReceber form = new FormContaReceber();
+            FormContaReceber form = new FormContaReceber();
             this.desktopPanel.add(form);
             form.open();
             try {
@@ -219,18 +220,18 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         iconDesktop.setLocation(new Point(0, 320));
         this.desktopPanel.add(iconDesktop);
-    
-    
+
     }
-     private void loadaddpessaoa(){
-        
+
+    private void loadaddpessaoa() {
+
         final IconDesktop iconDesktop = new IconDesktop("Adicionar Pessoa", Utils.getImage(Utils.Image.addpessoa));
 
         iconDesktop.setActionListener((e) -> {
             if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
                 return;
             }
-             FormadicionarPessoa form = new FormadicionarPessoa();
+            FormadicionarPessoa form = new FormadicionarPessoa();
             this.desktopPanel.add(form);
             form.open();
             try {
@@ -240,13 +241,12 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        iconDesktop.setLocation(new Point(900,40));
+        iconDesktop.setLocation(new Point(900, 40));
         this.desktopPanel.add(iconDesktop);
-    
-    
+
     }
-     
-         private void loadControleEstoque() {
+
+    private void loadControleEstoque() {
 
         final IconDesktop iconDesktop = new IconDesktop("Estoque", Utils.getImage(Utils.Image.estoque));
 
@@ -260,29 +260,30 @@ public class FormPrincipal extends javax.swing.JFrame {
             //form.open();
             //try {
 //                form.setMaximum(true);
-  //          } catch (PropertyVetoException ex) {
-    //        }
+            //          } catch (PropertyVetoException ex) {
+            //        }
         });
 
         iconDesktop.setLocation(new Point(0, 440));
         this.desktopPanel.add(iconDesktop);
     }
-   
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        private void loadMateriais() {
+
+        final IconDesktop iconDesktop = new IconDesktop("Materiais", Utils.getImage(Utils.Image.estoque));
+
+        iconDesktop.setActionListener((e) -> {
+            if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
+                return;
+            }
+            FormMateriais form = new FormMateriais(this, rootPaneCheckingEnabled);
+            form.setVisible(true);
+
+        });
+
+        iconDesktop.setLocation(new Point(100, 440));
+        this.desktopPanel.add(iconDesktop);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

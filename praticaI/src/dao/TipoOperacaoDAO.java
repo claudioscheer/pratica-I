@@ -41,6 +41,7 @@ public class TipoOperacaoDAO {
         try {
             TipoOperacao operacao = (TipoOperacao) session.get(TipoOperacao.class, codigo);
             session.delete(operacao);
+            session.getTransaction().commit();
             session.close();
             return true;
         } catch (HibernateException e) {
