@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="532,267" last-zoom="0.65"
+<dbmodel pgmodeler-ver="0.8.2" last-position="452,279" last-zoom="0.65"
 	 default-schema="public" default-owner="postgres">
 <database name="pratica_1" encoding="UTF8" lc-collate="Portuguese_Brazil" lc-ctype="Portuguese_Brazil">
 	<role name="postgres"/>
@@ -24,7 +24,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_ativo_imobilizado">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1940" y="163"/>
+	<position x="1940" y="143"/>
 	<column name="ativo_codigo" not-null="true" sequence="public.ativo_imobilizado_sequencia">
 		<type name="integer"/>
 	</column>
@@ -80,7 +80,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_tipo_baixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2800" y="163"/>
+	<position x="2800" y="143"/>
 	<column name="tipo_baixa_codigo" not-null="true" sequence="public.tipo_baixa_sequencia">
 		<type name="integer"/>
 	</column>
@@ -103,7 +103,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_baixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2440" y="143"/>
+	<position x="2440" y="123"/>
 	<column name="baixa_codigo" not-null="true" sequence="public.baixa_sequencia">
 		<type name="integer"/>
 	</column>
@@ -135,7 +135,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_depreciacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="3080" y="283"/>
+	<position x="3080" y="263"/>
 	<column name="depreciacao_codigo" not-null="true" sequence="public.depreciacao_sequencia">
 		<type name="integer"/>
 	</column>
@@ -170,7 +170,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_nota_fiscal">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1160" y="343"/>
+	<position x="860" y="143"/>
 	<column name="nota_codigo" not-null="true" sequence="public.nota_fiscal_sequencia">
 		<type name="integer"/>
 	</column>
@@ -205,24 +205,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="pat_imposto">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="500" y="143"/>
-	<column name="imposto_codigo" not-null="true" sequence="public.imposto_sequencia">
-		<type name="integer"/>
-	</column>
-	<column name="imposto_nome" not-null="true">
-		<type name="character varying" length="100"/>
-	</column>
-	<column name="imposto_aliquota" not-null="true">
-		<type name="double precision"/>
-	</column>
-	<constraint name="imposto_pk" type="pk-constr" table="public.pat_imposto">
-		<columns names="imposto_codigo" ref-type="src-columns"/>
-	</constraint>
-</table>
-
 <sequence name="item_nota_sequencia"
 	 start="1" increment="1"
 	 min-value="0" max-value="2147483647"
@@ -234,7 +216,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_item_nota">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="440" y="483"/>
+	<position x="400" y="220"/>
 	<column name="item_nota_codigo" not-null="true" sequence="public.item_nota_sequencia">
 		<type name="integer"/>
 	</column>
@@ -269,27 +251,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 </sequence>
 
-<table name="pat_imposto_item_nota">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="460" y="283"/>
-	<column name="imposto_item_nota_codigo" not-null="true" sequence="public.imposto_item_nota_sequencia">
-		<type name="integer"/>
-	</column>
-	<column name="imposto_item_nota_valor_imposto" not-null="true">
-		<type name="double precision"/>
-	</column>
-	<column name="item_nota">
-		<type name="integer"/>
-	</column>
-	<column name="imposto">
-		<type name="integer"/>
-	</column>
-	<constraint name="imposto_item_nota_pk" type="pk-constr" table="public.pat_imposto_item_nota">
-		<columns names="imposto_item_nota_codigo" ref-type="src-columns"/>
-	</constraint>
-</table>
-
 <sequence name="imposto_nota_fiscal_sequencia"
 	 start="1" increment="1"
 	 min-value="0" max-value="2147483647"
@@ -297,27 +258,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<schema name="public"/>
 	<role name="postgres"/>
 </sequence>
-
-<table name="pat_imposto_nota_fiscal">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="1080" y="103"/>
-	<column name="imposto_nota_fiscal_codigo" not-null="true" sequence="public.imposto_nota_fiscal_sequencia">
-		<type name="integer"/>
-	</column>
-	<column name="imposto_nota_fiscal_valor" not-null="true">
-		<type name="double precision"/>
-	</column>
-	<column name="imposto">
-		<type name="integer"/>
-	</column>
-	<column name="nota_fiscal">
-		<type name="integer"/>
-	</column>
-	<constraint name="imposto_nota_fiscal_pk" type="pk-constr" table="public.pat_imposto_nota_fiscal">
-		<columns names="imposto_nota_fiscal_codigo" ref-type="src-columns"/>
-	</constraint>
-</table>
 
 <sequence name="categoria_sequencia"
 	 start="1" increment="1"
@@ -330,7 +270,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="est_categoria">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2620" y="323"/>
+	<position x="2620" y="303"/>
 	<column name="categoria_id" not-null="true" sequence="public.categoria_sequencia">
 		<type name="integer"/>
 	</column>
@@ -353,7 +293,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="est_marca">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2640" y="483"/>
+	<position x="2640" y="463"/>
 	<column name="marca_id" not-null="true" sequence="public.marca_sequencia">
 		<type name="integer"/>
 	</column>
@@ -376,7 +316,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="est_unidade_medida">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2760" y="603"/>
+	<position x="2760" y="583"/>
 	<column name="unidade_medida_id" not-null="true" sequence="public.unidade_medida_sequencia">
 		<type name="integer"/>
 	</column>
@@ -399,7 +339,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="est_produto">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1620" y="523"/>
+	<position x="1320" y="383"/>
 	<column name="produto_id" not-null="true" sequence="public.produto_sequencia">
 		<type name="integer"/>
 	</column>
@@ -437,7 +377,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="saldo">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2040" y="403"/>
+	<position x="2040" y="383"/>
 	<column name="saldo" not-null="true" sequence="public.saldo_sequencia">
 		<type name="integer"/>
 	</column>
@@ -474,7 +414,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="est_movimentacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="820" y="623"/>
+	<position x="800" y="520"/>
 	<column name="mov_id" not-null="true" sequence="public.movimentacao_sequencia">
 		<type name="integer"/>
 	</column>
@@ -504,7 +444,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="car_est_tipo_operacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="300" y="663"/>
+	<position x="300" y="560"/>
 	<column name="tp_op_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -533,7 +473,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="car_cap_parcela">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="280" y="823"/>
+	<position x="340" y="1020"/>
 	<column name="parcela_id" not-null="true" sequence="public.parcelas_sequencia">
 		<type name="integer"/>
 	</column>
@@ -571,7 +511,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="car_cap_contas">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="740" y="803"/>
+	<position x="740" y="783"/>
 	<column name="conta_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -597,7 +537,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="conta_pessoa">
 		<type name="integer"/>
 	</column>
-	<column name="conta_status_id">
+	<column name="conta_status">
 		<type name="integer"/>
 	</column>
 	<constraint name="conta_pagar_pk" type="pk-constr" table="public.car_cap_contas">
@@ -613,8 +553,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</customidxs>
 
 	<customidxs object-type="constraint">
-		<object name="car_est_tipo_operacao_fk" index="5"/>
-		<object name="flxcx_operacoes_fk" index="6"/>
+		<object name="car_est_tipo_operacao_fk" index="4"/>
+		<object name="flxcx_operacoes_fk" index="5"/>
 	</customidxs>
 </table>
 
@@ -629,7 +569,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="car_pessoa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1880" y="683"/>
+	<position x="1880" y="663"/>
 	<column name="pessoa_id" not-null="true" sequence="public.pessoa_sequencia">
 		<type name="integer"/>
 	</column>
@@ -661,7 +601,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pat_historico_depreciacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1520" y="123"/>
+	<position x="1520" y="103"/>
 	<column name="historico_depreciacao_codigo" not-null="true" sequence="public.historico_depreciacao_sequencia">
 		<type name="integer"/>
 	</column>
@@ -720,7 +660,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcx_operacao_tributacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1960" y="820"/>
+	<position x="1960" y="803"/>
 	<column name="op_codigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -743,7 +683,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcx_fluxo_caixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2480" y="723"/>
+	<position x="2480" y="703"/>
 	<column name="flux_codigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -775,7 +715,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcx_esp_fluxo_caixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2840" y="1043"/>
+	<position x="2840" y="1023"/>
 	<column name="esp_codigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -801,7 +741,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcx_movimentos_especificacoes">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2420" y="1123"/>
+	<position x="2420" y="1103"/>
 	<column name="mov_ban_codigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -813,29 +753,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="cap_conta_status">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="300" y="1023"/>
-	<column name="conta_status_id" not-null="true" sequence="public.conta_status_sequence">
-		<type name="integer"/>
-	</column>
-	<column name="conta_status_descricao" not-null="true">
-		<type name="character varying" length="50"/>
-	</column>
-	<column name="conta_status_tipo" not-null="true">
-		<type name="integer"/>
-		<comment><![CDATA[P - a pagar, R - a receber]]></comment>
-	</column>
-	<constraint name="contas_status_codigo_pk" type="pk-constr" table="public.cap_conta_status">
-		<columns names="conta_status_id" ref-type="src-columns"/>
-	</constraint>
-</table>
-
 <table name="flxcx_tributacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1620" y="863"/>
+	<position x="1620" y="843"/>
 	<column name="trib_codigo" not-null="true" sequence="public.tributacao_sequence">
 		<type name="integer"/>
 	</column>
@@ -850,7 +771,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcx_movimento_bancario">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2420" y="843"/>
+	<position x="2420" y="823"/>
 	<column name="mov_ban_codigo" not-null="true" sequence="public.mov_ban_sequence">
 		<type name="integer"/>
 	</column>
@@ -883,7 +804,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcx_contas_especificacoes">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1820" y="1103"/>
+	<position x="1820" y="1083"/>
 
 	<customidxs object-type="column">
 		<object name="conta_id_car_cap_contas" index="1"/>
@@ -900,7 +821,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcx_especificacoes">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2220" y="1283"/>
+	<position x="2220" y="1263"/>
 	<column name="esp_codigo" not-null="true" sequence="public.esp_sequence">
 		<type name="integer"/>
 	</column>
@@ -929,7 +850,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcx_operacoes">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1940" y="1003"/>
+	<position x="1940" y="983"/>
 	<column name="op_codigo" not-null="true" sequence="public.operacao_sequence">
 		<type name="integer"/>
 	</column>
@@ -953,7 +874,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcx_livro_caixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1720" y="1203"/>
+	<position x="1720" y="1183"/>
 	<column name="lvr_cx_codigo" not-null="true" sequence="public.lvr_cx_sequence">
 		<type name="integer"/>
 	</column>
@@ -983,7 +904,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcx_fluxo_caixa_fechamento">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2780" y="1163"/>
+	<position x="2780" y="1143"/>
 	<column name="fech_codigo" not-null="true" sequence="public.fech_sequence">
 		<type name="integer"/>
 	</column>
@@ -1019,6 +940,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#83af1f"
 	 src-table="public.flxcx_operacoes"
 	 dst-table="public.car_cap_contas"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="car_cap_contas_tem_muitos_flxcx_movimento_bancario" type="rel1n"
+	 src-col-pattern="car_cap_contas_mov_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.car_cap_contas"
+	 dst-table="public.flxcx_movimento_bancario"
 	 src-required="false" dst-required="false"/>
 
 <constraint name="nota_fiscal_ativoimobilizado_fk" type="fk-constr" comparison-type="MATCH FULL"
@@ -1075,30 +1005,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="produto_id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="item_nota_imposto_item_nota_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_item_nota" table="public.pat_imposto_item_nota">
-	<columns names="item_nota" ref-type="src-columns"/>
-	<columns names="item_nota_codigo" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="imposto_imposto_item_nota_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_imposto" table="public.pat_imposto_item_nota">
-	<columns names="imposto" ref-type="src-columns"/>
-	<columns names="imposto_codigo" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="imposto_imposto_nota_fiscal_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_imposto" table="public.pat_imposto_nota_fiscal">
-	<columns names="imposto" ref-type="src-columns"/>
-	<columns names="imposto_codigo" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="nota_fiscal_imposto_nota_fiscal_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.pat_nota_fiscal" table="public.pat_imposto_nota_fiscal">
-	<columns names="nota_fiscal" ref-type="src-columns"/>
-	<columns names="nota_codigo" ref-type="dst-columns"/>
-</constraint>
-
 <constraint name="marca_produto_fk" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.est_marca" table="public.est_produto">
 	<columns names="produto_marca" ref-type="src-columns"/>
@@ -1151,12 +1057,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.car_pessoa" table="public.car_cap_contas">
 	<columns names="conta_pessoa" ref-type="src-columns"/>
 	<columns names="pessoa_id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="contas_status_contas_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="SET NULL" ref-table="public.cap_conta_status" table="public.car_cap_contas">
-	<columns names="conta_status_id" ref-type="src-columns"/>
-	<columns names="conta_status_id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="ativoimobilizado_historico_depreciacao_fk" type="fk-constr" comparison-type="MATCH FULL"
@@ -1273,30 +1173,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="public.est_produto"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="rel_imposto_item_nota_item_nota" type="relfk"
-	 custom-color="#4e132e"
-	 src-table="public.pat_imposto_item_nota"
-	 dst-table="public.pat_item_nota"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="rel_imposto_item_nota_imposto" type="relfk"
-	 custom-color="#081cb1"
-	 src-table="public.pat_imposto_item_nota"
-	 dst-table="public.pat_imposto"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="rel_imposto_nota_fiscal_imposto" type="relfk"
-	 custom-color="#87ec86"
-	 src-table="public.pat_imposto_nota_fiscal"
-	 dst-table="public.pat_imposto"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="rel_imposto_nota_fiscal_nota_fiscal" type="relfk"
-	 custom-color="#63e1f3"
-	 src-table="public.pat_imposto_nota_fiscal"
-	 dst-table="public.pat_nota_fiscal"
-	 src-required="false" dst-required="false"/>
-
 <relationship name="rel_produto_marca" type="relfk"
 	 custom-color="#e41bea"
 	 src-table="public.est_produto"
@@ -1349,12 +1225,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#264253"
 	 src-table="public.car_cap_contas"
 	 dst-table="public.car_pessoa"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="rel_contas_contas_status" type="relfk"
-	 custom-color="#e55a24"
-	 src-table="public.car_cap_contas"
-	 dst-table="public.cap_conta_status"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_historico_depreciacao_ativoimobilizado" type="relfk"

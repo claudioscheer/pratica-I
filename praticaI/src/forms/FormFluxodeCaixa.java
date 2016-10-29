@@ -11,30 +11,14 @@ import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.managers.language.LanguageManager;
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
-import dao.FlxcxLivroCaixaDAO;
 import enumeraveis.TipoConta;
-import java.awt.Rectangle;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javafx.geometry.Bounds;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.plaf.SplitPaneUI;
-import model.CapContaStatus;
 import model.CarCapContas;
-import model.FlxcxLivroCaixa;
 import model.graficos;
-import modelAntigo.TipoOperacao;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import utils.Graficos;
-import utils.Graficos.TiposGrafico;
-import utils.Utils;
 
 /**
  *

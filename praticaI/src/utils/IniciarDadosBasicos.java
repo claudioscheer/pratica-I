@@ -125,7 +125,7 @@ public class IniciarDadosBasicos {
 
             FlxcxTributacao tr = new FlxcxTributacao();
 
-            tr.setTribCodigo(i);
+           // tr.setTribCodigo(i);
             tr.setTribDescricao("Tributacao: " + i);
 
             trib.Inserir(tr);
