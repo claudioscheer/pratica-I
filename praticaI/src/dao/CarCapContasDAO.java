@@ -55,4 +55,14 @@ public class CarCapContasDAO {
         return ativoImobilizado;
     }
 
+    public List<CarCapContas> ListarTodos() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("from CarCapContas as a ");
+        List<CarCapContas> contas = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return contas;
+    }
+
 }
