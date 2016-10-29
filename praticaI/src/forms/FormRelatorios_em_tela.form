@@ -23,12 +23,26 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="webButton1" min="-2" pref="113" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+          </Group>
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-              <Component id="webDateField1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-              <Component id="webDateField2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="451" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <Component id="webLabel13" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="webDateField1" min="-2" pref="151" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="webLabel14" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="webDateField2" min="-2" pref="153" max="-2" attributes="0"/>
+              <EmptySpace pref="77" max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="webComboBox1" min="-2" pref="189" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="169" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -39,21 +53,51 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="webDateField1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="webDateField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="webLabel13" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="webLabel14" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="385" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="webComboBox1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Component id="webButton1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="81" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Component class="com.alee.extended.date.WebDateField" name="webDateField1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="webDateField1"/>
-      </Properties>
     </Component>
     <Component class="com.alee.extended.date.WebDateField" name="webDateField2">
+    </Component>
+    <Component class="com.alee.laf.label.WebLabel" name="webLabel13">
       <Properties>
-        <Property name="text" type="java.lang.String" value="webDateField2"/>
+        <Property name="text" type="java.lang.String" value="Data Inicial:"/>
+      </Properties>
+    </Component>
+    <Component class="com.alee.laf.label.WebLabel" name="webLabel14">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Data Finalal:"/>
+      </Properties>
+    </Component>
+    <Component class="com.alee.laf.button.WebButton" name="webButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Gerar"/>
+      </Properties>
+    </Component>
+    <Component class="com.alee.laf.combobox.WebComboBox" name="webComboBox1">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="7">
+            <StringItem index="0" value="Pendentes"/>
+            <StringItem index="1" value="Pagos"/>
+            <StringItem index="2" value="Valor &#xe0; receber"/>
+            <StringItem index="3" value="Valor &#xe0; sair"/>
+            <StringItem index="4" value="Venda de produtos"/>
+            <StringItem index="5" value="compra de produtos"/>
+            <StringItem index="6" value="Media de prduto"/>
+          </StringArray>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>

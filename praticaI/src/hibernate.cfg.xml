@@ -12,7 +12,6 @@
         <property name="hibernate.format_sql">true</property>
         <mapping class="model.PatItemNota" />
         <mapping class="model.FlxcxOperacoes"/>
-        <mapping class="model.CapContaStatus"/>
         <mapping class="model.EstMovimentacao" />
         <mapping class="model.FlxcxMovimentoBancario"/>
         <mapping class="model.PatHistoricoDepreciacao" />

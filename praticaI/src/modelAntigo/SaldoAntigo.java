@@ -13,7 +13,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @SequenceGenerator(name = "seq_saldo", sequenceName = "seq_saldo", allocationSize = 1)
-public class Saldo implements Serializable {
+public class SaldoAntigo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_saldo")
     private int codigo;

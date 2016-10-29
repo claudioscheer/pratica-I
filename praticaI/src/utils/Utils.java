@@ -60,7 +60,8 @@ public class Utils {
         FluxoCaixa,
         ContasReceber,
         addpessoa,
-        estoque
+        estoque,
+        movimentacoes
     }
 
     public static ImageIcon getImage(Image icone) {
@@ -150,7 +151,14 @@ public class Utils {
             case estoque:
                 url = "estoque.png";
                 break;
+                
+            case movimentacoes:
+                
+                url = "movimentacoes-icon.png";
+                break;
         }
+        
+        
 
         return new ImageIcon(Utils.class.getResource("/imagens/" + url));
     }

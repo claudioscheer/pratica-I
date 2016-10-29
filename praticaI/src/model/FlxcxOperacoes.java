@@ -5,9 +5,12 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -16,13 +19,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "flxcx_operacoes", schema = "public"
 )
+@SequenceGenerator(name = "seq_opCodigo", sequenceName = "seq_opCodigo",
+        allocationSize = 1)
 public class FlxcxOperacoes implements java.io.Serializable {
 
     private int opCodigo;
     private String opDescricao;
     private Set<FlxcxTributacao> flxcxTributacaos = new HashSet(0);
     private Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios = new HashSet(0);
-    private Set<CarCapContas> carCapContass =  new HashSet(0);
+    private Set<CarCapContas> carCapContass = new HashSet(0);
 
     public FlxcxOperacoes() {
     }
@@ -40,6 +45,7 @@ public class FlxcxOperacoes implements java.io.Serializable {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_opCodigo")
     public int getOpCodigo() {
         return this.opCodigo;
     }
@@ -56,7 +62,6 @@ public class FlxcxOperacoes implements java.io.Serializable {
         this.opDescricao = opDescricao;
     }
 
-     
     @ManyToMany
     public Set<FlxcxTributacao> getFlxcxTributacaos() {
         return this.flxcxTributacaos;
@@ -65,7 +70,6 @@ public class FlxcxOperacoes implements java.io.Serializable {
     public void setFlxcxTributacaos(Set<FlxcxTributacao> flxcxTributacaos) {
         this.flxcxTributacaos = flxcxTributacaos;
     }
-
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "flxcxOperacoes")
     public Set<FlxcxMovimentoBancario> getFlxcxMovimentoBancarios() {
@@ -76,7 +80,6 @@ public class FlxcxOperacoes implements java.io.Serializable {
         this.flxcxMovimentoBancarios = flxcxMovimentoBancarios;
     }
 
-    
     @OneToMany(mappedBy = "flxcxOperacoes")
     public Set<CarCapContas> getCarCapContass() {
         return carCapContass;

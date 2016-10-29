@@ -5,6 +5,7 @@
  */
 package model;
 
+import enumeraveis.TipoGrafico;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JPanel;
@@ -24,23 +25,19 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 
 
-public final class graficos {
+public final class Graficos {
     
    
     
     JFreeChart grafico;
     XYSeriesCollection dados = new XYSeriesCollection();
     
-    public final static int linear = 1;
-    public final static int barras = 2;
-    public final static int polar = 3;
-    public final static int pizza = 4;
-    public final static int area = 5;
+
     String titulo;
     String xx = "entradas";
     String xy = "saídas";
     
-    public graficos(int tipo, String titulo) {
+    public Graficos(TipoGrafico tipo, String titulo) {
        
     this.titulo = titulo;    
     this.tipoGrafico(tipo);
@@ -49,7 +46,7 @@ public final class graficos {
     
    
     
-    public void tipoGrafico(int tipo){
+    public void tipoGrafico(TipoGrafico tipo){
         
         switch(tipo){
             

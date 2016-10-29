@@ -106,8 +106,8 @@ public class IniciarDadosBasicos {
         Calendar data = Calendar.getInstance();
 //        FlxcxLivroCaixaDAO livroCaixaDao = new FlxcxLivroCaixaDAO();
         FlxcxTributacaoDAO trib = new FlxcxTributacaoDAO();
-
-        FlxcxOperacoesDAO operacaoDAO = new FlxcxOperacoesDAO();
+//
+//        FlxcxOperacoesDAO operacaoDAO = new FlxcxOperacoesDAO();
 //
 //        FlxcxOperacoes ope = new FlxcxOperacoes();
 //        
@@ -118,29 +118,27 @@ public class IniciarDadosBasicos {
 //        ope.getCarCapContass().add(conta);
 //        
 //        operacaoDAO.Inserir(ope);
-        
+
 //        FlxcxOperacoes op = operacaoDAO.Buscar(1);
 //                
-//        for (int i = 1; i <= 10; i++) {
-//
-//            FlxcxTributacao tr = new FlxcxTributacao();
-//
-//            tr.setTribCodigo(i);
-//            tr.setTribDescricao("Tributacao: " + i);
-//            tr.getFlxcxOperacoes().add(op);
-//
-//            trib.Inserir(tr);
-//
-//        }
+        for (int i = 1; i <= 10; i++) {
 
-        for (model.FlxcxTributacao i :trib.ListarTodas()){
-        
-            System.out.println(i.getTribCodigo());
-            System.out.println(i.getTribDescricao());
-        
+            FlxcxTributacao tr = new FlxcxTributacao();
+
+           // tr.setTribCodigo(i);
+            tr.setTribDescricao("Tributacao: " + i);
+
+            trib.Inserir(tr);
+
         }
+
+//        for (model.FlxcxTributacao i :trib.ListarTodas()){
+//        
+//            System.out.println(i.getTribCodigo());
+//            System.out.println(i.getTribDescricao());
+//        
+//        }
 //        FlxcxTributacao trib = tributacaoDAO.Buscar(1);
-        
 //        System.out.println(trib.getTribDescricao());
     }
 
