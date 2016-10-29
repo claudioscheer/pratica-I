@@ -32,7 +32,6 @@ public class CarCapContas implements java.io.Serializable {
     @Column(name = "conta_id", unique = true, nullable = false)
     private int contaId;
 
-        
     @OneToMany(mappedBy = "carCapContas")
     private Set<CapContaStatus> capContaStatus;
 
@@ -63,20 +62,18 @@ public class CarCapContas implements java.io.Serializable {
     @Column(name = "conta_valor_pago", nullable = false, precision = 17, scale = 17)
     private double contaValorPago;
 
-    @Enumerated 
+    @Enumerated
     private TipoConta contaTipo;
 
-    
     @OneToMany(mappedBy = "carCapContas")
     private Set<FlxcxEspecificacoes> flxcxEspecificacoeses = new HashSet(0);
 
-    
     @OneToMany(mappedBy = "carCapContas")
     private Set<CarCapParcela> carCapParcelas = new HashSet(0);
-    
+
     @OneToMany(mappedBy = "carCapContas")
     private Set<FlxcxMovimentoBancario> flxcxMovimentosBancarios;
-    
+
     public CarCapContas() {
     }
 
@@ -217,7 +214,5 @@ public class CarCapContas implements java.io.Serializable {
     public void setFlxcxMovimentosBancarios(Set<FlxcxMovimentoBancario> flxcxMovimentosBancarios) {
         this.flxcxMovimentosBancarios = flxcxMovimentosBancarios;
     }
-    
-    
 
 }

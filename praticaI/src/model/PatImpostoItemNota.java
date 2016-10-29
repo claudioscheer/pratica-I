@@ -1,11 +1,9 @@
 package model;
 // Generated 22/10/2016 10:09:26 by Hibernate Tools 4.3.1
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 

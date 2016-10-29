@@ -106,32 +106,31 @@ public class IniciarDadosBasicos {
         Calendar data = Calendar.getInstance();
 //        FlxcxLivroCaixaDAO livroCaixaDao = new FlxcxLivroCaixaDAO();
         FlxcxTributacaoDAO trib = new FlxcxTributacaoDAO();
+//
+//        FlxcxOperacoesDAO operacaoDAO = new FlxcxOperacoesDAO();
+//
+//        FlxcxOperacoes ope = new FlxcxOperacoes();
+//        
+//        CarCapContas conta = new CarCapContas(1,2.0,new Date(),2,2.0,TipoConta.Entrada);
+//                      
+//        ope.setOpCodigo(1);
+//        ope.setOpDescricao("TesteOperacao");
+//        ope.getCarCapContass().add(conta);
+//        
+//        operacaoDAO.Inserir(ope);
 
-        FlxcxOperacoesDAO operacaoDAO = new FlxcxOperacoesDAO();
-
-        FlxcxOperacoes ope = new FlxcxOperacoes();
-        
-        CarCapContas conta = new CarCapContas(1,2.0,new Date(),2,2.0,TipoConta.Entrada);
-                      
-        ope.setOpCodigo(1);
-        ope.setOpDescricao("TesteOperacao");
-        ope.getCarCapContass().add(conta);
-        
-        operacaoDAO.Inserir(ope);
-        
 //        FlxcxOperacoes op = operacaoDAO.Buscar(1);
 //                
-//        for (int i = 1; i <= 10; i++) {
-//
-//            FlxcxTributacao tr = new FlxcxTributacao();
-//
-//            tr.setTribCodigo(i);
-//            tr.setTribDescricao("Tributacao: " + i);
-//            tr.getFlxcxOperacoes().add(op);
-//
-//            trib.Inserir(tr);
-//
-//        }
+        for (int i = 1; i <= 10; i++) {
+
+            FlxcxTributacao tr = new FlxcxTributacao();
+
+            tr.setTribCodigo(i);
+            tr.setTribDescricao("Tributacao: " + i);
+
+            trib.Inserir(tr);
+
+        }
 
 //        for (model.FlxcxTributacao i :trib.ListarTodas()){
 //        
@@ -140,7 +139,6 @@ public class IniciarDadosBasicos {
 //        
 //        }
 //        FlxcxTributacao trib = tributacaoDAO.Buscar(1);
-        
 //        System.out.println(trib.getTribDescricao());
     }
 
