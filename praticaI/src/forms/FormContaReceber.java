@@ -10,6 +10,7 @@ import com.alee.laf.desktoppane.WebInternalFrame;
 import com.alee.managers.language.LanguageManager;
 import dao.CarCapContasDAO;
 import forms.busca.FormBuscaMarca;
+import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 import model.CarCapContas;
 
@@ -27,13 +28,10 @@ public class FormContaReceber extends WebInternalFrame {
         super("Contas a Receber", true, true, true, true);
         this.initComponents();
         FormBuscaMarca buscaMarca = new FormBuscaMarca();
-        
+
         buscaMarca.setFrameBloquear(FormPrincipal.getInstance());
-        
-        
+
         txt_pess_cad.setFrame(buscaMarca);
-        
-        
 
     }
 
@@ -540,22 +538,19 @@ public class FormContaReceber extends WebInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void webDateField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webDateField1ActionPerformed
-      
+
     }//GEN-LAST:event_webDateField1ActionPerformed
 
     private void Comb_tip_operacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Comb_tip_operacaoActionPerformed
-       
+
         String b = (String) Comb_tip_operacao.getSelectedItem();
-        
-        
-        
+
+
     }//GEN-LAST:event_Comb_tip_operacaoActionPerformed
 
     private void txtQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeActionPerformed
-       
-        
-        
-        
+
+
     }//GEN-LAST:event_txtQuantidadeActionPerformed
 
     private void txtQuantidade3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidade3ActionPerformed
@@ -570,14 +565,11 @@ public class FormContaReceber extends WebInternalFrame {
         if (contareceber) {
             conta.setContaNumParcelas(4);
             conta.setContaNumParcelas(Integer.parseInt(txtQuantidade.getText()));
-          
-            
-            
+
             new CarCapContasDAO().insert(conta);
         }
 
 
-        
     }//GEN-LAST:event_webButton5ActionPerformed
 
     private void txt_pess_cadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pess_cadActionPerformed
@@ -599,18 +591,16 @@ public class FormContaReceber extends WebInternalFrame {
     private void Comb_forma_pagamento_recebimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Comb_forma_pagamento_recebimentoActionPerformed
 
         String b = (String) Comb_forma_pagamento_recebimento.getSelectedItem();
-     
-    if(b.equals("À Vista")){
-        
-        comb_parcelas.setEnabled(false);    }
-    else{
-        comb_parcelas.setEnabled(true);
-        
-    }
-        
-        
-        
-        
+
+        if (b.equals("À Vista")) {
+
+            comb_parcelas.setEnabled(false);
+        } else {
+            comb_parcelas.setEnabled(true);
+
+        }
+
+
     }//GEN-LAST:event_Comb_forma_pagamento_recebimentoActionPerformed
 
     private void Comb_forma_pagamento_recebimento1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Comb_forma_pagamento_recebimento1ActionPerformed
@@ -627,39 +617,36 @@ public class FormContaReceber extends WebInternalFrame {
 
     private void webButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton3ActionPerformed
         FormRelatorios_em_tela r = new FormRelatorios_em_tela();
-        
+
         r.setVisible(true);
-        
-        
-        
+
+
     }//GEN-LAST:event_webButton3ActionPerformed
 
     private void txt_Valor_TotalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_Valor_TotalMouseClicked
-        String b = (String) txtQuantidade.getText();
+        String b = txtQuantidade.getText();
         
-       double q ;
-       
-       b.replaceAll( "," , "." );
-     q = Double.parseDouble( b );
-       
+        b = b.replace(",", "."); //Isso precisa ter pois se o cara digitar o numero com virgula vai dar pau no double
+        
+        double q = FormataValor(Double.parseDouble(b));
+        
+        String c = txt_preco_uni.getText();
 
-       String c = (String) txt_preco_uni.getText();
+        c = c.replace(",", "."); //Isso precisa ter pois se o cara digitar o numero com virgula vai dar pau no double
         
-       double u ;
-     u = Double.parseDouble( c );
-       
-       double soma = q * u ;
-       
-       String Soma = ""+soma;
-       
-       txt_Valor_Total.setText(Soma);
-       
+        double u = FormataValor(Double.parseDouble(c));
         
-        
+        double soma = q * u;
+
+        String Soma = "" + soma;
+
+        txt_Valor_Total.setText(Soma);
+
+
     }//GEN-LAST:event_txt_Valor_TotalMouseClicked
 
     private void txt_Valor_TotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_Valor_TotalActionPerformed
-       
+
     }//GEN-LAST:event_txt_Valor_TotalActionPerformed
 
     /**
@@ -712,6 +699,21 @@ public class FormContaReceber extends WebInternalFrame {
             fluxo.setVisible(true);
 
         });
+    }
+    
+    
+    
+    private static double FormataValor(Double valor) {
+            
+        String pattern = "###.##";
+
+        DecimalFormat dm = new DecimalFormat(pattern);
+
+        String str = dm.format(valor);
+
+        return Float.parseFloat(str.replace(',', '.'));
+
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

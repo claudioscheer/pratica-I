@@ -1,5 +1,6 @@
 package dao;
 
+import enumeraveis.TipoConta;
 import java.util.List;
 import model.CarCapContas;
 import modelAntigo.AtivoImobilizado;
@@ -64,5 +65,19 @@ public class CarCapContasDAO {
         session.close();
         return contas;
     }
+    
+    public List<CarCapContas> ListarContas(TipoConta tipo){
+    
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("from CarCapContas as a where contaTipo = :t and  ");
+        List<CarCapContas> contas = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return contas;
+        
+    
+    }
+    
 
 }
