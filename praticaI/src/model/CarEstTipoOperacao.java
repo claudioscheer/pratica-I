@@ -6,8 +6,11 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -16,6 +19,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "car_est_tipo_operacao", schema = "public"
 )
+@SequenceGenerator(name = "seq_tipoOperacao", sequenceName = "seq_tipoOperacao", allocationSize = 1)
 public class CarEstTipoOperacao implements java.io.Serializable {
 
     private int tpOpId;
@@ -45,7 +49,7 @@ public class CarEstTipoOperacao implements java.io.Serializable {
     }
 
     @Id
-
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tipoOperacao")
     @Column(name = "tp_op_id", unique = true, nullable = false)
     public int getTpOpId() {
         return this.tpOpId;

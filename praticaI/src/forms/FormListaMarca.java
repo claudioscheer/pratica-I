@@ -9,7 +9,6 @@ import dao.MarcaDAO;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.EstMarca;
-import model.EstUnidadeMedida;
 
 /**
  *

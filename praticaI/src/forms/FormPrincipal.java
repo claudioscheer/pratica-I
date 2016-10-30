@@ -241,7 +241,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        iconDesktop.setLocation(new Point(0,550));
+        iconDesktop.setLocation(new Point(0, 550));
         this.desktopPanel.add(iconDesktop);
 
     }
@@ -253,22 +253,16 @@ public class FormPrincipal extends javax.swing.JFrame {
         iconDesktop.setActionListener((e) -> {
             if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
                 return;
-            }
-            JOptionPane.showMessageDialog(null, "Calma lá... ainda está sendo desenvolvido...", "Atenção! ", JOptionPane.INFORMATION_MESSAGE);
-            //FormAtivoImobilizado form = new FormAtivoImobilizado();
-            //this.desktopPanel.add(form);
-            //form.open();
-            //try {
-//                form.setMaximum(true);
-            //          } catch (PropertyVetoException ex) {
-            //        }
+            }            
+            FormEstoque form = new FormEstoque(this, rootPaneCheckingEnabled);
+            form.setVisible(true);
         });
 
         iconDesktop.setLocation(new Point(0, 440));
         this.desktopPanel.add(iconDesktop);
     }
-    
-        private void loadMateriais() {
+
+    private void loadMateriais() {
 
         final IconDesktop iconDesktop = new IconDesktop("Materiais", Utils.getImage(Utils.Image.estoque));
 
