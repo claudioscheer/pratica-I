@@ -8,6 +8,7 @@ import dao.ProdutoDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+import model.EstProduto;
 import modelAntigo.Categoria;
 import modelAntigo.Marca;
 import modelAntigo.Produto;
@@ -35,11 +36,11 @@ public class FormBuscaProduto extends JFrameBusca {
 
             DefaultTableModel model = (DefaultTableModel) tabelaProdutos.getModel();
 
-            produtos = new ProdutoDAO().getAll();
-            for (Produto produto : produtos) {
+            List<EstProduto> produtos = new ProdutoDAO().getAll();
+            for (EstProduto produto : produtos) {
                 Object[] o = new Object[2];
-                o[0] = produto.getCodigo();
-                o[1] = produto.getNome();
+                o[0] = produto.getProdutoId();
+                o[1] = produto.getProdutoDescricao();
                 model.addRow(o);
             }
             tabelaProdutos.setModel(model);

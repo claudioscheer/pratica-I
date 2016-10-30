@@ -6,6 +6,7 @@ import dao.CategoriaDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+import model.EstCategoria;
 import modelAntigo.Categoria;
 import utils.Utils;
 
@@ -31,11 +32,11 @@ public class FormBuscaCategoria extends JFrameBusca {
 
             DefaultTableModel model = (DefaultTableModel) tabelaCategoria.getModel();
 
-            categorias = new CategoriaDAO().getAll();
-            for (Categoria categoria : categorias) {
+            List<EstCategoria> categorias = new CategoriaDAO().getAll();
+            for (EstCategoria categoria : categorias) {
                 Object[] o = new Object[2];
-                o[0] = categoria.getCodigo();
-                o[1] = categoria.getDescricao();
+                o[0] = categoria.getCategoriaId();
+                o[1] = categoria.getCategoriaDescricao();
                 model.addRow(o);
             }
             tabelaCategoria.setModel(model);

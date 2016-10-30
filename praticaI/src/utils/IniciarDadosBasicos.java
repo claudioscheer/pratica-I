@@ -12,6 +12,9 @@ import enumeraveis.TipoConta;
 import java.util.Calendar;
 import java.util.Date;
 import model.CarCapContas;
+import model.EstCategoria;
+import model.EstMarca;
+import model.EstProduto;
 import model.FlxcxOperacoes;
 import model.FlxcxTributacao;
 import modelAntigo.AtivoImobilizado;
@@ -37,18 +40,18 @@ public class IniciarDadosBasicos {
 
         CategoriaDAO categoriaDAO = new CategoriaDAO();
         for (int i = 1; i <= 3; i++) {
-            Categoria categoria = new Categoria();
-            categoria.setCodigo(i);
-            categoria.setDescricao("categoria " + i);
-            categoriaDAO.insert(categoria);
+            EstCategoria categoria = new EstCategoria();
+            categoria.setCategoriaId(i);
+            categoria.setCategoriaDescricao("categoria " + i);
+            categoriaDAO.Inserir(categoria);
         }
 
         MarcaDAO marcaDAO = new MarcaDAO();
         for (int i = 1; i <= 3; i++) {
-            Marca marca = new Marca();
-            marca.setCodigo(i);
-            marca.setDescricao("marca " + i);
-            marcaDAO.insert(marca);
+            EstMarca marca = new EstMarca();
+            marca.setMarcaId(i);
+            marca.setMarcaDescricao("marca " + i);
+            marcaDAO.Inserir(marca);
         }
 
         AtivoImobilizadoDAO ativoImobilizadoDAO = new AtivoImobilizadoDAO();
@@ -84,9 +87,9 @@ public class IniciarDadosBasicos {
 
         ProdutoDAO produtoDAO = new ProdutoDAO();
         for (int i = 1; i <= 4; i++) {
-            Produto produto = new Produto();
-            produto.setCodigo(i);
-            produto.setNome("produto " + i);
+            EstProduto produto = new EstProduto();
+            produto.setProdutoId(i);
+            produto.setProdutoDescricao("produto " + i);
             produtoDAO.insert(produto);
         }
 

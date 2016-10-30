@@ -7,6 +7,7 @@ import dao.MarcaDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+import model.EstMarca;
 import modelAntigo.Categoria;
 import modelAntigo.Marca;
 import utils.Utils;
@@ -33,11 +34,11 @@ public class FormBuscaMarca extends JFrameBusca {
 
             DefaultTableModel model = (DefaultTableModel) tabelaMarcas.getModel();
 
-            marcas = new MarcaDAO().getAll();
-            for (Marca marca : marcas) {
+            List<EstMarca> marcas = new MarcaDAO().ListarTodas();
+            for (EstMarca marca : marcas) {
                 Object[] o = new Object[2];
-                o[0] = marca.getCodigo();
-                o[1] = marca.getDescricao();
+                o[0] = marca.getMarcaId();
+                o[1] = marca.getMarcaDescricao();
                 model.addRow(o);
             }
             tabelaMarcas.setModel(model);
