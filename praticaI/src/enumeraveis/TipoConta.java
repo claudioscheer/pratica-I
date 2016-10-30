@@ -10,5 +10,5 @@ package enumeraveis;
  * @author Diego
  */
 public enum TipoConta {
-    Entrada,Saida
+    Entrada,Saida,ambos
 }

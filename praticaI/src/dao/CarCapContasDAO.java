@@ -70,12 +70,23 @@ public class CarCapContasDAO {
     
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from CarCapContas as a where contaTipo = :t and  ");
+        
+        Query query = session.createQuery("from CarCapContas as a where contaTipo =:tipo");
+        
+        if(TipoConta.Entrada == tipo){
+            
+        query.setParameter("tipo", tipo.Entrada);
+        
+        }else if(TipoConta.Saida == tipo){
+            
+        query.setParameter("tipo", tipo.Saida);   
+            
+        }
+      
         List<CarCapContas> contas = query.list();
         session.getTransaction().commit();
         session.close();
-        return contas;
-        
+        return contas;   
     
     }
     

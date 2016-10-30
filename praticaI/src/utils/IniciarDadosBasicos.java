@@ -1,6 +1,7 @@
 package utils;
 
 import dao.AtivoImobilizadoDAO;
+import dao.CarCapContasDAO;
 import dao.CategoriaDAO;
 import dao.FlxcxOperacoesDAO;
 import dao.FlxcxTributacaoDAO;
@@ -8,15 +9,20 @@ import dao.HistoricoDepreciacaoDAO;
 import dao.ImpostoDAO;
 import dao.MarcaDAO;
 import dao.ProdutoDAO;
+import dao.TipoOperacaoDAO;
+import enumeraveis.StatusConta;
 import enumeraveis.TipoConta;
 import java.util.Calendar;
 import java.util.Date;
 import model.CarCapContas;
+import model.CarEstTipoOperacao;
+import model.CarPessoa;
 import model.EstCategoria;
 import model.EstMarca;
 import model.EstProduto;
 import model.FlxcxOperacoes;
 import model.FlxcxTributacao;
+import model.PatNotaFiscal;
 import modelAntigo.AtivoImobilizado;
 import modelAntigo.Categoria;
 import modelAntigo.EstadoBem;
@@ -24,18 +30,57 @@ import modelAntigo.HistoricoDepreciacao;
 import modelAntigo.Imposto;
 import modelAntigo.Marca;
 import modelAntigo.Produto;
+import modelAntigo.TipoOperacao;
 import modelAntigo.UtilizacaoBem;
 
 public class IniciarDadosBasicos {
 
     public static void main(String[] args) {
 
-        FluxoDeCaixa();
+       // FluxoDeCaixa();
 //        Patrimonio();
 
-        System.exit(0);
+        
+        alimentarContas();
+      //  System.exit(0);
     }
 
+    public static void alimentarContas(){
+        
+        CarCapContas novo = new CarCapContas();
+        
+        TipoOperacaoDAO op = new TipoOperacaoDAO();
+        PatNotaFiscal nfe = new PatNotaFiscal(6, 200, new Date(),"3242342342342342342342342", new Date());
+        
+        
+        
+        
+        CarEstTipoOperacao tpop = new CarEstTipoOperacao();
+    
+        //tpop.setCarCapContases(null);
+        tpop.setTpOpId(1);
+        tpop.setTpOpTipo(1);
+        
+         CarPessoa nova = new CarPessoa(6, "alisson");        
+        novo.setContaId(3);
+        novo.setCapContaStatus(StatusConta.Pendente);
+        novo.setCarCapParcelas(null);
+        novo.setCarPessoa(nova);
+        novo.setCarEstTipoOperacao(tpop);
+        novo.setContaValorTotal(435.56);
+        novo.setContaDataEmissao(new Date());
+        novo.setContaTipo(TipoConta.Entrada);
+        novo.setPatNotaFiscal(nfe);
+      
+        
+        CarCapContasDAO contaDAO = new CarCapContasDAO();
+        
+        contaDAO.insert(novo);
+        
+        
+ 
+    }
+    
     public static void Patrimonio() {
 
         CategoriaDAO categoriaDAO = new CategoriaDAO();
@@ -55,11 +100,11 @@ public class IniciarDadosBasicos {
         }
 
         AtivoImobilizadoDAO ativoImobilizadoDAO = new AtivoImobilizadoDAO();
-        Marca marca = new MarcaDAO().get(1);
+     //   Marca marca = new MarcaDAO().get(1);
         Categoria categoria = new CategoriaDAO().get(1);
         for (int i = 1; i <= 4; i++) {
             AtivoImobilizado ativoImobilizado = new AtivoImobilizado();
-            ativoImobilizado.setMarca(marca);
+         //   ativoImobilizado.setMarca(marca);
             ativoImobilizado.setCategoria(categoria);
             ativoImobilizado.setDescricao("ativo imobilizado " + i);
             ativoImobilizado.setEstadoBem(EstadoBem.usado);

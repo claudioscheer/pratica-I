@@ -278,11 +278,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Entrada"/>
           </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="checkboxEntradaStateChanged"/>
+          </Events>
         </Component>
         <Component class="com.alee.laf.checkbox.WebCheckBox" name="checkboxSaida">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sa&#xed;da"/>
           </Properties>
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="checkboxSaidaStateChanged"/>
+          </Events>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel5">
           <Properties>
@@ -459,15 +465,15 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="webLabel7" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="webTextField1" min="-2" pref="102" max="-2" attributes="0"/>
+                  <Component id="txtTotalEntradas" min="-2" pref="102" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="webLabel8" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="webTextField2" min="-2" pref="102" max="-2" attributes="0"/>
+                  <Component id="txtTotalSaidas" min="-2" pref="102" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                   <Component id="webLabel9" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="webTextField3" min="-2" pref="102" max="-2" attributes="0"/>
+                  <Component id="txtTotalDisponivel" min="-2" pref="102" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -480,9 +486,9 @@
                       <Component id="webLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="webLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="webLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="webTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="webTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="webTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTotalEntradas" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTotalSaidas" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTotalDisponivel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
               </Group>
@@ -505,11 +511,11 @@
             <Property name="text" type="java.lang.String" value="Total dispon&#xed;vel em Caixa:"/>
           </Properties>
         </Component>
-        <Component class="com.alee.laf.text.WebTextField" name="webTextField1">
+        <Component class="com.alee.laf.text.WebTextField" name="txtTotalEntradas">
         </Component>
-        <Component class="com.alee.laf.text.WebTextField" name="webTextField2">
+        <Component class="com.alee.laf.text.WebTextField" name="txtTotalSaidas">
         </Component>
-        <Component class="com.alee.laf.text.WebTextField" name="webTextField3">
+        <Component class="com.alee.laf.text.WebTextField" name="txtTotalDisponivel">
         </Component>
       </SubComponents>
     </Container>

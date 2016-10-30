@@ -5,6 +5,7 @@
  */
 package model;
 
+import enumeraveis.TipoConta;
 import enumeraveis.TipoGrafico;
 import java.util.List;
 import java.util.Locale;
@@ -22,98 +23,87 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @author Alisson Allebrandt
  */
-
-
-
 public final class Graficos {
-    
-   
-    
+
     JFreeChart grafico;
     XYSeriesCollection dados = new XYSeriesCollection();
-    
 
     String titulo;
     String xx = "entradas";
     String xy = "saídas";
-    
+
     public Graficos(TipoGrafico tipo, String titulo) {
-       
-    this.titulo = titulo;    
-    this.tipoGrafico(tipo);
-    
+
+        this.titulo = titulo;
+        this.tipoGrafico(tipo);
+
     }
-    
-   
-    
-    public void tipoGrafico(TipoGrafico tipo){
-        
-        switch(tipo){
-            
-            case linear:       
-                
+
+    public void tipoGrafico(TipoGrafico tipo) {
+
+        switch (tipo) {
+
+            case linear:
+
                 grafico = ChartFactory.createXYLineChart(titulo, xx, xy, dados, PlotOrientation.VERTICAL, true, true, true);
-                
+
                 break;
-               
+
             case polar:
-                
+
                 grafico = ChartFactory.createPolarChart(titulo, dados, true, true, true);
-                
+
                 break;
-                
+
             case barras:
-                
-                grafico = ChartFactory.createScatterPlot(titulo, xx, xy, dados, PlotOrientation.VERTICAL, true, true , true);
-                
+
+                grafico = ChartFactory.createScatterPlot(titulo, xx, xy, dados, PlotOrientation.VERTICAL, true, true, true);
+
                 break;
-                
+
             case pizza:
-                
-               grafico = ChartFactory.createXYStepChart(titulo, xx, xy, dados);
-                
+
+                grafico = ChartFactory.createXYStepChart(titulo, xx, xy, dados);
+
                 break;
-                
+
             case area:
-                
+
                 grafico = ChartFactory.createXYStepAreaChart(titulo, xx, xy, dados);
-                
-                
-                break; 
-            
+
+                break;
+
         }
-        
+
     }
-    
-      public ChartPanel informarDadosGrafico(String nome, List<CarCapContas> pagar, List<CarCapContas> receber){
+
+    public ChartPanel informarDadosGrafico(String nome, List<CarCapContas> contas) {
+
+  
+            XYSeries s = new XYSeries(xx);
+            XYSeries s2 = new XYSeries(xy);
+
+            for (CarCapContas i : contas) {
+
+                if (i.getContaTipo().equals(TipoConta.Saida)) {
+
+                    System.out.println("entrou no iff");
+                    
+                    s.add(i.getContaValorTotal(), i.getContaValorPago());
+
+                } else if (i.getContaTipo().equals(TipoConta.Entrada)) {
+
+                    s2.add(i.getContaValorTotal(), i.getContaValorPago());
+
+                }
+            }
             
-            
-          XYSeries s = new XYSeries(xx);
-          XYSeries s2 = new XYSeries(xy);
-          int n  = pagar.size();
-          
-          for(CarCapContas i : pagar){
-              
-              s.add(i.getContaValorTotal(),i.getContaValorPago());
-              
-          }
-           dados.addSeries(s);
-           
-           for(CarCapContas i : receber){
-              
-               s2.add(i.getContaValorTotal(),i.getContaValorPago());
-               
-          }
-           
-           dados.addSeries(s2);
-           
-          return new ChartPanel(grafico);
-          
-      }
-           
-           
-        }
-    
-        
-     
- 
+            dados.addSeries(s);
+
+            dados.addSeries(s2);
+
+            return new ChartPanel(grafico);
+
+
+    }
+}

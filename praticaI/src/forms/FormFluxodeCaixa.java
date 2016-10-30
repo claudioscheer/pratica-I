@@ -12,17 +12,20 @@ import com.alee.laf.table.WebTable;
 import com.alee.managers.language.LanguageManager;
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
+import dao.CarCapContasDAO;
 import enumeraveis.TipoConta;
 import enumeraveis.TipoGrafico;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 import javax.swing.JScrollPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import model.CarCapContas;
 import model.Graficos;
 import org.jfree.chart.ChartPanel;
-
 
 /**
  *
@@ -57,9 +60,14 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         txtDataInicial.setDate(c.getTime());
         tipo = TipoGrafico.barras;
         titulo = "Grafico de Área";
-
-        CarregarGrafico(titulo, tipo, 1);
-        CarregarGrafico(null, null, 3);
+        checkbox_Grafico.setSelected(false);
+        
+       
+        verificaTipoGrafico(TipoConta.ambos);
+      //  CarregarGraficoJTable(titulo, tipo, 1, TipoConta.ambos);
+        CarregarGraficoJTable(null, null, 3, TipoConta.ambos);
+        
+        verificaSpliPanel();
 
     }
 ///        GroupPanel g = new GroupPanel ( splitPane );
@@ -108,9 +116,9 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         webLabel7 = new com.alee.laf.label.WebLabel();
         webLabel8 = new com.alee.laf.label.WebLabel();
         webLabel9 = new com.alee.laf.label.WebLabel();
-        webTextField1 = new com.alee.laf.text.WebTextField();
-        webTextField2 = new com.alee.laf.text.WebTextField();
-        webTextField3 = new com.alee.laf.text.WebTextField();
+        txtTotalEntradas = new com.alee.laf.text.WebTextField();
+        txtTotalSaidas = new com.alee.laf.text.WebTextField();
+        txtTotalDisponivel = new com.alee.laf.text.WebTextField();
 
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -230,8 +238,18 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         webLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         checkboxEntrada.setText("Entrada");
+        checkboxEntrada.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                checkboxEntradaStateChanged(evt);
+            }
+        });
 
         checkboxSaida.setText("Saída");
+        checkboxSaida.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                checkboxSaidaStateChanged(evt);
+            }
+        });
 
         webLabel5.setText("Visualização");
         webLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -433,15 +451,15 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                 .addContainerGap()
                 .addComponent(webLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(webTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTotalEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(webLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(webTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTotalSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(webLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(webTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTotalDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         webBreadcrumb3Layout.setVerticalGroup(
@@ -452,9 +470,9 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                     .addComponent(webLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(webLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(webLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(webTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(webTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(webTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotalEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotalSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTotalDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
         );
 
@@ -494,54 +512,33 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataInicialActionPerformed
 
-    public void CarregarGrafico(String nome, TipoGrafico tipo, int posicao) {
+    public void CarregarGraficoJTable(String nome, TipoGrafico tipografico, int posicao, TipoConta tipoconta) {
 
-        
+        CarCapContasDAO buscarconta = new CarCapContasDAO();
 
-        List<CarCapContas> contasPagar = new ArrayList<>();
+        ArrayList<CarCapContas> contas = new ArrayList<>();
 
-        Calendar c2 = Calendar.getInstance();
+        if (tipoconta == TipoConta.Entrada) {
 
-        
-        
-        
-        
-// somente para testes
-        for (int i = 0; i < 10; i++) {
+            contas = (ArrayList<CarCapContas>) buscarconta.ListarContas(TipoConta.Entrada);
 
-            c2.add(Calendar.DATE, +i);
-            CarCapContas pagar = new CarCapContas();
-            pagar.setContaTipo(TipoConta.Entrada);
-            pagar.setContaValorTotal(i);
-            pagar.setContaDataEmissao(c2.getTime());
-            pagar.setContaValorPago(i * i - 10);
-            contasPagar.add(pagar);
+        } else if (tipoconta == TipoConta.Saida) {
+
+            contas = (ArrayList<CarCapContas>) buscarconta.ListarContas(TipoConta.Saida);
+
+        } else if (tipoconta == TipoConta.ambos) {
+
+            contas = (ArrayList<CarCapContas>) buscarconta.ListarTodos();
+
         }
 
-        List<CarCapContas> contasReceber = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-
-            c2.add(Calendar.DATE, +i + 1);
-            CarCapContas receber = new CarCapContas();
-            receber.setContaTipo(TipoConta.Saida);
-            receber.setContaValorTotal(i + 1);
-            receber.setContaDataEmissao(c2.getTime());
-            receber.setContaValorPago(i * i);
-            contasReceber.add(receber);
-        }
-
-   //////////////     
-        
-
-//        contasPagar.add(pagar);
-//        contasReceber.add(receber);
-       // JFreeChart C = novoGrafico.SelecionarGrafico(Graficos.TiposGrafico.linha, contasPagar, contasReceber, "Gráfico comparativo");;
-        // posicao = 1 (esquerda), posicao = 2 (direita)
+        //Calendar c2 = Calendar.getInstance();
+        // posicao = 1 (esquerda), posicao = 2 (direita), posicao 3 = JTable direita
         if (posicao == 1) {
 
             Graficos grap = new Graficos(tipo, this.titulo);
-            ChartPanel c = grap.informarDadosGrafico("grafico", contasPagar, contasReceber);
+            ChartPanel c = grap.informarDadosGrafico("grafico", contas);
+
             WebPanelGrafico.removeAll();
 
             webPanel_Split.validate();
@@ -562,8 +559,8 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         } else if (posicao == 2) {
 
             Graficos grap = new Graficos(tipo, this.titulo);
-            ChartPanel c = grap.informarDadosGrafico("grafico", contasPagar, contasReceber);
-            
+            ChartPanel c = grap.informarDadosGrafico("grafico", contas);
+
             webPanel_Tabela.removeAll();
 
             webPanel_Split.validate();
@@ -579,24 +576,41 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
             webPanel_Tabela.revalidate();
             webPanel_Tabela.repaint();
+
+        } else if (posicao == 3) {
+
+            double totalEntradas = 0;
+            double totalSaidas = 0;
+            double totalDisponivel = 0;
             
-        }else if (posicao == 3){
-                 
             WebTable tablenovo = new WebTable();
-           
-//            WebLabel lbl_nomeLancamento = new WebLabel();
-//            WebTextField txtBuscaLancamento = new WebTextField();
-//            
-//            ImageIcon img = new ImageIcon(Image.buscar.toString());
-//            
-//            WebButton btnBuscaLancamento = new WebButton(img);
-//            
-//            tablenovo.add(lbl_nomeLancamento);
-//            tablenovo.add(txtBuscaLancamento);
-//            tablenovo.add(btnBuscaLancamento);
+
+            DefaultTableModel modelTabela = new DefaultTableModel(new Object[]{"Id", "Status", "Data", "Tipo", "Valor Total","Valor Pago"}, 0);
+
+            for (CarCapContas i : contas) {
+
+                Object[] data = {i.getContaId(), i.getCapContaStatus(), i.getContaDataEmissao(), i.getContaTipo(), i.getContaValorTotal(), i.getContaValorPago()};
+
+                modelTabela.addRow(data);
+                
+               if(i.getContaTipo().equals(TipoConta.Entrada)){
+                   
+                   totalEntradas += i.getContaValorPago();
+                   
+               }else if(i.getContaTipo().equals(TipoConta.Saida)){
+                   
+                   totalSaidas += i.getContaValorPago();
+                   
+               }
+            }
             
-            JScrollPane tableContainer = new JScrollPane(tablenovo);    
-            
+            txtTotalEntradas.setText(String.valueOf(totalEntradas));
+            txtTotalSaidas.setText(String.valueOf(totalSaidas));
+
+            tablenovo.setModel(modelTabela);
+
+            JScrollPane tableContainer = new JScrollPane(tablenovo);
+
             webPanel_Tabela.removeAll();
 
             webPanel_Split.validate();
@@ -612,87 +626,81 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
             webPanel_Tabela.revalidate();
             webPanel_Tabela.repaint();
-            
-            
+
         }
     }
 
-    public void verificaTipoGrafico() {
+    public void verificaTipoGrafico(TipoConta tipoconta) {
 
         if (GrapLinhas.isSelected() && !grapBarras.isSelected() && !grapPizza.isSelected()) {
 
             this.titulo = "Gráfico de Linhas";
             this.tipo = TipoGrafico.linear;
-            CarregarGrafico(titulo, tipo, 1);
-            
+            CarregarGraficoJTable(titulo, tipo, 1, tipoconta);
+
             // Recarrega a WebPanel
-            CarregarGrafico("", null, 3);
+            CarregarGraficoJTable("", null, 3, tipoconta);
 
         } else if (!GrapLinhas.isSelected() && grapBarras.isSelected() && !grapPizza.isSelected()) {
 
             this.titulo = "Gráfico de Barras";
             this.tipo = TipoGrafico.barras;
-            CarregarGrafico(titulo, tipo, 1);
-            
-            CarregarGrafico("", null, 3);
+            CarregarGraficoJTable(titulo, tipo, 1, tipoconta);
+
+            CarregarGraficoJTable("", null, 3, tipoconta);
 
         } else if (!GrapLinhas.isSelected() && !grapBarras.isSelected() && grapPizza.isSelected()) {
 
             this.titulo = "Gráfico de Pizza";
             this.tipo = TipoGrafico.pizza;
-            CarregarGrafico(titulo, tipo, 1);
-            
-            CarregarGrafico("", null, 3);
+            CarregarGraficoJTable(titulo, tipo, 1, tipoconta);
+
+            CarregarGraficoJTable("", null, 3, tipoconta);
 
         } else if (GrapLinhas.isSelected() && grapBarras.isSelected() && !grapPizza.isSelected() && checkbox_Grafico.isSelected()) {
-            
-//            if (!checkbox_Lista.isSelected()) {
-//
-//                checkbox_Lista.setSelected(false);
-//            }
-          //  webPanel_Split.setDividerLocation(.5f);
+              
 
+            //  webPanel_Split.setDividerLocation(.5f);
             this.titulo = "Gráfico de Linhas";
             this.tipo = TipoGrafico.linear;
-            CarregarGrafico(titulo, tipo, 1);
+            CarregarGraficoJTable(titulo, tipo, 1, tipoconta);
 
             this.titulo = "Gráfico de Barras";
             this.tipo = TipoGrafico.barras;
-            CarregarGrafico(titulo, tipo, 2);
-
-        } else 
-            if (!GrapLinhas.isSelected() && grapBarras.isSelected() && grapPizza.isSelected() && checkbox_Grafico.isSelected()) {
-
-            if (checkbox_Lista.isSelected()) {
-
-                checkbox_Lista.setSelected(false);
-            }
+            CarregarGraficoJTable(titulo, tipo, 2, tipoconta);
             
+           
+
+        } else if (!GrapLinhas.isSelected() && grapBarras.isSelected() && grapPizza.isSelected() && checkbox_Grafico.isSelected()) {
+
+
+
             this.titulo = "Gráfico de Barras";
             this.tipo = TipoGrafico.barras;
-            CarregarGrafico(titulo, tipo, 1);
+            CarregarGraficoJTable(titulo, tipo, 1, tipoconta);
 
             this.titulo = "Gráfico de Pizza";
             this.tipo = TipoGrafico.pizza;
-            CarregarGrafico(titulo, tipo, 2);
-
-        }else
-            if(GrapLinhas.isSelected() && !grapBarras.isSelected() && grapPizza.isSelected() && checkbox_Grafico.isSelected()) {
-                
+            CarregarGraficoJTable(titulo, tipo, 2, tipoconta);
             
+            
+
+        } else if (GrapLinhas.isSelected() && !grapBarras.isSelected() && grapPizza.isSelected() && checkbox_Grafico.isSelected()) {
+
             this.titulo = "Gráfico de Linhas";
             this.tipo = TipoGrafico.linear;
-            CarregarGrafico(titulo, tipo, 1);
+            CarregarGraficoJTable(titulo, tipo, 1, tipoconta);
 
             this.titulo = "Gráfico de Pizza";
             this.tipo = TipoGrafico.pizza;
-            CarregarGrafico(titulo, tipo, 2);
-                
-            }else{
-                
-                CarregarGrafico(null, null, 3);
-                
-                }
+            CarregarGraficoJTable(titulo, tipo, 2, tipoconta);
+            
+
+        } else {
+
+            CarregarGraficoJTable(null, null, 3, tipoconta);
+
+        }
     }
 
     public void verificaSpliPanel() {
@@ -703,9 +711,18 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
                 webPanel_Split.setDividerLocation(.5f);
 
-            } else  {
-                
-                webPanel_Split.setDividerLocation(1050);
+            } else {
+
+                if (!grapPizza.isSelected() && !grapBarras.isSelected() && !GrapLinhas.isSelected()) {
+                    webPanel_Split.setDividerLocation(1210);
+                } else {
+
+                   // if(grapPizza.isSelected() || grapBarras.isSelected() || GrapLinhas.isSelected())
+                    
+                    checkbox_Lista.setSelected(true);
+                    webPanel_Split.setDividerLocation(.5f);
+                }
+
             }
 
         } else {
@@ -713,16 +730,14 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             if (checkbox_Lista.isSelected()) {
 
                 webPanel_Split.setDividerLocation(1);
-                
+
             } else {
 //                if(!checkbox_Lista.getActionCommand().equals("Lista")) {
 
                 webPanel_Split.setDividerLocation(1);
                 checkbox_Lista.setSelected(true);
-            
-                                
+
                 CarregarNotificacao("Filtro por Lista aplicado automaticamente!");
-                
 
             }
 
@@ -758,7 +773,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     }
 
-    public boolean verificaMarcados() {
+    public int verificaMarcados() {
 
         int conta = 0;
 
@@ -779,30 +794,47 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             conta++;
         }
 
-        if (conta > 2) {
+        return conta;
 
-            return false;
+    }
 
-        } else {
+    public TipoConta verificaTipodeConta() {
 
-            return true;
+        if (checkboxEntrada.isSelected() && checkboxSaida.isSelected()) {
+
+            verificaTipoGrafico(TipoConta.ambos);
+
+            return TipoConta.ambos;
+
+        } else if (!checkboxEntrada.isSelected() && checkboxSaida.isSelected()) {
+
+            verificaTipoGrafico(TipoConta.Saida);
+
+            return TipoConta.Saida;
+
+        } else if (checkboxEntrada.isSelected() && !checkboxSaida.isSelected()) {
+
+            verificaTipoGrafico(TipoConta.Entrada);
+
+            return TipoConta.Entrada;
 
         }
 
+        return null;
     }
 
 
     private void checkbox_GraficoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkbox_GraficoStateChanged
 
         verificaSpliPanel();
-        verificaTipoGrafico();
-        
-        if(!checkbox_Grafico.isSelected()){
+        verificaTipodeConta();
 
-        grapBarras.setSelected(false);
-        grapPizza.setSelected(false);
-        GrapLinhas.setSelected(false);
-        
+        if (!checkbox_Grafico.isSelected()) {
+
+            grapBarras.setSelected(false);
+            grapPizza.setSelected(false);
+            GrapLinhas.setSelected(false);
+
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_checkbox_GraficoStateChanged
@@ -872,7 +904,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     private void webPanel_SplitPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_webPanel_SplitPropertyChange
 
-        verificaTipoGrafico();
+        verificaTipoGrafico(verificaTipodeConta());
 
     }//GEN-LAST:event_webPanel_SplitPropertyChange
 
@@ -882,14 +914,21 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     }//GEN-LAST:event_webPanel_SplitMouseDragged
 
     private void webPanel_SplitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_webPanel_SplitMousePressed
-//ajustaGrafico();       
+
     }//GEN-LAST:event_webPanel_SplitMousePressed
 
     private void GrapLinhasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_GrapLinhasStateChanged
 
-        if (verificaMarcados()) {
+        verificaSpliPanel();
+        
+        int marcados = verificaMarcados();
+        
+        
+        if (marcados <= 2) {
 
-            verificaTipoGrafico();
+            verificaTipoGrafico(verificaTipodeConta());
+
+            System.out.println("tipoconta:" + verificaTipodeConta().toString());
 
         } else if (GrapLinhas.isSelected()) {
 
@@ -898,14 +937,21 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             GrapLinhas.setSelected(false);
 
         }
-
+        
     }//GEN-LAST:event_GrapLinhasStateChanged
 
     private void grapBarrasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_grapBarrasStateChanged
 
-        if (verificaMarcados()) {
+        verificaSpliPanel();
 
-            verificaTipoGrafico();
+            int marcados = verificaMarcados();
+        
+        
+        if (marcados <= 2) {
+
+            verificaTipoGrafico(verificaTipodeConta());
+
+            System.out.println("tipoconta:" + verificaTipodeConta().toString());
 
         } else if (grapBarras.isSelected()) {
 
@@ -915,13 +961,21 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
         }
 
+
     }//GEN-LAST:event_grapBarrasStateChanged
 
     private void grapPizzaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_grapPizzaStateChanged
 
-        if (verificaMarcados()) {
+        verificaSpliPanel();
+        
+        int marcados = verificaMarcados();
+        
+        
+        if (marcados <= 2) {
 
-            verificaTipoGrafico();
+            verificaTipoGrafico(verificaTipodeConta());
+
+            System.out.println("tipoconta:" + verificaTipodeConta().toString());
 
         } else if (grapPizza.isSelected()) {
 
@@ -930,6 +984,9 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             grapPizza.setSelected(false);
 
         }
+        
+        
+        
 
     }//GEN-LAST:event_grapPizzaStateChanged
 
@@ -938,6 +995,18 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         CarregarNotificacao("Os registros da semana foram carregados com sucesso !");
 
     }//GEN-LAST:event_btn_MovRecentesActionPerformed
+
+    private void checkboxEntradaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkboxEntradaStateChanged
+
+        verificaTipoGrafico(verificaTipodeConta());
+
+
+    }//GEN-LAST:event_checkboxEntradaStateChanged
+
+    private void checkboxSaidaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkboxSaidaStateChanged
+
+        verificaTipoGrafico(verificaTipodeConta());
+    }//GEN-LAST:event_checkboxSaidaStateChanged
 
     /**
      * @param args the command line arguments
@@ -974,6 +1043,9 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private com.alee.extended.date.WebDateField txtDataFinal;
     private com.alee.extended.date.WebDateField txtDataInicial;
+    private com.alee.laf.text.WebTextField txtTotalDisponivel;
+    private com.alee.laf.text.WebTextField txtTotalEntradas;
+    private com.alee.laf.text.WebTextField txtTotalSaidas;
     private com.alee.extended.breadcrumb.WebBreadcrumb webBreadcrumb1;
     private com.alee.extended.breadcrumb.WebBreadcrumb webBreadcrumb2;
     private com.alee.extended.breadcrumb.WebBreadcrumb webBreadcrumb3;
@@ -994,9 +1066,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     private com.alee.laf.splitpane.WebSplitPane webPanel_Split;
     private com.alee.laf.panel.WebPanel webPanel_Tabela;
     private com.alee.laf.table.WebTable webTable1;
-    private com.alee.laf.text.WebTextField webTextField1;
-    private com.alee.laf.text.WebTextField webTextField2;
-    private com.alee.laf.text.WebTextField webTextField3;
     // End of variables declaration//GEN-END:variables
 
 }
