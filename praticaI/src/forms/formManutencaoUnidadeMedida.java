@@ -41,6 +41,7 @@ public class formManutencaoUnidadeMedida extends javax.swing.JDialog {
         edtDescricao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Manutenção de Unidades de Medida");
         setResizable(false);
 
         btnSalvar.setText("Salvar");

@@ -46,6 +46,7 @@ public class FormManutencaoMarca extends javax.swing.JDialog {
         btnSalvar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Manutenção de Marcas");
         setResizable(false);
 
         jLabel1.setText("Descrição");

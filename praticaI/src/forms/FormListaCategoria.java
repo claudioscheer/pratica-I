@@ -5,18 +5,35 @@
  */
 package forms;
 
+import dao.CategoriaDAO;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.EstCategoria;
+
 /**
  *
  * @author Anderson
  */
 public class FormListaCategoria extends javax.swing.JDialog {
 
-    /**
-     * Creates new form FormListaCategoria
-     */
+    private CategoriaDAO dao = new CategoriaDAO();
+
     public FormListaCategoria(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    private void preencheTabela() {//listar dados na jtable
+        DefaultTableModel modelo = (DefaultTableModel) tblCategoria.getModel();
+        modelo.setNumRows(0);
+
+        //semelhante ao foreach
+        for (EstCategoria categoria : dao.getAll()) {
+            modelo.addRow(new String[]{
+                "" + categoria.getCategoriaId(),
+                categoria.getCategoriaDescricao()
+            });
+        }
     }
 
     /**
@@ -33,15 +50,26 @@ public class FormListaCategoria extends javax.swing.JDialog {
         btnInserir = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCategoria = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Listagem de Categorias");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                AoAbrirTela(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/deletar.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/atualizar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
@@ -53,6 +81,11 @@ public class FormListaCategoria extends javax.swing.JDialog {
 
         btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/adicionar.png"))); // NOI18N
         btnInserir.setText("Inserir");
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
 
         btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/anterior.png"))); // NOI18N
         btnVoltar.setText("Voltar");
@@ -62,7 +95,7 @@ public class FormListaCategoria extends javax.swing.JDialog {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCategoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -81,10 +114,10 @@ public class FormListaCategoria extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
+        jScrollPane1.setViewportView(tblCategoria);
+        if (tblCategoria.getColumnModel().getColumnCount() > 0) {
+            tblCategoria.getColumnModel().getColumn(0).setResizable(false);
+            tblCategoria.getColumnModel().getColumn(1).setResizable(false);
         }
 
         jLabel1.setText("Buscar");
@@ -139,12 +172,56 @@ public class FormListaCategoria extends javax.swing.JDialog {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
+        if (tblCategoria.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum Registro Selecionado na Tabela");
+            return;
+        }
+        EstCategoria categoria = new EstCategoria();
+        categoria.setCategoriaId(Integer.parseInt((String) tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 0)));
+        categoria.setCategoriaDescricao((String) tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 1));
+        formManutencaoCategoria manut = new formManutencaoCategoria(null, rootPaneCheckingEnabled, categoria);
+        manut.setVisible(true);
+        preencheTabela();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        // TODO add your handling code here:
+        formManutencaoCategoria manut = new formManutencaoCategoria(null, rootPaneCheckingEnabled);
+        manut.setVisible(true);
+        preencheTabela();
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void AoAbrirTela(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AoAbrirTela
+        // TODO add your handling code here:
+        preencheTabela();
+    }//GEN-LAST:event_AoAbrirTela
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        if (tblCategoria.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum Registro Selecionado na Tabela");
+            return;
+        }
+        DefaultTableModel modelo = (DefaultTableModel) tblCategoria.getModel();
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Deseja Excluir o Registro Selecionado?", "Atenção!", dialogButton);
+        if (dialogResult == 0) {
+            //sim                       
+            String data = (String) tblCategoria.getValueAt(tblCategoria.getSelectedRow(), 0);
+            int id = Integer.parseInt(data);
+            if (dao.Excluir(id)) {
+                JOptionPane.showMessageDialog(null, "Registro removido com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            }
+            modelo.removeRow(tblCategoria.getSelectedRow());
+        } else {
+            //não
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,7 +272,7 @@ public class FormListaCategoria extends javax.swing.JDialog {
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblCategoria;
     // End of variables declaration//GEN-END:variables
 }

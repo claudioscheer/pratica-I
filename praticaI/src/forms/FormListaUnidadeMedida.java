@@ -16,7 +16,7 @@ import model.EstUnidadeMedida;
  */
 public class FormListaUnidadeMedida extends javax.swing.JDialog {
 
-    private UnidadeMedidaDAO unidadeDAO = new UnidadeMedidaDAO();    
+    private UnidadeMedidaDAO unidadeDAO = new UnidadeMedidaDAO();
 
     /**
      * Creates new form FormListaUnidadeMedida
@@ -58,6 +58,7 @@ public class FormListaUnidadeMedida extends javax.swing.JDialog {
         btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Listagem de Unidades de Medida");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -191,16 +192,17 @@ public class FormListaUnidadeMedida extends javax.swing.JDialog {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
+        if (tblUnidadesMedida.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum Registro Selecionado na Tabela");
+            return;
+        }
         DefaultTableModel modelo = (DefaultTableModel) tblUnidadesMedida.getModel();
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(this, "Deseja Excluir o Registro Selecionado?", "Atenção!", dialogButton);
         if (dialogResult == 0) {
             //sim           
-            int row = tblUnidadesMedida.getSelectedRow();
-            int col = 0;
-            String data = (String) tblUnidadesMedida.getValueAt(row, col);
+            String data = (String) tblUnidadesMedida.getValueAt(tblUnidadesMedida.getSelectedRow(), 0);
             int id = Integer.parseInt(data);
-            System.out.println("" + id);
             if (unidadeDAO.Excluir(id)) {
                 JOptionPane.showMessageDialog(null, "Registro removido com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -211,7 +213,11 @@ public class FormListaUnidadeMedida extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        // TODO add your handling code here:        
+        // TODO add your handling code here:     
+        if (tblUnidadesMedida.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum Registro Selecionado na Tabela");
+            return;
+        }
         EstUnidadeMedida unMedida = new EstUnidadeMedida();
         unMedida.setUnidadeMedidaId(Integer.parseInt((String) tblUnidadesMedida.getValueAt(tblUnidadesMedida.getSelectedRow(), 0)));
         unMedida.setUnidadeMedidaDescricao((String) tblUnidadesMedida.getValueAt(tblUnidadesMedida.getSelectedRow(), 1));

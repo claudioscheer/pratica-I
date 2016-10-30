@@ -42,6 +42,7 @@ public class FormMateriais extends javax.swing.JDialog {
         jMenu2.setText("jMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gerenciamento de Materiais");
         setResizable(false);
 
         jMenu3.setText("Cadastros");

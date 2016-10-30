@@ -59,6 +59,7 @@ public class FormListaMarca extends javax.swing.JDialog {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Listagem de Marcas");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -188,6 +189,10 @@ public class FormListaMarca extends javax.swing.JDialog {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
+        if (tblMarcas.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum Registro Selecionado na Tabela");
+            return;
+        }
         EstMarca marca = new EstMarca();
         marca.setMarcaId(Integer.parseInt((String) tblMarcas.getValueAt(tblMarcas.getSelectedRow(), 0)));
         marca.setMarcaDescricao((String) tblMarcas.getValueAt(tblMarcas.getSelectedRow(), 1));
@@ -197,16 +202,17 @@ public class FormListaMarca extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (tblMarcas.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum Registro Selecionado na Tabela");
+            return;
+        }
         DefaultTableModel modelo = (DefaultTableModel) tblMarcas.getModel();
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(this, "Deseja Excluir o Registro Selecionado?", "Atenção!", dialogButton);
         if (dialogResult == 0) {
-            //sim           
-            int row = tblMarcas.getSelectedRow();
-            int col = 0;
-            String data = (String) tblMarcas.getValueAt(row, col);
+            //sim                       
+            String data = (String) tblMarcas.getValueAt(tblMarcas.getSelectedRow(), 0);
             int id = Integer.parseInt(data);
-            System.out.println("" + id);
             if (marcaDao.Excluir(id)) {
                 JOptionPane.showMessageDialog(null, "Registro removido com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
