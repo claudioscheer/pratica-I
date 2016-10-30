@@ -5,7 +5,6 @@
  */
 package forms;
 
-import dao.TipoOperacaoDAO;
 import dao.UnidadeMedidaDAO;
 import javax.swing.JOptionPane;
 import model.EstUnidadeMedida;
@@ -102,20 +101,20 @@ public class formManutencaoUnidadeMedida extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
+
         if (edtDescricao.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe a Descrição", "Atenção", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         EstUnidadeMedida un = new EstUnidadeMedida();
-        if (!isEdicao) {            
+        if (!isEdicao) {
             un.setUnidadeMedidaDescricao(edtDescricao.getText());
             UnidadeMedidaDAO dao = new UnidadeMedidaDAO();
             if (dao.Inserir(un)) {
                 JOptionPane.showMessageDialog(null, "Cadastro Salvo com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
-        } else {           
+        } else {
             un.setUnidadeMedidaId(this.UnidadeMedidaEdicao.getUnidadeMedidaId());
             un.setUnidadeMedidaDescricao(edtDescricao.getText());
             UnidadeMedidaDAO dao = new UnidadeMedidaDAO();

@@ -66,6 +66,11 @@ public class FormMateriais extends javax.swing.JDialog {
         jMenu3.add(jMenuItem3);
 
         jMenuItem4.setText("Categorias");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem4);
 
         jMenuBar1.add(jMenu3);
@@ -98,6 +103,12 @@ public class FormMateriais extends javax.swing.JDialog {
         FormListaMarca form = new FormListaMarca(null, rootPaneCheckingEnabled);
         form.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        FormListaCategoria cat = new FormListaCategoria(null, rootPaneCheckingEnabled);
+        cat.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments

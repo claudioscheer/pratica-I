@@ -16,8 +16,7 @@ import model.EstUnidadeMedida;
  */
 public class FormListaUnidadeMedida extends javax.swing.JDialog {
 
-    private UnidadeMedidaDAO unidadeDAO = new UnidadeMedidaDAO();
-    private boolean isEdicao = false;
+    private UnidadeMedidaDAO unidadeDAO = new UnidadeMedidaDAO();    
 
     /**
      * Creates new form FormListaUnidadeMedida
@@ -179,8 +178,7 @@ public class FormListaUnidadeMedida extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        // TODO add your handling code here:
-        isEdicao = false;
+        // TODO add your handling code here:        
         formManutencaoUnidadeMedida manut = new formManutencaoUnidadeMedida(null, rootPaneCheckingEnabled);
         manut.setVisible(true);
         preencheTabela();
@@ -213,8 +211,7 @@ public class FormListaUnidadeMedida extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        // TODO add your handling code here:
-        isEdicao = true;
+        // TODO add your handling code here:        
         EstUnidadeMedida unMedida = new EstUnidadeMedida();
         unMedida.setUnidadeMedidaId(Integer.parseInt((String) tblUnidadesMedida.getValueAt(tblUnidadesMedida.getSelectedRow(), 0)));
         unMedida.setUnidadeMedidaDescricao((String) tblUnidadesMedida.getValueAt(tblUnidadesMedida.getSelectedRow(), 1));

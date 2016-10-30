@@ -5,11 +5,19 @@
  */
 package forms;
 
+import dao.MarcaDAO;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.EstMarca;
+import model.EstUnidadeMedida;
+
 /**
  *
  * @author Anderson
  */
 public class FormListaMarca extends javax.swing.JDialog {
+
+    private MarcaDAO marcaDao = new MarcaDAO();
 
     /**
      * Creates new form FormListaMarca
@@ -17,6 +25,19 @@ public class FormListaMarca extends javax.swing.JDialog {
     public FormListaMarca(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    private void preencheTabela() {//listar dados na jtable
+        DefaultTableModel modelo = (DefaultTableModel) tblMarcas.getModel();
+        modelo.setNumRows(0);
+
+        //semelhante ao foreach
+        for (EstMarca marca : marcaDao.ListarTodas()) {
+            modelo.addRow(new String[]{
+                "" + marca.getMarcaId(),
+                marca.getMarcaDescricao()
+            });
+        }
     }
 
     /**
@@ -30,20 +51,30 @@ public class FormListaMarca extends javax.swing.JDialog {
 
         btnExcluir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblMarcas = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         btnAlterar = new javax.swing.JButton();
         btnIncluir = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                AoAbrirTela(evt);
+            }
+        });
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/deletar.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblMarcas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -55,32 +86,42 @@ public class FormListaMarca extends javax.swing.JDialog {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
+        jScrollPane1.setViewportView(tblMarcas);
+        if (tblMarcas.getColumnModel().getColumnCount() > 0) {
+            tblMarcas.getColumnModel().getColumn(0).setResizable(false);
+            tblMarcas.getColumnModel().getColumn(1).setResizable(false);
         }
 
         jLabel1.setText("Busca");
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/atualizar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/adicionar.png"))); // NOI18N
         btnIncluir.setText("Incluir");
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/anterior.png"))); // NOI18N
-        jButton2.setText("Voltar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnIncluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnIncluirActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/anterior.png"))); // NOI18N
+        btnCancelar.setText("Voltar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -88,7 +129,7 @@ public class FormListaMarca extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,8 +138,8 @@ public class FormListaMarca extends javax.swing.JDialog {
                         .addGap(3, 3, 3)
                         .addComponent(jTextField1))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -120,7 +161,7 @@ public class FormListaMarca extends javax.swing.JDialog {
                     .addComponent(btnExcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAlterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnIncluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -128,10 +169,52 @@ public class FormListaMarca extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
+        // TODO add your handling code here:
+        FormManutencaoMarca manut = new FormManutencaoMarca(null, rootPaneCheckingEnabled);
+        manut.setVisible(true);
+        preencheTabela();
+    }//GEN-LAST:event_btnIncluirActionPerformed
+
+    private void AoAbrirTela(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AoAbrirTela
+        // TODO add your handling code here:
+        preencheTabela();
+    }//GEN-LAST:event_AoAbrirTela
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        EstMarca marca = new EstMarca();
+        marca.setMarcaId(Integer.parseInt((String) tblMarcas.getValueAt(tblMarcas.getSelectedRow(), 0)));
+        marca.setMarcaDescricao((String) tblMarcas.getValueAt(tblMarcas.getSelectedRow(), 1));
+        FormManutencaoMarca manut = new FormManutencaoMarca(null, rootPaneCheckingEnabled, marca);
+        manut.setVisible(true);
+        preencheTabela();
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) tblMarcas.getModel();
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Deseja Excluir o Registro Selecionado?", "Atenção!", dialogButton);
+        if (dialogResult == 0) {
+            //sim           
+            int row = tblMarcas.getSelectedRow();
+            int col = 0;
+            String data = (String) tblMarcas.getValueAt(row, col);
+            int id = Integer.parseInt(data);
+            System.out.println("" + id);
+            if (marcaDao.Excluir(id)) {
+                JOptionPane.showMessageDialog(null, "Registro removido com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            }
+            modelo.removeRow(tblMarcas.getSelectedRow());
+        } else {
+            //não
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,14 +260,12 @@ public class FormListaMarca extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnIncluir;
-    private javax.swing.JButton btnVoltar;
-    private javax.swing.JButton btnVoltar1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tblMarcas;
     // End of variables declaration//GEN-END:variables
 }

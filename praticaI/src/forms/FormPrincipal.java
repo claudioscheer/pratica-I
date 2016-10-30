@@ -241,7 +241,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        iconDesktop.setLocation(new Point(900, 40));
+        iconDesktop.setLocation(new Point(0,550));
         this.desktopPanel.add(iconDesktop);
 
     }
