@@ -10,5 +10,21 @@ package enumeraveis;
  * @author Diego
  */
 public enum StatusConta {
-    Pendente, Fechada, Vencida
+    Pendente, Fechada, Vencida,PendenteParcial;
+    
+    public static StatusConta getPendente() {    
+        return Pendente;
+    }
+
+    public static StatusConta getFechada() {
+        return Fechada;
+    }
+
+    public static StatusConta getVencida() {
+        return Vencida;
+    }
+
+    public static StatusConta getPendenteParcial() {
+        return PendenteParcial;
+    }
 }

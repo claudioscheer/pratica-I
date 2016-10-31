@@ -5,6 +5,7 @@
  */
 package dao;
 
+import java.util.Date;
 import model.FlxcxLancamentos;
 
 /**
@@ -17,7 +18,7 @@ public class FlxcxLancamentosDAO {
 
         FlxcxLancamentos lancamentos = new FlxcxLancamentos();
 
-        lancamentos.setCarCapContas(new CarCapContasDAO().ListarTodos());
+        lancamentos.setCarCapContas(new CarCapContasDAO().ListarTodos(new Date(),new Date()));
         lancamentos.setMovimentosBancarios(new FlxcxMovimentoBancarioDAO().ListarTodas());
 
         return lancamentos;

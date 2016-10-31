@@ -1,7 +1,13 @@
 package dao;
 
+import enumeraveis.StatusConta;
 import enumeraveis.TipoConta;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.CarCapContas;
 import modelAntigo.AtivoImobilizado;
 import org.hibernate.Query;
@@ -56,23 +62,30 @@ public class CarCapContasDAO {
         return ativoImobilizado;
     }
 
-    public List<CarCapContas> ListarTodos() {
+    public List<CarCapContas> ListarTodos(Date dataInicial, Date dataFinal) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from CarCapContas as a ");
+        Query query = session.createQuery("from CarCapContas as a where conta_data_emissao >=:dataInicial and conta_data_emissao <=:dataFinal");
+        query.setParameter("dataInicial", dataInicial);
+        query.setParameter("dataFinal", dataFinal);
         List<CarCapContas> contas = query.list();
         session.getTransaction().commit();
         session.close();
         return contas;
     }
     
-    public List<CarCapContas> ListarContas(TipoConta tipo){
+    public List<CarCapContas> ListarContas(TipoConta tipo, Date dataInicial, Date dataFinal){
     
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         
-        Query query = session.createQuery("from CarCapContas as a where contaTipo =:tipo");
-        
+
+       
+        System.out.println("DataFinal" + dataFinal + "DataInicial: "+dataInicial);
+    
+        Query query = session.createQuery("from CarCapContas as a where contaTipo =:tipo and conta_data_emissao >=:dataInicial and conta_data_emissao <=:dataFinal");
+        query.setParameter("dataInicial", dataInicial);
+        query.setParameter("dataFinal", dataFinal);
         if(TipoConta.Entrada == tipo){
             
         query.setParameter("tipo", tipo.Entrada);

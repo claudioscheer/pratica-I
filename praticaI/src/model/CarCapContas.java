@@ -32,8 +32,9 @@ public class CarCapContas implements java.io.Serializable {
     private int contaId;
 
     @Enumerated
+    @Column(name = "contastatus")
     private StatusConta contaStatus;
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     private CarEstTipoOperacao carEstTipoOperacao;
 
