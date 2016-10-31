@@ -27,7 +27,7 @@ import modelAntigo.AtivoImobilizado;
 import modelAntigo.Categoria;
 import modelAntigo.EstadoBem;
 import modelAntigo.HistoricoDepreciacao;
-import modelAntigo.Imposto;
+//import modelAntigo.Imposto;
 import modelAntigo.Marca;
 import modelAntigo.Produto;
 import modelAntigo.TipoOperacao;
@@ -39,29 +39,24 @@ public class IniciarDadosBasicos {
 
        // FluxoDeCaixa();
 //        Patrimonio();
-
-        
         alimentarContas();
-      //  System.exit(0);
+        System.exit(0);
     }
 
-    public static void alimentarContas(){
-        
+    public static void alimentarContas() {
+
         CarCapContas novo = new CarCapContas();
-        
+
         TipoOperacaoDAO op = new TipoOperacaoDAO();
-        PatNotaFiscal nfe = new PatNotaFiscal(6, 200, new Date(),"3242342342342342342342342", new Date());
-        
-        
-        
-        
+        PatNotaFiscal nfe = new PatNotaFiscal(6, 200, new Date(), "3242342342342342342342342", new Date());
+
         CarEstTipoOperacao tpop = new CarEstTipoOperacao();
-    
+
         //tpop.setCarCapContases(null);
         tpop.setTpOpId(1);
         tpop.setTpOpTipo(1);
-        
-         CarPessoa nova = new CarPessoa(6, "alisson");        
+
+        CarPessoa nova = new CarPessoa(6, "alisson");
         novo.setContaId(3);
         novo.setCapContaStatus(StatusConta.Pendente);
         novo.setCarCapParcelas(null);
@@ -71,16 +66,13 @@ public class IniciarDadosBasicos {
         novo.setContaDataEmissao(new Date());
         novo.setContaTipo(TipoConta.Entrada);
         novo.setPatNotaFiscal(nfe);
-      
-        
+
         CarCapContasDAO contaDAO = new CarCapContasDAO();
-        
+
         contaDAO.insert(novo);
-        
-        
- 
+
     }
-    
+
     public static void Patrimonio() {
 
         CategoriaDAO categoriaDAO = new CategoriaDAO();
@@ -100,11 +92,11 @@ public class IniciarDadosBasicos {
         }
 
         AtivoImobilizadoDAO ativoImobilizadoDAO = new AtivoImobilizadoDAO();
-     //   Marca marca = new MarcaDAO().get(1);
+        //   Marca marca = new MarcaDAO().get(1);
         Categoria categoria = new CategoriaDAO().get(1);
         for (int i = 1; i <= 4; i++) {
             AtivoImobilizado ativoImobilizado = new AtivoImobilizado();
-         //   ativoImobilizado.setMarca(marca);
+            //   ativoImobilizado.setMarca(marca);
             ativoImobilizado.setCategoria(categoria);
             ativoImobilizado.setDescricao("ativo imobilizado " + i);
             ativoImobilizado.setEstadoBem(EstadoBem.usado);
@@ -138,15 +130,14 @@ public class IniciarDadosBasicos {
             produtoDAO.insert(produto);
         }
 
-        ImpostoDAO impostoDAO = new ImpostoDAO();
-        for (int i = 1; i <= 4; i++) {
-            Imposto imposto = new Imposto();
-            imposto.setImposto(i);
-            imposto.setNome("imposto " + i);
-            imposto.setAliquota(459345);
-            impostoDAO.insert(imposto);
-        }
-
+//        ImpostoDAO impostoDAO = new ImpostoDAO();
+//        for (int i = 1; i <= 4; i++) {
+//            Imposto imposto = new Imposto();
+//            imposto.setImposto(i);
+//            imposto.setNome("imposto " + i);
+//            imposto.setAliquota(459345);
+//            impostoDAO.insert(imposto);
+//        }
     }
 
     public static void FluxoDeCaixa() {
@@ -173,7 +164,7 @@ public class IniciarDadosBasicos {
 
             FlxcxTributacao tr = new FlxcxTributacao();
 
-           // tr.setTribCodigo(i);
+            // tr.setTribCodigo(i);
             tr.setTribDescricao("Tributacao: " + i);
 
             trib.Inserir(tr);

@@ -614,7 +614,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         CarCapContasDAO buscarconta = new CarCapContasDAO();
 
         ArrayList<CarCapContas> contas = new ArrayList<>();
-
+        
         if (tipoconta == TipoConta.Entrada) {
 
             contas = (ArrayList<CarCapContas>) buscarconta.ListarContas(TipoConta.Entrada, DataInicial, DataFinal);
