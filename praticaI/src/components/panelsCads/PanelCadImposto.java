@@ -34,8 +34,11 @@ public class PanelCadImposto extends WebPanel {
         this.validador = new Validador(Validador.TipoValidator.ICONE);
         this.validador.addObrigatorioValidator(this.txtNome);
         this.validador.addObrigatorioValidator(this.txtAliquota);
+        
+        this.validador.addMaiorQueValidator(this.txtAliquota, 0.00);
+        this.validador.addMaiorQueValidator(this.txtAliquota, 0.00);
 
-        scrollCadastro.getVerticalScrollBar().setUnitIncrement(20);
+        this.scrollCadastro.getVerticalScrollBar().setUnitIncrement(20);
     }
 
     public void setEvents(ActionListener salvar, ActionListener cancelar) {
@@ -63,7 +66,8 @@ public class PanelCadImposto extends WebPanel {
         jLabel1 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtAliquota = new javax.swing.JFormattedTextField(Utils.getMascara(Utils.MascarasPadrao.valorDouble));
+        txtAliquota = new javax.swing.JFormattedTextField(
+            Utils.getMascara(Utils.MascarasPadrao.taxa));
         panelOpcoes = new javax.swing.JPanel();
         btnSalvar = new com.alee.laf.button.WebButton();
         btnCancelar = new com.alee.laf.button.WebButton();
@@ -80,7 +84,7 @@ public class PanelCadImposto extends WebPanel {
 
         jLabel1.setText("Descrição");
 
-        jLabel2.setText("Valor");
+        jLabel2.setText("Alíquota");
 
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);

@@ -1,63 +1,57 @@
 package dao;
 
 import java.util.List;
-import modelAntigo.AtivoImobilizado;
+import modelAntigo.NotaFiscal;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
-import utils.Utils;
 
-public class AtivoImobilizadoDAO {
+public class NotaFiscalDAO {
 
-    public Boolean update(AtivoImobilizado ativoImobilizado) {
+    public Boolean update(NotaFiscal notaFiscal) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        session.update(ativoImobilizado);
+        session.update(notaFiscal);
         session.getTransaction().commit();
         session.close();
         return true;
     }
 
-    public Boolean insert(AtivoImobilizado ativoImobilizado) {
+    public Boolean insert(NotaFiscal notaFiscal) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        session.save(ativoImobilizado);
+        session.save(notaFiscal);
         session.getTransaction().commit();
         session.close();
         return true;
     }
 
-    public Boolean delete(AtivoImobilizado ativoImobilizado) {
+    public Boolean delete(NotaFiscal notaFiscal) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        session.delete(ativoImobilizado);
+        session.delete(notaFiscal);
         session.getTransaction().commit();
         session.close();
         return true;
     }
 
-    public List<AtivoImobilizado> getAll(int paginaBuscar) {
-        System.out.println("---------------------------------------------"
-                + "------------------------------------------------------"
-                + "----------------------------------------- " + paginaBuscar);
+    public List<NotaFiscal> getAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from AtivoImobilizado as a ");
-        query.setFirstResult(paginaBuscar * Utils.MaxResultQuery);
-        query.setMaxResults(Utils.MaxResultQuery);
-        List<AtivoImobilizado> ativos = query.list();
+        Query query = session.createQuery("from NotaFiscal as n ");
+        List<NotaFiscal> ativos = query.list();
         session.getTransaction().commit();
         session.close();
         return ativos;
     }
 
-    public AtivoImobilizado get(int ativo) {
+    public NotaFiscal get(int nota) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        AtivoImobilizado ativoImobilizado = (AtivoImobilizado) session.get(AtivoImobilizado.class, ativo);
+        NotaFiscal notaFiscal = (NotaFiscal) session.get(NotaFiscal.class, nota);
         session.getTransaction().commit();
         session.close();
-        return ativoImobilizado;
+        return notaFiscal;
     }
 
 }

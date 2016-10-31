@@ -23,28 +23,25 @@ public class ItemNota implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_item_nota")
-    @Column(name = "item_nota_codigo")
+//    @Column(name = "item_nota_codigo")
     private int itemNota;
 
-    @ManyToOne
-    @JoinColumn(name = "item_nota_produto")
+    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "item_nota_produto")
     private Produto produto;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_nota_nota")
+//    @JoinColumn(name = "item_nota_nota")
     private NotaFiscal nota;
 
-    @Column(name = "item_nota_quantidade")
+//    @Column(name = "item_nota_quantidade")
     private int quantidade;
 
-    @Column(name = "item_nota_valor_unitario")
+//    @Column(name = "item_nota_valor_unitario")
     private double valorUnitario;
 
-    @Column(name = "item_nota_valor_total")
+//    @Column(name = "item_nota_valor_total")
     private double valorTotal;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemNota", orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<ImpostoItemNota> impostoItem = new HashSet<>(0);
 
     public int getItemNota() {
         return itemNota;
@@ -92,14 +89,6 @@ public class ItemNota implements Serializable {
 
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
-    }
-
-    public Set<ImpostoItemNota> getImpostoItem() {
-        return impostoItem;
-    }
-
-    public void setImpostoItem(Set<ImpostoItemNota> impostoItem) {
-        this.impostoItem = impostoItem;
     }
 
 }

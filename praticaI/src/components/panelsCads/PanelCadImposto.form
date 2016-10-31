@@ -101,12 +101,12 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Valor"/>
+                <Property name="text" type="java.lang.String" value="Al&#xed;quota"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="txtAliquota">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(Utils.getMascara(Utils.MascarasPadrao.valorDouble))"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(&#xa;Utils.getMascara(Utils.MascarasPadrao.taxa))"/>
               </AuxValues>
             </Component>
           </SubComponents>

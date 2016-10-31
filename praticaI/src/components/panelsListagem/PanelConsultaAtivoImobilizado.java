@@ -9,7 +9,11 @@ import forms.FormPrincipal;
 import forms.patrimonio.FormQrCodeAtivoImobilizado;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import modelAntigo.AtivoImobilizado;
@@ -17,17 +21,29 @@ import utils.Utils;
 
 public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionListener {
 
-    private LoadAtivosImobilizados loadAtivosImobilizados;
     private List<AtivoImobilizado> ativosImobilizados;
+
+    private AdjustmentListener eventoScroll;
+
+    private int paginaBuscar;
+    private int ultimaPosicaoTabela = 0;
 
     private int indexSelecionado;
 
     public PanelConsultaAtivoImobilizado() {
         initComponents();
-        this.loadDatas();
 
+        this.eventoScroll = (e) -> {
+            onScroll();
+        };
+
+        new LoadAtivosImobilizados().execute();
+
+        this.ativosImobilizados = new ArrayList<>();
+
+        this.paginaBuscar = 0;
         this.txtBuscar.setEventBuscar((e) -> {
-            System.out.println("buscar");
+            this.atualizarTabela(true);
         });
         this.txtBuscar.addOpcoesBuscar(new String[]{"Código", "Descrição"});
     }
@@ -35,14 +51,15 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
     public class LoadAtivosImobilizados extends SwingWorker<Void, Void> {
 
         protected Void doInBackground() throws Exception {
-
-            ativosImobilizados = new AtivoImobilizadoDAO().getAll();
-            atualizarTabela();
+            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
+            ativosImobilizados.addAll(new AtivoImobilizadoDAO().getAll(paginaBuscar));
+            atualizarTabela(true);
             return null;
         }
 
         public void done() {
-
+            ultimaPosicaoTabela = scrollPanel.getVerticalScrollBar().getMaximum();
+            scrollPanel.getVerticalScrollBar().addAdjustmentListener(eventoScroll);
         }
     }
 
@@ -52,26 +69,50 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
 
     public void addAtivoImobilizado(AtivoImobilizado ativo) {
         this.ativosImobilizados.add(0, ativo);
-        DefaultTableModel model = (DefaultTableModel) tabelaAtivosImobilizados.getModel();
+        DefaultTableModel model = (DefaultTableModel) this.tabelaAtivosImobilizados.getModel();
         model.insertRow(0, ativoToArray(ativo));
-        tabelaAtivosImobilizados.setModel(model);
+        this.tabelaAtivosImobilizados.setModel(model);
     }
 
     public void removeAtivoImobilizado(int index) {
         this.ativosImobilizados.remove(index);
-        DefaultTableModel model = (DefaultTableModel) tabelaAtivosImobilizados.getModel();
+        DefaultTableModel model = (DefaultTableModel) this.tabelaAtivosImobilizados.getModel();
         model.removeRow(index);
-        tabelaAtivosImobilizados.setModel(model);
+        this.tabelaAtivosImobilizados.setModel(model);
     }
 
-    private void atualizarTabela() {
-        DefaultTableModel model = (DefaultTableModel) tabelaAtivosImobilizados.getModel();
+    private void atualizarTabela(boolean limpar) {
+        DefaultTableModel model = (DefaultTableModel) this.tabelaAtivosImobilizados.getModel();
 
-        for (AtivoImobilizado ativo : ativosImobilizados) {
-            model.addRow(ativoToArray(ativo));
+        if (limpar) {
+            Utils.clearTableModel(model);
         }
 
-        tabelaAtivosImobilizados.setModel(model);
+        int filtro = this.txtBuscar.getFiltroSelecionado();
+
+        List<AtivoImobilizado> ativosFiltrado = this.ativosImobilizados;
+
+//        String textBuscar = this.txtBuscar.getText();
+//
+//        if (!textBuscar.isEmpty()) {
+//            if (filtro == 0) {
+//                try {
+//                    int codigo = Integer.parseInt(textBuscar);
+//                    ativosFiltrado = this.ativosImobilizados.stream().filter(x -> x.getAtivoImobilizado() == codigo).collect(Collectors.toList());
+//                } catch (Exception e) {
+//                }
+//            } else if (filtro == 1) {
+//                ativosFiltrado = this.ativosImobilizados.stream().filter(x -> x.getDescricao().contains(textBuscar)).collect(Collectors.toList());
+//            }
+//        }
+//        for (int i = ultimoIndex; i < ativosFiltrado.size(); i++) {
+//            
+//        }
+        ativosFiltrado.forEach(x -> {
+            model.addRow(ativoToArray(x));
+        });
+
+        this.tabelaAtivosImobilizados.setModel(model);
     }
 
     private Object[] ativoToArray(AtivoImobilizado ativo) {
@@ -90,9 +131,13 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
         buttonExcluir.addActionListener(delete);
     }
 
-    private void loadDatas() {
-        this.loadAtivosImobilizados = new LoadAtivosImobilizados();
-        this.loadAtivosImobilizados.execute();
+    private void onScroll() {
+        int hPos = this.scrollPanel.getVerticalScrollBar().getValue() + this.scrollPanel.getVerticalScrollBar().getHeight();
+
+        if (hPos >= this.ultimaPosicaoTabela) {
+            this.paginaBuscar++;
+            new LoadAtivosImobilizados().execute();
+        }
     }
 
     public AtivoImobilizado getAtivoImobilizadoSelecionado() {
@@ -114,7 +159,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollPanel = new javax.swing.JScrollPane();
         tabelaAtivosImobilizados = new com.alee.laf.table.WebTable();
         panelOpcoes = new javax.swing.JPanel();
         buttonAdd = new com.alee.laf.button.WebButton();
@@ -127,7 +172,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
 
         setMinimumSize(new java.awt.Dimension(565, 496));
 
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPanel.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         tabelaAtivosImobilizados.setAutoCreateRowSorter(true);
         tabelaAtivosImobilizados.setModel(new javax.swing.table.DefaultTableModel(
@@ -148,7 +193,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
         });
         tabelaAtivosImobilizados.setEditable(false);
         tabelaAtivosImobilizados.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        jScrollPane1.setViewportView(tabelaAtivosImobilizados);
+        scrollPanel.setViewportView(tabelaAtivosImobilizados);
 
         panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -215,14 +260,14 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1)
+            .addComponent(scrollPanel)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                 .addGap(3, 3, 3)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -270,8 +315,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
     private com.alee.laf.button.WebButton buttonEditar;
     private com.alee.laf.button.WebButton buttonExcluir;
     private com.alee.laf.button.WebButton buttonHistoricoDepreciacao;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelOpcoes;
+    private javax.swing.JScrollPane scrollPanel;
     private com.alee.laf.table.WebTable tabelaAtivosImobilizados;
     private components.TextFieldBuscar txtBuscar;
     // End of variables declaration//GEN-END:variables

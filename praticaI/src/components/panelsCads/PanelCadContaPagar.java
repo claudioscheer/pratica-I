@@ -7,7 +7,7 @@ import forms.FormPrincipal;
 import forms.busca.FormBuscaContaContabil;
 import forms.busca.FormBuscaImposto;
 import forms.busca.FormBuscaNotaFiscal;
-import forms.busca.FormBuscaProdutoImposto;
+import forms.busca.FormBuscaItemNota;
 import forms.busca.FormBuscaFornecedor;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

@@ -7,6 +7,7 @@ import forms.busca.FormBuscaCategoria;
 import forms.busca.FormBuscaMarca;
 import forms.busca.FormBuscaNotaFiscal;
 import java.awt.event.ActionListener;
+import java.util.regex.Pattern;
 import modelAntigo.AtivoImobilizado;
 import modelAntigo.Categoria;
 import modelAntigo.EstadoBem;

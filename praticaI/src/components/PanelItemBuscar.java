@@ -30,6 +30,10 @@ public class PanelItemBuscar extends javax.swing.JPanel {
         this.comboOpcoesBuscar.setModel(new DefaultComboBoxModel(opcoes));
     }
 
+    public int getFiltroSelecionado() {
+        return this.comboOpcoesBuscar.getSelectedIndex();
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

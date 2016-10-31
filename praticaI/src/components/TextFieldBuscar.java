@@ -1,12 +1,11 @@
 package components;
 
-import com.alee.laf.button.WebButton;
 import com.alee.laf.text.WebTextField;
-import java.awt.Cursor;
 import java.awt.event.ActionListener;
-import javax.swing.DefaultComboBoxModel;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class TextFieldBuscar extends WebTextField {
+public class TextFieldBuscar extends WebTextField implements KeyListener {
 
     private final PanelItemBuscar panelItemBuscar;
 
@@ -14,6 +13,7 @@ public class TextFieldBuscar extends WebTextField {
         this.panelItemBuscar = new PanelItemBuscar();
         this.panelItemBuscar.setTextButton("Buscar");
         this.setTrailingComponent(panelItemBuscar);
+        this.addKeyListener(this);
         this.setFieldMargin(0, 6, 0, 6);
     }
 
@@ -33,4 +33,24 @@ public class TextFieldBuscar extends WebTextField {
         this.panelItemBuscar.btnBuscar.setText(texto);
     }
 
+    public int getFiltroSelecionado() {
+        return this.panelItemBuscar.getFiltroSelecionado();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+        if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+            this.panelItemBuscar.btnBuscar.doClick();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+
+    }
 }

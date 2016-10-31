@@ -3,12 +3,9 @@ package forms.patrimonio;
 import com.alee.laf.desktoppane.WebInternalFrame;
 import components.panelsCads.PanelCadNotaFiscal;
 import components.panelsListagem.PanelConsultaNotaFiscal;
-import dao.AtivoImobilizadoDAO;
+import dao.NotaFiscalDAO;
 import utils.Utils;
 import java.awt.Dimension;
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelAntigo.NotaFiscal;
 
 public class FormNotaFiscal extends WebInternalFrame {
@@ -59,8 +56,11 @@ public class FormNotaFiscal extends WebInternalFrame {
             return;
         }
 
-        AtivoImobilizadoDAO especificacaoDAO = new AtivoImobilizadoDAO();
         NotaFiscal nota = this.panelCadastroNotaFiscal.getNotaFiscal();
+
+        new NotaFiscalDAO().insert(nota);
+        Utils.notificacao("Nota fiscal salva!", Utils.TipoNotificacao.ok, 0);
+        this.fecharAbrirPanelCadastro(true);
     }
 
     //toggle o form de cadastro de nota fiscal
@@ -79,9 +79,6 @@ public class FormNotaFiscal extends WebInternalFrame {
 
     //evento para cancelar o cadastro
     private void cancelarCadNotaFiscal() {
-
-        Utils.notificacao("Blzasdfsaldk fjsd sjdfg kd!as", Utils.TipoNotificacao.erro, 2000);
-
         this.fecharAbrirPanelCadastro(true);
     }
 

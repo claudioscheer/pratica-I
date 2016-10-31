@@ -52,6 +52,14 @@ public class Validador {
         this.addValidador(componente, (s) -> (s.length() >= tamanho), "O tamanho mínimo é de " + tamanho + " caracteres");
     }
 
+    public void addMaiorQueValidator(JComponent componente, double minimo) {
+        this.addValidador(componente, (s) -> maiorQue(s, minimo), "O valor mínimo é " + minimo);
+    }
+
+    public void addMenorQueValidator(JComponent componente, double maximo) {
+        this.addValidador(componente, (s) -> menorQue(s, maximo), "O valor máximo é " + maximo);
+    }
+
     public void addApenasNumeroValidator(JComponent componente) {
         this.addValidador(componente, (s) -> apenasNumeros(s), "Apenas números são permitidos");
     }
@@ -62,6 +70,26 @@ public class Validador {
             criarListener(componente);
         }
         componentes.get(componente).add(new FuncaoValidador(componente, function, mensagem));
+    }
+
+    private boolean menorQue(String s, double maximo) {
+        try {
+            s = s.replace(",", ".");
+            double valor = Double.parseDouble(s);
+            return valor <= maximo;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private boolean maiorQue(String s, double minimo) {
+        try {
+            s = s.replace(",", ".");
+            double valor = Double.parseDouble(s);
+            return valor >= minimo;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     private boolean apenasNumeros(String s) {

@@ -3,7 +3,6 @@ package modelAntigo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,32 +26,29 @@ public class NotaFiscal implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_fiscal")
-    @Column(name = "nota_codigo")
+//    @Column(name = "nota_codigo")
     private int notaFiscal;
 
-    @Column(name = "nota_valor", nullable = false)
+//    @Column(name = "nota_valor")
     private double valor;
 
-    @Column(name = "nota_data_emissao", nullable = false)
+//    @Column(name = "nota_data_emissao")
     @Temporal(TemporalType.DATE)
     private Date dataEmissao;
 
-    @Column(name = "nota_chave_acesso", nullable = false)
+//    @Column(name = "nota_chave_acesso")
     private String chaveAcesso;
 
-    @Column(name = "nota_data_entrada", nullable = false)
+//    @Column(name = "nota_data_entrada")
     @Temporal(TemporalType.DATE)
     private Date dataEntrada;
 
-    @ManyToOne
-    @JoinColumn(name = "nota_fornecedor", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "nota_fornecedor")
     private Fornecedor fornecedor;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "nota", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<ItemNota> itensNota = new HashSet<>(0);
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "notaFiscal", orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<ImpostoNotaFiscal> impostoNota = new HashSet<>(0);
 
     public int getNotaFiscal() {
         return notaFiscal;
@@ -109,14 +104,6 @@ public class NotaFiscal implements Serializable {
 
     public void setItensNota(Set<ItemNota> itensNota) {
         this.itensNota = itensNota;
-    }
-
-    public Set<ImpostoNotaFiscal> getImpostoNota() {
-        return impostoNota;
-    }
-
-    public void setImpostoNota(Set<ImpostoNotaFiscal> impostoNota) {
-        this.impostoNota = impostoNota;
     }
 
 }

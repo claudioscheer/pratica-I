@@ -3,10 +3,12 @@ package utils;
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
 import java.awt.Color;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYDataset;
@@ -14,6 +16,8 @@ import org.jfree.data.xy.XYDataset;
 public class Utils {
 
     public static int TempoPadrao = 5000;
+    
+    public static int MaxResultQuery = 50;
 
     public static int wPadrao = 600;
     public static int hPadrao = 500;
@@ -147,7 +151,7 @@ public class Utils {
                 break;
             case addpessoa:
                 url = "addPessoa.png";
-                break;    
+                break;
             case estoque:
                 url = "estoque.png";
                 break;
@@ -192,5 +196,24 @@ public class Utils {
     }
     
   
+
+    public static void clearTableModel(DefaultTableModel model) {
+        if (model.getRowCount() > 0) {
+            for (int i = model.getRowCount() - 1; i > -1; i--) {
+                model.removeRow(i);
+            }
+        }
+    }
+
+    public static Date stringToDate(String dataString) {
+        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        Date date;
+        try {
+            date = df.parse(dataString);
+        } catch (ParseException e) {
+            date = null;
+        }
+        return date;
+    }
 
 }

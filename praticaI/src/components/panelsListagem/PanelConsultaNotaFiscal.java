@@ -2,42 +2,115 @@ package components.panelsListagem;
 
 import com.alee.laf.panel.WebPanel;
 import com.alee.laf.table.WebTable;
+import dao.NotaFiscalDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+import modelAntigo.NotaFiscal;
+import utils.Utils;
 
 public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener {
 
+    private List<NotaFiscal> notasFiscais;
+
+    private AdjustmentListener eventoScroll;
+
+    private int paginaBuscar;
+    private int ultimaPosicaoTabela = 0;
+
+    private int indexSelecionado;
+
     public PanelConsultaNotaFiscal() {
         initComponents();
-        this.loadDatas();
+        this.notasFiscais = new ArrayList<>();
+
+        this.eventoScroll = (e) -> {
+            onScroll();
+        };
+        
+        new LoadNotasFiscais().execute();
 
         this.txtBuscar.setEventBuscar((e) -> {
             System.out.println("buscar");
         });
     }
 
+    public class LoadNotasFiscais extends SwingWorker<Void, Void> {
+
+        protected Void doInBackground() throws Exception {
+            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
+            notasFiscais.addAll(new NotaFiscalDAO().getAll());
+            atualizarTabela(true);
+            return null;
+        }
+
+        public void done() {
+            ultimaPosicaoTabela = scrollPanel.getVerticalScrollBar().getMaximum();
+            scrollPanel.getVerticalScrollBar().addAdjustmentListener(eventoScroll);
+        }
+    }
+
+    private void atualizarTabela(boolean limpar) {
+        DefaultTableModel model = (DefaultTableModel) this.tabelaNotasFiscais.getModel();
+
+        if (limpar) {
+            Utils.clearTableModel(model);
+        }
+
+        int filtro = this.txtBuscar.getFiltroSelecionado();
+
+        List<NotaFiscal> notasFiltrado = this.notasFiscais;
+
+//        String textBuscar = this.txtBuscar.getText();
+//
+//        if (!textBuscar.isEmpty()) {
+//            if (filtro == 0) {
+//                try {
+//                    int codigo = Integer.parseInt(textBuscar);
+//                    ativosFiltrado = this.ativosImobilizados.stream().filter(x -> x.getAtivoImobilizado() == codigo).collect(Collectors.toList());
+//                } catch (Exception e) {
+//                }
+//            } else if (filtro == 1) {
+//                ativosFiltrado = this.ativosImobilizados.stream().filter(x -> x.getDescricao().contains(textBuscar)).collect(Collectors.toList());
+//            }
+//        }
+//        for (int i = ultimoIndex; i < ativosFiltrado.size(); i++) {
+//            
+//        }
+        notasFiltrado.forEach(x -> {
+            model.addRow(notaToArray(x));
+        });
+
+        this.tabelaNotasFiscais.setModel(model);
+    }
+
+    private Object[] notaToArray(NotaFiscal nota) {
+        Object[] o = new Object[5];
+        o[0] = nota.getChaveAcesso();
+        o[1] = nota.getDataEmissao();
+        o[2] = nota.getDataEntrada();
+        o[3] = nota.getFornecedor().getNome();
+        o[4] = nota.getValor();
+        return o;
+    }
+
+    private void onScroll() {
+        int hPos = this.scrollPanel.getVerticalScrollBar().getValue() + this.scrollPanel.getVerticalScrollBar().getHeight();
+
+        if (hPos >= this.ultimaPosicaoTabela) {
+            this.paginaBuscar++;
+            new LoadNotasFiscais().execute();
+        }
+    }
+
     public void setEvents(ActionListener add, ActionListener edit, ActionListener delete) {
         buttonAdd.addActionListener(add);
         buttonAdd.addActionListener(edit);
         buttonAdd.addActionListener(delete);
-    }
-
-    private void loadDatas() {
-        String[] headers = {"Header 1", "Header 2", "Header 3", "Header 4", "Header 5", "Header 6"};
-
-        String[][] data = {
-            {"1", "2", "3", "4", "5", "6"},
-            {"7", "8", "9", "10", "11", "12"},
-            {"13", "14", "15", "16", "17", "18"},
-            {"19", "20", "21", "22", "23", "24"},
-            {"25", "26", "27", "28", "29", "30"},
-            {"31", "32", "33", "34", "35", "36"},
-            {"37", "38", "39", "40", "41", "42"}
-        };
-
-        tableLista.setModel(new DefaultTableModel(data, headers));
-        tableLista.setAutoResizeMode(WebTable.AUTO_RESIZE_ALL_COLUMNS);
     }
 
     @Override
@@ -49,8 +122,8 @@ public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableLista = new com.alee.laf.table.WebTable();
+        scrollPanel = new javax.swing.JScrollPane();
+        tabelaNotasFiscais = new com.alee.laf.table.WebTable();
         panelOpcoes = new javax.swing.JPanel();
         buttonAdd = new com.alee.laf.button.WebButton();
         buttonExcluir = new com.alee.laf.button.WebButton();
@@ -59,23 +132,28 @@ public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener 
 
         setMinimumSize(new java.awt.Dimension(565, 496));
 
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPanel.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        tableLista.setAutoCreateRowSorter(true);
-        tableLista.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaNotasFiscais.setAutoCreateRowSorter(true);
+        tabelaNotasFiscais.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Chave acesso", "Data emissão", "Data entrada", "Fornecedor", "Valor"
             }
-        ));
-        tableLista.setEditable(false);
-        tableLista.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        jScrollPane1.setViewportView(tableLista);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaNotasFiscais.setEditable(false);
+        tabelaNotasFiscais.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        scrollPanel.setViewportView(tabelaNotasFiscais);
 
         panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -117,14 +195,14 @@ public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener 
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1)
+            .addComponent(scrollPanel)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
+                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
                 .addGap(3, 3, 3)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -134,9 +212,9 @@ public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener 
     private com.alee.laf.button.WebButton buttonAdd;
     private com.alee.laf.button.WebButton buttonEditar;
     private com.alee.laf.button.WebButton buttonExcluir;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelOpcoes;
-    private com.alee.laf.table.WebTable tableLista;
+    private javax.swing.JScrollPane scrollPanel;
+    private com.alee.laf.table.WebTable tabelaNotasFiscais;
     private components.TextFieldBuscar txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
