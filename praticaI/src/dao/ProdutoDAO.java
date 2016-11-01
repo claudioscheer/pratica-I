@@ -43,7 +43,7 @@ public class ProdutoDAO
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from est_produto ");
+        Query query = session.createQuery("from EstProduto ");
         List<EstProduto> produto = query.list();
         session.getTransaction().commit();
         session.close();

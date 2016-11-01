@@ -18,7 +18,6 @@ public class FormAtivoImobilizado extends WebInternalFrame {
         this.initComponents();
     }
 
-    //carrega os componentes do form
     private void initComponents() {
         this.setBounds(10, 10, Utils.wPadrao, Utils.hPadrao);
         this.setMinimumSize(new Dimension(Utils.wPadrao, Utils.hPadrao));
@@ -39,7 +38,6 @@ public class FormAtivoImobilizado extends WebInternalFrame {
         this.add(this.panelConsultaAtivoImobilizado);
     }
 
-    //inicia o form de cadastro
     private void initFormCad() {
         this.panelCadastroAtivoImobilizado = new PanelCadAtivoImobilizado();
         this.panelCadastroAtivoImobilizado.init();

@@ -6,7 +6,7 @@ import components.panelsListagem.PanelConsultaNotaFiscal;
 import dao.NotaFiscalDAO;
 import utils.Utils;
 import java.awt.Dimension;
-import modelAntigo.NotaFiscal;
+import model.PatNotaFiscal;
 
 public class FormNotaFiscal extends WebInternalFrame {
 
@@ -56,7 +56,11 @@ public class FormNotaFiscal extends WebInternalFrame {
             return;
         }
 
-        NotaFiscal nota = this.panelCadastroNotaFiscal.getNotaFiscal();
+        PatNotaFiscal nota = this.panelCadastroNotaFiscal.getNotaFiscal();
+
+        nota.getPatItemNotas().forEach(x -> {
+            x.setPatNotaFiscal(nota);
+        });
 
         new NotaFiscalDAO().insert(nota);
         Utils.notificacao("Nota fiscal salva!", Utils.TipoNotificacao.ok, 0);

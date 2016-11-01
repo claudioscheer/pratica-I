@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
-import modelAntigo.NotaFiscal;
+import model.PatNotaFiscal;
 import utils.Utils;
 
 public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener {
 
-    private List<NotaFiscal> notasFiscais;
+    private List<PatNotaFiscal> notasFiscais;
 
     private AdjustmentListener eventoScroll;
 
@@ -31,7 +31,7 @@ public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener 
         this.eventoScroll = (e) -> {
             onScroll();
         };
-        
+
         new LoadNotasFiscais().execute();
 
         this.txtBuscar.setEventBuscar((e) -> {
@@ -63,7 +63,7 @@ public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener 
 
         int filtro = this.txtBuscar.getFiltroSelecionado();
 
-        List<NotaFiscal> notasFiltrado = this.notasFiscais;
+        List<PatNotaFiscal> notasFiltrado = this.notasFiscais;
 
 //        String textBuscar = this.txtBuscar.getText();
 //
@@ -88,13 +88,13 @@ public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener 
         this.tabelaNotasFiscais.setModel(model);
     }
 
-    private Object[] notaToArray(NotaFiscal nota) {
+    private Object[] notaToArray(PatNotaFiscal nota) {
         Object[] o = new Object[5];
-        o[0] = nota.getChaveAcesso();
-        o[1] = nota.getDataEmissao();
-        o[2] = nota.getDataEntrada();
-        o[3] = nota.getFornecedor().getNome();
-        o[4] = nota.getValor();
+        o[0] = nota.getNotaChaveAcesso();
+        o[1] = nota.getNotaDataEmissao();
+        o[2] = nota.getNotaDataEntrada();
+        o[3] = nota.getCarPessoa().getPessoaNome();
+        o[4] = nota.getNotaValor();
         return o;
     }
 

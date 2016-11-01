@@ -4,13 +4,13 @@ import components.JFrameBusca;
 import components.TextFieldValorMonetario;
 import components.Validador;
 import java.util.function.Consumer;
-import modelAntigo.ItemNota;
-import modelAntigo.Produto;
+import model.EstProduto;
+import model.PatItemNota;
 
 public class FormBuscaItemNota extends JFrameBusca {
 
     private Validador validador;
-    private ItemNota itemNota;
+    private PatItemNota itemNota;
 
     public FormBuscaItemNota() {
         initComponents();
@@ -32,6 +32,17 @@ public class FormBuscaItemNota extends JFrameBusca {
         validador.addObrigatorioValidator(txtQuantidade);
         validador.addObrigatorioValidator(txtValorUnitario);
         validador.addObrigatorioValidator(txtValorTotal);
+    }
+
+    public void setDados(PatItemNota itemNota) {
+        this.txtProduto.setValue(itemNota.getEstProduto());
+        this.txtProduto.setText(itemNota.getEstProduto().getProdutoId() + " - " + itemNota.getEstProduto().getProdutoDescricao());
+
+        this.txtQuantidade.setValue(itemNota.getItemNotaQuantidade());
+        this.txtValorUnitario.setText(String.valueOf(itemNota.getItemNotaValorUnitario()));
+        this.txtValorTotal.setText(String.valueOf(itemNota.getItemNotaValorTotal()));
+
+        this.itemNota = itemNota;
     }
 
     @SuppressWarnings("unchecked")
@@ -166,12 +177,12 @@ public class FormBuscaItemNota extends JFrameBusca {
             return;
         }
         if (this.itemNota == null) {
-            this.itemNota = new ItemNota();
+            this.itemNota = new PatItemNota();
         }
-        this.itemNota.setProduto((Produto) this.txtProduto.getValue());
-        this.itemNota.setQuantidade(Integer.parseInt(String.valueOf(this.txtQuantidade.getValue())));
-        this.itemNota.setValorUnitario(Double.parseDouble(this.txtValorUnitario.getText()));
-        this.itemNota.setValorTotal(Double.parseDouble(this.txtValorTotal.getText()));
+        this.itemNota.setEstProduto((EstProduto) this.txtProduto.getValue());
+        this.itemNota.setItemNotaQuantidade(Integer.parseInt(String.valueOf(this.txtQuantidade.getValue())));
+        this.itemNota.setItemNotaValorUnitario(Double.parseDouble(this.txtValorUnitario.getText()));
+        this.itemNota.setItemNotaValorTotal(Double.parseDouble(this.txtValorTotal.getText()));
 
         Consumer<Object> function = this.getFunction();
         function.accept(this.itemNota);

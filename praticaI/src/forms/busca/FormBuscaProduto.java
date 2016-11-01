@@ -9,15 +9,12 @@ import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import model.EstProduto;
-import modelAntigo.Categoria;
-import modelAntigo.Marca;
-import modelAntigo.Produto;
 import utils.Utils;
 
 public class FormBuscaProduto extends JFrameBusca {
 
     private LoadProdutos loadProdutos;
-    private List<Produto> produtos;
+    private List<EstProduto> produtos;
 
     public FormBuscaProduto() {
         initComponents();
@@ -36,7 +33,7 @@ public class FormBuscaProduto extends JFrameBusca {
 
             DefaultTableModel model = (DefaultTableModel) tabelaProdutos.getModel();
 
-            List<EstProduto> produtos = new ProdutoDAO().getAll();
+           produtos = new ProdutoDAO().getAll();
             for (EstProduto produto : produtos) {
                 Object[] o = new Object[2];
                 o[0] = produto.getProdutoId();
@@ -152,8 +149,8 @@ public class FormBuscaProduto extends JFrameBusca {
 
         if (this.getFrameBuscaTipo() == JFrameBuscaTipo.textFieldFK) {
             TextFieldFK text = this.getTextFieldFK();
-            Produto marca = this.produtos.get(linhaselecionada);
-            text.setText(marca.getCodigo() + " - " + marca.getNome());
+            EstProduto marca = this.produtos.get(linhaselecionada);
+            text.setText(marca.getProdutoId() + " - " + marca.getProdutoDescricao());
             text.setValue(marca);
         }
 

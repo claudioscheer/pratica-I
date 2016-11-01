@@ -12,15 +12,16 @@ import java.util.HashSet;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import modelAntigo.Fornecedor;
-import modelAntigo.ItemNota;
-import modelAntigo.NotaFiscal;
+import model.CarPessoa;
+import model.PatItemNota;
+import model.PatNotaFiscal;
 import utils.Utils;
 
 public class PanelCadNotaFiscal extends WebPanel {
 
     public Validador validador;
-    private List<ItemNota> itensNota;
+    private List<PatItemNota> itensNota;
+    private int indexEditandoItemNota;
 
     public PanelCadNotaFiscal() {
     }
@@ -58,18 +59,18 @@ public class PanelCadNotaFiscal extends WebPanel {
         this.btnCancelar.addActionListener(cancelar);
     }
 
-    public NotaFiscal getNotaFiscal() {
-        NotaFiscal nota = new NotaFiscal();
-        nota.setChaveAcesso(this.txtChaveAcesso.getText());
-        nota.setDataEmissao(Utils.stringToDate(this.txtDataEmissao.getText()));
-        nota.setDataEntrada(Utils.stringToDate(this.txtDataEntrada.getText()));
+    public PatNotaFiscal getNotaFiscal() {
+        PatNotaFiscal nota = new PatNotaFiscal();
+        nota.setNotaChaveAcesso(this.txtChaveAcesso.getText());
+        nota.setNotaDataEmissao(Utils.stringToDate(this.txtDataEmissao.getText()));
+        nota.setNotaDataEntrada(Utils.stringToDate(this.txtDataEntrada.getText()));
 
-        Fornecedor fornecedor = new Fornecedor();
-        fornecedor.setCodigo(1);
-        nota.setFornecedor(fornecedor);
+        CarPessoa fornecedor = new CarPessoa();
+        fornecedor.setPessoaId(1);
+        nota.setCarPessoa(fornecedor);
 
-        nota.setValor(Double.parseDouble(this.txtValor.getText()));
-        nota.setItensNota(new HashSet<>(this.itensNota));
+        nota.setNotaValor(Double.parseDouble(this.txtValor.getText()));
+        nota.setPatItemNotas(new HashSet<>(this.itensNota));
         return nota;
     }
 
@@ -94,6 +95,7 @@ public class PanelCadNotaFiscal extends WebPanel {
         btnRemoverProduto = new javax.swing.JButton();
         txtValor = new TextFieldValorMonetario();
         jLabel2 = new javax.swing.JLabel();
+        buttonEditar = new javax.swing.JButton();
         panelOpcoes = new javax.swing.JPanel();
         btnSalvar = new com.alee.laf.button.WebButton();
         btnCancelar = new com.alee.laf.button.WebButton();
@@ -161,6 +163,13 @@ public class PanelCadNotaFiscal extends WebPanel {
 
         jLabel2.setText("Valor total");
 
+        buttonEditar.setText("Editar");
+        buttonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
         panelItensLayout.setHorizontalGroup(
@@ -180,6 +189,8 @@ public class PanelCadNotaFiscal extends WebPanel {
                             .addComponent(jLabel5)))
                     .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(panelItensLayout.createSequentialGroup()
+                            .addComponent(buttonEditar)
+                            .addGap(18, 18, 18)
                             .addComponent(btnRemoverProduto)
                             .addGap(18, 18, 18)
                             .addComponent(btnAdicionarProduto))
@@ -229,7 +240,8 @@ public class PanelCadNotaFiscal extends WebPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarProduto)
-                    .addComponent(btnRemoverProduto))
+                    .addComponent(btnRemoverProduto)
+                    .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(84, Short.MAX_VALUE))
         );
 
@@ -282,7 +294,7 @@ public class PanelCadNotaFiscal extends WebPanel {
         FormBuscaItemNota f = new FormBuscaItemNota();
         f.setVisible(true);
         f.setFunction(n -> {
-            ItemNota nota = (ItemNota) n;
+            PatItemNota nota = (PatItemNota) n;
             this.itensNota.add(nota);
             addItemNotaTabela(this.itensNota.size() - 1);
         });
@@ -301,24 +313,49 @@ public class PanelCadNotaFiscal extends WebPanel {
         this.removerItemNotaTabela(linhaselecionada);
     }//GEN-LAST:event_btnRemoverProdutoActionPerformed
 
+    private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+        int linhaselecionada = this.tabelaProdutos.getSelectedRow();
+        if (linhaselecionada < 0) {
+            Utils.notificacao("Selecione um item!", Utils.TipoNotificacao.erro, 0);
+            return;
+        }
+
+        this.indexEditandoItemNota = linhaselecionada;
+
+        FormBuscaItemNota f = new FormBuscaItemNota();
+        f.setVisible(true);
+        f.setDados(this.itensNota.get(linhaselecionada));
+        f.setFunction(n -> {
+            PatItemNota nota = (PatItemNota) n;
+            this.itensNota.remove(this.indexEditandoItemNota);
+            this.itensNota.add(this.indexEditandoItemNota, nota);
+            this.atualizarItensNota();
+        });
+
+        FormPrincipal form = FormPrincipal.getInstance();
+        f.setFrameBloquear(form);
+        form.setEnabled(false);
+    }//GEN-LAST:event_buttonEditarActionPerformed
+
     private void recalcularValorTotal() {
         double valortotal = 0;
-        for (ItemNota itemNota : this.itensNota) {
-            valortotal += itemNota.getValorTotal();
+        for (PatItemNota itemNota : this.itensNota) {
+            valortotal += itemNota.getItemNotaValorTotal();
         }
 
         this.txtValor.setText(String.valueOf(valortotal));
     }
 
     private void addItemNotaTabela(int index) {
-        ItemNota item = this.itensNota.get(index);
+        PatItemNota item = this.itensNota.get(index);
         DefaultTableModel model = (DefaultTableModel) this.tabelaProdutos.getModel();
+
         model.addRow(new Object[]{
             index + 1,
-            item.getProduto().getNome(),
-            item.getQuantidade(),
-            item.getValorUnitario(),
-            item.getValorTotal(),
+            item.getEstProduto().getProdutoDescricao(),
+            item.getItemNotaQuantidade(),
+            item.getItemNotaValorUnitario(),
+            item.getItemNotaValorTotal(),
             false
         });
         this.recalcularValorTotal();
@@ -343,6 +380,7 @@ public class PanelCadNotaFiscal extends WebPanel {
     private com.alee.laf.button.WebButton btnCancelar;
     private javax.swing.JButton btnRemoverProduto;
     private com.alee.laf.button.WebButton btnSalvar;
+    private javax.swing.JButton buttonEditar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
