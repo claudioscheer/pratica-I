@@ -609,25 +609,18 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataInicialActionPerformed
 
-    public ArrayList<CarCapContas> CarregarGraficoJTable(String nome, TipoGrafico tipografico, int posicao, TipoConta tipoconta, Date DataInicial, Date DataFinal) {
+    public List<CarCapContas> CarregarGraficoJTable(String nome, TipoGrafico tipografico, int posicao, TipoConta tipoconta, Date DataInicial, Date DataFinal) {
 
         CarCapContasDAO buscarconta = new CarCapContasDAO();
 
-        ArrayList<CarCapContas> contas = new ArrayList<>();
+        List<CarCapContas> contas;
         
-        if (tipoconta == TipoConta.Entrada) {
-
-            contas = (ArrayList<CarCapContas>) buscarconta.ListarContas(TipoConta.Entrada, DataInicial, DataFinal);
-
-        } else if (tipoconta == TipoConta.Saida) {
-
-            contas = (ArrayList<CarCapContas>) buscarconta.ListarContas(TipoConta.Saida, DataInicial, DataFinal);
-
-        } else if (tipoconta == TipoConta.ambos) {
-
-            contas = (ArrayList<CarCapContas>) buscarconta.ListarTodos(DataInicial, DataFinal);
-
+        if (tipoconta == TipoConta.ambos) {
+            contas = buscarconta.ListarTodos(txtDataInicial.getDate(), txtDataFinal.getDate());
+        } else {
+           contas = buscarconta.ListarContas(tipoconta, txtDataInicial.getDate(), txtDataFinal.getDate());
         }
+
 
         //Calendar c2 = Calendar.getInstance();
         // posicao = 1 (esquerda), posicao = 2 (direita), posicao 3 = JTable direita
@@ -724,16 +717,16 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             webPanel_Tabela.revalidate();
             webPanel_Tabela.repaint();
 
-        }else if(posicao == 4){
-        
-        return contas;
-        
+        } else if (posicao == 4) {
+
+            return contas;
+
         }
-        
+
         return null;
     }
 
-    public ArrayList<CarCapContas> verificaTipoGrafico(TipoConta tipoconta,int opcao) {
+    public List<CarCapContas> verificaTipoGrafico(TipoConta tipoconta, int opcao) {
 
         if (GrapLinhas.isSelected() && !grapBarras.isSelected() && !grapPizza.isSelected()) {
 
@@ -796,12 +789,12 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             CarregarGraficoJTable(null, null, 3, tipoconta, txtDataInicial.getDate(), txtDataFinal.getDate());
 
         }
-        
-        if(opcao == 1){
-            
-         return CarregarGraficoJTable(null,null,4,tipoconta, txtDataInicial.getDate(),txtDataFinal.getDate());
+
+        if (opcao == 1) {
+
+            return CarregarGraficoJTable(null, null, 4, tipoconta, txtDataInicial.getDate(), txtDataFinal.getDate());
         }
-        
+
         return null;
     }
 
@@ -819,7 +812,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                     webPanel_Split.setDividerLocation(1210);
                 } else {
 
-                   // if(grapPizza.isSelected() || grapBarras.isSelected() || GrapLinhas.isSelected())
+                    // if(grapPizza.isSelected() || grapBarras.isSelected() || GrapLinhas.isSelected())
                     checkbox_Lista.setSelected(true);
                     webPanel_Split.setDividerLocation(.5f);
                 }
@@ -903,19 +896,19 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
         if (checkboxEntrada.isSelected() && checkboxSaida.isSelected()) {
 
-            verificaTipoGrafico(TipoConta.ambos,0);
+            verificaTipoGrafico(TipoConta.ambos, 0);
 
             return TipoConta.ambos;
 
         } else if (!checkboxEntrada.isSelected() && checkboxSaida.isSelected()) {
 
-            verificaTipoGrafico(TipoConta.Saida,0);
+            verificaTipoGrafico(TipoConta.Saida, 0);
 
             return TipoConta.Saida;
 
         } else if (checkboxEntrada.isSelected() && !checkboxSaida.isSelected()) {
 
-            verificaTipoGrafico(TipoConta.Entrada,0);
+            verificaTipoGrafico(TipoConta.Entrada, 0);
 
             return TipoConta.Entrada;
 
@@ -942,34 +935,30 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                 break;
 
             case 1:
-                
-               c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-              
-     
+
+                c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+
                 txtDataInicial.setDate(c.getTime());
-                
+
                 c.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                
-              
+
                 txtDataFinal.setDate(c.getTime());
-                
 
                 break;
 
             case 2:
 
                 c.set(Calendar.DAY_OF_MONTH, 1);
-                
+
                 txtDataInicial.setDate(c.getTime());
-                
+
                 c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
-                
+
                 txtDataFinal.setDate(c.getTime());
-                
+
                 break;
 
         }
-
 
     }
 
@@ -997,17 +986,17 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         if (retornoMetodo) {
 
             // Passa segundo parametro como 1, para apenas retornas os dados em ArrayList para preencher o relatório
-           ArrayList<CarCapContas> data = verificaTipoGrafico(verificaTipodeConta(), 1);
-           
-           Relatorios report = new Relatorios();
-           
+            List<CarCapContas> data = verificaTipoGrafico(verificaTipodeConta(), 1);
+
+            Relatorios report = new Relatorios();
+
             try {
                 report.RelatorioFluxoCaixa(data);
             } catch (JRException ex) {
                 Logger.getLogger(FormFluxodeCaixa.class.getName()).log(Level.SEVERE, null, ex);
             }
-          
-           CarregarNotificacao("Relatório gerado com sucesso!");
+
+            CarregarNotificacao("Relatório gerado com sucesso!");
 
         } else {
 
@@ -1054,7 +1043,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     private void webPanel_SplitPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_webPanel_SplitPropertyChange
 
-        verificaTipoGrafico(verificaTipodeConta(),0);
+        verificaTipoGrafico(verificaTipodeConta(), 0);
 
     }//GEN-LAST:event_webPanel_SplitPropertyChange
 
@@ -1094,13 +1083,13 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     private void checkboxEntradaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkboxEntradaMouseClicked
 
-        verificaTipoGrafico(verificaTipodeConta(),0);
+        verificaTipoGrafico(verificaTipodeConta(), 0);
 
     }//GEN-LAST:event_checkboxEntradaMouseClicked
 
     private void checkboxSaidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkboxSaidaMouseClicked
 
-        verificaTipoGrafico(verificaTipodeConta(),0);
+        verificaTipoGrafico(verificaTipodeConta(), 0);
 
 
     }//GEN-LAST:event_checkboxSaidaMouseClicked
@@ -1127,12 +1116,12 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     private void GrapLinhasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GrapLinhasMouseClicked
 
-         //verificaSpliPanel();
+        //verificaSpliPanel();
         int marcados = verificaMarcados();
 
         if (marcados <= 2) {
 
-            verificaTipoGrafico(verificaTipodeConta(),0);
+            verificaTipoGrafico(verificaTipodeConta(), 0);
 
             System.out.println("tipoconta:" + verificaTipodeConta().toString());
 
@@ -1149,12 +1138,12 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     private void grapBarrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grapBarrasMouseClicked
 
-      //verificaSpliPanel();
+        //verificaSpliPanel();
         int marcados = verificaMarcados();
 
         if (marcados <= 2) {
 
-            verificaTipoGrafico(verificaTipodeConta(),0);
+            verificaTipoGrafico(verificaTipodeConta(), 0);
 
             System.out.println("tipoconta:" + verificaTipodeConta().toString());
 
@@ -1169,12 +1158,12 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     private void grapPizzaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grapPizzaMouseClicked
 
-             //   verificaSpliPanel();
+        //   verificaSpliPanel();
         int marcados = verificaMarcados();
 
         if (marcados <= 2) {
 
-            verificaTipoGrafico(verificaTipodeConta(),0);
+            verificaTipoGrafico(verificaTipodeConta(), 0);
 
             System.out.println("tipoconta:" + verificaTipodeConta().toString());
 
@@ -1219,30 +1208,30 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     private void txtDataInicialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataInicialFocusLost
 
-        verificaTipoGrafico(verificaTipodeConta(),0);
+        verificaTipoGrafico(verificaTipodeConta(), 0);
 
     }//GEN-LAST:event_txtDataInicialFocusLost
 
     private void txtDataInicialFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataInicialFocusGained
 
-        verificaTipoGrafico(verificaTipodeConta(),0);
+        verificaTipoGrafico(verificaTipodeConta(), 0);
     }//GEN-LAST:event_txtDataInicialFocusGained
 
     private void txtDataFinalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataFinalFocusGained
 
-        verificaTipoGrafico(verificaTipodeConta(),0);
+        verificaTipoGrafico(verificaTipodeConta(), 0);
     }//GEN-LAST:event_txtDataFinalFocusGained
 
     private void txtDataFinalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataFinalFocusLost
 
-        verificaTipoGrafico(verificaTipodeConta(),0);
+        verificaTipoGrafico(verificaTipodeConta(), 0);
 
     }//GEN-LAST:event_txtDataFinalFocusLost
 
     private void comboFiltroDataItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboFiltroDataItemStateChanged
 
         verificaFiltroData();
-        verificaTipoGrafico(verificaTipodeConta(),0);
+        verificaTipoGrafico(verificaTipodeConta(), 0);
 
     }//GEN-LAST:event_comboFiltroDataItemStateChanged
 

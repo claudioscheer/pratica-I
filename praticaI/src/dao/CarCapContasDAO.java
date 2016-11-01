@@ -63,9 +63,9 @@ public class CarCapContasDAO {
     }
 
     public List<CarCapContas> ListarTodos(Date dataInicial, Date dataFinal) {
-        
+
         System.out.println("DataInicial: " + dataInicial + " DataFinal: " + dataFinal);
-        
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("from CarCapContas as a where conta_data_emissao BETWEEN :datainicial and :datafinal");
@@ -87,15 +87,7 @@ public class CarCapContasDAO {
         Query query = session.createQuery("from CarCapContas as a where contaTipo =:tipo and conta_data_emissao BETWEEN :dataInicial and :dataFinal");
         query.setParameter("dataInicial", dataInicial);
         query.setParameter("dataFinal", dataFinal);
-//        if (TipoConta.Entrada == tipo) {
-
-            query.setParameter("tipo", tipo);
-
-//        } else if (TipoConta.Saida == tipo) {
-//
-//            query.setParameter("tipo", tipo.Saida);
-//
-//        }
+        query.setParameter("tipo", tipo);
 
         List<CarCapContas> contas = query.list();
         session.getTransaction().commit();
