@@ -35,10 +35,31 @@ public class NotaFiscalDAO {
         return true;
     }
 
-    public List<PatNotaFiscal> getAll() {
+    public List<PatNotaFiscal> getAll(int indexfiltro, String filtro) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from PatNotaFiscal as n ");
+        String where = "";
+        if (!filtro.isEmpty()) {
+            switch (indexfiltro) {
+                case 0:
+                    where = "where n.notaCodigo = :p1";
+                    break;
+                case 1:
+                    where = "where n.notaChaveAcesso like :p1";
+                    break;
+            }
+        }
+        Query query = session.createQuery("from PatNotaFiscal as n " + where);
+        if (!filtro.isEmpty()) {
+            switch (indexfiltro) {
+                case 0:
+                    query.setParameter("p1", Integer.parseInt(filtro));
+                    break;
+                case 1:
+                    query.setParameter("p1", "%" + filtro + "%");
+                    break;
+            }
+        }
         List<PatNotaFiscal> ativos = query.list();
         session.getTransaction().commit();
         session.close();

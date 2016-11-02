@@ -3,253 +3,129 @@ package forms.busca;
 import components.JFrameBusca;
 import components.TextFieldFK;
 import components.panelsCads.PanelCadNotaFiscal;
-import forms.FormPrincipal;
-import javax.swing.table.DefaultTableModel;
-import modelAntigo.NotaFiscal;
+import components.panelsListagem.PanelConsultaNotaFiscal;
+import dao.NotaFiscalDAO;
+import java.awt.Dimension;
+import utils.Utils;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import model.PatNotaFiscal;
 
 public class FormBuscaNotaFiscal extends JFrameBusca {
 
-    private PanelCadNotaFiscal panelCadastro;
-
     public FormBuscaNotaFiscal() {
-        initComponents();
+        this.initComponents();
+    }
 
+    //carrega os componentes do form
+    private void initComponents() {
+        this.setBounds(10, 10, Utils.wPadrao, Utils.hPadrao);
+        this.setMinimumSize(new Dimension(Utils.wPadrao, Utils.hPadrao));
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        //carrega as notas fiscais
-        this.loadNotasFiscais();
-        this.loadEvents();
-    }
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
 
-    //carrega os eventos para buscar, inserir e selecionar uma nota fiscal
-    private void loadEvents() {
-        this.txtBuscar.setEventBuscar((e) -> {
-            System.out.println("setEventBuscar");
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                getFrameBloquear().setEnabled(true);
+            }
         });
-    }
 
-    //abre o form de cadastro
-    private void initFormCadastro() {
-        this.panelCadastro = new PanelCadNotaFiscal();
-        this.panelCadastro.init();
-        this.panelCadastro.setEvents((e) -> {
-            this.salvarNotaFiscal();
+        this.panelConsultaNotaFiscal = new PanelConsultaNotaFiscal();
+
+        this.panelConsultaNotaFiscal.setEventsBuscar((e) -> {
+            this.selecionarNotaFiscal();
         }, (e) -> {
-            this.cancelarCadastroNotaFiscal();
+            this.addNotaFiscal();
         });
-        this.panelCadastro.setBounds(0, 0, this.panelPanels.getWidth(), this.panelPanels.getHeight());
-        this.fecharAbrirPanelCadastro(false);
-    }
 
-    //salva a nota fiscal
-    private void salvarNotaFiscal() {
-        NotaFiscal notaFiscal = this.panelCadastro.getNotaFiscal();
-    }
+        this.panelConsultaNotaFiscal.setDoubleClickTabela(new MouseAdapter() {
 
-    //cancela a nota fiscal
-    private void cancelarCadastroNotaFiscal() {
-        this.fecharAbrirPanelCadastro(true);
-    }
-
-    //toggle o panel de cadastro de not
-    private void fecharAbrirPanelCadastro(Boolean fechar) {
-        if (fechar) {
-            this.panelPanels.remove(this.panelCadastro);
-            this.panelPanels.add(this.panelConsulta);
-        } else {
-            this.panelPanels.remove(this.panelConsulta);
-            this.panelPanels.add(this.panelCadastro);
-        }
-
-        this.panelPanels.revalidate();
-        this.panelPanels.repaint();
-    }
-
-    private void loadNotasFiscais() {
-        String[] headers = {"Header 1", "Header 2", "Header 3", "Header 4", "Header 5", "Header 6"};
-
-        String[][] data = {
-            {"1", "2", "3", "4", "5", "6"},
-            {"7", "8", "9", "10", "11", "12"},
-            {"13", "14", "15", "16", "17", "18"},
-            {"19", "20", "21", "22", "23", "24"},
-            {"25", "26", "27", "28", "29", "30"},
-            {"31", "32", "33", "34", "35", "36"},
-            {"37", "38", "39", "40", "41", "42"}
-        };
-
-        tableLista.setModel(new DefaultTableModel(data, headers));
-
-        tableLista.getSelectionModel().addListSelectionListener((e) -> {
-            if (!e.getValueIsAdjusting()) {
-                if (tableLista.getSelectedRow() > -1) {
-                    System.out.println(tableLista.getValueAt(tableLista.getSelectedRow(), 0).toString());
+            @Override
+            public void mousePressed(MouseEvent me) {
+                if (me.getClickCount() == 2) {
+                    selecionarNotaFiscal();
                 }
             }
         });
 
+        this.add(this.panelConsultaNotaFiscal);
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    //inicia o form de cadastro
+    private void initFormCad() {
+        this.panelCadastroNotaFiscal = new PanelCadNotaFiscal(this);
+        this.panelCadastroNotaFiscal.init();
 
-        panelPanels = new javax.swing.JPanel();
-        panelConsulta = new javax.swing.JPanel();
-        txtBuscar = new components.TextFieldBuscar();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tableLista = new com.alee.laf.table.WebTable();
-        panelOpcoes = new javax.swing.JPanel();
-        buttonNovo = new com.alee.laf.button.WebButton();
-        buttonSelecionar = new com.alee.laf.button.WebButton();
-
-        setMinimumSize(new java.awt.Dimension(600, 500));
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
+        //seta os eventos para o cancelar e o cadastrar da nota fiscal
+        this.panelCadastroNotaFiscal.setEvents((e) -> {
+            this.salvarNotaFiscal();
+        }, (e) -> {
+            this.cancelarCadNotaFiscal();
         });
+    }
 
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+    //evento para salvar a nota fiscal
+    private void salvarNotaFiscal() {
 
-        tableLista.setAutoCreateRowSorter(true);
-        tableLista.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tableLista.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tableLista.setEditable(false);
-        tableLista.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        jScrollPane1.setViewportView(tableLista);
+        if (!this.panelCadastroNotaFiscal.validador.isValid()) {
+            return;
+        }
 
-        panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
+        PatNotaFiscal notaFiscal = this.panelCadastroNotaFiscal.getNotaFiscal();
 
-        buttonNovo.setText("Novo");
-        buttonNovo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNovoActionPerformed(evt);
-            }
-        });
+        new NotaFiscalDAO().insert(notaFiscal);
 
-        buttonSelecionar.setText("Selecionar");
-        buttonSelecionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSelecionarActionPerformed(evt);
-            }
-        });
+        this.panelConsultaNotaFiscal.addNotaFiscal(notaFiscal);
 
-        javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
-        panelOpcoes.setLayout(panelOpcoesLayout);
-        panelOpcoesLayout.setHorizontalGroup(
-            panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelOpcoesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(buttonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        panelOpcoesLayout.setVerticalGroup(
-            panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
-        );
+        Utils.notificacao("Nota fiscal salva!", Utils.TipoNotificacao.ok, 0);
+        this.fecharAbrirPanelCadastro(true);
+    }
 
-        javax.swing.GroupLayout panelConsultaLayout = new javax.swing.GroupLayout(panelConsulta);
-        panelConsulta.setLayout(panelConsultaLayout);
-        panelConsultaLayout.setHorizontalGroup(
-            panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelOpcoes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(panelConsultaLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addGroup(panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(5, 5, 5))
-        );
-        panelConsultaLayout.setVerticalGroup(
-            panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelConsultaLayout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+    //toggle o form de cadastro de nota fiscal
+    private void fecharAbrirPanelCadastro(Boolean fechar) {
+        if (fechar) {
+            this.remove(this.panelCadastroNotaFiscal);
+            this.add(this.panelConsultaNotaFiscal);
+        } else {
+            this.remove(this.panelConsultaNotaFiscal);
+            this.add(this.panelCadastroNotaFiscal);
+        }
 
-        javax.swing.GroupLayout panelPanelsLayout = new javax.swing.GroupLayout(panelPanels);
-        panelPanels.setLayout(panelPanelsLayout);
-        panelPanelsLayout.setHorizontalGroup(
-            panelPanelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 584, Short.MAX_VALUE)
-            .addGroup(panelPanelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelConsulta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        panelPanelsLayout.setVerticalGroup(
-            panelPanelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 530, Short.MAX_VALUE)
-            .addGroup(panelPanelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        this.panelConsultaNotaFiscal.revalidate();
+        this.panelConsultaNotaFiscal.repaint();
+    }
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelPanels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelPanels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+    private void cancelarCadNotaFiscal() {
+        this.fecharAbrirPanelCadastro(true);
+    }
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+    private void addNotaFiscal() {
+        this.initFormCad();
+        this.fecharAbrirPanelCadastro(false);
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        FormPrincipal f = FormPrincipal.getInstance();
-        f.setEnabled(true);
-    }//GEN-LAST:event_formWindowClosing
+        this.panelCadastroNotaFiscal.revalidate();
+    }
 
-    private void buttonSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelecionarActionPerformed
-        TextFieldFK text = this.getTextFieldFK();
-        text.setText("nota fiscal");
+    private void selecionarNotaFiscal() {
 
-        FormPrincipal f = FormPrincipal.getInstance();
-        f.setEnabled(true);
+        PatNotaFiscal notaFiscal = this.panelConsultaNotaFiscal.getNotaFiscalSelecionada();
 
+        if (notaFiscal == null) {
+            return;
+        }
+
+        if (this.getFrameBuscaTipo() == JFrameBuscaTipo.textFieldFK) {
+            TextFieldFK text = this.getTextFieldFK();
+            text.setText(notaFiscal.getNotaCodigo() + " - " + notaFiscal.getNotaChaveAcesso());
+            text.setValue(notaFiscal);
+        }
+
+        this.getFrameBloquear().setEnabled(true);
         this.dispose();
+    }
 
-    }//GEN-LAST:event_buttonSelecionarActionPerformed
+    private PanelConsultaNotaFiscal panelConsultaNotaFiscal;
+    private PanelCadNotaFiscal panelCadastroNotaFiscal;
 
-    private void buttonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoActionPerformed
-        this.initFormCadastro();
-    }//GEN-LAST:event_buttonNovoActionPerformed
-
-    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
-        FormPrincipal f = FormPrincipal.getInstance();
-        f.setEnabled(true);
-    }//GEN-LAST:event_formInternalFrameClosing
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.alee.laf.button.WebButton buttonNovo;
-    private com.alee.laf.button.WebButton buttonSelecionar;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel panelConsulta;
-    private javax.swing.JPanel panelOpcoes;
-    private javax.swing.JPanel panelPanels;
-    private com.alee.laf.table.WebTable tableLista;
-    private components.TextFieldBuscar txtBuscar;
-    // End of variables declaration//GEN-END:variables
 }

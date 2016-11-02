@@ -49,7 +49,7 @@ public class PatHistoricoDepreciacao implements java.io.Serializable {
 
     @Id
 
-    @Column(name = "historico_depreciacao_codigo", unique = true, nullable = false)
+    @Column(name = "historico_depreciacao_codigo", nullable = false)
     public int getHistoricoDepreciacaoCodigo() {
         return this.historicoDepreciacaoCodigo;
     }

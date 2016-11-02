@@ -13,8 +13,13 @@ public class TextFieldBuscar extends WebTextField implements KeyListener {
         this.panelItemBuscar = new PanelItemBuscar();
         this.panelItemBuscar.setTextButton("Buscar");
         this.setTrailingComponent(panelItemBuscar);
+        this.setHideInputPromptOnFocus(false);
         this.addKeyListener(this);
         this.setFieldMargin(0, 6, 0, 6);
+    }
+
+    public void setPlaceholderText(String text) {
+        this.setInputPrompt(text);
     }
 
     public void setEventBuscar(ActionListener al) {
@@ -27,6 +32,10 @@ public class TextFieldBuscar extends WebTextField implements KeyListener {
 
     public void showComboOpcoes(boolean show) {
         this.panelItemBuscar.showComboOpcoes(show);;
+    }
+    
+    public void setEventChangeComboBox(ActionListener al) {
+        this.panelItemBuscar.setEventChangeComboBox(al);
     }
 
     public void setButtonText(String texto) {

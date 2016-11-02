@@ -1,7 +1,6 @@
 package forms.busca;
 
 import components.JFrameBusca;
-import components.TextFieldValorMonetario;
 import components.Validador;
 import java.util.function.Consumer;
 import model.EstProduto;
@@ -39,8 +38,8 @@ public class FormBuscaItemNota extends JFrameBusca {
         this.txtProduto.setText(itemNota.getEstProduto().getProdutoId() + " - " + itemNota.getEstProduto().getProdutoDescricao());
 
         this.txtQuantidade.setValue(itemNota.getItemNotaQuantidade());
-        this.txtValorUnitario.setText(String.valueOf(itemNota.getItemNotaValorUnitario()));
-        this.txtValorTotal.setText(String.valueOf(itemNota.getItemNotaValorTotal()));
+        this.txtValorUnitario.setValue(itemNota.getItemNotaValorUnitario());
+        this.txtValorTotal.setValue(itemNota.getItemNotaValorTotal());
 
         this.itemNota = itemNota;
     }
@@ -55,10 +54,10 @@ public class FormBuscaItemNota extends JFrameBusca {
         jLabel3 = new javax.swing.JLabel();
         txtQuantidade = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
-        txtValorUnitario = new TextFieldValorMonetario();
         btnCancelar = new javax.swing.JButton();
-        txtValorTotal = new TextFieldValorMonetario();
         jLabel2 = new javax.swing.JLabel();
+        txtValorUnitario = new components.TextFieldValorMonetario();
+        txtValorTotal = new components.TextFieldValorMonetario();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -88,13 +87,6 @@ public class FormBuscaItemNota extends JFrameBusca {
 
         jLabel4.setText("Valor unitário");
 
-        txtValorUnitario.setText("0.0");
-        txtValorUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtValorUnitarioKeyReleased(evt);
-            }
-        });
-
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,19 +94,22 @@ public class FormBuscaItemNota extends JFrameBusca {
             }
         });
 
-        txtValorTotal.setText("0.0");
-
         jLabel2.setText("Valor total");
+
+        txtValorUnitario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtValorUnitarioKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnCancelar)
                         .addGap(18, 18, 18)
                         .addComponent(btnFinalizar)
@@ -122,24 +117,25 @@ public class FormBuscaItemNota extends JFrameBusca {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addGap(80, 80, 80)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4))
-                                .addGap(80, 80, 80)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(76, 76, 76)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(txtValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(95, 95, 95)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(67, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -181,8 +177,8 @@ public class FormBuscaItemNota extends JFrameBusca {
         }
         this.itemNota.setEstProduto((EstProduto) this.txtProduto.getValue());
         this.itemNota.setItemNotaQuantidade(Integer.parseInt(String.valueOf(this.txtQuantidade.getValue())));
-        this.itemNota.setItemNotaValorUnitario(Double.parseDouble(this.txtValorUnitario.getText()));
-        this.itemNota.setItemNotaValorTotal(Double.parseDouble(this.txtValorTotal.getText()));
+        this.itemNota.setItemNotaValorUnitario(this.txtValorUnitario.getValue());
+        this.itemNota.setItemNotaValorTotal(this.txtValorTotal.getValue());
 
         Consumer<Object> function = this.getFunction();
         function.accept(this.itemNota);
@@ -214,13 +210,13 @@ public class FormBuscaItemNota extends JFrameBusca {
 
         double valor;
         try {
-            valor = Double.parseDouble(this.txtValorUnitario.getText().replace(",", "."));
+            valor = this.txtValorUnitario.getValue();
         } catch (Exception e) {
             valor = 0;
         }
 
         double valortotal = quantidade * valor;
-        this.txtValorTotal.setText(String.valueOf(valortotal));
+        this.txtValorTotal.setValue(valortotal);
     }
 
 
@@ -233,7 +229,7 @@ public class FormBuscaItemNota extends JFrameBusca {
     private javax.swing.JLabel jLabel4;
     private components.TextFieldFK txtProduto;
     private javax.swing.JSpinner txtQuantidade;
-    private javax.swing.JTextField txtValorTotal;
-    private javax.swing.JTextField txtValorUnitario;
+    private components.TextFieldValorMonetario txtValorTotal;
+    private components.TextFieldValorMonetario txtValorUnitario;
     // End of variables declaration//GEN-END:variables
 }

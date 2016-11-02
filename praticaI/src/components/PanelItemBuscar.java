@@ -18,6 +18,10 @@ public class PanelItemBuscar extends javax.swing.JPanel {
         this.btnBuscar.addActionListener(al);
     }
 
+    public void setEventChangeComboBox(ActionListener al) {
+        this.comboOpcoesBuscar.addActionListener(al);
+    }
+
     public void setTextButton(String text) {
         this.btnBuscar.setText(text);
     }

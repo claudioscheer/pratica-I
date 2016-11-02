@@ -38,7 +38,7 @@ public class PatTipoBaixa implements java.io.Serializable {
 
     @Id
 
-    @Column(name = "tipo_baixa_codigo", unique = true, nullable = false)
+    @Column(name = "tipo_baixa_codigo", nullable = false)
     public int getTipoBaixaCodigo() {
         return this.tipoBaixaCodigo;
     }

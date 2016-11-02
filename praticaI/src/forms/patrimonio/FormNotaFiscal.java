@@ -1,14 +1,20 @@
 package forms.patrimonio;
 
 import com.alee.laf.desktoppane.WebInternalFrame;
+import com.alee.laf.optionpane.WebOptionPane;
 import components.panelsCads.PanelCadNotaFiscal;
 import components.panelsListagem.PanelConsultaNotaFiscal;
 import dao.NotaFiscalDAO;
+import forms.FormPrincipal;
 import utils.Utils;
 import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import model.PatNotaFiscal;
 
 public class FormNotaFiscal extends WebInternalFrame {
+
+    public int indexEditando;
 
     public FormNotaFiscal() {
         super("Notas Fiscais", true, true, true, true);
@@ -33,12 +39,22 @@ public class FormNotaFiscal extends WebInternalFrame {
             this.deleteNotaFiscal();
         });
 
+        this.panelConsultaNotaFiscal.setDoubleClickTabela(new MouseAdapter() {
+
+            @Override
+            public void mousePressed(MouseEvent me) {
+                if (me.getClickCount() == 2) {
+                    editNotaFiscal();
+                }
+            }
+        });
+
         this.add(this.panelConsultaNotaFiscal);
     }
 
     //inicia o form de cadastro
     private void initFormCad() {
-        this.panelCadastroNotaFiscal = new PanelCadNotaFiscal();
+        this.panelCadastroNotaFiscal = new PanelCadNotaFiscal(FormPrincipal.getInstance());
         this.panelCadastroNotaFiscal.init();
 
         //seta os eventos para o cancelar e o cadastrar da nota fiscal
@@ -56,13 +72,19 @@ public class FormNotaFiscal extends WebInternalFrame {
             return;
         }
 
-        PatNotaFiscal nota = this.panelCadastroNotaFiscal.getNotaFiscal();
+        PatNotaFiscal notaFiscal = this.panelCadastroNotaFiscal.getNotaFiscal();
 
-        nota.getPatItemNotas().forEach(x -> {
-            x.setPatNotaFiscal(nota);
-        });
+        if (!this.panelCadastroNotaFiscal.editando) {
+            new NotaFiscalDAO().insert(notaFiscal);
+        } else {
+            new NotaFiscalDAO().update(notaFiscal);
+            this.panelCadastroNotaFiscal.editando = false;
+            this.panelConsultaNotaFiscal.removeNotaFiscal(this.indexEditando);
+            this.indexEditando = -1;
+        }
 
-        new NotaFiscalDAO().insert(nota);
+        this.panelConsultaNotaFiscal.addNotaFiscal(notaFiscal);
+
         Utils.notificacao("Nota fiscal salva!", Utils.TipoNotificacao.ok, 0);
         this.fecharAbrirPanelCadastro(true);
     }
@@ -96,12 +118,41 @@ public class FormNotaFiscal extends WebInternalFrame {
 
     //evento para editar uma nota fiscal
     private void editNotaFiscal() {
-        System.out.println("editNotaFiscal");
+
+        PatNotaFiscal notaFiscal = this.panelConsultaNotaFiscal.getNotaFiscalSelecionada();
+
+        if (notaFiscal == null) {
+            return;
+        }
+
+        this.indexEditando = this.panelConsultaNotaFiscal.getIndiceSelecionado();
+
+        this.initFormCad();
+        this.fecharAbrirPanelCadastro(false);
+
+        this.panelCadastroNotaFiscal.setDadosEditar(notaFiscal);
+        this.panelCadastroNotaFiscal.revalidate();
     }
 
     //evento para deletar uma nota fiscal
     private void deleteNotaFiscal() {
-        System.out.println("deleteNotaFiscal");
+
+        PatNotaFiscal notaFiscal = this.panelConsultaNotaFiscal.getNotaFiscalSelecionada();
+
+        if (notaFiscal == null) {
+            return;
+        }
+
+        if (WebOptionPane.showConfirmDialog(this.panelConsultaNotaFiscal, "Deseja deletar a nota fiscal?", "Excluir",
+                WebOptionPane.YES_NO_OPTION,
+                WebOptionPane.QUESTION_MESSAGE) == WebOptionPane.OK_OPTION) {
+
+            int index = this.panelConsultaNotaFiscal.getIndiceSelecionado();
+
+            new NotaFiscalDAO().delete(notaFiscal);
+            this.panelConsultaNotaFiscal.removeNotaFiscal(index);
+            Utils.notificacao("Nota fiscal removida!", Utils.TipoNotificacao.ok, 0);
+        }
     }
 
     private PanelConsultaNotaFiscal panelConsultaNotaFiscal;

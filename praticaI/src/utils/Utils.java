@@ -16,14 +16,14 @@ import org.jfree.data.xy.XYDataset;
 public class Utils {
 
     public static int TempoPadrao = 5000;
-    
+
     public static int MaxResultQuery = 50;
 
     public static int wPadrao = 600;
     public static int hPadrao = 500;
- 
-          
-        
+
+    public static SimpleDateFormat formatoDataPadrao = new SimpleDateFormat("dd/MM/yyyy");
+
     public static class CoresPadrao {
 
         public static Color fundoDesktop = Color.decode("#B0BEC5");
@@ -155,14 +155,12 @@ public class Utils {
             case estoque:
                 url = "estoque.png";
                 break;
-                
+
             case movimentacoes:
-                
+
                 url = "movimentacoes-icon.png";
                 break;
         }
-        
-        
 
         return new ImageIcon(Utils.class.getResource("/imagens/" + url));
     }
@@ -180,8 +178,7 @@ public class Utils {
     }
 
     public static String formatData(Date data) {
-        SimpleDateFormat dataFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return dataFormat.format(data);
+        return formatoDataPadrao.format(data);
     }
 
     public static MaskFormatter getMascara(String formato) {
@@ -194,8 +191,6 @@ public class Utils {
         }
         return mask;
     }
-    
-  
 
     public static void clearTableModel(DefaultTableModel model) {
         if (model.getRowCount() > 0) {
@@ -206,7 +201,7 @@ public class Utils {
     }
 
     public static Date stringToDate(String dataString) {
-        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        DateFormat df = formatoDataPadrao;
         Date date;
         try {
             date = df.parse(dataString);
@@ -214,6 +209,19 @@ public class Utils {
             date = null;
         }
         return date;
+    }
+
+    public static String removerCaracteresDoubleString(String s) {
+        return s.replace(".", "").replace(",", ".");
+    }
+
+    public static boolean isDouble(String s) {
+        try {
+            Double.parseDouble(removerCaracteresDoubleString(s));
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
 }

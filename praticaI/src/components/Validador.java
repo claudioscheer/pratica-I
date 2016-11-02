@@ -74,8 +74,7 @@ public class Validador {
 
     private boolean menorQue(String s, double maximo) {
         try {
-            s = s.replace(",", ".");
-            double valor = Double.parseDouble(s);
+            double valor = Double.parseDouble(Utils.removerCaracteresDoubleString(s));
             return valor <= maximo;
         } catch (NumberFormatException e) {
             return false;
@@ -84,8 +83,7 @@ public class Validador {
 
     private boolean maiorQue(String s, double minimo) {
         try {
-            s = s.replace(",", ".");
-            double valor = Double.parseDouble(s);
+            double valor = Double.parseDouble(Utils.removerCaracteresDoubleString(s));
             return valor >= minimo;
         } catch (NumberFormatException e) {
             return false;
@@ -93,13 +91,7 @@ public class Validador {
     }
 
     private boolean apenasNumeros(String s) {
-        try {
-            s = s.replace(",", ".");
-            Double.parseDouble(s);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+        return Utils.isDouble(s);
     }
 
     private void criarListener(JComponent componente) {

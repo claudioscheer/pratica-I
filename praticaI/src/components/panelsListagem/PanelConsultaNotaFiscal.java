@@ -1,11 +1,10 @@
 package components.panelsListagem;
 
 import com.alee.laf.panel.WebPanel;
-import com.alee.laf.table.WebTable;
 import dao.NotaFiscalDAO;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SwingWorker;
@@ -13,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import model.PatNotaFiscal;
 import utils.Utils;
 
-public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener {
+public class PanelConsultaNotaFiscal extends WebPanel {
 
     private List<PatNotaFiscal> notasFiscais;
 
@@ -28,30 +27,80 @@ public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener 
         initComponents();
         this.notasFiscais = new ArrayList<>();
 
-        this.eventoScroll = (e) -> {
-            onScroll();
-        };
-
+//        this.eventoScroll = (e) -> {
+//            onScroll();
+//        };
         new LoadNotasFiscais().execute();
 
+        this.txtBuscar.addOpcoesBuscar(new String[]{
+            "Código",
+            "Chave de acesso"
+        });
+
+        this.verificaPlaceholderText();
+        this.txtBuscar.setEventChangeComboBox(al -> {
+            this.verificaPlaceholderText();
+        });
+
         this.txtBuscar.setEventBuscar((e) -> {
-            System.out.println("buscar");
+            this.notasFiscais.clear();
+            new LoadNotasFiscais().execute();
         });
     }
 
-    public class LoadNotasFiscais extends SwingWorker<Void, Void> {
+    private void verificaPlaceholderText() {
+        switch (this.txtBuscar.getFiltroSelecionado()) {
+            case 0:
+                this.txtBuscar.setPlaceholderText("Digite o código da nota");
+                break;
+
+            case 1:
+                this.txtBuscar.setPlaceholderText("Digite a chave de acesso da nota");
+                break;
+        }
+    }
+
+    public void addNotaFiscal(PatNotaFiscal notaFiscal) {
+        this.notasFiscais.add(0, notaFiscal);
+        DefaultTableModel model = (DefaultTableModel) this.tabelaNotasFiscais.getModel();
+        model.insertRow(0, notaToArray(notaFiscal));
+        this.tabelaNotasFiscais.setModel(model);
+    }
+
+    private class LoadNotasFiscais extends SwingWorker<Void, Void> {
 
         protected Void doInBackground() throws Exception {
-            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
-            notasFiscais.addAll(new NotaFiscalDAO().getAll());
+//            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
+            notasFiscais.addAll(new NotaFiscalDAO().getAll(txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
             atualizarTabela(true);
             return null;
         }
 
         public void done() {
-            ultimaPosicaoTabela = scrollPanel.getVerticalScrollBar().getMaximum();
-            scrollPanel.getVerticalScrollBar().addAdjustmentListener(eventoScroll);
+//            ultimaPosicaoTabela = scrollPanel.getVerticalScrollBar().getMaximum();
+//            scrollPanel.getVerticalScrollBar().addAdjustmentListener(eventoScroll);
         }
+    }
+
+    public int getIndiceSelecionado() {
+        return this.indexSelecionado;
+    }
+
+    public PatNotaFiscal getNotaFiscalSelecionada() {
+        int linhaselecionada = this.tabelaNotasFiscais.getSelectedRow();
+        if (linhaselecionada < 0) {
+            Utils.notificacao("Selecione uma nota fiscal!", Utils.TipoNotificacao.erro, 0);
+            return null;
+        }
+        this.indexSelecionado = linhaselecionada;
+        return this.notasFiscais.get(linhaselecionada);
+    }
+
+    public void removeNotaFiscal(int index) {
+        this.notasFiscais.remove(index);
+        DefaultTableModel model = (DefaultTableModel) this.tabelaNotasFiscais.getModel();
+        model.removeRow(index);
+        this.tabelaNotasFiscais.setModel(model);
     }
 
     private void atualizarTabela(boolean limpar) {
@@ -61,27 +110,7 @@ public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener 
             Utils.clearTableModel(model);
         }
 
-        int filtro = this.txtBuscar.getFiltroSelecionado();
-
-        List<PatNotaFiscal> notasFiltrado = this.notasFiscais;
-
-//        String textBuscar = this.txtBuscar.getText();
-//
-//        if (!textBuscar.isEmpty()) {
-//            if (filtro == 0) {
-//                try {
-//                    int codigo = Integer.parseInt(textBuscar);
-//                    ativosFiltrado = this.ativosImobilizados.stream().filter(x -> x.getAtivoImobilizado() == codigo).collect(Collectors.toList());
-//                } catch (Exception e) {
-//                }
-//            } else if (filtro == 1) {
-//                ativosFiltrado = this.ativosImobilizados.stream().filter(x -> x.getDescricao().contains(textBuscar)).collect(Collectors.toList());
-//            }
-//        }
-//        for (int i = ultimoIndex; i < ativosFiltrado.size(); i++) {
-//            
-//        }
-        notasFiltrado.forEach(x -> {
+        this.notasFiscais.forEach(x -> {
             model.addRow(notaToArray(x));
         });
 
@@ -108,14 +137,22 @@ public class PanelConsultaNotaFiscal extends WebPanel implements ActionListener 
     }
 
     public void setEvents(ActionListener add, ActionListener edit, ActionListener delete) {
-        buttonAdd.addActionListener(add);
-        buttonAdd.addActionListener(edit);
-        buttonAdd.addActionListener(delete);
+        this.buttonAdd.addActionListener(add);
+        this.buttonEditar.addActionListener(edit);
+        this.buttonExcluir.addActionListener(delete);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        System.out.println("asdjkfaksldjfnkajsdfnk");
+    public void setEventsBuscar(ActionListener select, ActionListener novo) {
+        this.buttonAdd.addActionListener(select);
+        this.buttonEditar.addActionListener(novo);
+        
+        this.buttonAdd.setText("Selecionar");
+        this.buttonEditar.setText("Novo");
+        this.buttonExcluir.setVisible(false);
+    }
+
+    public void setDoubleClickTabela(MouseAdapter event) {
+        this.tabelaNotasFiscais.addMouseListener(event);
     }
 
     @SuppressWarnings("unchecked")

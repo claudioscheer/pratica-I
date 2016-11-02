@@ -121,15 +121,15 @@ public class FormAtivoImobilizado extends WebInternalFrame {
 
     //evento para deletar uma nota fiscal
     private void excluirAtivoImobilizado() {
+        AtivoImobilizado ativoImobilizado = this.panelConsultaAtivoImobilizado.getAtivoImobilizadoSelecionado();
+
+        if (ativoImobilizado == null) {
+            return;
+        }
+
         if (WebOptionPane.showConfirmDialog(this.panelConsultaAtivoImobilizado, "Deseja deletar o ativo imobilizado?", "Excluir",
                 WebOptionPane.YES_NO_OPTION,
                 WebOptionPane.QUESTION_MESSAGE) == WebOptionPane.OK_OPTION) {
-
-            AtivoImobilizado ativoImobilizado = this.panelConsultaAtivoImobilizado.getAtivoImobilizadoSelecionado();
-
-            if (ativoImobilizado == null) {
-                return;
-            }
 
             int index = this.panelConsultaAtivoImobilizado.getIndiceSelecionado();
 
