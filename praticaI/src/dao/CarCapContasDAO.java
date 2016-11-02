@@ -1,13 +1,8 @@
 package dao;
 
-import enumeraveis.StatusConta;
 import enumeraveis.TipoConta;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.CarCapContas;
 import modelAntigo.AtivoImobilizado;
 import org.hibernate.Query;
@@ -93,6 +88,26 @@ public class CarCapContasDAO {
         session.getTransaction().commit();
         session.close();
         return contas;
+
+    }
+
+    public double SomarContas(TipoConta tipo, Date dataInicial, Date dataFinal) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+
+        System.out.println("DataFinal" + dataFinal + "DataInicial: " + dataInicial);
+
+        Query query = session.createQuery("select sum(a.contaValorPago) from CarCapContas as a where contaTipo =:tipo and conta_data_emissao BETWEEN :dataInicial and :dataFinal");
+        query.setParameter("dataInicial", dataInicial);
+        query.setParameter("dataFinal", dataFinal);
+        query.setParameter("tipo", tipo);
+
+        double total = (double) (query.uniqueResult() == null ? 0.0 : query.uniqueResult());
+        
+        session.getTransaction().commit();
+        session.close();
+        return total;
 
     }
 

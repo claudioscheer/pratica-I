@@ -17,7 +17,6 @@
         <mapping class="model.PatHistoricoDepreciacao" />
         <mapping class="model.FlxcxEspFluxoCaixa" />
         <mapping class="model.EstUnidadeMedida" />
-        <mapping class="model.PatImpostoItemNota" />
         <mapping class="model.FlxcxEspFluxoCaixaId" />
         <mapping class="model.EstCategoria" />
         <mapping class="model.FlxcxFluxoCaixa" />
@@ -30,11 +29,9 @@
         <mapping class="model.EstMarca" />
         <mapping class="model.Saldo" />
         <mapping class="model.CarCapContas"/>
-        <mapping class="model.PatImposto" />
         <mapping class="model.FlxcxEspecificacoes"/>
         <mapping class="model.PatAtivoImobilizado" />
         <mapping class="model.CarPessoa"/>
-        <mapping class="model.PatImpostoNotaFiscal" />
         <mapping class="model.CarEstTipoOperacao"/>
         <mapping class="model.PatNotaFiscal"/>
         <mapping class="model.CarCapParcela" />

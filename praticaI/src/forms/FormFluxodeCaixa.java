@@ -76,7 +76,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         checkbox_Lista.setSelected(true);
         checkboxEntrada.setSelected(true);
         checkboxSaida.setSelected(true);
-
+        
     }
 ///        GroupPanel g = new GroupPanel ( splitPane );
 //        g.setBounds(0,0,500,500);
@@ -112,6 +112,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         checkbox_Lista = new com.alee.laf.checkbox.WebCheckBox();
         webComboBox2 = new com.alee.laf.combobox.WebComboBox();
         webLabel11 = new com.alee.laf.label.WebLabel();
+        btnFiltrar = new com.alee.laf.button.WebButton();
         webBreadcrumb2 = new com.alee.extended.breadcrumb.WebBreadcrumb();
         webButton4 = new com.alee.laf.button.WebButton();
         btn_GerarRelatorio = new com.alee.laf.button.WebButton();
@@ -266,10 +267,10 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             }
         });
         txtDataInicial.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtDataInicialInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtDataInicial.addActionListener(new java.awt.event.ActionListener() {
@@ -364,6 +365,13 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
         webLabel11.setText("Definir:");
 
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout webBreadcrumb1Layout = new javax.swing.GroupLayout(webBreadcrumb1);
         webBreadcrumb1.setLayout(webBreadcrumb1Layout);
         webBreadcrumb1Layout.setHorizontalGroup(
@@ -385,65 +393,73 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                 .addComponent(webLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(webComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96)
+                .addGap(36, 36, 36)
                 .addGroup(webBreadcrumb1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(webLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(webBreadcrumb1Layout.createSequentialGroup()
                         .addComponent(checkboxEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(checkboxSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(54, 54, 54)
+                .addGap(42, 42, 42)
                 .addGroup(webBreadcrumb1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(webLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(webBreadcrumb1Layout.createSequentialGroup()
                         .addComponent(checkbox_Grafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(6, 6, 6)
                         .addComponent(checkbox_Lista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
         webBreadcrumb1Layout.setVerticalGroup(
             webBreadcrumb1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(webBreadcrumb1Layout.createSequentialGroup()
                 .addGroup(webBreadcrumb1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(webBreadcrumb1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(webLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webBreadcrumb1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webBreadcrumb1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(webLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webBreadcrumb1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webBreadcrumb1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(webLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webBreadcrumb1Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(comboFiltroData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webBreadcrumb1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(webLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webBreadcrumb1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(webComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webBreadcrumb1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(webBreadcrumb1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(webBreadcrumb1Layout.createSequentialGroup()
-                                .addComponent(webLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(5, 5, 5)
-                                .addGroup(webBreadcrumb1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkboxEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(checkboxSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(17, 17, 17)
+                                .addComponent(webLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(webBreadcrumb1Layout.createSequentialGroup()
-                                .addComponent(webLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(5, 5, 5)
+                                .addGap(11, 11, 11)
+                                .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webBreadcrumb1Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(webLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webBreadcrumb1Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webBreadcrumb1Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(webLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webBreadcrumb1Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(comboFiltroData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webBreadcrumb1Layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(webLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webBreadcrumb1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(webComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webBreadcrumb1Layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addGroup(webBreadcrumb1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkbox_Grafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(checkbox_Lista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addGroup(webBreadcrumb1Layout.createSequentialGroup()
+                                        .addComponent(webLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(5, 5, 5)
+                                        .addGroup(webBreadcrumb1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(checkboxEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(checkboxSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(webBreadcrumb1Layout.createSequentialGroup()
+                                        .addComponent(webLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(5, 5, 5)
+                                        .addGroup(webBreadcrumb1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(checkbox_Grafico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(checkbox_Lista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(webBreadcrumb1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -963,6 +979,21 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     }
 
 
+//    private void BuscaValoresTotais(){
+
+//        CarCapContasDAO contasDao = new CarCapContasDAO();
+//        double totalEntrada = contasDao.SomarContas(TipoConta.Entrada, dataInicial, dataFinal);
+//        double totalSaida = contasDao.SomarContas(TipoConta.Saida, dataInicial, dataFinal);
+//        double saldo = totalEntrada - totalSaida;
+//        
+//        txtTotalEntradas.setText(String.valueOf(totalEntrada));
+//        txtTotalSaidas.setText(String.valueOf(totalSaida));
+//        
+//        txtTotalDisponivel.setText(String.valueOf(saldo));
+//        
+//    }
+    
+    
     private void checkbox_GraficoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkbox_GraficoStateChanged
 
 // TODO add your handling code here:
@@ -1208,32 +1239,38 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     private void txtDataInicialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataInicialFocusLost
 
-        verificaTipoGrafico(verificaTipodeConta(), 0);
+//        verificaTipoGrafico(verificaTipodeConta(), 0);
 
     }//GEN-LAST:event_txtDataInicialFocusLost
 
     private void txtDataInicialFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataInicialFocusGained
 
-        verificaTipoGrafico(verificaTipodeConta(), 0);
+//        verificaTipoGrafico(verificaTipodeConta(), 0);
     }//GEN-LAST:event_txtDataInicialFocusGained
 
     private void txtDataFinalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataFinalFocusGained
 
-        verificaTipoGrafico(verificaTipodeConta(), 0);
+//        verificaTipoGrafico(verificaTipodeConta(), 0);
     }//GEN-LAST:event_txtDataFinalFocusGained
 
     private void txtDataFinalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDataFinalFocusLost
 
-        verificaTipoGrafico(verificaTipodeConta(), 0);
+//        verificaTipoGrafico(verificaTipodeConta(), 0);
 
     }//GEN-LAST:event_txtDataFinalFocusLost
 
     private void comboFiltroDataItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboFiltroDataItemStateChanged
 
-        verificaFiltroData();
-        verificaTipoGrafico(verificaTipodeConta(), 0);
+//        verificaFiltroData();
+//        verificaTipoGrafico(verificaTipodeConta(), 0);
 
     }//GEN-LAST:event_comboFiltroDataItemStateChanged
+
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+//        verificaFiltroData();
+        
+        verificaTipoGrafico(verificaTipodeConta(), 0);
+    }//GEN-LAST:event_btnFiltrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1259,6 +1296,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.checkbox.WebCheckBox GrapLinhas;
     private com.alee.extended.breadcrumb.WebBreadcrumbPanel WebPanelGrafico;
+    private com.alee.laf.button.WebButton btnFiltrar;
     private com.alee.laf.button.WebButton btn_GerarRelatorio;
     private com.alee.laf.checkbox.WebCheckBox checkboxEntrada;
     private com.alee.laf.checkbox.WebCheckBox checkboxSaida;
