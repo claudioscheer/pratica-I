@@ -117,6 +117,7 @@ public class PanelCadNotaFiscal extends WebPanel {
         this.notaFiscal.setCarPessoa(fornecedor);
 
         this.notaFiscal.setNotaValor(this.txtValor.getValue());
+        this.notaFiscal.setNotaAtiva(true);
         return this.notaFiscal;
     }
 
@@ -390,7 +391,7 @@ public class PanelCadNotaFiscal extends WebPanel {
             valortotal += itemNota.getItemNotaValorTotal();
         }
 
-        this.txtValor.setText(String.valueOf(valortotal));
+        this.txtValor.setValue(valortotal);
     }
 
     private void addItemNotaTabela(int index) {

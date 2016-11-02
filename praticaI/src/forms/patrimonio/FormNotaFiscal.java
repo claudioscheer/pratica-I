@@ -134,11 +134,8 @@ public class FormNotaFiscal extends WebInternalFrame {
         this.panelCadastroNotaFiscal.revalidate();
     }
 
-    //evento para deletar uma nota fiscal
     private void deleteNotaFiscal() {
-
         PatNotaFiscal notaFiscal = this.panelConsultaNotaFiscal.getNotaFiscalSelecionada();
-
         if (notaFiscal == null) {
             return;
         }

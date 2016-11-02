@@ -27,9 +27,10 @@ public class NotaFiscalDAO {
     }
 
     public Boolean delete(PatNotaFiscal notaFiscal) {
+        notaFiscal.setNotaAtiva(false);
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        session.delete(notaFiscal);
+        session.update(notaFiscal);
         session.getTransaction().commit();
         session.close();
         return true;
@@ -42,14 +43,14 @@ public class NotaFiscalDAO {
         if (!filtro.isEmpty()) {
             switch (indexfiltro) {
                 case 0:
-                    where = "where n.notaCodigo = :p1";
+                    where = " and n.notaCodigo = :p1";
                     break;
                 case 1:
-                    where = "where n.notaChaveAcesso like :p1";
+                    where = " and n.notaChaveAcesso like :p1";
                     break;
             }
         }
-        Query query = session.createQuery("from PatNotaFiscal as n " + where);
+        Query query = session.createQuery("from PatNotaFiscal as n where n.notaAtiva = true " + where);
         if (!filtro.isEmpty()) {
             switch (indexfiltro) {
                 case 0:

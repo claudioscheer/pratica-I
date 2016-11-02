@@ -61,6 +61,7 @@ public class PanelConsultaNotaFiscal extends WebPanel {
     }
 
     public void addNotaFiscal(PatNotaFiscal notaFiscal) {
+        notaFiscal = new NotaFiscalDAO().get(notaFiscal.getNotaCodigo());
         this.notasFiscais.add(0, notaFiscal);
         DefaultTableModel model = (DefaultTableModel) this.tabelaNotasFiscais.getModel();
         model.insertRow(0, notaToArray(notaFiscal));
