@@ -5,12 +5,12 @@ import dao.HistoricoDepreciacaoDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
-import modelAntigo.AtivoImobilizado;
-import modelAntigo.HistoricoDepreciacao;
+import model.PatAtivoImobilizado;
+import model.PatHistoricoDepreciacao;
 
 public class FormHistoricoDepreciacoes extends JFrameBusca {
 
-    private AtivoImobilizado ativoImobilizado;
+    private PatAtivoImobilizado ativoImobilizado;
 
     public FormHistoricoDepreciacoes() {
         initComponents();
@@ -18,7 +18,7 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
         this.txtBuscar.showComboOpcoes(false);
     }
 
-    public void setAtivoImobilizado(AtivoImobilizado ativoImobilizado) {
+    public void setAtivoImobilizado(PatAtivoImobilizado ativoImobilizado) {
         this.ativoImobilizado = ativoImobilizado;
         this.atualizarTabela();
     }
@@ -34,11 +34,11 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
 
             DefaultTableModel model = (DefaultTableModel) tabelaHistoricoDepreciacoes.getModel();
 
-            List<HistoricoDepreciacao> historicoDepreciacoes = new HistoricoDepreciacaoDAO().getAll(ativoImobilizado);
-            for (HistoricoDepreciacao hd : historicoDepreciacoes) {
+            List<PatHistoricoDepreciacao> historicoDepreciacoes = new HistoricoDepreciacaoDAO().getAll(ativoImobilizado);
+            for (PatHistoricoDepreciacao hd : historicoDepreciacoes) {
                 Object[] o = new Object[2];
-                o[0] = hd.getDia();
-                o[1] = hd.getValor();
+                o[0] = hd.getHistoricoDepreciacaoDia();
+                o[1] = hd.getHistoricoDepreciacaoValor();
                 model.addRow(o);
             }
 

@@ -1,27 +1,23 @@
 package components.panelsListagem;
 
 import com.alee.laf.panel.WebPanel;
-import com.alee.laf.table.WebTable;
 import dao.AtivoImobilizadoDAO;
-import forms.patrimonio.FormAtivoImobilizado;
 import forms.patrimonio.FormHistoricoDepreciacoes;
 import forms.FormPrincipal;
 import forms.patrimonio.FormQrCodeAtivoImobilizado;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
-import modelAntigo.AtivoImobilizado;
+import model.PatAtivoImobilizado;
 import utils.Utils;
 
-public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionListener {
+public class PanelConsultaAtivoImobilizado extends WebPanel {
 
-    private List<AtivoImobilizado> ativosImobilizados;
+    private List<PatAtivoImobilizado> ativosImobilizados;
 
     private AdjustmentListener eventoScroll;
 
@@ -32,34 +28,53 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
 
     public PanelConsultaAtivoImobilizado() {
         initComponents();
-
-        this.eventoScroll = (e) -> {
-            onScroll();
-        };
-
-        new LoadAtivosImobilizados().execute();
-
         this.ativosImobilizados = new ArrayList<>();
 
-        this.paginaBuscar = 0;
+//        this.eventoScroll = (e) -> {
+//            onScroll();
+//        };
+        new LoadAtivosImobilizados().execute();
+
         this.txtBuscar.setEventBuscar((e) -> {
-            this.atualizarTabela(true);
+            this.ativosImobilizados.clear();
+            new LoadAtivosImobilizados().execute();
         });
-        this.txtBuscar.addOpcoesBuscar(new String[]{"Código", "Descrição"});
+
+        this.verificaPlaceholderText();
+        this.txtBuscar.setEventChangeComboBox(al -> {
+            this.verificaPlaceholderText();
+        });
+
+        this.txtBuscar.addOpcoesBuscar(new String[]{
+            "Código",
+            "Descrição"
+        });
     }
 
     public class LoadAtivosImobilizados extends SwingWorker<Void, Void> {
 
         protected Void doInBackground() throws Exception {
-            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
+//            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
             ativosImobilizados.addAll(new AtivoImobilizadoDAO().getAll(paginaBuscar));
             atualizarTabela(true);
             return null;
         }
 
         public void done() {
-            ultimaPosicaoTabela = scrollPanel.getVerticalScrollBar().getMaximum();
-            scrollPanel.getVerticalScrollBar().addAdjustmentListener(eventoScroll);
+//            ultimaPosicaoTabela = scrollPanel.getVerticalScrollBar().getMaximum();
+//            scrollPanel.getVerticalScrollBar().addAdjustmentListener(eventoScroll);
+        }
+    }
+
+    private void verificaPlaceholderText() {
+        switch (this.txtBuscar.getFiltroSelecionado()) {
+            case 0:
+                this.txtBuscar.setPlaceholderText("Digite o código do ativo");
+                break;
+
+            case 1:
+                this.txtBuscar.setPlaceholderText("Digite a descrição do ativo");
+                break;
         }
     }
 
@@ -67,7 +82,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
         return this.indexSelecionado;
     }
 
-    public void addAtivoImobilizado(AtivoImobilizado ativo) {
+    public void addAtivoImobilizado(PatAtivoImobilizado ativo) {
+        ativo = new AtivoImobilizadoDAO().get(ativo.getAtivoCodigo());
         this.ativosImobilizados.add(0, ativo);
         DefaultTableModel model = (DefaultTableModel) this.tabelaAtivosImobilizados.getModel();
         model.insertRow(0, ativoToArray(ativo));
@@ -88,40 +104,20 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
             Utils.clearTableModel(model);
         }
 
-        int filtro = this.txtBuscar.getFiltroSelecionado();
-
-        List<AtivoImobilizado> ativosFiltrado = this.ativosImobilizados;
-
-//        String textBuscar = this.txtBuscar.getText();
-//
-//        if (!textBuscar.isEmpty()) {
-//            if (filtro == 0) {
-//                try {
-//                    int codigo = Integer.parseInt(textBuscar);
-//                    ativosFiltrado = this.ativosImobilizados.stream().filter(x -> x.getAtivoImobilizado() == codigo).collect(Collectors.toList());
-//                } catch (Exception e) {
-//                }
-//            } else if (filtro == 1) {
-//                ativosFiltrado = this.ativosImobilizados.stream().filter(x -> x.getDescricao().contains(textBuscar)).collect(Collectors.toList());
-//            }
-//        }
-//        for (int i = ultimoIndex; i < ativosFiltrado.size(); i++) {
-//            
-//        }
-        ativosFiltrado.forEach(x -> {
+        this.ativosImobilizados.forEach(x -> {
             model.addRow(ativoToArray(x));
         });
 
         this.tabelaAtivosImobilizados.setModel(model);
     }
 
-    private Object[] ativoToArray(AtivoImobilizado ativo) {
+    private Object[] ativoToArray(PatAtivoImobilizado ativo) {
         Object[] o = new Object[5];
-        o[0] = ativo.getAtivoImobilizado();
-        o[1] = ativo.getDescricao();
-        o[2] = ativo.getCategoria().getDescricao();
-        o[3] = ativo.getMarca().getDescricao();
-        o[4] = ativo.getValorAtual();
+        o[0] = ativo.getAtivoCodigo();
+        o[1] = ativo.getAtivoDescricao();
+        o[2] = ativo.getEstCategoria().getCategoriaDescricao();
+        o[3] = ativo.getEstMarca().getMarcaDescricao();
+        o[4] = ativo.getAtivoValorAtual();
         return o;
     }
 
@@ -140,7 +136,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
         }
     }
 
-    public AtivoImobilizado getAtivoImobilizadoSelecionado() {
+    public PatAtivoImobilizado getAtivoImobilizadoSelecionado() {
         int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
         if (linhaselecionada < 0) {
             Utils.notificacao("Selecione um ativo imobilizado!", Utils.TipoNotificacao.erro, 0);
@@ -148,11 +144,6 @@ public class PanelConsultaAtivoImobilizado extends WebPanel implements ActionLis
         }
         this.indexSelecionado = linhaselecionada;
         return this.ativosImobilizados.get(linhaselecionada);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        System.out.println("asdjkfaksldjfnkajsdfnk");
     }
 
     @SuppressWarnings("unchecked")

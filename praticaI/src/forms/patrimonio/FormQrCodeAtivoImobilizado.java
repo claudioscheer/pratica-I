@@ -1,32 +1,22 @@
 package forms.patrimonio;
 
-//import com.google.zxing.BarcodeFormat;
-//import com.google.zxing.EncodeHintType;
-//import com.google.zxing.WriterException;
-//import com.google.zxing.common.BitMatrix;
-//import com.google.zxing.qrcode.QRCodeWriter;
-//import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import components.JFrameBusca;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Hashtable;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import modelAntigo.AtivoImobilizado;
-import utils.Utils;
+import model.PatAtivoImobilizado;
 
 public class FormQrCodeAtivoImobilizado extends JFrameBusca {
 
     private BufferedImage image;
-    private AtivoImobilizado ativoImobilizado;
+    private PatAtivoImobilizado ativoImobilizado;
 
     private int ultimoSize;
 
@@ -43,13 +33,13 @@ public class FormQrCodeAtivoImobilizado extends JFrameBusca {
         this.setBounds(b.x, b.y, b.width, b.width * H / W);
     }
 
-    public void setAtivoImobilizado(AtivoImobilizado ativoImobilizado) {
+    public void setAtivoImobilizado(PatAtivoImobilizado ativoImobilizado) {
         this.ativoImobilizado = ativoImobilizado;
         this.gerarQrCode();
     }
 
     private void gerarQrCode() {
-        generateQrCode(String.valueOf(ativoImobilizado.getAtivoImobilizado()));
+        generateQrCode(String.valueOf(ativoImobilizado.getAtivoCodigo()));
     }
 
     @SuppressWarnings("unchecked")

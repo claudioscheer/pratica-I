@@ -1,57 +1,49 @@
 package forms.busca;
 
+import com.alee.laf.optionpane.WebOptionPane;
 import components.JFrameBusca;
 import components.TextFieldFK;
-import components.panelsCads.PanelCadImposto;
-import dao.ImpostoDAO;
+import components.panelsCads.PanelCadTipoBaixa;
+import dao.NotaFiscalDAO;
+import dao.PatTipoBaixaDAO;
 import java.util.List;
 import java.util.function.Consumer;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+import model.PatTipoBaixa;
 import utils.Utils;
 
-public class FormBuscaImposto extends JFrameBusca {
+public class FormBuscaTipoBaixa extends JFrameBusca {
 
-    private PanelCadImposto panelCadastro;
+    private PanelCadTipoBaixa panelCadastro;
     public int indexEditando;
 
-    private LoadImpostos loadImpostos;
-    private List<Imposto> impostos;
+    private List<PatTipoBaixa> tiposBaixa;
 
-    public FormBuscaImposto() {
+    public FormBuscaTipoBaixa() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.txtBuscar.showComboOpcoes(false);
-        this.buscarImpostos();
+        new LoadTipoBaixa().execute();
     }
 
-    public void buscarImpostos() {
-        this.loadImpostos = new LoadImpostos();
-        this.loadImpostos.execute();
-    }
-
-    public class LoadImpostos extends SwingWorker<Void, Void> {
+    public class LoadTipoBaixa extends SwingWorker<Void, Void> {
 
         protected Void doInBackground() throws Exception {
 
-            DefaultTableModel model = (DefaultTableModel) tabelaImpostos.getModel();
+            DefaultTableModel model = (DefaultTableModel) tabelaTipoBaixa.getModel();
 
-            impostos = new ImpostoDAO().getAll();
-            for (Imposto imposto : impostos) {
-                Object[] o = new Object[3];
-                o[0] = imposto.getImposto();
-                o[1] = imposto.getNome();
-                o[2] = imposto.getAliquota();
-                model.addRow(o);
+            tiposBaixa = new PatTipoBaixaDAO().getAll();
+            for (PatTipoBaixa tipoBaixa : tiposBaixa) {
+                model.addRow(impostoToArray(tipoBaixa));
             }
-            tabelaImpostos.setModel(model);
+            tabelaTipoBaixa.setModel(model);
             return null;
         }
 
         public void done() {
 
         }
-
     }
 
     @SuppressWarnings("unchecked")
@@ -64,9 +56,10 @@ public class FormBuscaImposto extends JFrameBusca {
         buttonSelecionar = new com.alee.laf.button.WebButton();
         btnNovo = new com.alee.laf.button.WebButton();
         buttonEditar = new com.alee.laf.button.WebButton();
+        btnExcluir = new com.alee.laf.button.WebButton();
         txtBuscar = new components.TextFieldBuscar();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaImpostos = new javax.swing.JTable();
+        tabelaTipoBaixa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -98,6 +91,13 @@ public class FormBuscaImposto extends JFrameBusca {
             }
         });
 
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
         panelOpcoes.setLayout(panelOpcoesLayout);
         panelOpcoesLayout.setHorizontalGroup(
@@ -105,7 +105,9 @@ public class FormBuscaImposto extends JFrameBusca {
             .addGroup(panelOpcoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 706, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 620, Short.MAX_VALUE)
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -118,27 +120,28 @@ public class FormBuscaImposto extends JFrameBusca {
                 .addGroup(panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6))
         );
 
-        tabelaImpostos.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaTipoBaixa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Nome", "Alíquota"
+                "Código", "Nome"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tabelaImpostos);
+        jScrollPane2.setViewportView(tabelaTipoBaixa);
 
         javax.swing.GroupLayout panelConsultaLayout = new javax.swing.GroupLayout(panelConsulta);
         panelConsulta.setLayout(panelConsultaLayout);
@@ -197,20 +200,20 @@ public class FormBuscaImposto extends JFrameBusca {
     }//GEN-LAST:event_formWindowClosing
 
     private void buttonSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelecionarActionPerformed
-        int linhaselecionada = this.tabelaImpostos.getSelectedRow();
+        int linhaselecionada = this.tabelaTipoBaixa.getSelectedRow();
         if (linhaselecionada < 0) {
-            Utils.notificacao("Selecione um imposto!", Utils.TipoNotificacao.erro, 0);
+            Utils.notificacao("Selecione um tipo de baixa!", Utils.TipoNotificacao.erro, 0);
             return;
         }
 
-        Imposto imposto = this.impostos.get(linhaselecionada);
+        PatTipoBaixa tipoBaixa = this.tiposBaixa.get(linhaselecionada);
         if (this.getFrameBuscaTipo() == JFrameBuscaTipo.textFieldFK) {
             TextFieldFK text = this.getTextFieldFK();
-            text.setText(imposto.getImposto() + " - " + imposto.getNome());
-            text.setValue(imposto);
+            text.setText(tipoBaixa.getTipoBaixaCodigo() + " - " + tipoBaixa.getTipoBaixaDescricao());
+            text.setValue(tipoBaixa);
         } else {
             Consumer<Object> function = this.getFunction();
-            function.accept(imposto);
+            function.accept(tipoBaixa);
         }
 
         this.getFrameBloquear().setEnabled(true);
@@ -222,24 +225,42 @@ public class FormBuscaImposto extends JFrameBusca {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
-        int linhaselecionada = this.tabelaImpostos.getSelectedRow();
+        int linhaselecionada = this.tabelaTipoBaixa.getSelectedRow();
         if (linhaselecionada < 0) {
-            Utils.notificacao("Selecione um imposto!", Utils.TipoNotificacao.erro, 0);
+            Utils.notificacao("Selecione um tipo de baixa!", Utils.TipoNotificacao.erro, 0);
             return;
         }
 
-        Imposto imposto = this.impostos.get(linhaselecionada);
+        PatTipoBaixa tipoBaixa = this.tiposBaixa.get(linhaselecionada);
 
         this.indexEditando = linhaselecionada;
 
         this.initFormCadastro();
         this.fecharAbrirPanelCadastro(false);
 
-        this.panelCadastro.setDadosEditar(imposto);
+        this.panelCadastro.setDadosEditar(tipoBaixa);
     }//GEN-LAST:event_buttonEditarActionPerformed
 
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int linhaselecionada = this.tabelaTipoBaixa.getSelectedRow();
+        if (linhaselecionada < 0) {
+            Utils.notificacao("Selecione um tipo de baixa!", Utils.TipoNotificacao.erro, 0);
+            return;
+        }
+
+        if (WebOptionPane.showConfirmDialog(this, "Deseja deletar o tipo de baixa?", "Excluir",
+                WebOptionPane.YES_NO_OPTION,
+                WebOptionPane.QUESTION_MESSAGE) == WebOptionPane.OK_OPTION) {
+
+            PatTipoBaixa tipoBaixa = this.tiposBaixa.get(linhaselecionada);
+            new PatTipoBaixaDAO().delete(tipoBaixa);
+            this.removeImposto(linhaselecionada);
+            Utils.notificacao("Tipo baixa removida!", Utils.TipoNotificacao.ok, 0);
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
     private void initFormCadastro() {
-        this.panelCadastro = new PanelCadImposto();
+        this.panelCadastro = new PanelCadTipoBaixa();
         this.panelCadastro.init();
         this.panelCadastro.setEvents((e) -> {
             this.salvarImposto();
@@ -256,42 +277,41 @@ public class FormBuscaImposto extends JFrameBusca {
             return;
         }
 
-        Imposto imposto = this.panelCadastro.getAtivoImobilizado();
+        PatTipoBaixa imposto = this.panelCadastro.getTipoBaixa();
         if (!this.panelCadastro.editando) {
-            new ImpostoDAO().insert(imposto);
+            new PatTipoBaixaDAO().insert(imposto);
         } else {
-            new ImpostoDAO().update(imposto);
+            new PatTipoBaixaDAO().update(imposto);
             this.panelCadastro.editando = false;
             this.removeImposto(this.indexEditando);
             this.indexEditando = -1;
         }
 
-        this.addImposto(imposto);
+        this.addTipoBaixa(imposto);
 
-        Utils.notificacao("Imposto salvo!", Utils.TipoNotificacao.ok, 0);
+        Utils.notificacao("Tipo de baixa salvo!", Utils.TipoNotificacao.ok, 0);
         this.fecharAbrirPanelCadastro(true);
     }
 
-    public void addImposto(Imposto imposto) {
-        this.impostos.add(0, imposto);
-        DefaultTableModel model = (DefaultTableModel) this.tabelaImpostos.getModel();
+    public void addTipoBaixa(PatTipoBaixa imposto) {
+        this.tiposBaixa.add(0, imposto);
+        DefaultTableModel model = (DefaultTableModel) this.tabelaTipoBaixa.getModel();
         model.insertRow(0, impostoToArray(imposto));
-        this.tabelaImpostos.setModel(model);
+        this.tabelaTipoBaixa.setModel(model);
     }
 
-    private Object[] impostoToArray(Imposto imposto) {
-        Object[] o = new Object[5];
-        o[0] = imposto.getImposto();
-        o[1] = imposto.getNome();
-        o[2] = imposto.getAliquota();
+    private Object[] impostoToArray(PatTipoBaixa imposto) {
+        Object[] o = new Object[2];
+        o[0] = imposto.getTipoBaixaCodigo();
+        o[1] = imposto.getTipoBaixaDescricao();
         return o;
     }
 
     public void removeImposto(int index) {
-        this.impostos.remove(index);
-        DefaultTableModel model = (DefaultTableModel) this.tabelaImpostos.getModel();
+        this.tiposBaixa.remove(index);
+        DefaultTableModel model = (DefaultTableModel) this.tabelaTipoBaixa.getModel();
         model.removeRow(index);
-        this.tabelaImpostos.setModel(model);
+        this.tabelaTipoBaixa.setModel(model);
     }
 
     private void fecharAbrirPanelCadastro(boolean fechar) {
@@ -308,6 +328,7 @@ public class FormBuscaImposto extends JFrameBusca {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.alee.laf.button.WebButton btnExcluir;
     private com.alee.laf.button.WebButton btnNovo;
     private com.alee.laf.button.WebButton buttonEditar;
     private com.alee.laf.button.WebButton buttonSelecionar;
@@ -315,7 +336,7 @@ public class FormBuscaImposto extends JFrameBusca {
     private javax.swing.JPanel panelConsulta;
     private javax.swing.JPanel panelOpcoes;
     private javax.swing.JPanel panelPanels;
-    private javax.swing.JTable tabelaImpostos;
+    private javax.swing.JTable tabelaTipoBaixa;
     private components.TextFieldBuscar txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

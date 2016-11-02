@@ -3,28 +3,27 @@ package components.panelsCads;
 import com.alee.laf.panel.WebPanel;
 import components.Validador;
 import java.awt.event.ActionListener;
-import modelAntigo.Imposto;
+import model.PatTipoBaixa;
 import utils.Utils;
 
-public class PanelCadImposto extends WebPanel {
+public class PanelCadTipoBaixa extends WebPanel {
 
     public Validador validador;
-    private Imposto imposto;
+    private PatTipoBaixa tipoBaixa;
 
     public boolean editando;
 
-    public PanelCadImposto() {
+    public PanelCadTipoBaixa() {
     }
 
-    public void setDadosEditar(Imposto imposto) {
-        this.imposto = imposto;
+    public void setDadosEditar(PatTipoBaixa tipoBaixa) {
+        this.tipoBaixa = tipoBaixa;
         this.editando = true;
         this.setDadosForm();
     }
 
     private void setDadosForm() {
-        this.txtNome.setText(this.imposto.getNome());
-        this.txtAliquota.setText(String.valueOf(this.imposto.getAliquota()));
+        this.txtDescricao.setText(this.tipoBaixa.getTipoBaixaDescricao());
     }
 
     public void init() {
@@ -32,12 +31,8 @@ public class PanelCadImposto extends WebPanel {
 
         //inicia o validador
         this.validador = new Validador(Validador.TipoValidator.ICONE);
-        this.validador.addObrigatorioValidator(this.txtNome);
-        this.validador.addObrigatorioValidator(this.txtAliquota);
+        this.validador.addObrigatorioValidator(this.txtDescricao);
         
-        this.validador.addMaiorQueValidator(this.txtAliquota, 0.00);
-        this.validador.addMaiorQueValidator(this.txtAliquota, 0.00);
-
         this.scrollCadastro.getVerticalScrollBar().setUnitIncrement(20);
     }
 
@@ -46,15 +41,14 @@ public class PanelCadImposto extends WebPanel {
         this.btnCancelar.addActionListener(cancelar);
     }
 
-    public Imposto getAtivoImobilizado() {
+    public PatTipoBaixa getTipoBaixa() {
         if (!this.editando) {
-            this.imposto = new Imposto();
+            this.tipoBaixa = new PatTipoBaixa();
         }
 
-        this.imposto.setNome(this.txtNome.getText());
-        this.imposto.setAliquota(Double.parseDouble(this.txtAliquota.getText()));
+        this.tipoBaixa.setTipoBaixaDescricao(this.txtDescricao.getText());
 
-        return this.imposto;
+        return this.tipoBaixa;
     }
 
     @SuppressWarnings("unchecked")
@@ -64,10 +58,7 @@ public class PanelCadImposto extends WebPanel {
         scrollCadastro = new javax.swing.JScrollPane();
         panelItens = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtAliquota = new javax.swing.JFormattedTextField(
-            Utils.getMascara(Utils.MascarasPadrao.taxa));
+        txtDescricao = new javax.swing.JTextField();
         panelOpcoes = new javax.swing.JPanel();
         btnSalvar = new com.alee.laf.button.WebButton();
         btnCancelar = new com.alee.laf.button.WebButton();
@@ -84,8 +75,6 @@ public class PanelCadImposto extends WebPanel {
 
         jLabel1.setText("Descrição");
 
-        jLabel2.setText("Alíquota");
-
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
         panelItensLayout.setHorizontalGroup(
@@ -93,11 +82,9 @@ public class PanelCadImposto extends WebPanel {
             .addGroup(panelItensLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(txtAliquota, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
         panelItensLayout.setVerticalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,12 +92,8 @@ public class PanelCadImposto extends WebPanel {
                 .addGap(11, 11, 11)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAliquota, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(318, Short.MAX_VALUE))
         );
 
         scrollCadastro.setViewportView(panelItens);
@@ -126,7 +109,7 @@ public class PanelCadImposto extends WebPanel {
         panelOpcoesLayout.setHorizontalGroup(
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
-                .addContainerGap(507, Short.MAX_VALUE)
+                .addContainerGap(356, Short.MAX_VALUE)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,11 +146,9 @@ public class PanelCadImposto extends WebPanel {
     private com.alee.laf.button.WebButton btnCancelar;
     private com.alee.laf.button.WebButton btnSalvar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel panelItens;
     private javax.swing.JPanel panelOpcoes;
     private javax.swing.JScrollPane scrollCadastro;
-    private javax.swing.JFormattedTextField txtAliquota;
-    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtDescricao;
     // End of variables declaration//GEN-END:variables
 }

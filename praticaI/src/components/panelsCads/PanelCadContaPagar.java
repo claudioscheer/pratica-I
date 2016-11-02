@@ -5,7 +5,7 @@ import com.alee.laf.panel.WebPanel;
 import components.Validador;
 import forms.FormPrincipal;
 import forms.busca.FormBuscaContaContabil;
-import forms.busca.FormBuscaImposto;
+import forms.busca.FormBuscaTipoBaixa;
 import forms.busca.FormBuscaNotaFiscal;
 import forms.busca.FormBuscaItemNota;
 import forms.busca.FormBuscaFornecedor;

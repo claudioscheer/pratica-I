@@ -5,6 +5,7 @@ import components.Validador;
 import forms.FormPrincipal;
 import forms.busca.FormBuscaItemNota;
 import forms.busca.FormBuscaNotaFiscal;
+import forms.busca.FormBuscaTipoBaixa;
 import java.awt.Frame;
 import java.awt.Point;
 import java.awt.event.ActionListener;
@@ -69,7 +70,7 @@ public class PanelCadNotaFiscal extends WebPanel {
             }
         });
 
-        FormBuscaNotaFiscal f = new FormBuscaNotaFiscal();
+        FormBuscaTipoBaixa f = new FormBuscaTipoBaixa();
         f.setFrameBloquear(this.frameBloquear);
         this.txtFornecedor.setFrame(f);
 

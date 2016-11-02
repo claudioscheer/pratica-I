@@ -1,7 +1,7 @@
 package dao;
 
 import java.util.List;
-import modelAntigo.AtivoImobilizado;
+import model.PatAtivoImobilizado;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
@@ -9,7 +9,7 @@ import utils.Utils;
 
 public class AtivoImobilizadoDAO {
 
-    public Boolean update(AtivoImobilizado ativoImobilizado) {
+    public Boolean update(PatAtivoImobilizado ativoImobilizado) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.update(ativoImobilizado);
@@ -18,7 +18,7 @@ public class AtivoImobilizadoDAO {
         return true;
     }
 
-    public Boolean insert(AtivoImobilizado ativoImobilizado) {
+    public Boolean insert(PatAtivoImobilizado ativoImobilizado) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.save(ativoImobilizado);
@@ -27,7 +27,7 @@ public class AtivoImobilizadoDAO {
         return true;
     }
 
-    public Boolean delete(AtivoImobilizado ativoImobilizado) {
+    public Boolean delete(PatAtivoImobilizado ativoImobilizado) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.delete(ativoImobilizado);
@@ -36,25 +36,22 @@ public class AtivoImobilizadoDAO {
         return true;
     }
 
-    public List<AtivoImobilizado> getAll(int paginaBuscar) {
-        System.out.println("---------------------------------------------"
-                + "------------------------------------------------------"
-                + "----------------------------------------- " + paginaBuscar);
+    public List<PatAtivoImobilizado> getAll(int paginaBuscar) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from AtivoImobilizado as a ");
+        Query query = session.createQuery("from PatAtivoImobilizado as a ");
         query.setFirstResult(paginaBuscar * Utils.MaxResultQuery);
         query.setMaxResults(Utils.MaxResultQuery);
-        List<AtivoImobilizado> ativos = query.list();
+        List<PatAtivoImobilizado> ativos = query.list();
         session.getTransaction().commit();
         session.close();
         return ativos;
     }
 
-    public AtivoImobilizado get(int ativo) {
+    public PatAtivoImobilizado get(int ativo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        AtivoImobilizado ativoImobilizado = (AtivoImobilizado) session.get(AtivoImobilizado.class, ativo);
+        PatAtivoImobilizado ativoImobilizado = (PatAtivoImobilizado) session.get(PatAtivoImobilizado.class, ativo);
         session.getTransaction().commit();
         session.close();
         return ativoImobilizado;
