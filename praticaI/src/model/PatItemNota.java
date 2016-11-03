@@ -22,6 +22,7 @@ public class PatItemNota implements java.io.Serializable {
     private int itemNotaQuantidade;
     private double itemNotaValorUnitario;
     private double itemNotaValorTotal;
+    private int ordem;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_item_nota")
@@ -79,6 +80,15 @@ public class PatItemNota implements java.io.Serializable {
 
     public void setItemNotaValorTotal(double itemNotaValorTotal) {
         this.itemNotaValorTotal = itemNotaValorTotal;
+    }
+
+    @Column(name = "item_nota_ordem", nullable = false)
+    public int getOrdem() {
+        return ordem;
+    }
+
+    public void setOrdem(int ordem) {
+        this.ordem = ordem;
     }
 
 }

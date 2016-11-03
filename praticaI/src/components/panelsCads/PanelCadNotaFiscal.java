@@ -119,6 +119,11 @@ public class PanelCadNotaFiscal extends WebPanel {
 
         this.notaFiscal.setNotaValor(this.txtValor.getValue());
         this.notaFiscal.setNotaAtiva(true);
+        
+        for (int i = 0; i < this.notaFiscal.getPatItemNotas().size(); i++) {
+            this.notaFiscal.getPatItemNotas().get(i).setOrdem(i + 1);
+        }
+        
         return this.notaFiscal;
     }
 

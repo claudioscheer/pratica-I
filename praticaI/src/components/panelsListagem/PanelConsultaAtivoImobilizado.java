@@ -39,15 +39,15 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
             this.ativosImobilizados.clear();
             new LoadAtivosImobilizados().execute();
         });
+        
+        this.txtBuscar.addOpcoesBuscar(new String[]{
+            "Código",
+            "Descrição"
+        });
 
         this.verificaPlaceholderText();
         this.txtBuscar.setEventChangeComboBox(al -> {
             this.verificaPlaceholderText();
-        });
-
-        this.txtBuscar.addOpcoesBuscar(new String[]{
-            "Código",
-            "Descrição"
         });
     }
 

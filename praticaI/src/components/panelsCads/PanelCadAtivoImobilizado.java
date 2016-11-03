@@ -54,16 +54,18 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.txtNotaFiscal.setValue(this.ativoImobilizado.getPatItemNota().getPatNotaFiscal());
         this.notaFiscal = this.ativoImobilizado.getPatItemNota().getPatNotaFiscal();
         this.recarregarItensNota();
+
+        this.comboItemNota.setSelectedIndex(this.ativoImobilizado.getPatItemNota().getOrdem() - 1);
     }
 
     public void init() {
         this.initComponents();
 
-        this.validador = new Validador(Validador.TipoValidator.ICONE);
+        this.validador = new Validador(Validador.TipoValidator.TEXTO);
         this.validador.addObrigatorioValidator(this.txtDescricao);
         this.validador.addObrigatorioValidator(this.txtCategoria);
         this.validador.addObrigatorioValidator(this.txtMarca);
-//        this.validador.addObrigatorioValidator(txtNotaFiscal);
+        this.validador.addObrigatorioValidator(txtNotaFiscal);
         this.validador.addObrigatorioValidator(this.txtValorOriginal);
         this.validador.addApenasNumeroValidator(this.txtValorOriginal);
         this.validador.addObrigatorioValidator(this.txtValorAtual);
