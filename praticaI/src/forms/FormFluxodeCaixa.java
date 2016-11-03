@@ -32,6 +32,7 @@ import model.Graficos;
 import model.Relatorios;
 import net.sf.jasperreports.engine.JRException;
 import org.jfree.chart.ChartPanel;
+import utils.Utils;
 
 /**
  *
@@ -46,6 +47,9 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     String titulo;
     Date dataInicial;
     Date dataFinal;
+
+    private final CarCapContasDAO buscarconta = new CarCapContasDAO();
+    private List<CarCapContas> contas;
 
     public FormFluxodeCaixa() {
 
@@ -69,14 +73,13 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         //checkbox_Grafico.setSelected(false);
 
         // verificaTipoGrafico(TipoConta.ambos);
-        CarregarGraficoJTable(titulo, tipo, 1, TipoConta.ambos, dataInicial, dataFinal);
-        CarregarGraficoJTable(null, null, 3, TipoConta.ambos, dataInicial, dataFinal);
-
+        contas = this.buscarconta.ListarTodos(dataInicial, dataFinal);
+        
         checkbox_Grafico.setSelected(true);
         checkbox_Lista.setSelected(true);
         checkboxEntrada.setSelected(true);
         checkboxSaida.setSelected(true);
-        
+
     }
 ///        GroupPanel g = new GroupPanel ( splitPane );
 //        g.setBounds(0,0,500,500);
@@ -627,17 +630,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     public List<CarCapContas> CarregarGraficoJTable(String nome, TipoGrafico tipografico, int posicao, TipoConta tipoconta, Date DataInicial, Date DataFinal) {
 
-        CarCapContasDAO buscarconta = new CarCapContasDAO();
-
-        List<CarCapContas> contas;
-        
-        if (tipoconta == TipoConta.ambos) {
-            contas = buscarconta.ListarTodos(txtDataInicial.getDate(), txtDataFinal.getDate());
-        } else {
-           contas = buscarconta.ListarContas(tipoconta, txtDataInicial.getDate(), txtDataFinal.getDate());
-        }
-
-
         //Calendar c2 = Calendar.getInstance();
         // posicao = 1 (esquerda), posicao = 2 (direita), posicao 3 = JTable direita
         if (posicao == 1) {
@@ -710,8 +702,8 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                 }
             }
 
-            txtTotalEntradas.setText(String.valueOf(totalEntradas));
-            txtTotalSaidas.setText(String.valueOf(totalSaidas));
+            txtTotalEntradas.setText(String.valueOf(Utils.format(totalEntradas)));
+            txtTotalSaidas.setText(String.valueOf(Utils.format(totalSaidas)));
 
             tablenovo.setModel(modelTabela);
 
@@ -753,6 +745,8 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             // Recarrega a WebPanel
             CarregarGraficoJTable("", null, 3, tipoconta, txtDataInicial.getDate(), txtDataFinal.getDate());
 
+            checkbox_Lista.setSelected(true);
+
         } else if (!GrapLinhas.isSelected() && grapBarras.isSelected() && !grapPizza.isSelected()) {
 
             this.titulo = "Gráfico de Barras";
@@ -761,6 +755,8 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
             CarregarGraficoJTable("", null, 3, tipoconta, txtDataInicial.getDate(), txtDataFinal.getDate());
 
+            checkbox_Lista.setSelected(true);
+
         } else if (!GrapLinhas.isSelected() && !grapBarras.isSelected() && grapPizza.isSelected()) {
 
             this.titulo = "Gráfico de Pizza";
@@ -768,6 +764,8 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             CarregarGraficoJTable(titulo, tipo, 1, tipoconta, txtDataInicial.getDate(), txtDataFinal.getDate());
 
             CarregarGraficoJTable("", null, 3, tipoconta, txtDataInicial.getDate(), txtDataFinal.getDate());
+
+            checkbox_Lista.setSelected(true);
 
         } else if (GrapLinhas.isSelected() && grapBarras.isSelected() && !grapPizza.isSelected() && checkbox_Grafico.isSelected()) {
 
@@ -780,6 +778,8 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             this.tipo = TipoGrafico.barras;
             CarregarGraficoJTable(titulo, tipo, 2, tipoconta, txtDataInicial.getDate(), txtDataFinal.getDate());
 
+            checkbox_Lista.setSelected(false);
+
         } else if (!GrapLinhas.isSelected() && grapBarras.isSelected() && grapPizza.isSelected() && checkbox_Grafico.isSelected()) {
 
             this.titulo = "Gráfico de Barras";
@@ -789,6 +789,8 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             this.titulo = "Gráfico de Pizza";
             this.tipo = TipoGrafico.pizza;
             CarregarGraficoJTable(titulo, tipo, 2, tipoconta, txtDataInicial.getDate(), txtDataFinal.getDate());
+
+            checkbox_Lista.setSelected(false);
 
         } else if (GrapLinhas.isSelected() && !grapBarras.isSelected() && grapPizza.isSelected() && checkbox_Grafico.isSelected()) {
 
@@ -800,6 +802,13 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             this.tipo = TipoGrafico.pizza;
             CarregarGraficoJTable(titulo, tipo, 2, tipoconta, txtDataInicial.getDate(), txtDataFinal.getDate());
 
+            checkbox_Lista.setSelected(false);
+
+        } else if (!GrapLinhas.isSelected() && !grapBarras.isSelected() && !grapPizza.isSelected() && checkbox_Grafico.isSelected() && checkbox_Lista.isSelected()) {
+
+            CarregarGraficoJTable(titulo, tipo, 1, TipoConta.ambos, dataInicial, dataFinal);
+            CarregarGraficoJTable(null, null, 3, TipoConta.ambos, dataInicial, dataFinal);
+            
         } else {
 
             CarregarGraficoJTable(null, null, 3, tipoconta, txtDataInicial.getDate(), txtDataFinal.getDate());
@@ -978,9 +987,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     }
 
-
 //    private void BuscaValoresTotais(){
-
 //        CarCapContasDAO contasDao = new CarCapContasDAO();
 //        double totalEntrada = contasDao.SomarContas(TipoConta.Entrada, dataInicial, dataFinal);
 //        double totalSaida = contasDao.SomarContas(TipoConta.Saida, dataInicial, dataFinal);
@@ -992,8 +999,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 //        txtTotalDisponivel.setText(String.valueOf(saldo));
 //        
 //    }
-    
-    
+
     private void checkbox_GraficoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkbox_GraficoStateChanged
 
 // TODO add your handling code here:
@@ -1114,13 +1120,13 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     private void checkboxEntradaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkboxEntradaMouseClicked
 
-        verificaTipoGrafico(verificaTipodeConta(), 0);
+//        verificaTipoGrafico(verificaTipodeConta(), 0);
 
     }//GEN-LAST:event_checkboxEntradaMouseClicked
 
     private void checkboxSaidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkboxSaidaMouseClicked
 
-        verificaTipoGrafico(verificaTipodeConta(), 0);
+//        verificaTipoGrafico(verificaTipodeConta(), 0);
 
 
     }//GEN-LAST:event_checkboxSaidaMouseClicked
@@ -1153,9 +1159,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         if (marcados <= 2) {
 
             verificaTipoGrafico(verificaTipodeConta(), 0);
-
-            System.out.println("tipoconta:" + verificaTipodeConta().toString());
-
+           
         } else if (GrapLinhas.isSelected()) {
 
             CarregarNotificacao("Só é possível visualizar 2 gráficos por vez!");
@@ -1175,8 +1179,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         if (marcados <= 2) {
 
             verificaTipoGrafico(verificaTipodeConta(), 0);
-
-            System.out.println("tipoconta:" + verificaTipodeConta().toString());
 
         } else if (grapBarras.isSelected()) {
 
@@ -1268,8 +1270,18 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
 //        verificaFiltroData();
-        
-        verificaTipoGrafico(verificaTipodeConta(), 0);
+        TipoConta tipoConta = verificaTipodeConta();
+
+        dataInicial = txtDataInicial.getDate();
+        dataFinal = txtDataFinal.getDate();
+
+        if (tipoConta == TipoConta.ambos) {
+            contas = this.buscarconta.ListarTodos(dataInicial, dataFinal);
+        } else {
+            contas = this.buscarconta.ListarContas(tipoConta, dataInicial, dataFinal);
+        }
+
+        verificaTipoGrafico(tipoConta, 0);
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
     /**

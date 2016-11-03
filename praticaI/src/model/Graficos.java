@@ -29,8 +29,8 @@ public final class Graficos {
     XYSeriesCollection dados = new XYSeriesCollection();
 
     String titulo;
-    String xx = "entradas";
-    String xy = "saídas";
+    String xy = "entradas";
+    String xx = "saídas";
 
     public Graficos(TipoGrafico tipo, String titulo) {
 
@@ -87,7 +87,7 @@ public final class Graficos {
 
                 if (i.getContaTipo().equals(TipoConta.Saida)) {
 
-                    System.out.println("entrou no iff");
+//                    System.out.println("entrou no iff");
                     
                     s.add(i.getContaValorTotal(), i.getContaValorPago());
 

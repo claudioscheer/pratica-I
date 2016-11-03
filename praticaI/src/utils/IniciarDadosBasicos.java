@@ -1,16 +1,25 @@
 package utils;
 
 import dao.AtivoImobilizadoDAO;
+import dao.CarCapContasDAO;
 import dao.CategoriaDAO;
 import dao.FlxcxTributacaoDAO;
 import dao.HistoricoDepreciacaoDAO;
 import dao.MarcaDAO;
 import dao.ProdutoDAO;
+import dao.TipoOperacaoDAO;
+import enumeraveis.StatusConta;
+import enumeraveis.TipoConta;
 import java.util.Calendar;
+import java.util.Date;
+import model.CarCapContas;
+import model.CarEstTipoOperacao;
+import model.CarPessoa;
 import model.EstCategoria;
 import model.EstMarca;
 import model.EstProduto;
 import model.FlxcxTributacao;
+import model.PatNotaFiscal;
 import modelAntigo.AtivoImobilizado;
 import modelAntigo.Categoria;
 import modelAntigo.EstadoBem;
@@ -22,7 +31,7 @@ public class IniciarDadosBasicos {
 
     public static void main(String[] args) {
 
-       // FluxoDeCaixa();
+        // FluxoDeCaixa();
 //        Patrimonio();
         alimentarContas();
         System.exit(0);
@@ -30,31 +39,39 @@ public class IniciarDadosBasicos {
 
     public static void alimentarContas() {
 
-//        CarCapContas novo = new CarCapContas();
-//
-//        TipoOperacaoDAO op = new TipoOperacaoDAO();
+        CarCapContas novo = new CarCapContas();
+
+        TipoOperacaoDAO op = new TipoOperacaoDAO();
 //        PatNotaFiscal nfe = new PatNotaFiscal(6, 200, new Date(), "3242342342342342342342342", new Date());
-//
-//        CarEstTipoOperacao tpop = new CarEstTipoOperacao();
-//
-//        //tpop.setCarCapContases(null);
-//        tpop.setTpOpId(1);
-//        tpop.setTpOpTipo(1);
-//
-//        CarPessoa nova = new CarPessoa(6, "alisson");
-//        novo.setContaId(3);
-//        novo.setCapContaStatus(StatusConta.Pendente);
-//        novo.setCarCapParcelas(null);
-//        novo.setCarPessoa(nova);
-//        novo.setCarEstTipoOperacao(tpop);
-//        novo.setContaValorTotal(435.56);
-//        novo.setContaDataEmissao(new Date());
-//        novo.setContaTipo(TipoConta.Entrada);
+
+        CarEstTipoOperacao tpop = new CarEstTipoOperacao();
+
+        //tpop.setCarCapContases(null);
+        tpop.setTpOpId(1);
+        tpop.setTpOpTipo(1);
+        tpop.setTpOpNome("Teste");
+        tpop.setTpOpDescricao("Teste");
+
+        CarPessoa nova = new CarPessoa(1, "Diego");
+
+        for (int i = 21; i <= 40; i++) {
+
+            novo.setContaId(i);
+            novo.setCapContaStatus(StatusConta.Fechada);
+            novo.setCarCapParcelas(null);
+            novo.setCarPessoa(nova);
+            novo.setCarEstTipoOperacao(tpop);
+            novo.setContaValorTotal(435.56 * i);
+            novo.setContaValorPago(435.56 * i);
+            novo.setContaDataEmissao(new Date());
+            novo.setContaTipo(TipoConta.Saida);
 //        novo.setPatNotaFiscal(nfe);
-//
-//        CarCapContasDAO contaDAO = new CarCapContasDAO();
-//
-//        contaDAO.insert(novo);
+
+            CarCapContasDAO contaDAO = new CarCapContasDAO();
+
+            contaDAO.insert(novo);
+
+        }
 
     }
 

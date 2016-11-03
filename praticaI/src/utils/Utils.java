@@ -211,6 +211,15 @@ public class Utils {
         return date;
     }
 
+<<<<<<< .mine
+    public static String format(double valor) {
+        java.text.DecimalFormat df = new java.text.DecimalFormat("##0.00"); 
+        return df.format(valor);    
+    }
+    
+    
+||||||| .r125
+=======
     public static String removerCaracteresDoubleString(String s) {
         return s.replace(".", "").replace(",", ".");
     }
@@ -224,4 +233,5 @@ public class Utils {
         }
     }
 
+>>>>>>> .r128
 }
