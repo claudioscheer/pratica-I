@@ -61,7 +61,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
     public void init() {
         this.initComponents();
 
-        this.validador = new Validador(Validador.TipoValidator.TEXTO);
+        this.validador = new Validador(Validador.TipoValidator.ICONE);
         this.validador.addObrigatorioValidator(this.txtDescricao);
         this.validador.addObrigatorioValidator(this.txtCategoria);
         this.validador.addObrigatorioValidator(this.txtMarca);
@@ -74,7 +74,6 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.validador.addApenasNumeroValidator(this.txtTaxaValorResidual);
         this.validador.addObrigatorioValidator(this.txtValorResidual);
         this.validador.addApenasNumeroValidator(this.txtValorResidual);
-        this.validador.addObrigatorioValidator(this.comboItemNota);
 
         FormBuscaCategoria formCategoria = new FormBuscaCategoria();
         formCategoria.setFrameBloquear(FormPrincipal.getInstance());
@@ -255,7 +254,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNotaFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboItemNota, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,7 +284,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
                                 .addComponent(comboEstadoBem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(comboUtilizacaoBem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtValorResidual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         scrollCadastro.setViewportView(panelItens);
