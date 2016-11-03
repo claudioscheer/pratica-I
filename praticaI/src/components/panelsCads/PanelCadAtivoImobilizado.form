@@ -28,7 +28,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="scrollCadastro" pref="494" max="32767" attributes="0"/>
+              <Component id="scrollCadastro" pref="645" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelOpcoes" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -64,17 +64,11 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtMarca" alignment="0" min="-2" pref="550" max="-2" attributes="0"/>
-                          <Component id="txtCategoria" alignment="0" min="-2" pref="550" max="-2" attributes="0"/>
-                          <Component id="txtDescricao" alignment="0" min="-2" pref="550" max="-2" attributes="0"/>
-                          <Component id="txtNotaFiscal" alignment="0" min="-2" pref="550" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="txtTaxaValorResidual" min="-2" pref="230" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-                              <Component id="txtValorResidual" min="-2" pref="230" max="-2" attributes="0"/>
-                          </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="txtMarca" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtCategoria" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtDescricao" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="282" max="-2" attributes="0"/>
                               <Component id="comboUtilizacaoBem" min="-2" pref="268" max="-2" attributes="0"/>
@@ -85,25 +79,35 @@
                               <EmptySpace min="-2" pref="211" max="-2" attributes="0"/>
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="comboEstadoBem" alignment="0" min="-2" pref="268" max="-2" attributes="0"/>
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtValorOriginal" min="-2" pref="230" max="-2" attributes="0"/>
+                                  <Component id="txtValorOriginal" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="comboEstadoBem" alignment="0" pref="268" max="32767" attributes="0"/>
+                                  <Component id="txtTaxaValorResidual" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtValorAtual" min="-2" pref="230" max="-2" attributes="0"/>
+                                  <Component id="txtValorAtual" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="txtValorResidual" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
+                          <Component id="txtNotaFiscal" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboItemNota" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="299" max="32767" attributes="0"/>
+                      <EmptySpace pref="299" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -127,27 +131,29 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtNotaFiscal" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="comboItemNota" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtValorOriginal" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txtValorAtual" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="txtValorOriginal" min="-2" pref="30" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtTaxaValorResidual" min="-2" pref="30" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="txtValorResidual" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="txtTaxaValorResidual" min="-2" pref="30" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -160,9 +166,9 @@
                                   <Component id="comboUtilizacaoBem" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="txtValorAtual" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="txtValorResidual" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="23" max="32767" attributes="0"/>
+                      <EmptySpace pref="106" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -256,25 +262,28 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="txtValorOriginal">
+            <Component class="components.TextFieldValorMonetario" name="txtValorOriginal">
+            </Component>
+            <Component class="components.TextFieldValorMonetario" name="txtValorAtual">
+            </Component>
+            <Component class="components.TextFieldValorMonetario" name="txtTaxaValorResidual">
+            </Component>
+            <Component class="components.TextFieldValorMonetario" name="txtValorResidual">
+            </Component>
+            <Component class="javax.swing.JComboBox" name="comboItemNota">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(&#xa;Utils.getMascara(Utils.MascarasPadrao.valorDouble))"/>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="txtTaxaValorResidual">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(Utils.getMascara(Utils.MascarasPadrao.taxa))"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JFormattedTextField" name="txtValorResidual">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(Utils.getMascara(Utils.MascarasPadrao.valorDouble))"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JFormattedTextField" name="txtValorAtual">
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField(Utils.getMascara(Utils.MascarasPadrao.valorDouble))"/>
-              </AuxValues>
+            <Component class="javax.swing.JLabel" name="jLabel11">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Produto da nota"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

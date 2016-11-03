@@ -44,7 +44,7 @@ public class PatItemNota implements java.io.Serializable {
         this.estProduto = estProduto;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "nota_fiscal", nullable = false)
     public PatNotaFiscal getPatNotaFiscal() {
         return this.patNotaFiscal;

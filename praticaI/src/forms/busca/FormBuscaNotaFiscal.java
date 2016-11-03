@@ -119,6 +119,10 @@ public class FormBuscaNotaFiscal extends JFrameBusca {
             TextFieldFK text = this.getTextFieldFK();
             text.setText(notaFiscal.getNotaCodigo() + " - " + notaFiscal.getNotaChaveAcesso());
             text.setValue(notaFiscal);
+
+            if (text.getFuncaoDepoisSelecionar() != null) {
+                text.getFuncaoDepoisSelecionar().accept(notaFiscal);
+            }
         }
 
         this.getFrameBloquear().setEnabled(true);

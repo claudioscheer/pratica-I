@@ -7,11 +7,14 @@ import utils.Utils;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.function.Consumer;
 
 public class TextFieldFK extends WebTextField implements MouseListener {
 
     private Object value;
     private JFrameBusca frame;
+
+    private Consumer<Object> funcaoDepoisSelecionar;
 
     public TextFieldFK() {
         this.addMouseListener(this);
@@ -28,19 +31,27 @@ public class TextFieldFK extends WebTextField implements MouseListener {
         this.frame.setTextFieldFK(this);
     }
 
-    @Override
-    public void mouseClicked(MouseEvent me) {
-        this.frame.setVisible(true);
-
-        this.frame.getFrameBloquear().setEnabled(false);
-    }
-
     public Object getValue() {
         return value;
     }
 
     public void setValue(Object value) {
         this.value = value;
+    }
+
+    public Consumer<Object> getFuncaoDepoisSelecionar() {
+        return funcaoDepoisSelecionar;
+    }
+
+    public void setFuncaoDepoisSelecionar(Consumer<Object> funcaoDepoisSelecionar) {
+        this.funcaoDepoisSelecionar = funcaoDepoisSelecionar;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        this.frame.setVisible(true);
+
+        this.frame.getFrameBloquear().setEnabled(false);
     }
 
     @Override

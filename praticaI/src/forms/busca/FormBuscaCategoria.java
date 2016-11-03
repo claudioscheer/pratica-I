@@ -7,13 +7,12 @@ import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import model.EstCategoria;
-import modelAntigo.Categoria;
 import utils.Utils;
 
 public class FormBuscaCategoria extends JFrameBusca {
 
     private LoadCategorias loadCategorias;
-    private List<Categoria> categorias;
+    private List<EstCategoria> categorias;
 
     public FormBuscaCategoria() {
         initComponents();
@@ -32,7 +31,7 @@ public class FormBuscaCategoria extends JFrameBusca {
 
             DefaultTableModel model = (DefaultTableModel) tabelaCategoria.getModel();
 
-            List<EstCategoria> categorias = new CategoriaDAO().getAll();
+            categorias = new CategoriaDAO().getAll();
             for (EstCategoria categoria : categorias) {
                 Object[] o = new Object[2];
                 o[0] = categoria.getCategoriaId();
@@ -149,8 +148,8 @@ public class FormBuscaCategoria extends JFrameBusca {
 
         if (this.getFrameBuscaTipo() == JFrameBuscaTipo.textFieldFK) {
             TextFieldFK text = this.getTextFieldFK();
-            Categoria categoria = this.categorias.get(linhaselecionada);
-            text.setText(categoria.getCodigo() + " - " + categoria.getDescricao());
+            EstCategoria categoria = this.categorias.get(linhaselecionada);
+            text.setText(categoria.getCategoriaId() + " - " + categoria.getCategoriaDescricao());
             text.setValue(categoria);
         }
 

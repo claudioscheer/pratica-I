@@ -7,7 +7,7 @@ import components.panelsListagem.PanelConsultaAtivoImobilizado;
 import dao.AtivoImobilizadoDAO;
 import utils.Utils;
 import java.awt.Dimension;
-import modelAntigo.AtivoImobilizado;
+import model.PatAtivoImobilizado;
 
 public class FormAtivoImobilizado extends WebInternalFrame {
 
@@ -42,7 +42,6 @@ public class FormAtivoImobilizado extends WebInternalFrame {
         this.panelCadastroAtivoImobilizado = new PanelCadAtivoImobilizado();
         this.panelCadastroAtivoImobilizado.init();
 
-        //seta os eventos para o cancelar e o cadastrar da nota fiscal
         this.panelCadastroAtivoImobilizado.setEvents((e) -> {
             this.salvarAtivoImobilizado();
         }, (e) -> {
@@ -50,14 +49,13 @@ public class FormAtivoImobilizado extends WebInternalFrame {
         });
     }
 
-    //evento para salvar o ativo imobilizado
     private void salvarAtivoImobilizado() {
 
         if (!this.panelCadastroAtivoImobilizado.validador.isValid()) {
             return;
         }
 
-        AtivoImobilizado ativoImobilizado = this.panelCadastroAtivoImobilizado.getAtivoImobilizado();
+        PatAtivoImobilizado ativoImobilizado = this.panelCadastroAtivoImobilizado.getAtivoImobilizado();
         if (!this.panelCadastroAtivoImobilizado.editando) {
             new AtivoImobilizadoDAO().insert(ativoImobilizado);
         } else {
@@ -88,12 +86,10 @@ public class FormAtivoImobilizado extends WebInternalFrame {
         this.panelConsultaAtivoImobilizado.repaint();
     }
 
-    //evento para cancelar o cadastro
     private void cancelarCadAtivoImobilizado() {
         this.fecharAbrirPanelCadastro(true);
     }
 
-    //evento para adicionar uma nota fiscal
     private void addAtivoImobilizado() {
         this.initFormCad();
         this.fecharAbrirPanelCadastro(false);
@@ -101,10 +97,9 @@ public class FormAtivoImobilizado extends WebInternalFrame {
         this.panelCadastroAtivoImobilizado.revalidate();
     }
 
-    //evento para editar uma nota fiscal
     private void editarAtivoImobilizado() {
 
-        AtivoImobilizado ativoImobilizado = this.panelConsultaAtivoImobilizado.getAtivoImobilizadoSelecionado();
+        PatAtivoImobilizado ativoImobilizado = this.panelConsultaAtivoImobilizado.getAtivoImobilizadoSelecionado();
 
         if (ativoImobilizado == null) {
             return;
@@ -119,9 +114,8 @@ public class FormAtivoImobilizado extends WebInternalFrame {
         this.panelCadastroAtivoImobilizado.revalidate();
     }
 
-    //evento para deletar uma nota fiscal
     private void excluirAtivoImobilizado() {
-        AtivoImobilizado ativoImobilizado = this.panelConsultaAtivoImobilizado.getAtivoImobilizadoSelecionado();
+        PatAtivoImobilizado ativoImobilizado = this.panelConsultaAtivoImobilizado.getAtivoImobilizadoSelecionado();
 
         if (ativoImobilizado == null) {
             return;

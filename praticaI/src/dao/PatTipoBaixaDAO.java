@@ -51,7 +51,7 @@ public class PatTipoBaixaDAO {
         }
     }
 
-    public List<PatTipoBaixa> getall() {
+    public List<PatTipoBaixa> getAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();

@@ -8,14 +8,12 @@ import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import model.EstMarca;
-import modelAntigo.Categoria;
-import modelAntigo.Marca;
 import utils.Utils;
 
 public class FormBuscaMarca extends JFrameBusca {
 
     private LoadMarcas loadMarcas;
-    private List<Marca> marcas;
+    private List<EstMarca> marcas;
 
     public FormBuscaMarca() {
         initComponents();
@@ -34,7 +32,7 @@ public class FormBuscaMarca extends JFrameBusca {
 
             DefaultTableModel model = (DefaultTableModel) tabelaMarcas.getModel();
 
-            List<EstMarca> marcas = new MarcaDAO().ListarTodas();
+            marcas = new MarcaDAO().ListarTodas();
             for (EstMarca marca : marcas) {
                 Object[] o = new Object[2];
                 o[0] = marca.getMarcaId();
@@ -150,8 +148,8 @@ public class FormBuscaMarca extends JFrameBusca {
 
         if (this.getFrameBuscaTipo() == JFrameBuscaTipo.textFieldFK) {
             TextFieldFK text = this.getTextFieldFK();
-            Marca marca = this.marcas.get(linhaselecionada);
-            text.setText(marca.getCodigo() + " - " + marca.getDescricao());
+            EstMarca marca = this.marcas.get(linhaselecionada);
+            text.setText(marca.getMarcaId()+ " - " + marca.getMarcaDescricao());
             text.setValue(marca);
         }
 
