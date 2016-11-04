@@ -16,8 +16,6 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import modelAntigo.ItemNota;
-import modelAntigo.NotaFiscal;
 import utils.Utils;
 
 public class PanelCadContaPagar extends WebPanel {
@@ -50,11 +48,7 @@ public class PanelCadContaPagar extends WebPanel {
         this.btnCancelar.addActionListener(cancelar);
     }
 
-    public NotaFiscal getNotaFiscal() {
-        NotaFiscal nota = new NotaFiscal();
 
-        return nota;
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

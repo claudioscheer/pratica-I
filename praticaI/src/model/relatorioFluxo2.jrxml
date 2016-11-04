@@ -5,15 +5,14 @@
 	<queryString>
 		<![CDATA[select * from car_cap_contas]]>
 	</queryString>
-	<field name="conta_id" class="java.lang.Integer"/>
-	<field name="conta_data_emissao" class="java.sql.Date"/>
-	<field name="contastatus" class="java.lang.Integer"/>
-	<field name="contatipo" class="java.lang.Integer"/>
-	<field name="conta_valor_pago" class="java.lang.Double"/>
-	<field name="conta_valor_total" class="java.lang.Double"/>
-	<field name="flxcxoperacoes_opcodigo" class="java.lang.Integer"/>
-	<group name="conta_id">
-		<groupExpression><![CDATA[$F{conta_id}]]></groupExpression>
+	<field name="contaId" class="java.lang.Integer"/>
+	<field name="contaDataEmissao" class="java.sql.Date"/>
+	<field name="statusdaConta" class="java.lang.String"/>
+	<field name="tipocontaNome" class="java.lang.String"/>
+	<field name="contaValorPago" class="java.lang.Double"/>
+	<field name="contaValorTotal" class="java.lang.Double"/>
+	<group name="contaId">
+		<groupExpression><![CDATA[$F{contaId}]]></groupExpression>
 	</group>
 	<background>
 		<band splitType="Stretch"/>

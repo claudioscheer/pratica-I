@@ -74,6 +74,7 @@ public class CarCapContas implements java.io.Serializable {
     @OneToMany(mappedBy = "carCapContas")
     private Set<FlxcxMovimentoBancario> flxcxMovimentosBancarios;
 
+    
     public CarCapContas() {
     }
 
