@@ -9,6 +9,7 @@ import components.MoverComponente;
 import components.IconDesktop;
 import components.PanelNotificacoes;
 import components.PanelWidgetSaldo;
+import forms.patrimonio.FormDepreciacoes;
 import utils.Utils;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
@@ -63,6 +64,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.loadaddpessaoa();
         this.loadControleEstoque();
         this.loadMateriais();
+        this.loadDepreciacao();
     }
 
     private void loadWidgetSaldo() {
@@ -112,6 +114,23 @@ public class FormPrincipal extends javax.swing.JFrame {
         if (this.notificacoes == null) {
             this.notificacoes = new PanelNotificacoes();
         }
+    }
+
+    private void loadDepreciacao() {
+
+        final IconDesktop iconDesktop = new IconDesktop("Depreciação", Utils.getImage(Utils.Image.notafiscal));
+
+        iconDesktop.setActionListener((e) -> {
+            if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
+                return;
+            }
+            FormDepreciacoes form = new FormDepreciacoes();
+            this.desktopPanel.add(form);
+            form.open();
+        });
+
+        iconDesktop.setLocation(new Point(150, 0));
+        this.desktopPanel.add(iconDesktop);
     }
 
     private void loadNotaFiscal() {
@@ -253,7 +272,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         iconDesktop.setActionListener((e) -> {
             if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
                 return;
-            }            
+            }
             FormEstoque form = new FormEstoque(this, rootPaneCheckingEnabled);
             form.setVisible(true);
         });

@@ -16,8 +16,6 @@ public class FormDepreciacoes extends WebInternalFrame {
     public FormDepreciacoes() {
         super("Depreciações", true, true, true, true);
         this.initComponents();
-        
-        FormPrincipal.getInstance().setEnabled(true);
     }
 
     private void initComponents() {
@@ -44,7 +42,6 @@ public class FormDepreciacoes extends WebInternalFrame {
 
     private void cancelarDepreciacao() {
         this.dispose();
-        FormPrincipal.getInstance().setEnabled(true);
     }
 
     private PanelGerarDepreciacao panelGerarDepreciacao;
