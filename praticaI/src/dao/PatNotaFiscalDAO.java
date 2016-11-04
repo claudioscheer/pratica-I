@@ -6,7 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
-public class NotaFiscalDAO {
+public class PatNotaFiscalDAO {
 
     public Boolean update(PatNotaFiscal notaFiscal) {
         Session session = HibernateUtil.getSessionFactory().openSession();

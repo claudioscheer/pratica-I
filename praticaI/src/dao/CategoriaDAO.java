@@ -2,8 +2,6 @@ package dao;
 
 import java.util.List;
 import model.EstCategoria;
-import model.EstUnidadeMedida;
-import modelAntigo.Categoria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -39,13 +37,13 @@ public class CategoriaDAO {
         try {
             session.getTransaction().begin();
             EstCategoria categoria = (EstCategoria) session.get(EstCategoria.class, codigo);
-            session.delete(categoria);                      
+            session.delete(categoria);
             return true;
         } catch (HibernateException e) {
             throw e;
         } finally {
             session.getTransaction().commit();
-            session.close();            
+            session.close();
         }
     }
 
@@ -60,10 +58,10 @@ public class CategoriaDAO {
         return categorias;
     }
 
-    public Categoria get(int c) {
+    public EstCategoria get(int c) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Categoria categoria = (Categoria) session.get(Categoria.class, c);
+        EstCategoria categoria = (EstCategoria) session.get(EstCategoria.class, c);
         session.getTransaction().commit();
         session.close();
         return categoria;

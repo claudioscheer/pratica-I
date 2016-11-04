@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -349,7 +350,8 @@ public class PanelCadNotaFiscal extends WebPanel {
             addItemNotaTabela(this.notaFiscal.getPatItemNotas().size() - 1);
         });
 
-        FormPrincipal form = FormPrincipal.getInstance();
+        JFrame form = (JFrame)this.getRootPane().getParent();
+//        FormPrincipal form = FormPrincipal.getInstance();
         f.setFrameBloquear(form);
         form.setEnabled(false);
     }//GEN-LAST:event_btnAdicionarProdutoActionPerformed

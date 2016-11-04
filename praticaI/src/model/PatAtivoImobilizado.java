@@ -140,7 +140,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "nota_fiscal", nullable = false)
+    @JoinColumn(name = "ativo_item_nota_fiscal", nullable = false)
     public PatItemNota getPatItemNota() {
         return patItemNota;
     }

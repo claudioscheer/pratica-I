@@ -7,7 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
-public class HistoricoDepreciacaoDAO {
+public class PatHistoricoDepreciacaoDAO {
 
     public Boolean insert(PatHistoricoDepreciacao historicoDepreciacao) {
         Session session = HibernateUtil.getSessionFactory().openSession();

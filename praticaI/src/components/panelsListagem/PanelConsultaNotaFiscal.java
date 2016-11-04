@@ -1,7 +1,7 @@
 package components.panelsListagem;
 
 import com.alee.laf.panel.WebPanel;
-import dao.NotaFiscalDAO;
+import dao.PatNotaFiscalDAO;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseAdapter;
@@ -61,7 +61,7 @@ public class PanelConsultaNotaFiscal extends WebPanel {
     }
 
     public void addNotaFiscal(PatNotaFiscal notaFiscal) {
-        notaFiscal = new NotaFiscalDAO().get(notaFiscal.getNotaCodigo());
+        notaFiscal = new PatNotaFiscalDAO().get(notaFiscal.getNotaCodigo());
         this.notasFiscais.add(0, notaFiscal);
         DefaultTableModel model = (DefaultTableModel) this.tabelaNotasFiscais.getModel();
         model.insertRow(0, notaToArray(notaFiscal));
@@ -72,7 +72,7 @@ public class PanelConsultaNotaFiscal extends WebPanel {
 
         protected Void doInBackground() throws Exception {
 //            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
-            notasFiscais.addAll(new NotaFiscalDAO().getAll(txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
+            notasFiscais.addAll(new PatNotaFiscalDAO().getAll(txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
             atualizarTabela(true);
             return null;
         }

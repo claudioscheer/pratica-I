@@ -1,7 +1,7 @@
 package forms.patrimonio;
 
 import components.JFrameBusca;
-import dao.HistoricoDepreciacaoDAO;
+import dao.PatHistoricoDepreciacaoDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
@@ -34,7 +34,7 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
 
             DefaultTableModel model = (DefaultTableModel) tabelaHistoricoDepreciacoes.getModel();
 
-            List<PatHistoricoDepreciacao> historicoDepreciacoes = new HistoricoDepreciacaoDAO().getAll(ativoImobilizado);
+            List<PatHistoricoDepreciacao> historicoDepreciacoes = new PatHistoricoDepreciacaoDAO().getAll(ativoImobilizado);
             for (PatHistoricoDepreciacao hd : historicoDepreciacoes) {
                 Object[] o = new Object[2];
                 o[0] = hd.getHistoricoDepreciacaoDia();

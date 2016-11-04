@@ -4,7 +4,7 @@ import components.JFrameBusca;
 import components.TextFieldFK;
 import components.panelsCads.PanelCadNotaFiscal;
 import components.panelsListagem.PanelConsultaNotaFiscal;
-import dao.NotaFiscalDAO;
+import dao.PatNotaFiscalDAO;
 import java.awt.Dimension;
 import utils.Utils;
 import java.awt.event.MouseAdapter;
@@ -74,7 +74,7 @@ public class FormBuscaNotaFiscal extends JFrameBusca {
 
         PatNotaFiscal notaFiscal = this.panelCadastroNotaFiscal.getNotaFiscal();
 
-        new NotaFiscalDAO().insert(notaFiscal);
+        new PatNotaFiscalDAO().insert(notaFiscal);
 
         this.panelConsultaNotaFiscal.addNotaFiscal(notaFiscal);
 

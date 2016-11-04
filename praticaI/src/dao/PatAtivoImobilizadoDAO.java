@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import utils.HibernateUtil;
 import utils.Utils;
 
-public class AtivoImobilizadoDAO {
+public class PatAtivoImobilizadoDAO {
 
     public Boolean update(PatAtivoImobilizado ativoImobilizado) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -40,8 +40,8 @@ public class AtivoImobilizadoDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("from PatAtivoImobilizado as a ");
-        query.setFirstResult(paginaBuscar * Utils.MaxResultQuery);
-        query.setMaxResults(Utils.MaxResultQuery);
+//        query.setFirstResult(paginaBuscar * Utils.MaxResultQuery);
+//        query.setMaxResults(Utils.MaxResultQuery);
         List<PatAtivoImobilizado> ativos = query.list();
         session.getTransaction().commit();
         session.close();

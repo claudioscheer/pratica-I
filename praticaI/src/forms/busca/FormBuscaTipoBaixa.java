@@ -4,7 +4,7 @@ import com.alee.laf.optionpane.WebOptionPane;
 import components.JFrameBusca;
 import components.TextFieldFK;
 import components.panelsCads.PanelCadTipoBaixa;
-import dao.NotaFiscalDAO;
+import dao.PatNotaFiscalDAO;
 import dao.PatTipoBaixaDAO;
 import java.util.List;
 import java.util.function.Consumer;

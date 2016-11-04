@@ -1,7 +1,7 @@
 package components.panelsListagem;
 
 import com.alee.laf.panel.WebPanel;
-import dao.AtivoImobilizadoDAO;
+import dao.PatAtivoImobilizadoDAO;
 import forms.patrimonio.FormHistoricoDepreciacoes;
 import forms.FormPrincipal;
 import forms.patrimonio.FormQrCodeAtivoImobilizado;
@@ -55,7 +55,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
 
         protected Void doInBackground() throws Exception {
 //            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
-            ativosImobilizados.addAll(new AtivoImobilizadoDAO().getAll(paginaBuscar));
+            ativosImobilizados.addAll(new PatAtivoImobilizadoDAO().getAll(paginaBuscar));
             atualizarTabela(true);
             return null;
         }
@@ -83,7 +83,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
     }
 
     public void addAtivoImobilizado(PatAtivoImobilizado ativo) {
-        ativo = new AtivoImobilizadoDAO().get(ativo.getAtivoCodigo());
+        ativo = new PatAtivoImobilizadoDAO().get(ativo.getAtivoCodigo());
         this.ativosImobilizados.add(0, ativo);
         DefaultTableModel model = (DefaultTableModel) this.tabelaAtivosImobilizados.getModel();
         model.insertRow(0, ativoToArray(ativo));

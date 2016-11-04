@@ -4,7 +4,7 @@ import com.alee.laf.desktoppane.WebInternalFrame;
 import com.alee.laf.optionpane.WebOptionPane;
 import components.panelsCads.PanelCadAtivoImobilizado;
 import components.panelsListagem.PanelConsultaAtivoImobilizado;
-import dao.AtivoImobilizadoDAO;
+import dao.PatAtivoImobilizadoDAO;
 import utils.Utils;
 import java.awt.Dimension;
 import model.PatAtivoImobilizado;
@@ -57,9 +57,9 @@ public class FormAtivoImobilizado extends WebInternalFrame {
 
         PatAtivoImobilizado ativoImobilizado = this.panelCadastroAtivoImobilizado.getAtivoImobilizado();
         if (!this.panelCadastroAtivoImobilizado.editando) {
-            new AtivoImobilizadoDAO().insert(ativoImobilizado);
+            new PatAtivoImobilizadoDAO().insert(ativoImobilizado);
         } else {
-            new AtivoImobilizadoDAO().update(ativoImobilizado);
+            new PatAtivoImobilizadoDAO().update(ativoImobilizado);
             this.panelCadastroAtivoImobilizado.editando = false;
             this.panelConsultaAtivoImobilizado.removeAtivoImobilizado(this.indexEditando);
             this.indexEditando = -1;
@@ -127,7 +127,7 @@ public class FormAtivoImobilizado extends WebInternalFrame {
 
             int index = this.panelConsultaAtivoImobilizado.getIndiceSelecionado();
 
-            new AtivoImobilizadoDAO().delete(ativoImobilizado);
+            new PatAtivoImobilizadoDAO().delete(ativoImobilizado);
             this.panelConsultaAtivoImobilizado.removeAtivoImobilizado(index);
             Utils.notificacao("Ativo imobilizado removido!", Utils.TipoNotificacao.ok, 0);
         }

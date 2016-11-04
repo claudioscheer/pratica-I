@@ -4,7 +4,7 @@ import com.alee.laf.desktoppane.WebInternalFrame;
 import com.alee.laf.optionpane.WebOptionPane;
 import components.panelsCads.PanelCadNotaFiscal;
 import components.panelsListagem.PanelConsultaNotaFiscal;
-import dao.NotaFiscalDAO;
+import dao.PatNotaFiscalDAO;
 import forms.FormPrincipal;
 import utils.Utils;
 import java.awt.Dimension;
@@ -75,9 +75,9 @@ public class FormNotaFiscal extends WebInternalFrame {
         PatNotaFiscal notaFiscal = this.panelCadastroNotaFiscal.getNotaFiscal();
 
         if (!this.panelCadastroNotaFiscal.editando) {
-            new NotaFiscalDAO().insert(notaFiscal);
+            new PatNotaFiscalDAO().insert(notaFiscal);
         } else {
-            new NotaFiscalDAO().update(notaFiscal);
+            new PatNotaFiscalDAO().update(notaFiscal);
             this.panelCadastroNotaFiscal.editando = false;
             this.panelConsultaNotaFiscal.removeNotaFiscal(this.indexEditando);
             this.indexEditando = -1;
@@ -146,7 +146,7 @@ public class FormNotaFiscal extends WebInternalFrame {
 
             int index = this.panelConsultaNotaFiscal.getIndiceSelecionado();
 
-            new NotaFiscalDAO().delete(notaFiscal);
+            new PatNotaFiscalDAO().delete(notaFiscal);
             this.panelConsultaNotaFiscal.removeNotaFiscal(index);
             Utils.notificacao("Nota fiscal removida!", Utils.TipoNotificacao.ok, 0);
         }

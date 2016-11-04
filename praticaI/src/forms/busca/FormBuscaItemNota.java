@@ -22,6 +22,7 @@ public class FormBuscaItemNota extends JFrameBusca {
         FormBuscaProduto f = new FormBuscaProduto();
         f.setFrameBloquear(this);
         this.txtProduto.setFrame(f);
+        
         this.loadValidator();
     }
 
