@@ -45,10 +45,16 @@ public class CarCapContas implements java.io.Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "conta_pessoa")
     private CarPessoa carPessoa;
+    
+    @Transient
+    private String pessoaNome;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private FlxcxOperacoes flxcxOperacoes;
-
+    
+    @Transient
+    private String tipoOperacaoDescricao; 
+            
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "conta_nota_fiscal", unique = true)
     private PatNotaFiscal patNotaFiscal;
@@ -106,6 +112,22 @@ public class CarCapContas implements java.io.Serializable {
 
     public String getProduto() {
         return produto;
+    }
+
+    public String getPessoaNome() {
+        return pessoaNome;
+    }
+
+    public void setPessoaNome(String pessoaNome) {
+        this.pessoaNome = pessoaNome;
+    }
+
+    public String getTipoOperacaoDescricao() {
+        return tipoOperacaoDescricao;
+    }
+
+    public void setTipoOperacaoDescricao(String tipoOperacaoDescricao) {
+        this.tipoOperacaoDescricao = tipoOperacaoDescricao;
     }
 
     public void setProduto(String produto) {
