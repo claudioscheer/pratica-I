@@ -28,33 +28,26 @@ public class CarCapContasDAO {
         return true;
     }
 
-    public Boolean delete(AtivoImobilizadoDAO ativoImobilizado) {
+    public Boolean delete(CarCapContas conta) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        session.delete(ativoImobilizado);
+        session.delete(conta);
         session.getTransaction().commit();
         session.close();
         return true;
     }
 
-    public List<AtivoImobilizadoDAO> getAll() {
+    public List<CarCapContas> getAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from AtivoImobilizado as a ");
-        List<AtivoImobilizadoDAO> ativos = query.list();
+        Query query = session.createQuery("from car_cap_contas as a ");
+        List<CarCapContas> ativos = query.list();
         session.getTransaction().commit();
         session.close();
         return ativos;
     }
 
-    public AtivoImobilizadoDAO get(int ativo) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
-        AtivoImobilizadoDAO ativoImobilizado = (AtivoImobilizadoDAO) session.get(AtivoImobilizadoDAO.class, ativo);
-        session.getTransaction().commit();
-        session.close();
-        return ativoImobilizado;
-    }
+  
 
     public List<CarCapContas> ListarTodos(Date dataInicial, Date dataFinal) {
 
@@ -77,10 +70,10 @@ public class CarCapContasDAO {
         session.getTransaction().begin();
 
         System.out.println("DataFinal" + dataFinal + "DataInicial: " + dataInicial);
-
-        Query query = session.createQuery("from CarCapContas as a where contaTipo =:tipo and conta_data_emissao BETWEEN :dataInicial and :dataFinal");
-        query.setParameter("dataInicial", dataInicial);
-        query.setParameter("dataFinal", dataFinal);
+//and conta_data_emissao >=:dataInicial and conta_data_emissao <=:dataFinal
+        Query query = session.createQuery("from car_cap_contas as a");
+//        query.setParameter("dataInicial", dataInicial);
+//        query.setParameter("dataFinal", dataFinal);
         query.setParameter("tipo", tipo);
 
         List<CarCapContas> contas = query.list();

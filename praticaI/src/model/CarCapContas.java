@@ -73,21 +73,83 @@ public class CarCapContas implements java.io.Serializable {
 
     @OneToMany(mappedBy = "carCapContas")
     private Set<FlxcxMovimentoBancario> flxcxMovimentosBancarios;
+    
+    @Column(name = "descricao", nullable = false)
+    private String descricao;
+
+    @Column(name = "produto", nullable = false, precision = 17, scale = 17)
+    private String produto;
+    
+     @Column(name = "forma_pagamento_receb", nullable = false)
+    private String forma_rece_pagamento;
+
+    @Column(name = "meio_recebimento", nullable = false, precision = 17, scale = 17)
+    private String meio_recebimento;
+    
+     @Column(name = "quantidade", nullable = false)
+    private double quantidade_produto;
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getProduto() {
+        return produto;
+    }
+
+    public void setProduto(String produto) {
+        this.produto = produto;
+    }
+
+    public String getForma_rece_pagamento() {
+        return forma_rece_pagamento;
+    }
+
+    public void setForma_rece_pagamento(String forma_rece_pagamento) {
+        this.forma_rece_pagamento = forma_rece_pagamento;
+    }
+
+    public String getMeio_recebimento() {
+        return meio_recebimento;
+    }
+
+    public void setMeio_recebimento(String meio_recebimento) {
+        this.meio_recebimento = meio_recebimento;
+    }
+
+    public double getQuantidade_produto() {
+        return quantidade_produto;
+    }
+
+    public void setQuantidade_produto(double quantidade_produto) {
+        this.quantidade_produto = quantidade_produto;
+    }
 
     
     public CarCapContas() {
     }
 
-    public CarCapContas(int contaId, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo) {
+    public CarCapContas(int contaId, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo,String produto,String descricao,
+            String meio_recebimento,double quantidade_produto,String forma_rece_pagamento) {
         this.contaId = contaId;
         this.contaValorTotal = contaValorTotal;
         this.contaDataEmissao = contaDataEmissao;
         this.contaNumParcelas = contaNumParcelas;
         this.contaValorPago = contaValorPago;
         this.contaTipo = contaTipo;
+        this.produto = produto;
+        this.descricao = descricao;
+        this.meio_recebimento = meio_recebimento;
+        this.quantidade_produto = quantidade_produto;
+        this.forma_rece_pagamento = forma_rece_pagamento;
     }
 
-    public CarCapContas(int contaId, StatusConta contaStatus, CarEstTipoOperacao carEstTipoOperacao, CarPessoa carPessoa, FlxcxOperacoes flxcxOperacoes, PatNotaFiscal patNotaFiscal, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, Set<FlxcxEspecificacoes> flxcxEspecificacoeses, Set<CarCapParcela> carCapParcelas, Set<FlxcxMovimentoBancario> flxcxMovimentosBancarios) {
+    public CarCapContas(int contaId, StatusConta contaStatus, CarEstTipoOperacao carEstTipoOperacao, CarPessoa carPessoa, FlxcxOperacoes flxcxOperacoes, PatNotaFiscal patNotaFiscal, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, Set<FlxcxEspecificacoes> flxcxEspecificacoeses, Set<CarCapParcela> carCapParcelas, Set<FlxcxMovimentoBancario> flxcxMovimentosBancarios,String produto,String descricao,
+            String meio_recebimento,double quantidade_produto,String forma_rece_pagamento) {
         this.contaId = contaId;
         this.contaStatus = contaStatus;
         this.carEstTipoOperacao = carEstTipoOperacao;
@@ -102,6 +164,11 @@ public class CarCapContas implements java.io.Serializable {
         this.flxcxEspecificacoeses = flxcxEspecificacoeses;
         this.carCapParcelas = carCapParcelas;
         this.flxcxMovimentosBancarios = flxcxMovimentosBancarios;
+        this.produto = produto;
+        this.descricao = descricao;
+        this.meio_recebimento = meio_recebimento;
+        this.quantidade_produto = quantidade_produto;
+        this.forma_rece_pagamento = forma_rece_pagamento;
     }
 
     public int getContaId() {

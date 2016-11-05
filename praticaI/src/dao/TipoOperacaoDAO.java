@@ -2,7 +2,6 @@ package dao;
 
 import java.util.List;
 import model.CarEstTipoOperacao;
-import modelAntigo.TipoOperacao;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -24,7 +23,7 @@ public class TipoOperacaoDAO {
         }
     }
 
-    public boolean Alterar(TipoOperacao tipOperacao) {
+    public boolean Alterar(CarEstTipoOperacao tipOperacao) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
@@ -41,7 +40,7 @@ public class TipoOperacaoDAO {
     public boolean Excluir(int codigo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            TipoOperacao operacao = (TipoOperacao) session.get(TipoOperacao.class, codigo);
+            CarEstTipoOperacao operacao = (CarEstTipoOperacao) session.get(CarEstTipoOperacao.class, codigo);
             session.delete(operacao);
             session.getTransaction().commit();
             session.close();
@@ -68,11 +67,11 @@ public class TipoOperacaoDAO {
         }
     }
 
-    public TipoOperacao Buscar(int codigo) {
+    public CarEstTipoOperacao Buscar(int codigo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
-            TipoOperacao tipOperacao = (TipoOperacao) session.get(TipoOperacao.class, codigo);
+            CarEstTipoOperacao tipOperacao = (CarEstTipoOperacao) session.get(CarEstTipoOperacao.class, codigo);
             session.getTransaction().commit();            
             return tipOperacao;
         } catch (HibernateException e) {
