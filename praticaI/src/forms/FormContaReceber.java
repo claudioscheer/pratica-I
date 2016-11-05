@@ -20,9 +20,11 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import model.CarCapContas;
 import model.FlxcxOperacoes;
+import utils.Utils;
 
 /**
  *
@@ -37,7 +39,10 @@ public class FormContaReceber extends WebInternalFrame {
 
         super("Contas a Receber", true, true, true, true);
         this.initComponents();
-       
+        new LoadBackground().execute();
+    }
+
+    private void carregarTudo() {
         FormBuscaProduto buscaProduto = new FormBuscaProduto();
 
         buscaProduto.setFrameBloquear(FormPrincipal.getInstance());
@@ -57,106 +62,74 @@ public class FormContaReceber extends WebInternalFrame {
         buscaNota.setFrameBloquear(FormPrincipal.getInstance());
 
         txt_busca_nota.setFrame(buscaNota);
-        
-        
+
         Preenche_tabela();
         preenche_Combo();
-       
-        
-        
 
     }
-    
+
+    private class LoadBackground extends SwingWorker<Void, Void> {
+
+        @Override
+        protected Void doInBackground() throws Exception {
+            carregarTudo();
+            return null;
+        }
+
+        @Override
+        protected void done() {
+
+            utils.Utils.notificacao("sdjkghsdflkjhgksjdf", Utils.TipoNotificacao.erro, 0);
+
+        }
+
+    }
+
     //****METODOS DE USO
-    
-     public void preenche_Combo(){
-        
+    public void preenche_Combo() {
+
         FlxcxOperacoesDAO Flx = new FlxcxOperacoesDAO();
-        
-        List<FlxcxOperacoes> tipo_operacao =  Flx.ListarTodas();
-        
-        
+
+        List<FlxcxOperacoes> tipo_operacao = Flx.ListarTodas();
+
         for (FlxcxOperacoes i : tipo_operacao) {
-            
-            Comb_tip_operacao.addItem(i.getOpCodigo()+" - "+ i.getOpDescricao());
-            
-            
+
+            Comb_tip_operacao.addItem(i.getOpCodigo() + " - " + i.getOpDescricao());
+
         }
-        
-        
-        
+
     }
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     public void Preenche_tabela(){
-        
+
+    public void Preenche_tabela() {
+
         CarCapContasDAO retorn_valores = new CarCapContasDAO();
-        
-        
-        List<CarCapContas> conta = retorn_valores.ListarTodos(new Date(),new Date());
-        
-        String [] colunas = {"Data","Produto","Quantidade","Status","Valor da parcela"};
-        
+
+        List<CarCapContas> conta = retorn_valores.ListarTodos(new Date(), new Date());
+
+        String[] colunas = {"Data", "Produto", "Quantidade", "Status", "Valor da parcela"};
+
         DefaultTableModel tabelamodelo = new DefaultTableModel(colunas, 0);
-        
-        for (CarCapContas j: conta) { 
-            
+
+        for (CarCapContas j : conta) {
+
             tabelamodelo.addRow(new Object[]{
-                j.getContaDataEmissao(),j.getProduto(),j.getQuantidade_produto(),j.getCapContaStatus(),j.getCarCapParcelas()});
-            
-            
+                j.getContaDataEmissao(), j.getProduto(), j.getQuantidade_produto(), j.getCapContaStatus(), j.getCarCapParcelas()});
+
         }
-        
+
         txt_tabela.setModel(tabelamodelo);
-        
+
     }
-     
-     
-     
-     public void cadastro_parcela(int parcela){
-         
-         for (int i = 1; i <= parcela; i++) {
-             
-             
-             
-         }
-         
-         
-         
-         
-         
-     }
-     
-     
-     
-     
-    
-    
-    
-    
-    
-    
+
+    public void cadastro_parcela(int parcela) {
+
+        for (int i = 1; i <= parcela; i++) {
+
+        }
+
+    }
+
 //METODOS DE USO
-  
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -528,23 +501,15 @@ public class FormContaReceber extends WebInternalFrame {
             conta.setContaTipo(TipoConta.Entrada);
             conta.setContaDataEmissao(txt_data_lançamento.getDate());
             conta.setProduto(txt_busca_produto.getText());
-            
+
             double j = Double.parseDouble(txtQuantidade.getText());
-            
+
             conta.setQuantidade_produto(j);
             conta.setPatNotaFiscal(null);
             conta.setDescricao(txt_descricao.getText());
-            
-            
-            
-            
-            
-            
-            
-           // conta.setContaNumParcelas();
+
+            // conta.setContaNumParcelas();
             conta.setContaNumParcelas(Integer.parseInt(txtQuantidade.getText()));
-            
-            
 
             new CarCapContasDAO().insert(conta);
         }
@@ -605,17 +570,17 @@ public class FormContaReceber extends WebInternalFrame {
 
     private void txt_Valor_TotalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_Valor_TotalMouseClicked
         String b = txtQuantidade.getText();
-        
+
         b = b.replace(",", "."); //Isso precisa ter pois se o cara digitar o numero com virgula vai dar pau no double
-        
+
         double q = FormataValor(Double.parseDouble(b));
-        
+
         String c = txt_preco_uni.getText();
 
         c = c.replace(",", "."); //Isso precisa ter pois se o cara digitar o numero com virgula vai dar pau no double
-        
+
         double u = FormataValor(Double.parseDouble(c));
-        
+
         double soma = q * u;
 
         String Soma = "" + soma;
@@ -696,11 +661,9 @@ public class FormContaReceber extends WebInternalFrame {
 
         });
     }
-    
-    
-    
+
     private static double FormataValor(Double valor) {
-            
+
         String pattern = "###.##";
 
         DecimalFormat dm = new DecimalFormat(pattern);
@@ -709,7 +672,6 @@ public class FormContaReceber extends WebInternalFrame {
 
         return Float.parseFloat(str.replace(',', '.'));
 
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
