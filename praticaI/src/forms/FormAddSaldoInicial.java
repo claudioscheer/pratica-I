@@ -23,6 +23,9 @@ public class FormAddSaldoInicial extends javax.swing.JDialog {
      */
     public FormAddSaldoInicial(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        
+        setLocationRelativeTo(this);
+        
         initComponents();
     }
 
@@ -41,6 +44,7 @@ public class FormAddSaldoInicial extends javax.swing.JDialog {
         webLabel1 = new com.alee.laf.label.WebLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setType(java.awt.Window.Type.POPUP);
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -50,6 +54,11 @@ public class FormAddSaldoInicial extends javax.swing.JDialog {
         });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         webLabel1.setText("Saldo Anterior");
 
@@ -90,16 +99,20 @@ public class FormAddSaldoInicial extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-       
-       FlxcxFluxoCaixaFechamento  fx = new FlxcxFluxoCaixaFechamento();
-       
-       fx.setFechData(new GregorianCalendar().getTime());
-       fx.setFechSaldoDisponivel(Double.valueOf(txtValor.getText()));
-       fx.setFechSaldoMes(0.0);
-       
-       new FlxcxFluxoCaixaFechamentoDAO().Inserir(fx);
-        
+
+        FlxcxFluxoCaixaFechamento fx = new FlxcxFluxoCaixaFechamento();
+
+        fx.setFechData(new GregorianCalendar().getTime());
+        fx.setFechSaldoDisponivel(Double.valueOf(txtValor.getText()));
+        fx.setFechSaldoMes(0.0);
+
+        new FlxcxFluxoCaixaFechamentoDAO().Inserir(fx);
+
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -131,7 +144,7 @@ public class FormAddSaldoInicial extends javax.swing.JDialog {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               FormAddSaldoInicial dialog = new FormAddSaldoInicial(new javax.swing.JFrame(), true);
+                FormAddSaldoInicial dialog = new FormAddSaldoInicial(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
