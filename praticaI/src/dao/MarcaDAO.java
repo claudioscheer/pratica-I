@@ -2,7 +2,6 @@ package dao;
 
 import java.util.List;
 import model.EstMarca;
-import modelAntigo.Marca;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -58,10 +57,10 @@ public class MarcaDAO {
         return marcas;
     }
 
-    public Marca Buscar(int codigo) {
+    public EstMarca Buscar(int codigo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Marca marca = (Marca) session.get(Marca.class, codigo);
+        EstMarca marca = (EstMarca) session.get(EstMarca.class, codigo);
         session.getTransaction().commit();
         session.close();
         return marca;
