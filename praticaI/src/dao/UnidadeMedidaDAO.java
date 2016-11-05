@@ -2,7 +2,6 @@ package dao;
 
 import java.util.List;
 import model.EstUnidadeMedida;
-import modelAntigo.UnidadeMedida;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -68,11 +67,11 @@ public class UnidadeMedidaDAO {
         }
     }
 
-    public UnidadeMedida Buscar(int codigo) {
+    public EstUnidadeMedida Buscar(int codigo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
-            UnidadeMedida unMedida = (UnidadeMedida) session.get(UnidadeMedida.class, codigo);
+            EstUnidadeMedida unMedida = (EstUnidadeMedida) session.get(EstUnidadeMedida.class, codigo);
             session.getTransaction().commit();            
             return unMedida;
         } catch (HibernateException e) {

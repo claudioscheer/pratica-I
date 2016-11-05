@@ -48,11 +48,9 @@ public class CategoriaDAO {
     }
 
     public List<EstCategoria> getAll() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
+        Session session = HibernateUtil.getSessionFactory().openSession();      
         Query query = session.createQuery("from EstCategoria as c ");
-        List<EstCategoria> categorias = query.list();
-        session.getTransaction().commit();
+        List<EstCategoria> categorias = query.list();     
         session.close();
 
         return categorias;
