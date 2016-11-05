@@ -244,13 +244,13 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void loadaddpessaoa() {
 
-        final IconDesktop iconDesktop = new IconDesktop("Adicionar Pessoa", Utils.getImage(Utils.Image.addpessoa));
+        final IconDesktop iconDesktop = new IconDesktop("Pessoa", Utils.getImage(Utils.Image.addpessoa));
 
         iconDesktop.setActionListener((e) -> {
             if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
                 return;
             }
-            FormadicionarPessoa form = new FormadicionarPessoa();
+            FormPessoa form = new FormPessoa();
             this.desktopPanel.add(form);
             form.open();
             try {
