@@ -25,8 +25,8 @@ public class FlxcxFluxoCaixaFechamento implements java.io.Serializable {
 
     private int fechCodigo;
     private Date fechData;
-    private BigDecimal fechSaldoMes;
-    private BigDecimal fechSaldoDisponivel;
+    private double fechSaldoMes;
+    private double fechSaldoDisponivel;
 
     public FlxcxFluxoCaixaFechamento() {
     }
@@ -35,7 +35,7 @@ public class FlxcxFluxoCaixaFechamento implements java.io.Serializable {
         this.fechCodigo = fechCodigo;
     }
 
-    public FlxcxFluxoCaixaFechamento(int fechCodigo, Date fechData, BigDecimal fechSaldoMes, BigDecimal fechSaldoDisponivel) {
+    public FlxcxFluxoCaixaFechamento(int fechCodigo, Date fechData, double fechSaldoMes, double fechSaldoDisponivel) {
         this.fechCodigo = fechCodigo;
         this.fechData = fechData;
         this.fechSaldoMes = fechSaldoMes;
@@ -64,21 +64,21 @@ public class FlxcxFluxoCaixaFechamento implements java.io.Serializable {
         this.fechData = fechData;
     }
 
-    @Column(name = "fech_saldo_mes", precision = 14)
-    public BigDecimal getFechSaldoMes() {
+    @Column(name = "fech_saldo_mes")
+    public double getFechSaldoMes() {
         return this.fechSaldoMes;
     }
 
-    public void setFechSaldoMes(BigDecimal fechSaldoMes) {
+    public void setFechSaldoMes(double fechSaldoMes) {
         this.fechSaldoMes = fechSaldoMes;
     }
 
-    @Column(name = "fech_saldo_disponivel", precision = 14)
-    public BigDecimal getFechSaldoDisponivel() {
+    @Column(name = "fech_saldo_disponivel")
+    public double getFechSaldoDisponivel() {
         return this.fechSaldoDisponivel;
     }
 
-    public void setFechSaldoDisponivel(BigDecimal fechSaldoDisponivel) {
+    public void setFechSaldoDisponivel(double fechSaldoDisponivel) {
         this.fechSaldoDisponivel = fechSaldoDisponivel;
     }
 

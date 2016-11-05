@@ -146,19 +146,15 @@
                   <Component id="webLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                   <Component id="txtDataInicial" min="-2" pref="107" max="-2" attributes="0"/>
-                  <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   <Component id="webLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                   <Component id="txtDataFinal" min="-2" pref="102" max="-2" attributes="0"/>
-                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                   <Component id="webLabel11" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                   <Component id="comboFiltroData" min="-2" pref="129" max="-2" attributes="0"/>
-                  <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
-                  <Component id="webLabel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="webComboBox2" min="-2" pref="148" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="webLabel4" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
@@ -167,7 +163,7 @@
                           <Component id="checkboxSaida" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                  <EmptySpace pref="94" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="webLabel5" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
@@ -176,17 +172,26 @@
                           <Component id="checkbox_Lista" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="48" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
                   <Component id="btnFiltrar" min="-2" pref="103" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="webLabel5" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="checkbox_Grafico" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkbox_Lista" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
@@ -204,22 +209,6 @@
                                   <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
                                   <Component id="txtDataFinal" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
-                                  <Component id="webLabel11" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
-                                  <Component id="comboFiltroData" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
-                                  <Component id="webLabel3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="webComboBox2" min="-2" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -232,13 +221,10 @@
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="webLabel5" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="checkbox_Grafico" min="-2" max="-2" attributes="0"/>
-                                              <Component id="checkbox_Lista" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                          <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                                          <Component id="webLabel11" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="comboFiltroData" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -284,11 +270,6 @@
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDataFinalFocusGained"/>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtDataFinalFocusLost"/>
           </Events>
-        </Component>
-        <Component class="com.alee.laf.label.WebLabel" name="webLabel3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Status:"/>
-          </Properties>
         </Component>
         <Component class="com.alee.laf.combobox.WebComboBox" name="comboFiltroData">
           <Properties>
@@ -356,18 +337,6 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="checkbox_ListaMouseClicked"/>
           </Events>
         </Component>
-        <Component class="com.alee.laf.combobox.WebComboBox" name="webComboBox2">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Todos"/>
-                <StringItem index="1" value="Pagamento Parcial"/>
-                <StringItem index="2" value="Fechada"/>
-                <StringItem index="3" value="Vencida"/>
-              </StringArray>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel11">
           <Properties>
             <Property name="text" type="java.lang.String" value="Definir:"/>
@@ -399,7 +368,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="10" y="11" width="-1" height="600"/>
+          <AbsoluteConstraints x="10" y="11" width="100" height="600"/>
         </Constraint>
       </Constraints>
 
@@ -412,12 +381,16 @@
                       <Component id="grapBarras" min="-2" max="-2" attributes="0"/>
                       <Component id="GrapLinhas" min="-2" max="-2" attributes="0"/>
                       <Component id="grapPizza" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="webButton6" alignment="0" min="-2" pref="77" max="-2" attributes="0"/>
+                      <Component id="webLabel10" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                          <Component id="btn_GerarRelatorio" min="-2" pref="77" max="-2" attributes="0"/>
+                      </Group>
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="btn_GerarRelatorio" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="btnAdd" alignment="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="webButton6" alignment="0" max="32767" attributes="0"/>
                           <Component id="webButton4" alignment="0" pref="77" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="webLabel10" alignment="0" min="-2" pref="69" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -428,11 +401,13 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                   <Component id="btn_GerarRelatorio" min="-2" pref="72" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                   <Component id="webButton6" min="-2" pref="42" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="webButton4" min="-2" pref="42" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="btnAdd" min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                   <Component id="webLabel10" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="GrapLinhas" min="-2" max="-2" attributes="0"/>
@@ -502,6 +477,14 @@
               <Font name="Tahoma" size="12" style="1"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="com.alee.laf.button.WebButton" name="btnAdd">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Add. valor ini"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
