@@ -85,8 +85,8 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
     }
 
     private String getMesAno() {
-        String mesano = new SimpleDateFormat("MMMM").format(this.calendar.getTime()) + " / " + this.calendar.get(Calendar.YEAR);
-        return mesano;
+        String mes_ano = new SimpleDateFormat("MMMM").format(this.calendar.getTime()).toLowerCase() + " / " + this.calendar.get(Calendar.YEAR);
+        return mes_ano;
     }
 
     private void setMesAno() {
@@ -140,7 +140,7 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
 
         lblMesAno.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblMesAno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMesAno.setText("Agosto / 2016");
+        lblMesAno.setText("agosto / 2016");
         lblMesAno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblMesAno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

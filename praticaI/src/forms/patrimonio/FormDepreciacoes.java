@@ -37,7 +37,7 @@ public class FormDepreciacoes extends WebInternalFrame {
     }
 
     private void gerarDepreciacao() {
-
+        this.panelGerarDepreciacao.startDepreciacao();
     }
 
     private void cancelarDepreciacao() {
