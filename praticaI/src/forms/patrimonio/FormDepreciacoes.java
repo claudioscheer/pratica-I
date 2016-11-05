@@ -25,7 +25,7 @@ public class FormDepreciacoes extends WebInternalFrame {
 
         this.setFrameIcon(Utils.getImage(Utils.Image.frame));
 
-        this.panelGerarDepreciacao = new PanelGerarDepreciacao();
+        this.panelGerarDepreciacao = PanelGerarDepreciacao.getInstance();
 
         this.panelGerarDepreciacao.setEvents((e) -> {
             this.gerarDepreciacao();
@@ -41,6 +41,7 @@ public class FormDepreciacoes extends WebInternalFrame {
     }
 
     private void cancelarDepreciacao() {
+        this.panelGerarDepreciacao.fecharPanel();
         this.dispose();
     }
 

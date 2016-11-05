@@ -2,25 +2,17 @@ package components.panelsListagem;
 
 import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.laf.panel.WebPanel;
-import dao.PatAtivoImobilizadoDAO;
 import dao.PatHistoricoDepreciacaoDAO;
-import forms.patrimonio.FormHistoricoDepreciacoes;
-import forms.FormPrincipal;
-import forms.patrimonio.FormQrCodeAtivoImobilizado;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentListener;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import javax.swing.SwingWorker;
-import javax.swing.table.DefaultTableModel;
-import model.PatAtivoImobilizado;
 import model.PatHistoricoDepreciacao;
 import utils.Utils;
 
 public class PanelGerarDepreciacao extends WebPanel {
+
+    private static PanelGerarDepreciacao panelGerarDepreciacao;
 
     private PatHistoricoDepreciacao ultimaDepreciacao;
     private boolean jaDepreciadoMesAtual;
@@ -30,6 +22,14 @@ public class PanelGerarDepreciacao extends WebPanel {
     public PanelGerarDepreciacao() {
         this.initComponents();
         new LoadDados().execute();
+    }
+
+    public static PanelGerarDepreciacao getInstance() {
+        if (panelGerarDepreciacao == null) {
+            panelGerarDepreciacao = new PanelGerarDepreciacao();
+        }
+
+        return panelGerarDepreciacao;
     }
 
     private class LoadDados extends SwingWorker<Void, Void> {
@@ -68,7 +68,7 @@ public class PanelGerarDepreciacao extends WebPanel {
 
         @Override
         protected Void doInBackground() throws Exception {
-            int ativos = 10;
+            int ativos = 30;
             progressBar.setMaximum(ativos);
             progressBar.setValue(valueProgress);
             for (int i = 0; i < ativos; i++) {
@@ -80,8 +80,13 @@ public class PanelGerarDepreciacao extends WebPanel {
 
         @Override
         public void done() {
+            fecharPanel();
             Utils.notificacao("Depreciação finalizada!", Utils.TipoNotificacao.ok, 0);
         }
+    }
+
+    public void fecharPanel() {
+        panelGerarDepreciacao = null;
     }
 
     public void startDepreciacao() {
@@ -95,8 +100,8 @@ public class PanelGerarDepreciacao extends WebPanel {
     }
 
     public void setEvents(ActionListener depreciar, ActionListener cancelar) {
-        buttonDepreciar.addActionListener(depreciar);
-        buttonCancelar.addActionListener(cancelar);
+        this.buttonDepreciar.addActionListener(depreciar);
+        this.buttonCancelar.addActionListener(cancelar);
     }
 
     @SuppressWarnings("unchecked")
@@ -115,7 +120,7 @@ public class PanelGerarDepreciacao extends WebPanel {
         buttonDepreciar.setText("Depreciar");
         buttonDepreciar.setEnabled(false);
 
-        buttonCancelar.setText("Cancelar");
+        buttonCancelar.setText("Fechar");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Último mês depreciado:");
@@ -133,7 +138,7 @@ public class PanelGerarDepreciacao extends WebPanel {
                     .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(buttonDepreciar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
