@@ -81,8 +81,6 @@ public class PanelCadPessoa extends WebPanel {
         txtTipo = new javax.swing.JLabel();
         radiobtnPF = new javax.swing.JRadioButton();
         radiobtnPJ = new javax.swing.JRadioButton();
-        btnCancelar1 = new com.alee.laf.button.WebButton();
-        btnSalvar1 = new com.alee.laf.button.WebButton();
         txtEndereco = new javax.swing.JLabel();
         fieldEndereco = new javax.swing.JTextField();
         txtCadastrar = new javax.swing.JLabel();
@@ -133,15 +131,6 @@ public class PanelCadPessoa extends WebPanel {
         radiobtnPJ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radiobtnPJActionPerformed(evt);
-            }
-        });
-
-        btnCancelar1.setText("Cancelar");
-
-        btnSalvar1.setText("Salvar");
-        btnSalvar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvar1ActionPerformed(evt);
             }
         });
 
@@ -200,7 +189,7 @@ public class PanelCadPessoa extends WebPanel {
                                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtCEP)
                                             .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addGap(0, 21, Short.MAX_VALUE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelItensLayout.createSequentialGroup()
                                 .addComponent(txtEndereco)
                                 .addGap(167, 167, 167)
@@ -214,13 +203,7 @@ public class PanelCadPessoa extends WebPanel {
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtBairro)
                             .addComponent(fieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(196, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelItensLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(208, Short.MAX_VALUE))
         );
         panelItensLayout.setVerticalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,11 +256,7 @@ public class PanelCadPessoa extends WebPanel {
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(195, Short.MAX_VALUE))
         );
 
         scrollCadastro.setViewportView(panelItens);
@@ -285,6 +264,11 @@ public class PanelCadPessoa extends WebPanel {
         panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
 
         btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
 
@@ -333,7 +317,7 @@ public class PanelCadPessoa extends WebPanel {
         this.validador.isValid();        // TODO add your handling code here:
     }//GEN-LAST:event_radiobtnPJActionPerformed
 
-    private void btnSalvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar1ActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         CarPessoa c = new CarPessoa();
         if (radiobtnPF.isSelected()) {     // verifica se a pessoa é do tipo Física
             c.setPessoaTipo(0); }  // atribui ao tipo o valor adequado
@@ -356,13 +340,12 @@ public class PanelCadPessoa extends WebPanel {
         } else {                             // senão, há algum erro
             utils.Utils.notificacao("Erro!", Utils.TipoNotificacao.erro, ERROR);
         }
-    }//GEN-LAST:event_btnSalvar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.button.WebButton btnCancelar;
-    private com.alee.laf.button.WebButton btnCancelar1;
     private com.alee.laf.button.WebButton btnSalvar;
-    private com.alee.laf.button.WebButton btnSalvar1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField fieldBairro;
     private javax.swing.JTextField fieldCEP;
