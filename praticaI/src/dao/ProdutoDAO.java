@@ -41,12 +41,9 @@ public class ProdutoDAO
 
     public List<EstProduto> getAll()
     {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
+        Session session = HibernateUtil.getSessionFactory().openSession();        
         Query query = session.createQuery("from EstProduto ");
         List<EstProduto> produto = query.list();
-        session.getTransaction().commit();
-        session.close();
         return produto;
     }
 

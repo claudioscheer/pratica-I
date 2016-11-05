@@ -5,17 +5,19 @@
  */
 package forms;
 
+import dao.ProdutoDAO;
+import javax.swing.table.DefaultTableModel;
+import model.EstProduto;
+
 /**
  *
  * @author Anderson
  */
-public class FormMateriais extends javax.swing.JDialog {
+public class FormMateriais extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FormMateriais
-     */
-    public FormMateriais(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    private ProdutoDAO prodDao = new ProdutoDAO();
+
+    public FormMateriais(java.awt.Frame parent, boolean modal) {        
         initComponents();
     }
 
@@ -30,9 +32,14 @@ public class FormMateriais extends javax.swing.JDialog {
 
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblMateriais = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         unMedidas = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -44,11 +51,63 @@ public class FormMateriais extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerenciamento de Materiais");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                AoAbrirTela(evt);
+            }
+        });
+
+        tblMateriais.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Código", "Descrição", "Categoria", "Marca", "Un. Medida"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblMateriais);
+        if (tblMateriais.getColumnModel().getColumnCount() > 0) {
+            tblMateriais.getColumnModel().getColumn(0).setResizable(false);
+            tblMateriais.getColumnModel().getColumn(1).setResizable(false);
+            tblMateriais.getColumnModel().getColumn(2).setResizable(false);
+            tblMateriais.getColumnModel().getColumn(3).setResizable(false);
+            tblMateriais.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/atualizar.png"))); // NOI18N
+        jButton1.setText("Alterar");
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/deletar.png"))); // NOI18N
+        jButton2.setText("Excluir");
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/adicionar.png"))); // NOI18N
+        jButton3.setText("Inserir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/anterior.png"))); // NOI18N
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         jMenu3.setText("Cadastros");
-
-        jMenuItem1.setText("Materiais");
-        jMenu3.add(jMenuItem1);
 
         unMedidas.setText("Unidades de Medida");
         unMedidas.addActionListener(new java.awt.event.ActionListener() {
@@ -82,11 +141,30 @@ public class FormMateriais extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 774, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(btnVoltar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addGap(6, 6, 6))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(73, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -110,6 +188,22 @@ public class FormMateriais extends javax.swing.JDialog {
         FormListaCategoria cat = new FormListaCategoria(null, rootPaneCheckingEnabled);
         cat.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void AoAbrirTela(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AoAbrirTela
+        // TODO add your handling code here:
+        preencheTabela();
+    }//GEN-LAST:event_AoAbrirTela
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        FormManutencaoMateriais manut = new FormManutencaoMateriais(null, rootPaneCheckingEnabled);
+        manut.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,14 +247,35 @@ public class FormMateriais extends javax.swing.JDialog {
         });
     }
 
+    private void preencheTabela() {//listar dados na jtable
+        DefaultTableModel modelo = (DefaultTableModel) tblMateriais.getModel();
+        modelo.setNumRows(0);
+
+        //semelhante ao foreach
+        for (EstProduto prd : prodDao.getAll()) {
+            modelo.addRow(new String[]{
+                "" + prd.getProdutoId(),
+                prd.getProdutoDescricao(),
+                prd.getEstCategoria().getCategoriaDescricao(),
+                prd.getEstMarca().getMarcaDescricao(),
+                prd.getEstUnidadeMedida().getUnidadeMedidaDescricao()
+            });
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnVoltar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblMateriais;
     private javax.swing.JMenuItem unMedidas;
     // End of variables declaration//GEN-END:variables
 }

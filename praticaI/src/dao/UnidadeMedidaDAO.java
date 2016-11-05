@@ -54,11 +54,9 @@ public class UnidadeMedidaDAO {
 
     public List<EstUnidadeMedida> ListarTodas() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            session.getTransaction().begin();
+        try {          
             Query query = session.createQuery("from EstUnidadeMedida as u ");
-            List<EstUnidadeMedida> unMedida = query.list();
-            session.getTransaction().commit();            
+            List<EstUnidadeMedida> unMedida = query.list();                     
             return unMedida;
         } catch (HibernateException e) {
             throw e;

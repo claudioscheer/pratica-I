@@ -52,7 +52,6 @@ public class CategoriaDAO {
         Query query = session.createQuery("from EstCategoria as c ");
         List<EstCategoria> categorias = query.list();     
         session.close();
-
         return categorias;
     }
 

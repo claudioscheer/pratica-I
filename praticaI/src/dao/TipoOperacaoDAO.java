@@ -54,11 +54,9 @@ public class TipoOperacaoDAO {
 
     public List<CarEstTipoOperacao> ListarTodas() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            session.getTransaction().begin();
+        try {            
             Query query = session.createQuery("from CarEstTipoOperacao as t ");
-            List<CarEstTipoOperacao> tipOperacao = query.list();
-            session.getTransaction().commit();            
+            List<CarEstTipoOperacao> tipOperacao = query.list();                   
             return tipOperacao;
         } catch (HibernateException e) {
             throw e;
