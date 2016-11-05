@@ -29,7 +29,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import model.CarCapContas;
 import model.Graficos;
-import model.Relatorios;
+import relatorios.relatorioFluxoDeCaixa.Relatorios;
 import net.sf.jasperreports.engine.JRException;
 import org.jfree.chart.ChartPanel;
 import utils.Utils;
@@ -1024,7 +1024,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             Relatorios report = new Relatorios();
             
             try {
-                report.RelatorioFluxoCaixa(data);
+                report.RelatorioFluxoCaixa(data,txtDataInicial.getDate(), txtDataFinal.getDate());
             } catch (JRException ex) {
                 Logger.getLogger(FormFluxodeCaixa.class.getName()).log(Level.SEVERE, null, ex);
             }
