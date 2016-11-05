@@ -397,7 +397,7 @@ public class FormContaReceber extends WebInternalFrame {
         webLabel16.setText("Data Inicial:");
         webPanel1.add(webLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 60, -1, 22));
 
-        comb_parcelas.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        comb_parcelas.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         webPanel1.add(comb_parcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 100, 32));
 
         txt_pess_cad.addActionListener(new java.awt.event.ActionListener() {

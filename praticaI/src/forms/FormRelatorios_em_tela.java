@@ -5,6 +5,12 @@
  */
 package forms;
 
+import dao.CarCapContasDAO;
+import enumeraveis.TipoConta;
+import java.util.List;
+import model.CarCapContas;
+import relatorios.contareceber.Relatorios;
+
 /**
  *
  * @author Marcos
@@ -27,8 +33,8 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        webDateField1 = new com.alee.extended.date.WebDateField();
-        webDateField2 = new com.alee.extended.date.WebDateField();
+        txtDataInicial = new com.alee.extended.date.WebDateField();
+        txtDataFinal = new com.alee.extended.date.WebDateField();
         webLabel13 = new com.alee.laf.label.WebLabel();
         webLabel14 = new com.alee.laf.label.WebLabel();
         webButton1 = new com.alee.laf.button.WebButton();
@@ -41,6 +47,11 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
         webLabel14.setText("Data Finalal:");
 
         webButton1.setText("Gerar");
+        webButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                webButton1ActionPerformed(evt);
+            }
+        });
 
         webComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pendentes", "Pagos", "Valor à receber", "Valor à sair", "Venda de produtos", "compra de produtos", "Media de prduto" }));
 
@@ -56,11 +67,11 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(webLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(webDateField1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(webLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(webDateField2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(77, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -72,8 +83,8 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(webDateField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(webDateField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(webLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(webLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -85,6 +96,16 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void webButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton1ActionPerformed
+        
+        CarCapContasDAO relatorio = new CarCapContasDAO();
+        List<CarCapContas> dados = relatorio.ListarContas(TipoConta.Saida, txtDataInicial.getDate(), txtDataFinal.getDate());
+        
+        Relatorios r = new Relatorios();
+        r.preenchedados(dados);
+
+    }//GEN-LAST:event_webButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -122,10 +143,10 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.alee.extended.date.WebDateField txtDataFinal;
+    private com.alee.extended.date.WebDateField txtDataInicial;
     private com.alee.laf.button.WebButton webButton1;
     private com.alee.laf.combobox.WebComboBox webComboBox1;
-    private com.alee.extended.date.WebDateField webDateField1;
-    private com.alee.extended.date.WebDateField webDateField2;
     private com.alee.laf.label.WebLabel webLabel13;
     private com.alee.laf.label.WebLabel webLabel14;
     // End of variables declaration//GEN-END:variables
