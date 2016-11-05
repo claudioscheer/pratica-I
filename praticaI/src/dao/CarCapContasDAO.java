@@ -70,10 +70,10 @@ public class CarCapContasDAO {
         session.getTransaction().begin();
 
         System.out.println("DataFinal" + dataFinal + "DataInicial: " + dataInicial);
-//and conta_data_emissao >=:dataInicial and conta_data_emissao <=:dataFinal
-        Query query = session.createQuery("from car_cap_contas as a");
-//        query.setParameter("dataInicial", dataInicial);
-//        query.setParameter("dataFinal", dataFinal);
+//
+        Query query = session.createQuery("from CarCapContas as a where contatipo=:tipo and contaDataEmissao >=:dataInicial and contaDataEmissao <=:dataFinal");
+        query.setParameter("dataInicial", dataInicial);
+        query.setParameter("dataFinal", dataFinal);
         query.setParameter("tipo", tipo);
 
         List<CarCapContas> contas = query.list();
