@@ -120,11 +120,13 @@ public class PanelCadNotaFiscal extends WebPanel {
 
         this.notaFiscal.setNotaValor(this.txtValor.getValue());
         this.notaFiscal.setNotaAtiva(true);
-        
+
+        TableModel model = (TableModel) tabelaProdutos.getModel();
         for (int i = 0; i < this.notaFiscal.getPatItemNotas().size(); i++) {
-            this.notaFiscal.getPatItemNotas().get(i).setOrdem(i + 1);
+            this.notaFiscal.getPatItemNotas().get(i).setItemNotaOrdem(i + 1);
+            this.notaFiscal.getPatItemNotas().get(i).setItemNotacontrolavel((Boolean) model.getValueAt(i, 5));
         }
-        
+
         return this.notaFiscal;
     }
 
@@ -350,8 +352,12 @@ public class PanelCadNotaFiscal extends WebPanel {
             addItemNotaTabela(this.notaFiscal.getPatItemNotas().size() - 1);
         });
 
-        JFrame form = (JFrame)this.getRootPane().getParent();
-//        FormPrincipal form = FormPrincipal.getInstance();
+        Frame form;
+        if (this.getRootPane().getParent() instanceof FormBuscaNotaFiscal) {
+            form = (Frame) this.getRootPane().getParent();
+        } else {
+            form = FormPrincipal.getInstance();
+        }
         f.setFrameBloquear(form);
         form.setEnabled(false);
     }//GEN-LAST:event_btnAdicionarProdutoActionPerformed

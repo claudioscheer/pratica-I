@@ -70,6 +70,7 @@ public class PanelConsultaNotaFiscal extends WebPanel {
 
     private class LoadNotasFiscais extends SwingWorker<Void, Void> {
 
+        @Override
         protected Void doInBackground() throws Exception {
 //            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
             notasFiscais.addAll(new PatNotaFiscalDAO().getAll(txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
@@ -77,6 +78,7 @@ public class PanelConsultaNotaFiscal extends WebPanel {
             return null;
         }
 
+        @Override
         public void done() {
 //            ultimaPosicaoTabela = scrollPanel.getVerticalScrollBar().getMaximum();
 //            scrollPanel.getVerticalScrollBar().addAdjustmentListener(eventoScroll);

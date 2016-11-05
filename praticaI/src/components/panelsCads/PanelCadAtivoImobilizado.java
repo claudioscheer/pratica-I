@@ -54,7 +54,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.notaFiscal = this.ativoImobilizado.getPatItemNota().getPatNotaFiscal();
         this.recarregarItensNota();
 
-        this.comboItemNota.setSelectedIndex(this.ativoImobilizado.getPatItemNota().getOrdem() - 1);
+        this.comboItemNota.setSelectedIndex(this.ativoImobilizado.getPatItemNota().getItemNotaOrdem() - 1);
     }
 
     public void init() {

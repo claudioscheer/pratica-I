@@ -93,7 +93,7 @@ public class PatNotaFiscal implements java.io.Serializable {
     }
 
     @OneToMany(mappedBy = "patNotaFiscal", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @OrderBy("ordem ASC")
+    @OrderBy("itemNotaOrdem ASC")
     public List<PatItemNota> getPatItemNotas() {
         if (this.patItemNotas == null) {
             this.patItemNotas = new ArrayList<>();
