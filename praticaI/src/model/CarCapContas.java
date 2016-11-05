@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 /**
@@ -34,6 +35,9 @@ public class CarCapContas implements java.io.Serializable {
     @Enumerated
     @Column(name = "contastatus")
     private StatusConta contaStatus;
+    
+    @Transient
+    private String contaStatusDescricao;
     
     @ManyToOne(fetch = FetchType.LAZY)
     private CarEstTipoOperacao carEstTipoOperacao;
@@ -64,6 +68,9 @@ public class CarCapContas implements java.io.Serializable {
 
     @Enumerated
     private TipoConta contaTipo;
+    
+    @Transient
+    private String contaTipoDescricao;
 
     @OneToMany(mappedBy = "carCapContas")
     private Set<FlxcxEspecificacoes> flxcxEspecificacoeses = new HashSet(0);
@@ -127,6 +134,30 @@ public class CarCapContas implements java.io.Serializable {
 
     public void setQuantidade_produto(double quantidade_produto) {
         this.quantidade_produto = quantidade_produto;
+    }
+
+    public StatusConta getContaStatus() {
+        return contaStatus;
+    }
+
+    public void setContaStatus(StatusConta contaStatus) {
+        this.contaStatus = contaStatus;
+    }
+
+    public String getContaStatusDescricao() {
+        return contaStatusDescricao;
+    }
+
+    public void setContaStatusDescricao(String contaStatusDescricao) {
+        this.contaStatusDescricao = contaStatusDescricao;
+    }
+
+    public String getContaTipoDescricao() {
+        return contaTipoDescricao;
+    }
+
+    public void setContaTipoDescricao(String contaTipoDescricao) {
+        this.contaTipoDescricao = contaTipoDescricao;
     }
 
     
