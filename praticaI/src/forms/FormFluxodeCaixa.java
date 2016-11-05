@@ -306,6 +306,11 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                 comboFiltroDataItemStateChanged(evt);
             }
         });
+        comboFiltroData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboFiltroDataActionPerformed(evt);
+            }
+        });
 
         webLabel4.setText("Tipo de Operação");
         webLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -1283,6 +1288,10 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         FormAddSaldoInicial formSaldo = new FormAddSaldoInicial(null, rootPaneCheckingEnabled);
         formSaldo.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void comboFiltroDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltroDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboFiltroDataActionPerformed
 
     /**
      * @param args the command line arguments
