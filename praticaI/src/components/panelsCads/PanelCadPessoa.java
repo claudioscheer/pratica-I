@@ -2,6 +2,7 @@ package components.panelsCads;
 
 import com.alee.laf.panel.WebPanel;
 import components.Validador;
+import dao.PessoaDAO;
 import java.awt.event.ActionListener;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import model.CarPessoa;
@@ -11,6 +12,7 @@ public class PanelCadPessoa extends WebPanel {
 
     public Validador validador;
     
+    PessoaDAO p = new PessoaDAO();
 
     public PanelCadPessoa() {
         
@@ -97,7 +99,7 @@ public class PanelCadPessoa extends WebPanel {
         txtUF = new javax.swing.JLabel();
         txtCEP = new javax.swing.JLabel();
         fieldCEP = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboboxUF = new javax.swing.JComboBox<>();
         panelOpcoes = new javax.swing.JPanel();
         btnSalvar = new com.alee.laf.button.WebButton();
         btnCancelar = new com.alee.laf.button.WebButton();
@@ -153,7 +155,7 @@ public class PanelCadPessoa extends WebPanel {
 
         txtCEP.setText("CEP: ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        comboboxUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
 
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
@@ -197,7 +199,7 @@ public class PanelCadPessoa extends WebPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelItensLayout.createSequentialGroup()
                                 .addComponent(fieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(comboboxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtCidade, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18)
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,7 +257,7 @@ public class PanelCadPessoa extends WebPanel {
                         .addGap(18, 18, 18)
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(comboboxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(195, Short.MAX_VALUE))
         );
 
@@ -333,9 +335,13 @@ public class PanelCadPessoa extends WebPanel {
         c.setPessoaBairro(fieldBairro.getText());
         c.setPessoaFone(fieldFone.getText());        
         c.setPessoaEmail(fieldEmail.getText());
+        c.setPessoaCEP(Integer.parseInt(fieldCEP.getText()));
+        c.setPessoaCidade(fieldCidade.getText());
+    //    c.setPessoaUF(comboboxUF.getSelectedItem());
 
         if (this.validador.isValid()) // se a validação estiver OK
         {
+            p.insert(c);
             utils.Utils.notificacao("Cadastro feito com sucesso", Utils.TipoNotificacao.ok, DO_NOTHING_ON_CLOSE);
         } else {                             // senão, há algum erro
             utils.Utils.notificacao("Erro!", Utils.TipoNotificacao.erro, ERROR);
@@ -347,6 +353,7 @@ public class PanelCadPessoa extends WebPanel {
     private com.alee.laf.button.WebButton btnCancelar;
     private com.alee.laf.button.WebButton btnSalvar;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> comboboxUF;
     private javax.swing.JTextField fieldBairro;
     private javax.swing.JTextField fieldCEP;
     private javax.swing.JTextField fieldCidade;
@@ -356,7 +363,6 @@ public class PanelCadPessoa extends WebPanel {
     private javax.swing.JTextField fieldEndereco;
     private javax.swing.JTextField fieldFone;
     private javax.swing.JTextField fieldNome;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel panelItens;
     private javax.swing.JPanel panelOpcoes;
     private javax.swing.JRadioButton radiobtnPF;

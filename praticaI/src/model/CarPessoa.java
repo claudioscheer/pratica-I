@@ -32,21 +32,9 @@ private int pessoaId;
     private String pessoaComplemento;
     private String pessoaBairro;
     private String pessoaCidade;
-    private Set pessoaUF = new HashSet(0);
+    private String pessoaUF;
     private int pessoaCEP;
-    private Set<PatNotaFiscal> patNotaFiscals = new HashSet(0);
-    private Set<CarCapContas> carCapContas = new HashSet(0);
-    private Set<FlxcxFluxoCaixa> flxcxFluxoCaixas = new HashSet(0);
-    private Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios = new HashSet(0);
-
-    public CarPessoa() {
-    }
-
-    public CarPessoa(int pessoaId, String pessoaNome) {
-        this.pessoaId = pessoaId;
-        this.pessoaNome = pessoaNome;
-    }
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nome") 
     @Column(name = "pessoa_id", unique = true, nullable = false)
@@ -93,43 +81,7 @@ private int pessoaId;
     public void setPessoaCnpjCpf(String pessoaCnpjCpf) {
         this.pessoaCpfCnpj = pessoaCnpjCpf;
     }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "carPessoa")
-    public Set<PatNotaFiscal> getPatNotaFiscals() {
-        return this.patNotaFiscals;
-    }
-
-    public void setPatNotaFiscals(Set<PatNotaFiscal> patNotaFiscals) {
-        this.patNotaFiscals = patNotaFiscals;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "carPessoa")
-    public Set<CarCapContas> getCarCapContases() {
-        return this.carCapContas;
-    }
-
-    public void setCarCapContases(Set<CarCapContas> carCapContas) {
-        this.carCapContas = carCapContas;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "carPessoa")
-    public Set<FlxcxFluxoCaixa> getFlxcxFluxoCaixas() {
-        return this.flxcxFluxoCaixas;
-    }
-
-    public void setFlxcxFluxoCaixas(Set<FlxcxFluxoCaixa> flxcxFluxoCaixas) {
-        this.flxcxFluxoCaixas = flxcxFluxoCaixas;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "carPessoa")
-    public Set<FlxcxMovimentoBancario> getFlxcxMovimentoBancarios() {
-        return this.flxcxMovimentoBancarios;
-    }
-
-    public void setFlxcxMovimentoBancarios(Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios) {
-        this.flxcxMovimentoBancarios = flxcxMovimentoBancarios;
-    }
-
+    
     public String getPessoaCpfCnpj() {
         return pessoaCpfCnpj;
     }
@@ -178,11 +130,11 @@ private int pessoaId;
         this.pessoaCidade = pessoaCidade;
     }
 
-    public Set getPessoaUF() {
+    public String getPessoaUF() {
         return pessoaUF;
     }
 
-    public void setPessoaUF(Set pessoaUF) {
+    public void setPessoaUF(String pessoaUF) {
         this.pessoaUF = pessoaUF;
     }
 
