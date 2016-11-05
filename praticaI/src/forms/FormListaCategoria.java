@@ -5,7 +5,7 @@
  */
 package forms;
 
-import dao.CategoriaDAO;
+import dao.EstCategoriaDAO;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.EstCategoria;
@@ -16,7 +16,7 @@ import model.EstCategoria;
  */
 public class FormListaCategoria extends javax.swing.JDialog {
 
-    private CategoriaDAO dao = new CategoriaDAO();
+    private EstCategoriaDAO dao = new EstCategoriaDAO();
 
     public FormListaCategoria(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

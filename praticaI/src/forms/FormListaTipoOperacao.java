@@ -5,7 +5,7 @@
  */
 package forms;
 
-import dao.TipoOperacaoDAO;
+import dao.EstTipoOperacaoDAO;
 import javax.swing.table.DefaultTableModel;
 import model.CarEstTipoOperacao;
 
@@ -15,7 +15,7 @@ import model.CarEstTipoOperacao;
  */
 public class FormListaTipoOperacao extends javax.swing.JDialog {
 
-    private TipoOperacaoDAO dao = new TipoOperacaoDAO();
+    private EstTipoOperacaoDAO dao = new EstTipoOperacaoDAO();
 
     public FormListaTipoOperacao(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

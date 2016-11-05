@@ -6,7 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
-public class ProdutoDAO
+public class EstProdutoDAO
 {
 
     public Boolean update(EstProduto produto)

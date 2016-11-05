@@ -5,7 +5,7 @@
  */
 package forms;
 
-import dao.UnidadeMedidaDAO;
+import dao.EstUnidadeMedidaDAO;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.EstUnidadeMedida;
@@ -16,7 +16,7 @@ import model.EstUnidadeMedida;
  */
 public class FormListaUnidadeMedida extends javax.swing.JDialog {
 
-    private UnidadeMedidaDAO unidadeDAO = new UnidadeMedidaDAO();
+    private EstUnidadeMedidaDAO unidadeDAO = new EstUnidadeMedidaDAO();
 
     /**
      * Creates new form FormListaUnidadeMedida

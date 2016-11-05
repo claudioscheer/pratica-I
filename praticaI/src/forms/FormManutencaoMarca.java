@@ -5,7 +5,7 @@
  */
 package forms;
 
-import dao.MarcaDAO;
+import dao.EstMarcaDAO;
 import javax.swing.JOptionPane;
 import model.EstMarca;
 
@@ -108,7 +108,7 @@ public class FormManutencaoMarca extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         EstMarca marca = new EstMarca();
-        MarcaDAO dao = new MarcaDAO();
+        EstMarcaDAO dao = new EstMarcaDAO();
         if (edtDescricao.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe a Descrição", "Atenção", JOptionPane.WARNING_MESSAGE);
             return;

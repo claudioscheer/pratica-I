@@ -2,7 +2,7 @@ package forms.busca;
 
 import components.JFrameBusca;
 import components.TextFieldFK;
-import dao.CategoriaDAO;
+import dao.EstCategoriaDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +31,7 @@ public class FormBuscaCategoria extends JFrameBusca {
 
             DefaultTableModel model = (DefaultTableModel) tabelaCategoria.getModel();
 
-            categorias = new CategoriaDAO().getAll();
+            categorias = new EstCategoriaDAO().getAll();
             for (EstCategoria categoria : categorias) {
                 Object[] o = new Object[2];
                 o[0] = categoria.getCategoriaId();

@@ -5,7 +5,7 @@
  */
 package forms;
 
-import dao.UnidadeMedidaDAO;
+import dao.EstUnidadeMedidaDAO;
 import javax.swing.JOptionPane;
 import model.EstUnidadeMedida;
 
@@ -111,14 +111,14 @@ public class formManutencaoUnidadeMedida extends javax.swing.JDialog {
         EstUnidadeMedida un = new EstUnidadeMedida();
         if (!isEdicao) {
             un.setUnidadeMedidaDescricao(edtDescricao.getText());
-            UnidadeMedidaDAO dao = new UnidadeMedidaDAO();
+            EstUnidadeMedidaDAO dao = new EstUnidadeMedidaDAO();
             if (dao.Inserir(un)) {
                 JOptionPane.showMessageDialog(null, "Cadastro Salvo com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
             un.setUnidadeMedidaId(this.UnidadeMedidaEdicao.getUnidadeMedidaId());
             un.setUnidadeMedidaDescricao(edtDescricao.getText());
-            UnidadeMedidaDAO dao = new UnidadeMedidaDAO();
+            EstUnidadeMedidaDAO dao = new EstUnidadeMedidaDAO();
             if (dao.Alterar(un)) {
                 JOptionPane.showMessageDialog(null, "Cadastro Alterado com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }

@@ -7,7 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
-public class UnidadeMedidaDAO {    
+public class EstUnidadeMedidaDAO {    
 
     public boolean Inserir(EstUnidadeMedida unMedida) {
         Session session = HibernateUtil.getSessionFactory().openSession();

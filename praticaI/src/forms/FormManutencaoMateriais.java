@@ -6,10 +6,10 @@
 package forms;
 
 import components.Validador;
-import dao.CategoriaDAO;
-import dao.MarcaDAO;
-import dao.ProdutoDAO;
-import dao.UnidadeMedidaDAO;
+import dao.EstCategoriaDAO;
+import dao.EstMarcaDAO;
+import dao.EstProdutoDAO;
+import dao.EstUnidadeMedidaDAO;
 import forms.busca.FormBuscaCategoria;
 import forms.busca.FormBuscaMarca;
 import forms.busca.FormBuscaUnidadeMedida;
@@ -25,10 +25,10 @@ import model.EstUnidadeMedida;
  */
 public class FormManutencaoMateriais extends javax.swing.JFrame {
 
-    private ProdutoDAO produtoDao = new ProdutoDAO();
-    private CategoriaDAO categoriaDao = new CategoriaDAO();
-    private MarcaDAO marcaDao = new MarcaDAO();
-    private UnidadeMedidaDAO unidadeDao = new UnidadeMedidaDAO();
+    private EstProdutoDAO produtoDao = new EstProdutoDAO();
+    private EstCategoriaDAO categoriaDao = new EstCategoriaDAO();
+    private EstMarcaDAO marcaDao = new EstMarcaDAO();
+    private EstUnidadeMedidaDAO unidadeDao = new EstUnidadeMedidaDAO();
     
     public Validador validador;
     FormBuscaMarca formMarca;

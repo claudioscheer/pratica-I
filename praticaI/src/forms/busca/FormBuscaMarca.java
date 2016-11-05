@@ -2,8 +2,8 @@ package forms.busca;
 
 import components.JFrameBusca;
 import components.TextFieldFK;
-import dao.CategoriaDAO;
-import dao.MarcaDAO;
+import dao.EstCategoriaDAO;
+import dao.EstMarcaDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
@@ -32,7 +32,7 @@ public class FormBuscaMarca extends JFrameBusca {
 
             DefaultTableModel model = (DefaultTableModel) tabelaMarcas.getModel();
 
-            marcas = new MarcaDAO().ListarTodas();
+            marcas = new EstMarcaDAO().ListarTodas();
             for (EstMarca marca : marcas) {
                 Object[] o = new Object[2];
                 o[0] = marca.getMarcaId();

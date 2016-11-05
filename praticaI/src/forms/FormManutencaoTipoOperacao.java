@@ -5,7 +5,7 @@
  */
 package forms;
 
-import dao.TipoOperacaoDAO;
+import dao.EstTipoOperacaoDAO;
 import javax.swing.JOptionPane;
 import model.CarEstTipoOperacao;
 
@@ -109,7 +109,7 @@ public class FormManutencaoTipoOperacao extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        TipoOperacaoDAO dao = new TipoOperacaoDAO();        
+        EstTipoOperacaoDAO dao = new EstTipoOperacaoDAO();        
         CarEstTipoOperacao tpOperacao = new CarEstTipoOperacao();
         if(!isEdicao){
             tpOperacao.setTpOpNome(edtNome.getText());

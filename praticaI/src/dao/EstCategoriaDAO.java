@@ -1,28 +1,28 @@
 package dao;
 
 import java.util.List;
-import model.EstMarca;
+import model.EstCategoria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
-public class MarcaDAO {
+public class EstCategoriaDAO {
 
-    public Boolean Inserir(EstMarca marca) {
+    public Boolean Inserir(EstCategoria categoria) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        session.save(marca);
+        session.save(categoria);
         session.getTransaction().commit();
         session.close();
         return true;
     }
 
-    public boolean Alterar(EstMarca marca) {
+    public boolean Alterar(EstCategoria categoria) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
-            session.update(marca);
+            session.update(categoria);
             session.getTransaction().commit();
             return true;
         } catch (HibernateException e) {
@@ -36,8 +36,8 @@ public class MarcaDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
-            EstMarca marca = (EstMarca) session.get(EstMarca.class, codigo);
-            session.delete(marca);
+            EstCategoria categoria = (EstCategoria) session.get(EstCategoria.class, codigo);
+            session.delete(categoria);
             return true;
         } catch (HibernateException e) {
             throw e;
@@ -47,23 +47,21 @@ public class MarcaDAO {
         }
     }
 
-    public List<EstMarca> ListarTodas() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
-        Query query = session.createQuery("from EstMarca as m ");
-        List<EstMarca> marcas = query.list();
-        session.getTransaction().commit();
+    public List<EstCategoria> getAll() {
+        Session session = HibernateUtil.getSessionFactory().openSession();      
+        Query query = session.createQuery("from EstCategoria as c ");
+        List<EstCategoria> categorias = query.list();     
         session.close();
-        return marcas;
+        return categorias;
     }
 
-    public EstMarca Buscar(int codigo) {
+    public EstCategoria get(int c) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        EstMarca marca = (EstMarca) session.get(EstMarca.class, codigo);
+        EstCategoria categoria = (EstCategoria) session.get(EstCategoria.class, c);
         session.getTransaction().commit();
         session.close();
-        return marca;
+        return categoria;
     }
 
 }

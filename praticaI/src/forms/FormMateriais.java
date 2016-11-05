@@ -5,7 +5,7 @@
  */
 package forms;
 
-import dao.ProdutoDAO;
+import dao.EstProdutoDAO;
 import javax.swing.table.DefaultTableModel;
 import model.EstProduto;
 
@@ -15,7 +15,7 @@ import model.EstProduto;
  */
 public class FormMateriais extends javax.swing.JFrame {
 
-    private ProdutoDAO prodDao = new ProdutoDAO();
+    private EstProdutoDAO prodDao = new EstProdutoDAO();
 
     public FormMateriais(java.awt.Frame parent, boolean modal) {        
         initComponents();

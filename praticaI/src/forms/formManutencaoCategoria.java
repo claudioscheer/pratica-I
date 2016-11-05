@@ -5,7 +5,7 @@
  */
 package forms;
 
-import dao.CategoriaDAO;
+import dao.EstCategoriaDAO;
 import javax.swing.JOptionPane;
 import model.EstCategoria;
 
@@ -102,7 +102,7 @@ public class formManutencaoCategoria extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        CategoriaDAO dao = new CategoriaDAO();
+        EstCategoriaDAO dao = new EstCategoriaDAO();
         EstCategoria categoria = new EstCategoria();
         if (edtDescricao.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Informe a Descrição", "Atenção", JOptionPane.WARNING_MESSAGE);

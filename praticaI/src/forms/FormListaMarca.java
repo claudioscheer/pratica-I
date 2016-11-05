@@ -5,7 +5,7 @@
  */
 package forms;
 
-import dao.MarcaDAO;
+import dao.EstMarcaDAO;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.EstMarca;
@@ -16,7 +16,7 @@ import model.EstMarca;
  */
 public class FormListaMarca extends javax.swing.JDialog {
 
-    private MarcaDAO marcaDao = new MarcaDAO();
+    private EstMarcaDAO marcaDao = new EstMarcaDAO();
 
     /**
      * Creates new form FormListaMarca
