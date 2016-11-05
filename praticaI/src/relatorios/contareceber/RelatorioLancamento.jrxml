@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-11-05T16:41:31 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFluxo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2aa1104-ccd2-4655-ac8f-735df765de3f">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="tipoOperacaoDescricao" class="java.util.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contaStatusDescricao" class="java.util.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contaTipoDescricao" class="java.util.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contaDataEmissao" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contaValorPago" class="java.util.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contaValorTotal" class="java.util.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalSaidas" class="java.util.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pessoaNome" class="java.lang.String"/>
+	<variable name="somaContas" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{contaValorPago}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="101" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="101" backcolor="#E6EFF5" uuid="71ba137f-cc18-4baa-b16c-4e949c5a208d"/>
+			</rectangle>
+			<image>
+				<reportElement x="10" y="10" width="140" height="80" uuid="aa934927-9419-4acb-bdb8-57c5c2c4ced2"/>
+				<imageExpression><![CDATA["C:\Users\Juliano\Google Drive\FACULDADE\SETREM\4º sem\Prática Profissional I\praticaI\trunk\praticaI\src\imagens"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="170" y="50" width="368" height="40" uuid="9e9ff3ef-683b-4b77-8f1d-a64d5fc94ac6">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="26"/>
+				</textElement>
+				<text><![CDATA[Relatório de Lançamentos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="3" width="56" height="18" uuid="33efaf1a-c57e-46f4-8e0e-3bb65267c863"/>
+				<text><![CDATA[Período de ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="446" y="2" width="12" height="20" uuid="fa5d17cc-fc89-4759-aa93-d7503458eb3c"/>
+				<text><![CDATA[à]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="10" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="0" width="554" height="1" uuid="1fb8c04d-e3e9-4a6c-90e4-982abddadeaa"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="120" height="28" uuid="1af4ae00-14e1-4ba9-8fab-6b0f449c2641"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Tipo de Operação]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="0" width="70" height="20" uuid="d8d91bdf-b844-4902-8c9e-7881a219c54e"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="50" height="20" uuid="16d1b58e-c983-475a-801d-8b64d3e12fbc"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Pessoa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="80" height="20" uuid="6953617a-0e7a-4a9b-bc36-92bdf31977a3"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="80" height="20" uuid="b9980720-265a-4a76-a670-9e05322deb03"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Valor Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="0" width="74" height="20" uuid="fa5c2e60-1896-4d67-8368-a5bafe42663d"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="47" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="5" width="100" height="20" uuid="27d8c7fa-6bba-4a1d-8495-ff1fd8233e81"/>
+				<textFieldExpression><![CDATA[$F{tipoOperacaoDescricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="5" width="70" height="20" uuid="68d11492-3b56-4593-8b2d-275528fb450f"/>
+				<textFieldExpression><![CDATA[$F{contaDataEmissao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="5" width="70" height="20" uuid="5a360cb3-9dbf-4f83-9a4c-12285c4261c7"/>
+				<textFieldExpression><![CDATA[$F{pessoaNome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="5" width="68" height="25" uuid="9472489f-5dd4-4fdf-8187-17ef4369ae5c"/>
+				<textFieldExpression><![CDATA[$F{contaStatusDescricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="7" width="80" height="23" uuid="18891345-94b4-41c9-9594-052fb9acbca0"/>
+				<textFieldExpression><![CDATA[$F{contaValorPago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="7" width="65" height="23" uuid="147e883a-57ac-4c34-b036-886f86b33d4b"/>
+				<textFieldExpression><![CDATA[$F{contaValorTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="53" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="12" width="554" height="30" backcolor="#E6EFF5" uuid="0506f9d3-1667-45c6-a9cc-5937d3b14696"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="182" y="18" width="228" height="20" uuid="fcd85598-9f71-4f76-b5ae-e44cd9abb636"/>
+				<text><![CDATA[Todos os direitos Reservados - CowTábil - 2016]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
