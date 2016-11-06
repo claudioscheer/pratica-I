@@ -37,7 +37,15 @@ public class CarCapContasDAO {
         return true;
     }
 
-
+     public List<CarCapContas> getAll() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("from CarCapContas as a");
+        List<CarCapContas> contas = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return contas;
+    }
   
 
     public List<CarCapContas> ListarTodos(Date dataInicial, Date dataFinal) {

@@ -2,9 +2,7 @@ package forms.busca;
 
 import components.JFrameBusca;
 import components.TextFieldFK;
-import dao.CategoriaDAO;
-import dao.MarcaDAO;
-import dao.ProdutoDAO;
+import dao.EstProdutoDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
@@ -33,7 +31,9 @@ public class FormBuscaProduto extends JFrameBusca {
 
             DefaultTableModel model = (DefaultTableModel) tabelaProdutos.getModel();
 
-           produtos = new ProdutoDAO().getAll();
+            EstProdutoDAO produtoDAO = new EstProdutoDAO();
+            
+           produtos =  produtoDAO.getAll();
             for (EstProduto produto : produtos) {
                 Object[] o = new Object[2];
                 o[0] = produto.getProdutoId();
@@ -46,6 +46,10 @@ public class FormBuscaProduto extends JFrameBusca {
 
         public void done() {
 
+        }
+
+        private Object ProdutoDAO() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     }
 
@@ -150,7 +154,7 @@ public class FormBuscaProduto extends JFrameBusca {
         if (this.getFrameBuscaTipo() == JFrameBuscaTipo.textFieldFK) {
             TextFieldFK text = this.getTextFieldFK();
             EstProduto marca = this.produtos.get(linhaselecionada);
-            text.setText(marca.getProdutoId() + " - " + marca.getProdutoDescricao());
+            text.setText(marca.getProdutoId() + "-" + marca.getProdutoDescricao());
             text.setValue(marca);
         }
 

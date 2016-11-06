@@ -62,7 +62,6 @@ public class CarCapParcela implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parcela_conta_id")
     public CarCapContas getCarCapContas() {
         return this.carCapContas;
     }

@@ -62,7 +62,13 @@ public class FormContaPagar extends WebInternalFrame {
         }
 
         PatAtivoImobilizadoDAO especificacaoDAO = new PatAtivoImobilizadoDAO();
+
+        //NotaFiscalDAO nota = this.panelCadContaPagar.getNotaFiscal();
+
+       // NotaFiscalDAO nota = this.panelCadContaPagar.getNotaFiscal();
+
 //        NotaFiscalDAO nota = this.panelCadContaPagar.getNotaFiscal();
+
     }
 
     //toggle o form de cadastro de nota fiscal

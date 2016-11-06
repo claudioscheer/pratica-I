@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -23,6 +24,7 @@ import javax.persistence.TemporalType;
 @SequenceGenerator(name = "seq_nota_fiscal", sequenceName = "seq_nota_fiscal", allocationSize = 1)
 @Table(name = "pat_nota_fiscal", schema = "public")
 public class PatNotaFiscal implements java.io.Serializable {
+    private CarcapOperacoesComerciais carcapOperacoesComerciais;
 
     private int notaCodigo;
     private CarPessoa carPessoa;
@@ -126,5 +128,14 @@ public class PatNotaFiscal implements java.io.Serializable {
 
     public void removeItemNota(int index) {
         this.getPatItemNotas().remove(index);
+    }
+
+    @OneToOne(mappedBy = "operacaoNota")
+    public CarcapOperacoesComerciais getCarcapOperacoesComerciais() {
+        return carcapOperacoesComerciais;
+    }
+
+    public void setCarcapOperacoesComerciais(CarcapOperacoesComerciais carcapOperacoesComerciais) {
+        this.carcapOperacoesComerciais = carcapOperacoesComerciais;
     }
 }

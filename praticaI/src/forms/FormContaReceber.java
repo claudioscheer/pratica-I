@@ -14,7 +14,15 @@ import enumeraveis.TipoConta;
 import forms.busca.FormBuscaFornecedor;
 import forms.busca.FormBuscaMarca;
 import forms.busca.FormBuscaNotaFiscal;
+
 import components.TextFieldFK;
+import dao.EstProdutoDAO;
+import dao.carcapOperacoesComerciaisDAO;
+import enumeraveis.TipoMovimento;
+
+
+import components.TextFieldFK;
+
 import forms.busca.FormBuscaProduto;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
@@ -24,6 +32,8 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import model.CarCapContas;
+import model.CarcapOperacoesComerciais;
+import model.EstProduto;
 import model.FlxcxOperacoes;
 import utils.Utils;
 
@@ -40,7 +50,8 @@ public class FormContaReceber extends WebInternalFrame {
 
         super("Contas a Receber", true, true, true, true);
         this.initComponents();
-        new LoadBackground().execute();
+//        new LoadBackground().execute();
+        carregarTudo();
     }
 
     private void carregarTudo() {
@@ -69,22 +80,22 @@ public class FormContaReceber extends WebInternalFrame {
 
     }
 
-    private class LoadBackground extends SwingWorker<Void, Void> {
-
-        @Override
-        protected Void doInBackground() throws Exception {
-            carregarTudo();
-            return null;
-        }
-
-        @Override
-        protected void done() {
-
-            utils.Utils.notificacao("sdjkghsdflkjhgksjdf", Utils.TipoNotificacao.erro, 0);
-
-        }
-
-    }
+//    private class LoadBackground extends SwingWorker<Void, Void> {
+//
+//        @Override
+//        protected Void doInBackground() throws Exception {
+//            carregarTudo();
+//            return null;
+//        }
+//
+//        @Override
+//        protected void done() {
+//
+//            utils.Utils.notificacao("Valores carregados", Utils.TipoNotificacao.erro, 0);
+//
+//        }
+//
+//    }
 
     //****METODOS DE USO
     public void preenche_Combo() {
@@ -105,16 +116,20 @@ public class FormContaReceber extends WebInternalFrame {
 
         CarCapContasDAO retorn_valores = new CarCapContasDAO();
 
-        List<CarCapContas> conta = retorn_valores.ListarTodos(new Date(), new Date());
+        List<CarCapContas> conta = retorn_valores.getAll();
 
-        String[] colunas = {"Data", "Produto", "Quantidade", "Status", "Valor da parcela"};
-
-        DefaultTableModel tabelamodelo = new DefaultTableModel(colunas, 0);
-
+        DefaultTableModel tabelamodelo = new DefaultTableModel();
+         
+        tabelamodelo.addColumn("Data");
+        tabelamodelo.addColumn("Produto");
+        tabelamodelo.addColumn("Quantidade");
+        tabelamodelo.addColumn("Status");
+        tabelamodelo.addColumn("Valor da parcela");
+                       
         for (CarCapContas j : conta) {
 
             tabelamodelo.addRow(new Object[]{
-                j.getContaDataEmissao(), j.getProduto(), j.getQuantidade_produto(), j.getCapContaStatus(), j.getCarCapParcelas()});
+                j.getContaDataEmissao(), j.getProduto().getProdutoDescricao(), j.getQuantidade_produto(), j.getCapContaStatus(), j.getContaNumParcelas()});
 
         }
 
@@ -496,23 +511,96 @@ public class FormContaReceber extends WebInternalFrame {
     private void botao_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_salvarActionPerformed
         boolean contareceber = true;
 
-        CarCapContas conta = new CarCapContas();
+        //CarCapContas conta = new CarCapContas();
+        
+        CarcapOperacoesComerciais conta = new CarcapOperacoesComerciais();
+        
+       carcapOperacoesComerciaisDAO c = new carcapOperacoesComerciaisDAO();
+        
+      
+        
+        
 
         if (contareceber) {
-            conta.setContaTipo(TipoConta.Entrada);
-            conta.setContaDataEmissao(txt_data_lançamento.getDate());
-            conta.setProduto(txt_busca_produto.getText());
-
-            double j = Double.parseDouble(txtQuantidade.getText());
-
-            conta.setQuantidade_produto(j);
-            conta.setPatNotaFiscal(null);
+            
+            // tipo de operação
+            if (Comb_tip_operacao.getSelectedIndex() == 0) {
+                conta.setTipoDeConta(TipoConta.Entrada);
+            } else {
+                conta.setTipoDeConta(TipoConta.Saida);
+            }
+            
+            // pega o produto
+            String[] txt = txt_busca_produto.getText().split("-");
+            
+            int codigo = Integer.parseInt(txt[0]);
+            
+            EstProdutoDAO produtoDao = new EstProdutoDAO();
+            
+            EstProduto produto = produtoDao.get(codigo);
+            
+            conta.setProdutoId(produto);
+            
+           
+            
+            
+            //pegar data lançamento
+            
+            conta.setDatLancamento(txt_data_lançamento.getDate());
+            
+            //pegar descrição
+            
             conta.setDescricao(txt_descricao.getText());
-
-            // conta.setContaNumParcelas();
-            conta.setContaNumParcelas(Integer.parseInt(txtQuantidade.getText()));
-
-            new CarCapContasDAO().insert(conta);
+           
+            
+            //pegar parcela
+            
+            Object parcela = comb_parcelas.getValue();
+            
+            int numParcela = Integer.parseInt(parcela.toString());
+            
+           conta.setNumeroParcela(numParcela);
+           
+           
+        
+         
+         // quantidade produto
+         conta.setPessoa(null);
+         
+         String j = txtQuantidade.getText();
+         
+         double b = Double.parseDouble(j);
+         
+         conta.setQuantidade(b);
+         
+         //pegar nota
+         
+         conta.setOperacaoNota(null);
+         
+         //movimento
+         
+         conta.setMovimento(TipoMovimento.venda);
+         
+         
+         c.insert(conta);
+         
+         
+            
+            
+            
+            
+//            conta.setProduto(produto);
+//
+//            double j = Double.parseDouble(txtQuantidade.getText());
+//
+//            conta.setQuantidade_produto(j);
+//            conta.setPatNotaFiscal(null);
+//            conta.setDescricao(txt_descricao.getText());
+//
+//            // conta.setContaNumParcelas();
+//            conta.setContaNumParcelas(Integer.parseInt(txtQuantidade.getText()));
+//
+          // new CarCapContasDAO().insert(conta);
         }
 
 
@@ -596,7 +684,7 @@ public class FormContaReceber extends WebInternalFrame {
     }//GEN-LAST:event_txt_Valor_TotalActionPerformed
 
     private void combo_tip_lancamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_tip_lancamentoActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_combo_tip_lancamentoActionPerformed
 
     private void txt_busca_notaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_busca_notaActionPerformed

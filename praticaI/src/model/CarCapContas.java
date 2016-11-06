@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -75,6 +76,7 @@ public class CarCapContas implements java.io.Serializable {
     @OneToMany(mappedBy = "carCapContas")
     private Set<FlxcxEspecificacoes> flxcxEspecificacoeses = new HashSet(0);
 
+
     @OneToMany(mappedBy = "carCapContas")
     private Set<CarCapParcela> carCapParcelas = new HashSet(0);
 
@@ -84,23 +86,52 @@ public class CarCapContas implements java.io.Serializable {
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @Column(name = "produto", nullable = false, precision = 17, scale = 17)
-    private String produto;
+     
+    @OneToOne
+    private EstProduto produto;
+
+    public EstProduto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(EstProduto produto) {
+        this.produto = produto;
+    }
     
-     @Column(name = "forma_pagamento_receb", nullable = false)
+    @Column(name = "forma_pagamento_receb", nullable = false)
     private String forma_rece_pagamento;
 
     @Column(name = "meio_recebimento", nullable = false, precision = 17, scale = 17)
     private String meio_recebimento;
     
-     @Column(name = "quantidade", nullable = false)
+    @Column(name = "quantidade", nullable = false)
     private double quantidade_produto;
+
+    
+    private double acrescimo;
+    
+    
+    
+    
+    
+
      
     @Transient
     private String contaStatusDescricao;
     
     @Transient
     private String contaTipoDescricao;
+
+    public double getAcrescimo() {
+        return acrescimo;
+    }
+
+    public void setAcrescimo(double acrescimo) {
+        this.acrescimo = acrescimo;
+    }
+    
+    
+    
 
 
     public String getDescricao() {
@@ -111,13 +142,22 @@ public class CarCapContas implements java.io.Serializable {
         this.descricao = descricao;
     }
 
-    public String getProduto() {
-        return produto;
+   
+
+    public StatusConta getContaStatus() {
+        return contaStatus;
     }
 
-    public String getPessoaNome() {
-        return pessoaNome;
+
+    public void setContaStatus(StatusConta contaStatus) {
+        this.contaStatus = contaStatus;
     }
+//    public void setProduto(String produto) {
+//        this.produto = produto;
+//
+//    public String getPessoaNome() {
+//        return pessoaNome;
+//    }
 
     public void setPessoaNome(String pessoaNome) {
         this.pessoaNome = pessoaNome;
@@ -131,9 +171,10 @@ public class CarCapContas implements java.io.Serializable {
         this.tipoOperacaoDescricao = tipoOperacaoDescricao;
     }
 
-    public void setProduto(String produto) {
-        this.produto = produto;
-    }
+//    public void setProduto(String produto) {
+//        this.produto = produto;
+//
+//    }
 
     public String getForma_rece_pagamento() {
         return forma_rece_pagamento;
@@ -159,13 +200,13 @@ public class CarCapContas implements java.io.Serializable {
         this.quantidade_produto = quantidade_produto;
     }
 
-    public StatusConta getContaStatus() {
-        return contaStatus;
-    }
-
-    public void setContaStatus(StatusConta contaStatus) {
-        this.contaStatus = contaStatus;
-    }
+//    public StatusConta getContaStatus() {
+//        return contaStatus;
+//    }
+//
+//    public void setContaStatus(StatusConta contaStatus) {
+//        this.contaStatus = contaStatus;
+//    }
 
     public String getContaStatusDescricao() {
         return contaStatusDescricao;
@@ -195,7 +236,7 @@ public class CarCapContas implements java.io.Serializable {
         this.contaNumParcelas = contaNumParcelas;
         this.contaValorPago = contaValorPago;
         this.contaTipo = contaTipo;
-        this.produto = produto;
+       
         this.descricao = descricao;
         this.meio_recebimento = meio_recebimento;
         this.quantidade_produto = quantidade_produto;
@@ -218,7 +259,7 @@ public class CarCapContas implements java.io.Serializable {
         this.flxcxEspecificacoeses = flxcxEspecificacoeses;
         this.carCapParcelas = carCapParcelas;
         this.flxcxMovimentosBancarios = flxcxMovimentosBancarios;
-        this.produto = produto;
+       
         this.descricao = descricao;
         this.meio_recebimento = meio_recebimento;
         this.quantidade_produto = quantidade_produto;

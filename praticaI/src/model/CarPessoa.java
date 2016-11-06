@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,6 +22,7 @@ import javax.persistence.Table;
 )
 @SequenceGenerator(name = "seq_nome", sequenceName = "seq_nome", allocationSize = 1)
 public class CarPessoa implements java.io.Serializable {
+    private CarcapOperacoesComerciais carcapOperacoesComerciais;
 
     private int pessoaId;
     private Integer pessoaTipo;
@@ -144,6 +146,15 @@ public class CarPessoa implements java.io.Serializable {
 
     public void setPessoaCEP(int pessoaCEP) {
         this.pessoaCEP = pessoaCEP;
+    }
+
+    
+    public CarcapOperacoesComerciais getCarcapOperacoesComerciais() {
+        return carcapOperacoesComerciais;
+    }
+
+    public void setCarcapOperacoesComerciais(CarcapOperacoesComerciais carcapOperacoesComerciais) {
+        this.carcapOperacoesComerciais = carcapOperacoesComerciais;
     }
     
 }
