@@ -36,9 +36,6 @@ public class CarCapContas implements java.io.Serializable {
     @Column(name = "contastatus")
     private StatusConta contaStatus;
     
-    @Transient
-    private String contaStatusDescricao;
-    
     @ManyToOne(fetch = FetchType.LAZY)
     private CarEstTipoOperacao carEstTipoOperacao;
 
@@ -74,9 +71,6 @@ public class CarCapContas implements java.io.Serializable {
 
     @Enumerated
     private TipoConta contaTipo;
-    
-    @Transient
-    private String contaTipoDescricao;
 
     @OneToMany(mappedBy = "carCapContas")
     private Set<FlxcxEspecificacoes> flxcxEspecificacoeses = new HashSet(0);
@@ -101,6 +95,13 @@ public class CarCapContas implements java.io.Serializable {
     
      @Column(name = "quantidade", nullable = false)
     private double quantidade_produto;
+     
+    @Transient
+    private String contaStatusDescricao;
+    
+    @Transient
+    private String contaTipoDescricao;
+
 
     public String getDescricao() {
         return descricao;

@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @SequenceGenerator(name = "seq_nome", sequenceName = "seq_nome", allocationSize = 1)
 public class CarPessoa implements java.io.Serializable {
 
-private int pessoaId;
+    private int pessoaId;
     private Integer pessoaTipo;
     private String pessoaNome;
     private String pessoaCpfCnpj;
