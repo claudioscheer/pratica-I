@@ -9,9 +9,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
-public class FormDepreciacoes extends JFrame {
+public class FormDepreciar extends JFrame {
 
-    public FormDepreciacoes() {
+    public FormDepreciar() {
         this.initComponents();
         this.setLocationRelativeTo(null);
         this.addWindowListener(new WindowAdapter() {

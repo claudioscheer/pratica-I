@@ -21,7 +21,7 @@ public class PatDepreciacao implements java.io.Serializable {
     private double depreciacaoTaxaAnual;
     private int depreciacaoVidaUtil;
     private double depreciacaoTaxaMensal;
-    private double depreciacaoDiaria;
+    private double depreciacaoTaxaDiaria;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_depreciacao")
@@ -52,8 +52,8 @@ public class PatDepreciacao implements java.io.Serializable {
     public void setDepreciacaoTaxaAnual(double depreciacaoTaxaAnual) {
         this.depreciacaoTaxaAnual = depreciacaoTaxaAnual;
 
-        this.setDepreciacaoTaxaMensal(depreciacaoTaxaAnual / 12);
-        this.setDepreciacaoDiaria(this.depreciacaoTaxaMensal / 30);
+        this.setDepreciacaoTaxaMensal(Double.valueOf(utils.Utils.removerCaracteresDoubleString(utils.Utils.format(depreciacaoTaxaAnual / 12))));
+        this.setDepreciacaoTaxaDiaria(Double.valueOf(utils.Utils.removerCaracteresDoubleString(utils.Utils.format(this.depreciacaoTaxaMensal / 30))));
     }
 
     @Column(name = "depreciacao_vida_util", nullable = false)
@@ -75,12 +75,12 @@ public class PatDepreciacao implements java.io.Serializable {
     }
 
     @Column(name = "depreciacao_taxa_diaria", nullable = false)
-    public double getDepreciacaoDiaria() {
-        return depreciacaoDiaria;
+    public double getDepreciacaoTaxaDiaria() {
+        return depreciacaoTaxaDiaria;
     }
 
-    public void setDepreciacaoDiaria(double depreciacaoDiaria) {
-        this.depreciacaoDiaria = depreciacaoDiaria;
+    public void setDepreciacaoTaxaDiaria(double depreciacaoTaxaDiaria) {
+        this.depreciacaoTaxaDiaria = depreciacaoTaxaDiaria;
     }
 
 }

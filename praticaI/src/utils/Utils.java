@@ -4,6 +4,7 @@ import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
 import java.awt.Color;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,6 +24,8 @@ public class Utils {
     public static int hPadrao = 500;
 
     public static SimpleDateFormat formatoDataPadrao = new SimpleDateFormat("dd/MM/yyyy");
+    public static DecimalFormat formatDouble = new DecimalFormat("##0.00");
+    
 
     public static class CoresPadrao {
 
@@ -212,8 +215,7 @@ public class Utils {
     }
 
     public static String format(double valor) {
-        java.text.DecimalFormat df = new java.text.DecimalFormat("##0.00");
-        return df.format(valor);
+        return formatDouble.format(valor);
     }
 
     public static String removerCaracteresDoubleString(String s) {

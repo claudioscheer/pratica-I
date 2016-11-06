@@ -10,7 +10,7 @@ import components.IconDesktop;
 import components.PanelNotificacoes;
 import components.PanelWidgetSaldo;
 import forms.patrimonio.FormAtivoImobilizado;
-import forms.patrimonio.FormDepreciacoes;
+import forms.patrimonio.FormDepreciar;
 import utils.Utils;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;

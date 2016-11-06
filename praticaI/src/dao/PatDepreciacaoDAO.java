@@ -40,6 +40,7 @@ public class PatDepreciacaoDAO {
     public boolean delete(PatDepreciacao depreciacao) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
+            session.getTransaction().begin();
             session.delete(depreciacao);
             session.getTransaction().commit();
             session.close();
