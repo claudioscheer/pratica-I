@@ -44,6 +44,7 @@ public class ExportacaoParaExcel {
             row = firstSheet.createRow(1);
 
             
+            List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
             
 
             this.workbook.write(arquivo);
@@ -54,4 +55,14 @@ public class ExportacaoParaExcel {
 
     }
 
+    public List<FlxcxEspecificacoes> BuscarEspecificoes(){
+        
+        FlxcxEspecificacoesDAO espDAO = new FlxcxEspecificacoesDAO();
+     
+        
+        return espDAO.ListarTodas();       
+    
+    }
+    
+    
 }
