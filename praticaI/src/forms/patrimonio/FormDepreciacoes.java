@@ -1,29 +1,31 @@
 package forms.patrimonio;
 
-import com.alee.laf.desktoppane.WebInternalFrame;
-import com.alee.laf.optionpane.WebOptionPane;
-import components.panelsCads.PanelCadAtivoImobilizado;
-import components.panelsListagem.PanelConsultaAtivoImobilizado;
 import components.panelsListagem.PanelGerarDepreciacao;
-import dao.PatAtivoImobilizadoDAO;
+import forms.FormPessoa;
 import forms.FormPrincipal;
 import utils.Utils;
 import java.awt.Dimension;
-import model.PatAtivoImobilizado;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
 
-public class FormDepreciacoes extends WebInternalFrame {
+public class FormDepreciacoes extends JFrame {
 
     public FormDepreciacoes() {
-        super("Depreciações", true, true, true, true);
         this.initComponents();
+        this.setLocationRelativeTo(null);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent we) {
+                FormPrincipal.getInstance().setEnabled(true);
+            }
+
+        });
     }
 
     private void initComponents() {
         this.setBounds(10, 10, Utils.wPadrao, Utils.hPadrao);
         this.setMinimumSize(new Dimension(Utils.wPadrao, Utils.hPadrao));
-        this.setBackground(Utils.CoresPadrao.fundoPadrao);
-
-        this.setFrameIcon(Utils.getImage(Utils.Image.frame));
 
         this.panelGerarDepreciacao = PanelGerarDepreciacao.getInstance();
 

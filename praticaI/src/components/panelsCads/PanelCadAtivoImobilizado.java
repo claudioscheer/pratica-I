@@ -48,13 +48,16 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.txtValorResidual.setValue(this.ativoImobilizado.getAtivoValorResidual());
         this.comboEstadoBem.setSelectedIndex(this.ativoImobilizado.getAtivoEstadoBem().ordinal());
         this.comboUtilizacaoBem.setSelectedIndex(this.ativoImobilizado.getAtivoUtilizacao().ordinal());
-        this.txtNotaFiscal.setText(this.ativoImobilizado.getPatItemNota().getPatNotaFiscal().getNotaCodigo()
-                + " - " + this.ativoImobilizado.getPatItemNota().getPatNotaFiscal().getNotaChaveAcesso());
-        this.txtNotaFiscal.setValue(this.ativoImobilizado.getPatItemNota().getPatNotaFiscal());
-        this.notaFiscal = this.ativoImobilizado.getPatItemNota().getPatNotaFiscal();
-        this.recarregarItensNota();
 
-        this.comboItemNota.setSelectedIndex(this.ativoImobilizado.getPatItemNota().getItemNotaOrdem() - 1);
+        if (this.ativoImobilizado.getPatItemNota() != null) {
+            this.txtNotaFiscal.setText(this.ativoImobilizado.getPatItemNota().getPatNotaFiscal().getNotaCodigo()
+                    + " - " + this.ativoImobilizado.getPatItemNota().getPatNotaFiscal().getNotaChaveAcesso());
+            this.txtNotaFiscal.setValue(this.ativoImobilizado.getPatItemNota().getPatNotaFiscal());
+            this.notaFiscal = this.ativoImobilizado.getPatItemNota().getPatNotaFiscal();
+            this.recarregarItensNota();
+
+            this.comboItemNota.setSelectedIndex(this.ativoImobilizado.getPatItemNota().getItemNotaOrdem() - 1);
+        }
     }
 
     public void init() {
@@ -64,7 +67,6 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.validador.addObrigatorioValidator(this.txtDescricao);
         this.validador.addObrigatorioValidator(this.txtCategoria);
         this.validador.addObrigatorioValidator(this.txtMarca);
-        this.validador.addObrigatorioValidator(txtNotaFiscal);
         this.validador.addObrigatorioValidator(this.txtValorOriginal);
         this.validador.addApenasNumeroValidator(this.txtValorOriginal);
         this.validador.addObrigatorioValidator(this.txtValorAtual);
@@ -119,7 +121,10 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.ativoImobilizado.setAtivoValorResidual(this.txtValorResidual.getValue());
         this.ativoImobilizado.setAtivoEstadoBem(EstadoBem.values()[this.comboEstadoBem.getSelectedIndex()]);
         this.ativoImobilizado.setAtivoUtilizacao(UtilizacaoBem.values()[this.comboUtilizacaoBem.getSelectedIndex()]);
-        this.ativoImobilizado.setPatItemNota(this.notaFiscal.getPatItemNotas().get(this.comboItemNota.getSelectedIndex()));
+
+        if (this.notaFiscal != null) {
+            this.ativoImobilizado.setPatItemNota(this.notaFiscal.getPatItemNotas().get(this.comboItemNota.getSelectedIndex()));
+        }
 
         return this.ativoImobilizado;
     }
