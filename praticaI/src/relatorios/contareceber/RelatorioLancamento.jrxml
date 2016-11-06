@@ -6,25 +6,22 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="tipoOperacaoDescricao" class="java.util.String">
+	<field name="tipoOperacaoDescricao" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="contaStatusDescricao" class="java.util.String">
+	<field name="contaStatusDescricao" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="contaTipoDescricao" class="java.util.String">
+	<field name="contaTipoDescricao" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="contaDataEmissao" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="contaValorPago" class="java.util.Double">
+	<field name="contaValorPago" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="contaValorTotal" class="java.util.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="totalSaidas" class="java.util.Double">
+	<field name="contaValorTotal" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="pessoaNome" class="java.lang.String"/>
@@ -41,7 +38,7 @@
 			</rectangle>
 			<image>
 				<reportElement x="10" y="10" width="140" height="80" uuid="aa934927-9419-4acb-bdb8-57c5c2c4ced2"/>
-				<imageExpression><![CDATA["C:\Users\Juliano\Google Drive\FACULDADE\SETREM\4º sem\Prática Profissional I\praticaI\trunk\praticaI\src\imagens"]]></imageExpression>
+				<imageExpression><![CDATA["./imagens/logo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="170" y="50" width="368" height="40" uuid="9e9ff3ef-683b-4b77-8f1d-a64d5fc94ac6">

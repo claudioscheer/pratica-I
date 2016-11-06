@@ -24,36 +24,35 @@ import static org.slf4j.helpers.Util.report;
  *
  * @author Juliano
  */
-public class Relatorios {
+public class RelatoriosContasReceber {
      
-    public void preenchedados(List<CarCapContas> lancamentos) {
+    public void preenchedados(List<CarCapContas> lancamentos) throws JRException {
         
-         InputStream fonte = relatorios.relatorioFluxoDeCaixa.Relatorios.class.getResourceAsStream("RelatorioLancamento.jrxml");
-       
-            JasperReport report = null;
-        try {
-            report = JasperCompileManager.compileReport(fonte);
-        } catch (JRException ex) {
-            Logger.getLogger(Relatorios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
+            InputStream fonte = RelatoriosContasReceber.class.getResourceAsStream("RelatorioLancamento.jrxml");
+          
+            JasperReport report = JasperCompileManager.compileReport(fonte);
         
+  
         List<CarCapContas>contaRelatorio = new ArrayList<>();
         FlxcxOperacoesDAO op = new FlxcxOperacoesDAO();
-        FlxcxOperacoes nova = new FlxcxOperacoes();
-        
+        FlxcxOperacoes nova ; 
  
         CarPessoaDAO pessoaDAO = new CarPessoaDAO();
-        CarPessoa pessoa = new CarPessoa();
-                
+        CarPessoa pessoa;
+             
         for(CarCapContas i: lancamentos){
             
+            nova = new FlxcxOperacoes();
+            
             nova = op.Buscar(i.getFlxcxOperacoes().getOpCodigo());
+          
             i.setTipoOperacaoDescricao(nova.getOpDescricao());
             
             i.setContaStatusDescricao(i.getContaStatus().toString());
             
             i.setContaTipoDescricao(i.getContaTipo().toString());
+            
+            pessoa = new CarPessoa();
             
             pessoa = pessoaDAO.ListarId(i.getCarPessoa().getPessoaId());
             
@@ -63,13 +62,9 @@ public class Relatorios {
             
         }
         
-        JasperPrint print = null;
-        try {
-            print = JasperFillManager.fillReport(report,null, new JRBeanCollectionDataSource(contaRelatorio,false));
-        } catch (JRException ex) {
-            Logger.getLogger(Relatorios.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
+        JasperPrint print = JasperFillManager.fillReport(report,null, new JRBeanCollectionDataSource(contaRelatorio,false));
+ 
+     
         JasperViewer.viewReport(print,false);
         
         
