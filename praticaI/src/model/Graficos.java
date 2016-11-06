@@ -5,6 +5,7 @@
  */
 package model;
 
+import static com.alee.managers.notification.NotificationOption.no;
 import enumeraveis.TipoConta;
 import enumeraveis.TipoGrafico;
 import java.util.List;
@@ -14,10 +15,15 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.editor.ChartEditorFactory;
+import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.util.Rotation;
+import utils.Utils;
 
 /**
  *
@@ -55,17 +61,16 @@ public final class Graficos {
 
                 break;
 
-            case barras:
-
-                grafico = ChartFactory.createScatterPlot(titulo, xx, xy, dados, PlotOrientation.VERTICAL, true, true, true);
-
-                break;
-
-            case pizza:
-
-                grafico = ChartFactory.createXYStepChart(titulo, xx, xy, dados);
-
-                break;
+//            case barras:
+//
+//      
+//
+//                break;
+//            case pizza:
+//
+//                grafico = ChartFactory.createXYStepChart(titulo, xx, xy, dados);
+//
+//                break;
 
             case area:
 
@@ -79,31 +84,96 @@ public final class Graficos {
 
     public ChartPanel informarDadosGrafico(String nome, List<CarCapContas> contas) {
 
-  
-            XYSeries s = new XYSeries(xx);
-            XYSeries s2 = new XYSeries(xy);
+        XYSeries s = new XYSeries(xx);
+        XYSeries s2 = new XYSeries(xy);
+
+        for (CarCapContas i : contas) {
+
+            if (i.getContaTipo().equals(TipoConta.Saida)) {
+
+//                    System.out.println("entrou no iff");
+                s.add(i.getContaValorTotal(), i.getContaValorPago());
+
+            } else if (i.getContaTipo().equals(TipoConta.Entrada)) {
+
+                s2.add(i.getContaValorTotal(), i.getContaValorPago());
+
+            }
+        }
+
+        dados.addSeries(s);
+
+        dados.addSeries(s2);
+
+        return new ChartPanel(grafico);
+
+    }
+
+    public JFreeChart GraficoBarras(List<CarCapContas> contas, String titulo) {
+
+        String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        int indice = 0;
+
+        for (int j = 0; j < meses.length; j++) {
+
+            int mes = j + 1;
+
+            dataset.addValue(0, "Contas a pagar", meses[j]);
+            dataset.addValue(0, "Contas a receber", meses[j]);
 
             for (CarCapContas i : contas) {
 
-                if (i.getContaTipo().equals(TipoConta.Saida)) {
+                if (i.getContaDataEmissao().getMonth() == j) {
 
-//                    System.out.println("entrou no iff");
-                    
-                    s.add(i.getContaValorTotal(), i.getContaValorPago());
+                    if (i.getContaTipo().equals(TipoConta.Saida)) {
 
-                } else if (i.getContaTipo().equals(TipoConta.Entrada)) {
+                        dataset.addValue(i.getContaValorPago(), "Contas a pagar", meses[j]);
 
-                    s2.add(i.getContaValorTotal(), i.getContaValorPago());
+                    } else if (i.getContaTipo().equals(TipoConta.Entrada)) {
 
-                }
+                        dataset.addValue(i.getContaValorTotal(), "Contas a receber", meses[j]);
+                    }
+
+                } 
+
             }
-            
-            dados.addSeries(s);
+        }
 
-            dados.addSeries(s2);
+        JFreeChart barChart = ChartFactory.createBarChart(
+                titulo,
+                "Mês", "Valor total",
+                dataset, PlotOrientation.VERTICAL,
+                true, true, false);
 
-            return new ChartPanel(grafico);
-
-
+        return barChart;
     }
+
+    public JFreeChart GraficoPizza(String titulo, List<CarCapContas> contas) {
+
+        DefaultPieDataset data = new DefaultPieDataset();
+
+        for (CarCapContas i : contas) {
+
+            if (i.getContaTipo().equals(TipoConta.Entrada)) {
+
+                data.setValue("" + TipoConta.Entrada.toString(),
+                        i.getContaValorPago());
+
+            } else if (i.getContaTipo().equals(TipoConta.Saida)) {
+
+                data.setValue("" + TipoConta.Saida.toString(),
+                        i.getContaValorPago());
+
+            }
+        }
+
+            JFreeChart chart = ChartFactory.createPieChart3D(titulo,
+                    data, true, true, true);
+
+            return chart;
+        }
+    
 }
