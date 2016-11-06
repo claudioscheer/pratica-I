@@ -43,11 +43,11 @@ public class PatDepreciacaoDAO {
             session.getTransaction().begin();
             session.delete(depreciacao);
             session.getTransaction().commit();
-            session.close();
             return true;
         } catch (HibernateException e) {
             throw e;
         } finally {
+            System.out.println("sijsidf");
             session.close();
         }
     }

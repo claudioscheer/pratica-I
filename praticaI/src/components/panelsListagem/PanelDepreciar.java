@@ -10,23 +10,26 @@ import javax.swing.SwingWorker;
 import model.PatHistoricoDepreciacao;
 import utils.Utils;
 
-public class PanelGerarDepreciacao extends WebPanel {
+public class PanelDepreciar extends WebPanel {
 
-    private static PanelGerarDepreciacao panelGerarDepreciacao;
+    private static PanelDepreciar panelGerarDepreciacao;
 
     private PatHistoricoDepreciacao ultimaDepreciacao;
     private boolean jaDepreciadoMesAtual;
 
+    private boolean depreciando;
+
+    private int ativos;
     private int valueProgress;
 
-    public PanelGerarDepreciacao() {
+    public PanelDepreciar() {
         this.initComponents();
         new LoadDados().execute();
     }
 
-    public static PanelGerarDepreciacao getInstance() {
+    public static PanelDepreciar getInstance() {
         if (panelGerarDepreciacao == null) {
-            panelGerarDepreciacao = new PanelGerarDepreciacao();
+            panelGerarDepreciacao = new PanelDepreciar();
         }
 
         return panelGerarDepreciacao;
@@ -68,25 +71,35 @@ public class PanelGerarDepreciacao extends WebPanel {
 
         @Override
         protected Void doInBackground() throws Exception {
-            int ativos = 30;
+            depreciando = true;
+            ativos = 5;
             progressBar.setMaximum(ativos);
             progressBar.setValue(valueProgress);
             for (int i = 0; i < ativos; i++) {
+                setPorcentagem();
                 Thread.sleep(1000);
                 progressBar.setValue(++valueProgress);
             }
+            setPorcentagem();
             return null;
         }
 
         @Override
         public void done() {
+            depreciando = false;
             fecharPanel();
             Utils.notificacao("Depreciação finalizada!", Utils.TipoNotificacao.ok, 0);
         }
     }
 
+    private void setPorcentagem() {
+        this.lblPorcentagem.setText(Utils.removerCaracteresDoubleString(Utils.format((valueProgress * 100) / ativos)) + "%");
+    }
+
     public void fecharPanel() {
-        panelGerarDepreciacao = null;
+        if (!this.depreciando) {
+            panelGerarDepreciacao = null;
+        }
     }
 
     public void startDepreciacao() {
@@ -114,6 +127,7 @@ public class PanelGerarDepreciacao extends WebPanel {
         jLabel1 = new javax.swing.JLabel();
         lblDataDepreciado = new javax.swing.JLabel();
         progressBar = new com.alee.laf.progressbar.WebProgressBar();
+        lblPorcentagem = new com.alee.laf.label.WebLabel();
 
         setMinimumSize(new java.awt.Dimension(565, 496));
 
@@ -128,6 +142,8 @@ public class PanelGerarDepreciacao extends WebPanel {
         lblDataDepreciado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lblDataDepreciado.setText("Buscando informações...");
 
+        lblPorcentagem.setText("0.00%");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,15 +153,18 @@ public class PanelGerarDepreciacao extends WebPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonDepreciar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(lblDataDepreciado)
-                        .addGap(0, 228, Short.MAX_VALUE)))
+                        .addGap(0, 228, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonDepreciar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblPorcentagem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -155,7 +174,9 @@ public class PanelGerarDepreciacao extends WebPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblDataDepreciado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 392, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 372, Short.MAX_VALUE)
+                .addComponent(lblPorcentagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -171,6 +192,7 @@ public class PanelGerarDepreciacao extends WebPanel {
     private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblDataDepreciado;
+    private com.alee.laf.label.WebLabel lblPorcentagem;
     private com.alee.laf.progressbar.WebProgressBar progressBar;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,11 +1,8 @@
 package forms.patrimonio;
 
 import com.alee.laf.optionpane.WebOptionPane;
-import components.panelsCads.PanelCadAtivoImobilizado;
 import components.panelsCads.PanelCadDepreciacoes;
-import components.panelsListagem.PanelConsultaAtivoImobilizado;
 import components.panelsListagem.PanelConsultaDepreciacao;
-import dao.PatAtivoImobilizadoDAO;
 import dao.PatDepreciacaoDAO;
 import forms.FormPrincipal;
 import utils.Utils;
@@ -13,7 +10,6 @@ import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
-import model.PatAtivoImobilizado;
 import model.PatDepreciacao;
 
 public class FormControleDepreciacoes extends JFrame {
@@ -41,9 +37,9 @@ public class FormControleDepreciacoes extends JFrame {
         this.panelConsultaDepreciacao.setEvents((e) -> {
             this.addDepreciacao();
         }, (e) -> {
-            this.editarAtivoImobilizado();
+            this.editarDepreciacao();
         }, (e) -> {
-            this.excluirAtivoImobilizado();
+            this.excluirDepreciacao();
         });
 
         this.add(this.panelConsultaDepreciacao);
@@ -54,13 +50,13 @@ public class FormControleDepreciacoes extends JFrame {
         this.panelCadastroDepreciacao.init();
 
         this.panelCadastroDepreciacao.setEvents((e) -> {
-            this.salvarAtivoImobilizado();
+            this.salvarDepreciacao();
         }, (e) -> {
             this.cancelarCadDepreciacao();
         });
     }
 
-    private void salvarAtivoImobilizado() {
+    private void salvarDepreciacao() {
 
         if (!this.panelCadastroDepreciacao.validador.isValid()) {
             return;
@@ -107,11 +103,11 @@ public class FormControleDepreciacoes extends JFrame {
         this.panelCadastroDepreciacao.revalidate();
     }
 
-    private void editarAtivoImobilizado() {
+    private void editarDepreciacao() {
 
-        PatDepreciacao ativoImobilizado = this.panelConsultaDepreciacao.getDepreciacaoSelecionada();
+        PatDepreciacao depreciacao = this.panelConsultaDepreciacao.getDepreciacaoSelecionada();
 
-        if (ativoImobilizado == null) {
+        if (depreciacao == null) {
             return;
         }
 
@@ -119,15 +115,17 @@ public class FormControleDepreciacoes extends JFrame {
 
         this.initFormCad();
         this.fecharAbrirPanelCadastro(false);
+        
+        
 
-        this.panelCadastroDepreciacao.setDadosEditar(ativoImobilizado);
+        this.panelCadastroDepreciacao.setDadosEditar(depreciacao);
         this.panelCadastroDepreciacao.revalidate();
     }
 
-    private void excluirAtivoImobilizado() {
-        PatDepreciacao ativoImobilizado = this.panelConsultaDepreciacao.getDepreciacaoSelecionada();
+    private void excluirDepreciacao() {
+        PatDepreciacao depreciacao = this.panelConsultaDepreciacao.getDepreciacaoSelecionada();
 
-        if (ativoImobilizado == null) {
+        if (depreciacao == null) {
             return;
         }
 
@@ -137,11 +135,10 @@ public class FormControleDepreciacoes extends JFrame {
 
             int index = this.panelConsultaDepreciacao.getIndiceSelecionado();
 
-            new PatDepreciacaoDAO().delete(ativoImobilizado);
+            new PatDepreciacaoDAO().delete(depreciacao);
             this.panelConsultaDepreciacao.removeDepreciacao(index);
             Utils.notificacao("Depreciação removida!", Utils.TipoNotificacao.ok, 0);
         }
-
     }
 
     private PanelConsultaDepreciacao panelConsultaDepreciacao;

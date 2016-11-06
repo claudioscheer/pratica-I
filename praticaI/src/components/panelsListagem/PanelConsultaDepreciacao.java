@@ -95,7 +95,7 @@ public class PanelConsultaDepreciacao extends WebPanel {
 
     private void atualizarTabela(boolean limpar) {
         DefaultTableModel model = (DefaultTableModel) this.tabelaDepreciacao.getModel();
-
+        
         if (limpar) {
             Utils.clearTableModel(model);
         }
