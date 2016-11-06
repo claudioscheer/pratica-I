@@ -68,7 +68,8 @@ public class Utils {
         ContasReceber,
         addpessoa,
         estoque,
-        movimentacoes
+        movimentacoes,
+        produto
     }
 
     public static ImageIcon getImage(Image icone) {
@@ -157,6 +158,9 @@ public class Utils {
                 break;
             case estoque:
                 url = "estoque.png";
+                break; 
+            case produto:
+                url = "produto.png";
                 break;
 
             case movimentacoes:

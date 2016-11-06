@@ -6,6 +6,7 @@
 package forms;
 
 import dao.EstProdutoDAO;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.EstProduto;
 
@@ -17,7 +18,7 @@ public class FormMateriais extends javax.swing.JFrame {
 
     private EstProdutoDAO prodDao = new EstProdutoDAO();
 
-    public FormMateriais(java.awt.Frame parent, boolean modal) {        
+    public FormMateriais(java.awt.Frame parent, boolean modal) {
         initComponents();
     }
 
@@ -34,9 +35,9 @@ public class FormMateriais extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMateriais = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnInserir = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
@@ -85,17 +86,27 @@ public class FormMateriais extends javax.swing.JFrame {
             tblMateriais.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/atualizar.png"))); // NOI18N
-        jButton1.setText("Alterar");
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/deletar.png"))); // NOI18N
-        jButton2.setText("Excluir");
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/adicionar.png"))); // NOI18N
-        jButton3.setText("Inserir");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/atualizar.png"))); // NOI18N
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnAlterarActionPerformed(evt);
+            }
+        });
+
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/deletar.png"))); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/adicionar.png"))); // NOI18N
+        btnInserir.setText("Inserir");
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
             }
         });
 
@@ -145,11 +156,11 @@ public class FormMateriais extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(btnVoltar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(btnInserir)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnAlterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnExcluir)
                 .addGap(6, 6, 6))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
         );
@@ -160,9 +171,9 @@ public class FormMateriais extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnExcluir)
+                    .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInserir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -199,11 +210,51 @@ public class FormMateriais extends javax.swing.JFrame {
         preencheTabela();
     }//GEN-LAST:event_AoAbrirTela
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         // TODO add your handling code here:
         FormManutencaoMateriais manut = new FormManutencaoMateriais(null, rootPaneCheckingEnabled);
         manut.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+        preencheTabela();
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        if (tblMateriais.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum Registro Selecionado na Tabela");
+            return;
+        }
+        EstProduto produto = new EstProduto();
+        produto.setProdutoId(Integer.parseInt((String)tblMateriais.getValueAt(tblMateriais.getSelectedRow(), 0)));
+        produto.setProdutoDescricao((String)tblMateriais.getValueAt(tblMateriais.getSelectedRow(), 1));
+        FormManutencaoMateriais manut = new FormManutencaoMateriais(null, rootPaneCheckingEnabled, produto);                
+        manut.setVisible(true);
+        preencheTabela();
+
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        if (tblMateriais.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum Registro Selecionado na Tabela");
+            return;
+        }
+        DefaultTableModel modelo = (DefaultTableModel) tblMateriais.getModel();
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Deseja Excluir o Registro Selecionado?", "Atenção!", dialogButton);
+        if (dialogResult == 0) {
+            //sim           
+            String data = (String) tblMateriais.getValueAt(tblMateriais.getSelectedRow(), 0);
+            int id = Integer.parseInt(data);
+            EstProduto produto = new EstProduto();            
+            if (prodDao.delete(id)) {
+                JOptionPane.showMessageDialog(null, "Registro removido com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            }
+            modelo.removeRow(tblMateriais.getSelectedRow());
+        } else {
+            //não
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,17 +308,17 @@ public class FormMateriais extends javax.swing.JFrame {
                 "" + prd.getProdutoId(),
                 prd.getProdutoDescricao(),
                 prd.getEstCategoria().getCategoriaDescricao(),
-                prd.getEstMarca().getMarcaDescricao(),
-                prd.getEstUnidadeMedida().getUnidadeMedidaDescricao()
+                prd.getEstMarca().getMarcaDescricao()
+            //prd.getEstUnidadeMedida().getUnidadeMedidaDescricao()
             });
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnInserir;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

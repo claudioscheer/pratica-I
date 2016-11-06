@@ -16,10 +16,20 @@ import model.CarEstTipoOperacao;
 public class FormManutencaoTipoOperacao extends javax.swing.JDialog {
 
     private boolean isEdicao = false;
+    private CarEstTipoOperacao tipoOperacaoEdicao;
 
     public FormManutencaoTipoOperacao(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public FormManutencaoTipoOperacao(java.awt.Frame parent, boolean modal, CarEstTipoOperacao tpOperacao) {
+        super(parent, modal);
+        initComponents();
+        this.isEdicao = true;
+        edtNome.setText(tpOperacao.getTpOpNome());
+        edtDescricao.setText(tpOperacao.getTpOpDescricao());
+        this.tipoOperacaoEdicao = tpOperacao;
     }
 
     /**
@@ -109,17 +119,22 @@ public class FormManutencaoTipoOperacao extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        EstTipoOperacaoDAO dao = new EstTipoOperacaoDAO();        
+        EstTipoOperacaoDAO dao = new EstTipoOperacaoDAO();
         CarEstTipoOperacao tpOperacao = new CarEstTipoOperacao();
-        if(!isEdicao){
+        if (!isEdicao) {
             tpOperacao.setTpOpNome(edtNome.getText());
             tpOperacao.setTpOpDescricao(edtDescricao.getText());
             tpOperacao.setTpOpId(0);
-            if(dao.Inserir(tpOperacao)){
+            if (dao.Inserir(tpOperacao)) {
                 JOptionPane.showMessageDialog(null, "Cadastro Salvo com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
-        }else{
-            
+        } else {
+            tpOperacao.setTpOpNome(edtNome.getText());
+            tpOperacao.setTpOpDescricao(edtDescricao.getText());
+            tpOperacao.setTpOpId(this.tipoOperacaoEdicao.getTpOpId());
+            if(dao.Alterar(tpOperacao)){
+                JOptionPane.showMessageDialog(null, "Cadastro Alterado com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
         this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed

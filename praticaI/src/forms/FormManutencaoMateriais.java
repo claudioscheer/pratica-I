@@ -14,6 +14,7 @@ import forms.busca.FormBuscaCategoria;
 import forms.busca.FormBuscaMarca;
 import forms.busca.FormBuscaUnidadeMedida;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import model.EstCategoria;
 import model.EstMarca;
 import model.EstProduto;
@@ -26,10 +27,8 @@ import model.EstUnidadeMedida;
 public class FormManutencaoMateriais extends javax.swing.JFrame {
 
     private EstProdutoDAO produtoDao = new EstProdutoDAO();
-    private EstCategoriaDAO categoriaDao = new EstCategoriaDAO();
-    private EstMarcaDAO marcaDao = new EstMarcaDAO();
-    private EstUnidadeMedidaDAO unidadeDao = new EstUnidadeMedidaDAO();
-    
+    private boolean isEditar = false;
+    private EstProduto produtoEditar = new EstProduto();
     public Validador validador;
     FormBuscaMarca formMarca;
 
@@ -52,13 +51,51 @@ public class FormManutencaoMateriais extends javax.swing.JFrame {
 
         //abre o form para buscar uma marca
         formMarca = new FormBuscaMarca();
-        formMarca.setFrameBloquear(FormPrincipal.getInstance());        
+        formMarca.setFrameBloquear(FormPrincipal.getInstance());
         this.txtMarca.setFrame(formMarca);
 
         FormBuscaUnidadeMedida formUn = new FormBuscaUnidadeMedida();
-        formUn.setFrameBloquear(FormPrincipal.getInstance());        
-        this.txtUnidadeMedida.setFrame(formUn);           
+        formUn.setFrameBloquear(FormPrincipal.getInstance());
+        this.txtUnidadeMedida.setFrame(formUn);
+    }
 
+    public FormManutencaoMateriais(java.awt.Frame parent, boolean modal, EstProduto produto) {
+
+        initComponents();
+
+        isEditar = true;
+        
+        //inicia o validador
+        this.validador = new Validador(Validador.TipoValidator.ICONE);
+        this.validador.addObrigatorioValidator(this.txtReferencia);
+        this.validador.addObrigatorioValidator(this.txtDescricao);
+        this.validador.addObrigatorioValidator(this.txtCategoria);
+        this.validador.addObrigatorioValidator(this.txtMarca);
+        this.validador.addObrigatorioValidator(this.txtUnidadeMedida);
+
+        //abre o form para buscar uma categoria
+        FormBuscaCategoria formCategoria = new FormBuscaCategoria();
+        formCategoria.setFrameBloquear(FormPrincipal.getInstance());
+        this.txtCategoria.setFrame(formCategoria);
+
+        //abre o form para buscar uma marca
+        formMarca = new FormBuscaMarca();
+        formMarca.setFrameBloquear(FormPrincipal.getInstance());
+        this.txtMarca.setFrame(formMarca);
+
+        FormBuscaUnidadeMedida formUn = new FormBuscaUnidadeMedida();
+        formUn.setFrameBloquear(FormPrincipal.getInstance());
+        this.txtUnidadeMedida.setFrame(formUn);
+
+        //this.txtReferencia.setText(produto.getProdutoReferencia());
+        this.txtDescricao.setText(produto.getProdutoDescricao());
+        //this.txtCategoria.setText(produto.getEstCategoria().getCategoriaId() + " - " + produto.getEstCategoria().getCategoriaDescricao());
+        //this.txtMarca.setText(produto.getEstMarca().getMarcaId() + " - " + produto.getEstMarca().getMarcaDescricao());
+        //this.txtUnidadeMedida.setText(produto.getEstUnidadeMedida().getUnidadeMedidaId() + " - " + produto.getEstUnidadeMedida().getUnidadeMedidaDescricao());
+
+        this.comboAtivo.setSelectedIndex(produto.getProdutoStatus());
+        
+        this.produtoEditar = produto;
     }
 
     public void setEvents(ActionListener salvar, ActionListener cancelar) {
@@ -197,18 +234,24 @@ public class FormManutencaoMateriais extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
+
         EstProduto produto = new EstProduto();
-        produto.setProdutoReferencia(txtReferencia.getText());
-        produto.setProdutoDescricao(txtDescricao.getText());
-        
-        EstCategoria categoria = categoriaDao.get(4);        
-        produto.setEstCategoria(categoria);        
-        EstMarca marca = marcaDao.Buscar(3);
-        produto.setEstMarca(marca);
-        EstUnidadeMedida unMedida = unidadeDao.Buscar(5);
-        produto.setEstUnidadeMedida(unMedida);
-        produtoDao.insert(produto);
+        produto.setProdutoReferencia(this.txtReferencia.getText());
+        produto.setProdutoDescricao(this.txtDescricao.getText());
+        produto.setEstCategoria((EstCategoria) this.txtCategoria.getValue());
+        produto.setEstMarca((EstMarca) this.txtMarca.getValue());
+        produto.setEstUnidadeMedida((EstUnidadeMedida) this.txtUnidadeMedida.getValue());
+
+        if (!isEditar) {
+            produtoDao.insert(produto);
+            JOptionPane.showMessageDialog(null, "Cadastro Salvo com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+        } else {            
+            produto.setProdutoId(this.produtoEditar.getProdutoId());
+            produtoDao.update(produto);
+            JOptionPane.showMessageDialog(null, "Cadastro Alterado com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**

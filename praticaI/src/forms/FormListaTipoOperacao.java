@@ -6,6 +6,7 @@
 package forms;
 
 import dao.EstTipoOperacaoDAO;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.CarEstTipoOperacao;
 
@@ -64,9 +65,19 @@ public class FormListaTipoOperacao extends javax.swing.JDialog {
 
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/deletar.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/atualizar.png"))); // NOI18N
         btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         btnInserir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/adicionar.png"))); // NOI18N
         btnInserir.setText("Inserir");
@@ -166,12 +177,50 @@ public class FormListaTipoOperacao extends javax.swing.JDialog {
         // TODO add your handling code here:
         FormManutencaoTipoOperacao form = new FormManutencaoTipoOperacao(null, rootPaneCheckingEnabled);
         form.setVisible(true);
+        preencheTabela();
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void AoAbrirTela(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_AoAbrirTela
         // TODO add your handling code here:
         preencheTabela();
     }//GEN-LAST:event_AoAbrirTela
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        if (tblTipoOperacao.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum Registro Selecionado na Tabela");
+            return;
+        }
+        CarEstTipoOperacao tpOperacao = new CarEstTipoOperacao();
+        tpOperacao.setTpOpId(Integer.parseInt((String) tblTipoOperacao.getValueAt(tblTipoOperacao.getSelectedRow(), 0)));
+        tpOperacao.setTpOpNome((String) tblTipoOperacao.getValueAt(tblTipoOperacao.getSelectedRow(), 1));
+        tpOperacao.setTpOpDescricao((String) tblTipoOperacao.getValueAt(tblTipoOperacao.getSelectedRow(), 2));
+        FormManutencaoTipoOperacao manut = new FormManutencaoTipoOperacao(null, rootPaneCheckingEnabled, tpOperacao);
+        manut.setVisible(true);
+        preencheTabela();
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+        if (tblTipoOperacao.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Nenhum Registro Selecionado na Tabela");
+            return;
+        }
+        DefaultTableModel modelo = (DefaultTableModel) tblTipoOperacao.getModel();
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Deseja Excluir o Registro Selecionado?", "Atenção!", dialogButton);
+        if (dialogResult == 0) {
+            //sim           
+            String data = (String) tblTipoOperacao.getValueAt(tblTipoOperacao.getSelectedRow(), 0);
+            int id = Integer.parseInt(data);
+            if (dao.Excluir(id)) {
+                JOptionPane.showMessageDialog(null, "Registro removido com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            }
+            modelo.removeRow(tblTipoOperacao.getSelectedRow());
+        } else {
+            //não
+        }
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments

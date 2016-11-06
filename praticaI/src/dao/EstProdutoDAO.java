@@ -1,7 +1,9 @@
 package dao;
 
 import java.util.List;
+import model.EstCategoria;
 import model.EstProduto;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
@@ -29,14 +31,20 @@ public class EstProdutoDAO
         return true;
     }
      /* movimentação fazer getAll  Est Produto  */
-    public Boolean delete(EstProduto produto)
+    public Boolean delete(int codigo)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
-        session.delete(produto);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            session.getTransaction().begin();
+            EstProduto produto = (EstProduto) session.get(EstProduto.class, codigo);
+            session.delete(produto);
+            return true;
+        } catch (HibernateException e) {
+            throw e;
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     public List<EstProduto> getAll()

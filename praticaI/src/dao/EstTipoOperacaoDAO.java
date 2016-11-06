@@ -41,15 +41,15 @@ public class EstTipoOperacaoDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             CarEstTipoOperacao operacao = (CarEstTipoOperacao) session.get(CarEstTipoOperacao.class, codigo);
-            session.delete(operacao);
-            session.getTransaction().commit();
-            session.close();
+            session.getTransaction().begin();
+            session.delete(operacao);                        
             return true;
         } catch (HibernateException e) {
             throw e;
         } finally {
+            session.getTransaction().commit();
             session.close();
-        }
+        }       
     }
 
     public List<CarEstTipoOperacao> ListarTodas() {
