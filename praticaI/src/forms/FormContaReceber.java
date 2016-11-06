@@ -14,6 +14,7 @@ import enumeraveis.TipoConta;
 import forms.busca.FormBuscaFornecedor;
 import forms.busca.FormBuscaMarca;
 import forms.busca.FormBuscaNotaFiscal;
+import components.TextFieldFK;
 import forms.busca.FormBuscaProduto;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;

@@ -6,7 +6,6 @@ import components.panelsCads.PanelCadNotaFiscal;
 import components.panelsListagem.PanelConsultaContaPagar;
 import components.panelsListagem.PanelConsultaNotaFiscal;
 import dao.PatAtivoImobilizadoDAO;
-import dao.NotaFiscalDAO;
 import utils.Utils;
 import java.awt.Dimension;
 import java.beans.PropertyVetoException;
@@ -63,7 +62,7 @@ public class FormContaPagar extends WebInternalFrame {
         }
 
         PatAtivoImobilizadoDAO especificacaoDAO = new PatAtivoImobilizadoDAO();
-        NotaFiscalDAO nota = this.panelCadContaPagar.getNotaFiscal();
+//        NotaFiscalDAO nota = this.panelCadContaPagar.getNotaFiscal();
     }
 
     //toggle o form de cadastro de nota fiscal

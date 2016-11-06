@@ -69,7 +69,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         
         txtDataInicial.setDate(dataInicial);
         tipo = TipoGrafico.barras;
-        titulo = "Grafico de Área";
+        titulo = "Grafico de Linha";
         //checkbox_Grafico.setSelected(false);
 
         // verificaTipoGrafico(TipoConta.ambos);
@@ -81,9 +81,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         checkboxSaida.setSelected(true);
         
     }
-///        GroupPanel g = new GroupPanel ( splitPane );
-//        g.setBounds(0,0,500,500);
-//        this.add(g);
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -750,7 +748,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             
         } else if (!GrapLinhas.isSelected() && grapBarras.isSelected() && !grapPizza.isSelected()) {
             
-            this.titulo = "Gráfico de Barras";
+            this.titulo = "Gráfico de Linhas";
             this.tipo = TipoGrafico.barras;
             CarregarGraficoJTable(titulo, tipo, 1, tipoconta, txtDataInicial.getDate(), txtDataFinal.getDate());
             

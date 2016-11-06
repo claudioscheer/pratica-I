@@ -8,8 +8,11 @@ package forms;
 import dao.CarCapContasDAO;
 import enumeraveis.TipoConta;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.CarCapContas;
-import relatorios.contareceber.Relatorios;
+import net.sf.jasperreports.engine.JRException;
+import relatorios.contareceber.RelatoriosContasReceber;
 
 /**
  *
@@ -102,8 +105,12 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
         CarCapContasDAO relatorio = new CarCapContasDAO();
         List<CarCapContas> dados = relatorio.ListarContas(TipoConta.Saida, txtDataInicial.getDate(), txtDataFinal.getDate());
         
-        Relatorios r = new Relatorios();
-        r.preenchedados(dados);
+        RelatoriosContasReceber r = new RelatoriosContasReceber();
+        try {
+            r.preenchedados(dados);
+        } catch (JRException ex) {
+            Logger.getLogger(FormRelatorios_em_tela.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_webButton1ActionPerformed
 
