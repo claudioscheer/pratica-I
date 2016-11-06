@@ -7,6 +7,7 @@ package model;
 
 import enumeraveis.FiltroData;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -17,8 +18,8 @@ public class ExportacaoExcel {
     private Date dataInicial;
     private Date dataFinal;
     private FiltroData filtroData;
-    private FlxcxOperacoes operacoes;
-    private CarCapContas contas;
+    private FlxcxEspecificacoes especificacao;
+    private List<ExportacaoExcelItens> itens;
 
     public Date getDataInicial() {
         return dataInicial;
@@ -44,21 +45,20 @@ public class ExportacaoExcel {
         this.filtroData = filtroData;
     }
 
-    public FlxcxOperacoes getOperacoes() {
-        return operacoes;
+    public FlxcxEspecificacoes getEspecificacao() {
+        return especificacao;
     }
 
-    public void setOperacoes(FlxcxOperacoes operacoes) {
-        this.operacoes = operacoes;
+    public void setEspecificacao(FlxcxEspecificacoes especificacao) {
+        this.especificacao = especificacao;
     }
 
-    public CarCapContas getContas() {
-        return contas;
+    public List<ExportacaoExcelItens> getItens() {
+        return itens;
     }
 
-    public void setContas(CarCapContas contas) {
-        this.contas = contas;
+    public void setItens(List<ExportacaoExcelItens> itens) {
+        this.itens = itens;
     }
-       
-    
+
 }

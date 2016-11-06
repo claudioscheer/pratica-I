@@ -4,9 +4,9 @@
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/praticaI</property>
-        <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">1234</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://sisetrem.ddns.net:5432/cowtabil</property>
+        <property name="hibernate.connection.username">pratica</property>
+        <property name="hibernate.connection.password">pratica2016</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
@@ -36,7 +36,6 @@
         <mapping class="model.PatNotaFiscal"/>
         <mapping class="model.CarCapParcela" />
         <mapping class="model.PatDepreciacao" />    
-         <mapping class="model.CarcapOperacoesComerciais" /> 
-    
+        <mapping class="model.CarcapOperacoesComerciais" />     
     </session-factory>
 </hibernate-configuration>
