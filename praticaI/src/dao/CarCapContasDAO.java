@@ -37,15 +37,6 @@ public class CarCapContasDAO {
         return true;
     }
 
-    public List<CarCapContas> getAll() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
-        Query query = session.createQuery("from car_cap_contas as a ");
-        List<CarCapContas> ativos = query.list();
-        session.getTransaction().commit();
-        session.close();
-        return ativos;
-    }
 
   
 
@@ -69,12 +60,12 @@ public class CarCapContasDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
 
-        System.out.println("DataFinal" + dataFinal + "DataInicial: " + dataInicial);
-//
-        Query query = session.createQuery("from CarCapContas as a where contatipo=:tipo and contaDataEmissao >=:dataInicial and contaDataEmissao <=:dataFinal");
-        query.setParameter("dataInicial", dataInicial);
-        query.setParameter("dataFinal", dataFinal);
-        query.setParameter("tipo", tipo);
+
+        Query query = session.createQuery("from CarCapContas as a where conta_data_emissao BETWEEN :datainicial and :datafinal and contatipo= :tipo");
+        query.setParameter("datainicial", dataInicial);
+        query.setParameter("datafinal", dataFinal);
+
+        query.setParameter("tipo", tipo.ordinal());
 
         List<CarCapContas> contas = query.list();
         session.getTransaction().commit();
