@@ -669,11 +669,11 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
                 if (tipografico.equals(TipoGrafico.barras)) {
 
-//                    j = grap.GraficoBarras(contas, "Entradas X Saidas");
+                    j = grap.GraficoBarras(contas, "Entradas X Saidas");
 
                 } else if (tipografico.equals(TipoGrafico.pizza)) {
 
-//                    j = grap.GraficoPizza("Gráfico de Pizza", contas);
+                    j = grap.GraficoPizza("Gráfico de Pizza", contas);
 
                 }
 
@@ -730,11 +730,11 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
                 if (tipografico.equals(TipoGrafico.barras)) {
 
-//                    j = grap.GraficoBarras(contas, "Entradas X Saidas");
+                    j = grap.GraficoBarras(contas, "Entradas X Saidas");
 
                 } else if (tipografico.equals(TipoGrafico.pizza)) {
 
-//                    j = grap.GraficoPizza("Gráfico de Pizza", contas);
+                    j = grap.GraficoPizza("Gráfico de Pizza", contas);
 
                 }
 
