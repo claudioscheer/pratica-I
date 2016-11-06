@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ExportacaoExcelItens {
     private FlxcxOperacoes operacao;
-    private CarCapContas contas;
+    private List<CarCapContas> contas;
 
     public FlxcxOperacoes getOperacao() {
         return operacao;
