@@ -3,6 +3,7 @@ package forms;
 import components.Validador;
 import forms.busca.FormBuscaTipoBaixa;
 import java.awt.event.ActionListener;
+import model.PatAtivoImobilizado;
 import model.PatBaixa;
 import model.PatTipoBaixa;
 
@@ -15,38 +16,29 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
     /**
      * Creates new form FormBaixaAtivo
      */
-    
-    
     public Validador validador;
+    private PatAtivoImobilizado ativoImobilizado;
 
     private PatBaixa baixaAtivo;
     private PatTipoBaixa tipoBaixa;
-
     public boolean editando;
-    
+
     public FormBaixaAtivo() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         FormBuscaTipoBaixa tipoBaixa = new FormBuscaTipoBaixa();
         tipoBaixa.setFrameBloquear(FormPrincipal.getInstance());
         txtMotivo.setFrame(tipoBaixa);
-    }
-    
-     public void setDadosEditar(PatBaixa baixaAtivo) {
-        this.baixaAtivo = baixaAtivo;
-        this.editando = true;
-        this.setDadosForm();
+
     }
 
-    private void setDadosForm() {
-        this.txtDataAtivo.setDate(this.baixaAtivo.getBaixaDataBaixa());
-        this.txtMotivo.setValue(this.baixaAtivo.getPatTipoBaixa());
-        this.txtMotivo.setText(this.baixaAtivo.getPatTipoBaixa().getTipoBaixaDescricao()  + 
-                " - " + this.baixaAtivo.getPatTipoBaixa().getTipoBaixaCodigo());
+    public void setAtivoImobilizado(PatAtivoImobilizado ativoImobilizado) {
+        this.ativoImobilizado = ativoImobilizado;
+
     }
 
-        public void setEvents(ActionListener salvar, ActionListener cancelar) {
+    public void setEvents(ActionListener salvar, ActionListener cancelar) {
         this.btnSalvar.addActionListener(salvar);
         this.btnCancelar.addActionListener(cancelar);
     }
@@ -67,8 +59,6 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
         btnCancelar = new com.alee.laf.button.WebButton();
         jPanel1 = new javax.swing.JPanel();
         txtDataAtivo = new com.alee.extended.date.WebDateField();
-        jLabel1 = new javax.swing.JLabel();
-        txtAtivoImobilizado = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -110,8 +100,6 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("Ativo Imoblizado");
-
         jLabel3.setText("Data da Baixa");
 
         jLabel4.setText("Motivo");
@@ -124,35 +112,22 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtDataAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtDataAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addGap(109, 109, 109)
-                                .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(10, 10, 10))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtAtivoImobilizado, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(109, 109, 109)
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAtivoImobilizado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(62, 62, 62)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
@@ -226,14 +201,12 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
     private com.alee.laf.button.WebButton btnCancelar;
     private com.alee.laf.button.WebButton btnSalvar;
     private com.thoughtworks.xstream.converters.enums.EnumConverter enumConverter1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JPanel panelOpcoes;
-    private javax.swing.JTextField txtAtivoImobilizado;
     private com.alee.extended.date.WebDateField txtDataAtivo;
     private components.TextFieldFK txtMotivo;
     private com.alee.extended.date.WebDateFieldStyle webDateFieldStyle1;

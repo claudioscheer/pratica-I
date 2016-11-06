@@ -84,6 +84,8 @@
                   <Component id="buttonManutencoes" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonOpcoes" min="-2" pref="85" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="buttonBaixa" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="buttonExcluir" min="-2" pref="66" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -104,6 +106,7 @@
                       <Component id="buttonOpcoes" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonManutencoes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonBaixa" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               </Group>
@@ -141,6 +144,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Manuten&#xe7;&#xf5;es"/>
           </Properties>
+        </Component>
+        <Component class="com.alee.laf.button.WebButton" name="buttonBaixa">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Dar Baixa"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonBaixaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
