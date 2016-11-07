@@ -10,11 +10,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,10 +30,13 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "car_cap_contas", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = "conta_nota_fiscal")
 )
+@SequenceGenerator(name = "seq_conta", sequenceName = "seq_conta",
+        allocationSize = 1)
 public class CarCapContas implements java.io.Serializable {
 
     @Id
     @Column(name = "conta_id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta")
     private int contaId;
 
     @Enumerated
@@ -149,9 +155,9 @@ public class CarCapContas implements java.io.Serializable {
     }
 
 
-    public void setContaStatus(StatusConta contaStatus) {
-        this.contaStatus = contaStatus;
-    }
+//    public void setContaStatus(StatusConta contaStatus) {
+//        this.contaStatus = contaStatus;
+//    }
 //    public void setProduto(String produto) {
 //        this.produto = produto;
 //
