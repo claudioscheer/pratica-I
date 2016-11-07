@@ -22,12 +22,12 @@ public class EstMarcaDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
-            session.update(marca);
-            session.getTransaction().commit();
+            session.update(marca);            
             return true;
         } catch (HibernateException e) {
             throw e;
         } finally {
+            session.getTransaction().commit();
             session.close();
         }
     }
