@@ -8,7 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -24,10 +24,10 @@ import javax.persistence.Table;
 public class FlxcxOperacoes implements java.io.Serializable {
 
     private int opCodigo;
-    private String opDescricao;
-    private Set<FlxcxTributacao> flxcxTributacaos = new HashSet(0);
+    private String opDescricao;   
     private Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios = new HashSet(0);
     private Set<CarCapContas> carCapContass = new HashSet(0);
+    private FlxcxEspecificacoes flxcxEspecificacoes;
 
     public FlxcxOperacoes() {
     }
@@ -36,10 +36,9 @@ public class FlxcxOperacoes implements java.io.Serializable {
         this.opCodigo = opCodigo;
     }
 
-    public FlxcxOperacoes(int opCodigo, String opDescricao, Set<FlxcxTributacao> flxcxTributacaos, Set<CarCapContas> carCapContass, Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios) {
+    public FlxcxOperacoes(int opCodigo, String opDescricao, Set<CarCapContas> carCapContass, Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios) {
         this.opCodigo = opCodigo;
-        this.opDescricao = opDescricao;
-        this.flxcxTributacaos = flxcxTributacaos;
+        this.opDescricao = opDescricao;      
         this.carCapContass = carCapContass;
         this.flxcxMovimentoBancarios = flxcxMovimentoBancarios;
     }
@@ -62,15 +61,7 @@ public class FlxcxOperacoes implements java.io.Serializable {
         this.opDescricao = opDescricao;
     }
 
-    @ManyToMany
-    public Set<FlxcxTributacao> getFlxcxTributacaos() {
-        return this.flxcxTributacaos;
-    }
-
-    public void setFlxcxTributacaos(Set<FlxcxTributacao> flxcxTributacaos) {
-        this.flxcxTributacaos = flxcxTributacaos;
-    }
-
+    
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "flxcxOperacoes")
     public Set<FlxcxMovimentoBancario> getFlxcxMovimentoBancarios() {
         return this.flxcxMovimentoBancarios;
@@ -87,6 +78,15 @@ public class FlxcxOperacoes implements java.io.Serializable {
 
     public void setCarCapContass(Set<CarCapContas> carCapContass) {
         this.carCapContass = carCapContass;
+    }
+
+    @ManyToOne
+    public FlxcxEspecificacoes getFlxcxEspecificacoes() {
+        return flxcxEspecificacoes;
+    }
+
+    public void setFlxcxEspecificacoes(FlxcxEspecificacoes flxcxEspecificacoes) {
+        this.flxcxEspecificacoes = flxcxEspecificacoes;
     }
 
 }

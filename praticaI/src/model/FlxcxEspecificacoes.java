@@ -30,10 +30,8 @@ public class FlxcxEspecificacoes implements java.io.Serializable {
     private int espCodigo;
     private String espDescricao;
     private Integer espCodigoPai;
-    private Set<CarCapContas> carCapContases = new HashSet(0);
-    private Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios = new HashSet(0);
-    private Set<FlxcxEspFluxoCaixa> flxcxEspFluxoCaixas = new HashSet(0);
-    private CarCapContas carCapContas;
+    private Set<FlxcxOperacoes> operacao;
+    
 
     public FlxcxEspecificacoes() {
     }
@@ -42,13 +40,10 @@ public class FlxcxEspecificacoes implements java.io.Serializable {
         this.espCodigo = espCodigo;
     }
 
-    public FlxcxEspecificacoes(int espCodigo, String espDescricao, Integer espCodigoPai, Set<CarCapContas> carCapContases, Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios, Set<FlxcxEspFluxoCaixa> flxcxEspFluxoCaixas) {
+    public FlxcxEspecificacoes(int espCodigo, String espDescricao, Integer espCodigoPai) {
         this.espCodigo = espCodigo;
         this.espDescricao = espDescricao;
         this.espCodigoPai = espCodigoPai;
-        this.carCapContases = carCapContases;
-        this.flxcxMovimentoBancarios = flxcxMovimentoBancarios;
-        this.flxcxEspFluxoCaixas = flxcxEspFluxoCaixas;
     }
 
     @Id
@@ -81,43 +76,16 @@ public class FlxcxEspecificacoes implements java.io.Serializable {
         this.espCodigoPai = espCodigoPai;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "flxcx_contas_especificacoes", schema = "public", joinColumns = {
-        @JoinColumn(name = "esp_codigo_flxcx_especificacoes", nullable = false, updatable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "conta_id_car_cap_contas", nullable = false, updatable = false)})
-    public Set<CarCapContas> getCarCapContases() {
-        return this.carCapContases;
+    @OneToMany(mappedBy = "flxcxEspecificacoes")
+    public Set<FlxcxOperacoes> getOperacao() {
+        return operacao;
     }
 
-    public void setCarCapContases(Set<CarCapContas> carCapContases) {
-        this.carCapContases = carCapContases;
+    public void setOperacao(Set<FlxcxOperacoes> operacao) {
+        this.operacao = operacao;
     }
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "flxcxEspecificacoeses")
-    public Set<FlxcxMovimentoBancario> getFlxcxMovimentoBancarios() {
-        return this.flxcxMovimentoBancarios;
-    }
-
-    public void setFlxcxMovimentoBancarios(Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios) {
-        this.flxcxMovimentoBancarios = flxcxMovimentoBancarios;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "flxcxEspecificacoes")
-    public Set<FlxcxEspFluxoCaixa> getFlxcxEspFluxoCaixas() {
-        return this.flxcxEspFluxoCaixas;
-    }
-
-    public void setFlxcxEspFluxoCaixas(Set<FlxcxEspFluxoCaixa> flxcxEspFluxoCaixas) {
-        this.flxcxEspFluxoCaixas = flxcxEspFluxoCaixas;
-    }
-
-    @ManyToOne
-    public CarCapContas getCarCapContas() {
-        return carCapContas;
-    }
-
-    public void setCarCapContas(CarCapContas carCapContas) {
-        this.carCapContas = carCapContas;
-    }
-
+   
+    
+    
+    
 }

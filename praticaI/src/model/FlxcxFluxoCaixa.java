@@ -33,7 +33,7 @@ public class FlxcxFluxoCaixa implements java.io.Serializable {
     private Integer fluxItem;
     private Date fluxData;
     private Integer fluxQtdColaboradores;
-    private Set<FlxcxEspFluxoCaixa> flxcxEspFluxoCaixas = new HashSet(0);
+   
 
     public FlxcxFluxoCaixa() {
     }
@@ -43,13 +43,12 @@ public class FlxcxFluxoCaixa implements java.io.Serializable {
         this.carPessoa = carPessoa;
     }
 
-    public FlxcxFluxoCaixa(int fluxCodigo, CarPessoa carPessoa, Integer fluxItem, Date fluxData, Integer fluxQtdColaboradores, Set<FlxcxEspFluxoCaixa> flxcxEspFluxoCaixas) {
+    public FlxcxFluxoCaixa(int fluxCodigo, CarPessoa carPessoa, Integer fluxItem, Date fluxData, Integer fluxQtdColaboradores) {
         this.fluxCodigo = fluxCodigo;
         this.carPessoa = carPessoa;
         this.fluxItem = fluxItem;
         this.fluxData = fluxData;
         this.fluxQtdColaboradores = fluxQtdColaboradores;
-        this.flxcxEspFluxoCaixas = flxcxEspFluxoCaixas;
     }
 
     @Id
@@ -100,15 +99,6 @@ public class FlxcxFluxoCaixa implements java.io.Serializable {
 
     public void setFluxQtdColaboradores(Integer fluxQtdColaboradores) {
         this.fluxQtdColaboradores = fluxQtdColaboradores;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "flxcxFluxoCaixa")
-    public Set<FlxcxEspFluxoCaixa> getFlxcxEspFluxoCaixas() {
-        return this.flxcxEspFluxoCaixas;
-    }
-
-    public void setFlxcxEspFluxoCaixas(Set<FlxcxEspFluxoCaixa> flxcxEspFluxoCaixas) {
-        this.flxcxEspFluxoCaixas = flxcxEspFluxoCaixas;
     }
 
 }

@@ -19,6 +19,7 @@ import utils.Utils;
 import model.ExportacaoExcel;
 import model.ExportacaoExcelItens;
 import model.FlxcxEspecificacoes;
+import model.FlxcxOperacoes;
 
 /**
  *
@@ -46,6 +47,15 @@ public class ExportacaoParaExcel {
             
             List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
             
+            for (FlxcxEspecificacoes especificacao : especificacoes){
+            
+                
+                
+                
+                
+            
+            }
+            
 
             this.workbook.write(arquivo);
 
@@ -61,6 +71,16 @@ public class ExportacaoParaExcel {
      
         
         return espDAO.ListarTodas();       
+    
+    }
+    
+    
+    public List<FlxcxOperacoes> BuscarOperacoes(){
+    
+        FlxcxOperacoesDAO operacoesDao = new FlxcxOperacoesDAO();
+        
+        return operacoesDao.ListarTodas();
+        
     
     }
     

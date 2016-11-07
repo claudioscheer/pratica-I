@@ -106,4 +106,26 @@ public class FlxcxOperacoesDAO {
             session.close();
         }
     }
+    
+    public List<FlxcxOperacoes> BuscaOperacoes(int codigoEspecificacao) {
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        
+        try {
+            session.getTransaction().begin();
+
+            Query query = session.createQuery("from FlxcxOperacoes as t ");
+
+            List<FlxcxOperacoes> operacoes = query.list();
+
+            return operacoes;
+
+        } catch (HibernateException e) {
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    
 }
