@@ -11,11 +11,16 @@ public class EstMarcaDAO {
 
     public Boolean Inserir(EstMarca marca) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
-        session.save(marca);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            session.getTransaction().begin();
+            session.save(marca);
+            return true;
+        }   catch(HibernateException e){
+            throw e;
+        } finally{
+            session.getTransaction().commit();
+            session.close();    
+        }
     }
 
     public boolean Alterar(EstMarca marca) {
