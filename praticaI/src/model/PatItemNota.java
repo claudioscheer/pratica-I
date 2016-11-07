@@ -36,7 +36,7 @@ public class PatItemNota implements java.io.Serializable {
         this.itemNotaCodigo = itemNotaCodigo;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "produto", nullable = false)
     public EstProduto getEstProduto() {
         return this.estProduto;
@@ -46,7 +46,7 @@ public class PatItemNota implements java.io.Serializable {
         this.estProduto = estProduto;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "nota_fiscal", nullable = false)
     public PatNotaFiscal getPatNotaFiscal() {
         return this.patNotaFiscal;

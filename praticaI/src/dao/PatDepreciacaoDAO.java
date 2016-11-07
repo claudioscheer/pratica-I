@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import model.PatAtivoImobilizado;
 import model.PatDepreciacao;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -79,6 +80,12 @@ public class PatDepreciacaoDAO {
         } finally {
             session.close();
         }
+    }
+
+    public void depreciarAtivoImobilizado(PatAtivoImobilizado ativo) {
+        
+        
+
     }
 
 }

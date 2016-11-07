@@ -44,7 +44,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoCodigo = ativoCodigo;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria", nullable = false)
     public EstCategoria getEstCategoria() {
         return this.estCategoria;
@@ -54,7 +54,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.estCategoria = estCategoria;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "marca", nullable = false)
     public EstMarca getEstMarca() {
         return this.estMarca;
@@ -139,7 +139,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.patHistoricoDepreciacaos = patHistoricoDepreciacaos;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ativo_item_nota_fiscal")
     public PatItemNota getPatItemNota() {
         return patItemNota;
@@ -157,5 +157,5 @@ public class PatAtivoImobilizado implements java.io.Serializable {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-    
+
 }

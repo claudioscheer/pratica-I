@@ -2,11 +2,15 @@ package components.panelsListagem;
 
 import com.alee.laf.optionpane.WebOptionPane;
 import com.alee.laf.panel.WebPanel;
+import dao.PatAtivoImobilizadoDAO;
+import dao.PatDepreciacaoDAO;
 import dao.PatHistoricoDepreciacaoDAO;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.SwingWorker;
+import model.PatAtivoImobilizado;
 import model.PatHistoricoDepreciacao;
 import utils.Utils;
 
@@ -19,7 +23,7 @@ public class PanelDepreciar extends WebPanel {
 
     private boolean depreciando;
 
-    private int ativos;
+    private int ativosSize;
     private int valueProgress;
 
     public PanelDepreciar() {
@@ -72,15 +76,17 @@ public class PanelDepreciar extends WebPanel {
         @Override
         protected Void doInBackground() throws Exception {
             depreciando = true;
-            ativos = 5;
-            progressBar.setMaximum(ativos);
+            List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().getAll(0);
+            ativosSize = 5;
+            progressBar.setMaximum(ativosSize);
             progressBar.setValue(valueProgress);
-            for (int i = 0; i < ativos; i++) {
+            for (int i = 0; i < ativosSize; i++) {
+                PatAtivoImobilizado ativo = ativos.get(i);
+                new PatDepreciacaoDAO().depreciarAtivoImobilizado(ativo);
+                progressBar.setValue(++valueProgress);
                 setPorcentagem();
                 Thread.sleep(1000);
-                progressBar.setValue(++valueProgress);
             }
-            setPorcentagem();
             return null;
         }
 
@@ -93,7 +99,7 @@ public class PanelDepreciar extends WebPanel {
     }
 
     private void setPorcentagem() {
-        this.lblPorcentagem.setText(Utils.removerCaracteresDoubleString(Utils.format((valueProgress * 100) / ativos)) + "%");
+        this.lblPorcentagem.setText(Utils.removerCaracteresDoubleString(Utils.format((valueProgress * 100) / ativosSize)) + "%");
     }
 
     public void fecharPanel() {
