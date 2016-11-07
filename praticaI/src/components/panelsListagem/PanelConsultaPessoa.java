@@ -27,18 +27,16 @@ public class PanelConsultaPessoa extends WebPanel implements ActionListener {
 
     public void setEvents(ActionListener add, ActionListener edit, ActionListener delete) {
         buttonAdd.addActionListener(add);
-        buttonAdd.addActionListener(edit);
-        buttonAdd.addActionListener(delete);
+        buttonEditar.addActionListener(edit);
+        buttonExcluir.addActionListener(delete);
     }
 
     public class LoadPessoas extends SwingWorker<Void, Void> {
-
         protected Void doInBackground() throws Exception {
             pessoas = new PessoaDAO().getAll();
             atualizarTabela();
             return null;
         }
-
         public void done() {
         }
     }
@@ -47,45 +45,26 @@ public class PanelConsultaPessoa extends WebPanel implements ActionListener {
         return this.indexSelecionado;
     }
     
-    
     private void atualizarTabela() {
         DefaultTableModel model = (DefaultTableModel) tableLista.getModel();
         for (CarPessoa ativo : pessoas) {
             model.addRow(pessoaToArray(ativo));
         }
-
         tableLista.setModel(model);
     }
     
     private Object[] pessoaToArray(CarPessoa p) {
         Object[] o = new Object[4];
-        o[0] = p.getPessoaId();
-        o[1] = p.getPessoaNome();
-        o[2] = p.getPessoaCnpjCpf();
-        o[3] = p.getPessoaFone();
+        o[0] = p.getPessoaNome();
+        o[1] = p.getPessoaCnpjCpf();
+        o[2] = p.getPessoaFone();
+        o[3] = p.getPessoaEmail();
         return o;
     }
     
     private void loadDatas() {
-//        String[] headers = {"Header 1", "Header 2", "Header 3", "Header 4", "Header 5", "Header 6"};
-//
-//        String[][] data = {
-//            {"1", "2", "3", "4", "5", "6"},
-//            {"7", "8", "9", "10", "11", "12"},
-//            {"13", "14", "15", "16", "17", "18"},
-//            {"19", "20", "21", "22", "23", "24"},
-//            {"25", "26", "27", "28", "29", "30"},
-//            {"31", "32", "33", "34", "35", "36"},
-//            {"37", "38", "39", "40", "41", "42"}
-//        };
-//
-//        tableLista.setModel(new DefaultTableModel(data, headers));
-//        tableLista.setAutoResizeMode(WebTable.AUTO_RESIZE_ALL_COLUMNS);
-//        
-        
-        this.loadPessoas  = new PanelConsultaPessoa.LoadPessoas();
+        this.loadPessoas  = new LoadPessoas();
         this.loadPessoas.execute(); 
-        
     }
 
     @Override
@@ -112,13 +91,10 @@ public class PanelConsultaPessoa extends WebPanel implements ActionListener {
         tableLista.setAutoCreateRowSorter(true);
         tableLista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nome", "CPF / CNPJ", "Fone", "E-mail"
             }
         ));
         tableLista.setEditable(false);
@@ -134,6 +110,11 @@ public class PanelConsultaPessoa extends WebPanel implements ActionListener {
         buttonExcluir.setText("Excluir");
 
         buttonEditar.setText("Editar");
+        buttonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
         panelOpcoes.setLayout(panelOpcoesLayout);
@@ -187,6 +168,10 @@ public class PanelConsultaPessoa extends WebPanel implements ActionListener {
     private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonEditarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.button.WebButton buttonAdd;

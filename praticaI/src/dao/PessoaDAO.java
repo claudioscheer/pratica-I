@@ -47,7 +47,7 @@ public class PessoaDAO {
     public List<CarPessoa> getAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from AtivoImobilizado as a ");
+        Query query = session.createQuery("from CarPessoa as a ");
         List<CarPessoa> ativos = query.list();
         session.getTransaction().commit();
         session.close();
