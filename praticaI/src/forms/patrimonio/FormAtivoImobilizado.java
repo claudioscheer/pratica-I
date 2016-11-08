@@ -5,9 +5,9 @@ import com.alee.laf.optionpane.WebOptionPane;
 import components.panelsCads.PanelCadAtivoImobilizado;
 import components.panelsListagem.PanelConsultaAtivoImobilizado;
 import dao.PatAtivoImobilizadoDAO;
-import utils.Utils;
 import java.awt.Dimension;
 import model.PatAtivoImobilizado;
+import utils.Utils;
 
 public class FormAtivoImobilizado extends WebInternalFrame {
 
@@ -121,7 +121,7 @@ public class FormAtivoImobilizado extends WebInternalFrame {
             return;
         }
 
-        if (WebOptionPane.showConfirmDialog(this.panelConsultaAtivoImobilizado, "Deseja deletar o ativo imobilizado?", "Excluir",
+        if (WebOptionPane.showConfirmDialog(this.panelConsultaAtivoImobilizado, "Deseja dar baixa no ativo imobilizado?", "Excluir",
                 WebOptionPane.YES_NO_OPTION,
                 WebOptionPane.QUESTION_MESSAGE) == WebOptionPane.OK_OPTION) {
 
@@ -130,6 +130,7 @@ public class FormAtivoImobilizado extends WebInternalFrame {
             new PatAtivoImobilizadoDAO().delete(ativoImobilizado);
             this.panelConsultaAtivoImobilizado.removeAtivoImobilizado(index);
             Utils.notificacao("Ativo imobilizado removido!", Utils.TipoNotificacao.ok, 0);
+            
         }
 
     }

@@ -6,8 +6,8 @@ import com.alee.laf.menu.WebPopupMenu;
 import com.alee.laf.panel.WebPanel;
 import com.alee.managers.hotkey.Hotkey;
 import dao.PatAtivoImobilizadoDAO;
-import forms.FormBaixaAtivo;
 import forms.FormPrincipal;
+import forms.patrimonio.FormBaixaAtivo;
 import forms.patrimonio.FormControleDepreciacoes;
 import forms.patrimonio.FormDepreciar;
 import forms.patrimonio.FormHistoricoDepreciacoes;
@@ -337,7 +337,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
 
         int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
         if (linhaselecionada < 0) {
-            Utils.notificacao("Selecione um tipo de baixa!", Utils.TipoNotificacao.erro, 0);
+            Utils.notificacao("Selecione um ativo!", Utils.TipoNotificacao.erro, 0);
             return;
         }
         FormPrincipal formBloquear = FormPrincipal.getInstance();
