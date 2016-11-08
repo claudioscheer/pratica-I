@@ -23,6 +23,7 @@ import enumeraveis.TipoMovimento;
 import components.TextFieldFK;
 import dao.CarPessoaDAO;
 import dao.PatNotaFiscalDAO;
+import enumeraveis.StatusConta;
 
 import forms.busca.FormBuscaProduto;
 import java.awt.event.ActionEvent;
@@ -106,9 +107,8 @@ public class FormContaReceber extends WebInternalFrame {
 
         List<FlxcxOperacoes> tipo_operacao = Flx.ListarTodas();
 
-       for (FlxcxOperacoes i : tipo_operacao) {
+        for (FlxcxOperacoes i : tipo_operacao) {
 
-       
             Comb_tip_operacao.addItem(i.getOpCodigo() + " - " + i.getOpDescricao());
 
         }
@@ -203,7 +203,6 @@ public class FormContaReceber extends WebInternalFrame {
         webLabel21 = new com.alee.laf.label.WebLabel();
 
         webPanel1.setEnabled(false);
-        webPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -264,16 +263,11 @@ public class FormContaReceber extends WebInternalFrame {
         ));
         jScrollPane2.setViewportView(txt_tabela);
 
-        webPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(636, 100, 610, 440));
-
         webLabel1.setText("Lançamento tipo:");
-        webPanel1.add(webLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 24, -1, 22));
 
         webLabel2.setText("Quantidade:");
-        webPanel1.add(webLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, -1, 22));
 
         webLabel3.setText("Cliente/Fornecedor:");
-        webPanel1.add(webLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 20, -1, 22));
 
         combo_tip_lancamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ENTRADA", "SAÍDA" }));
         combo_tip_lancamento.addActionListener(new java.awt.event.ActionListener() {
@@ -281,17 +275,14 @@ public class FormContaReceber extends WebInternalFrame {
                 combo_tip_lancamentoActionPerformed(evt);
             }
         });
-        webPanel1.add(combo_tip_lancamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 16, 109, 30));
 
         comb_meio_recebimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dinheiro/Cheque", "Via Banco" }));
-        webPanel1.add(comb_meio_recebimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 210, 32));
 
         webDateField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 webDateField1ActionPerformed(evt);
             }
         });
-        webPanel1.add(webDateField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 60, 102, -1));
 
         Comb_forma_pagamento_recebimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "À Vista", "À prazo", " " }));
         Comb_forma_pagamento_recebimento.addActionListener(new java.awt.event.ActionListener() {
@@ -299,21 +290,16 @@ public class FormContaReceber extends WebInternalFrame {
                 Comb_forma_pagamento_recebimentoActionPerformed(evt);
             }
         });
-        webPanel1.add(Comb_forma_pagamento_recebimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 210, 32));
 
         webLabel4.setText("Parcelas:");
-        webPanel1.add(webLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, -1, 22));
 
         txtQuantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtQuantidadeActionPerformed(evt);
             }
         });
-        webPanel1.add(txtQuantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 120, 96, 20));
 
         webLabel7.setText("Status:");
-        webPanel1.add(webLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, -1, 43));
-        webPanel1.add(txt_preco_uni, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, 90, 30));
 
         txt_Valor_Total.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -325,33 +311,26 @@ public class FormContaReceber extends WebInternalFrame {
                 txt_Valor_TotalActionPerformed(evt);
             }
         });
-        webPanel1.add(txt_Valor_Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 90, 30));
 
         webLabel8.setText("Valor da parcela:");
-        webPanel1.add(webLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, -1, 28));
 
         txt_busca_nota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_busca_notaActionPerformed(evt);
             }
         });
-        webPanel1.add(txt_busca_nota, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 100, 33));
 
         webLabel6.setText("Vincular NF:");
-        webPanel1.add(webLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, -1, 22));
 
         webLabel9.setText("Produto:");
-        webPanel1.add(webLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, -1, 22));
 
         webLabel10.setText("Tipo de operação:");
-        webPanel1.add(webLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 72, -1, 28));
 
         Comb_tip_operacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Comb_tip_operacaoActionPerformed(evt);
             }
         });
-        webPanel1.add(Comb_tip_operacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(109, 72, 160, 28));
 
         botao_abrir_relatorios.setBackground(new java.awt.Color(51, 255, 51));
         botao_abrir_relatorios.setText("Relatórios");
@@ -360,11 +339,9 @@ public class FormContaReceber extends WebInternalFrame {
                 botao_abrir_relatoriosActionPerformed(evt);
             }
         });
-        webPanel1.add(botao_abrir_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 480, 120, 33));
 
         botao_excluir.setBackground(new java.awt.Color(51, 255, 51));
         botao_excluir.setText("Excluir");
-        webPanel1.add(botao_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 120, 33));
 
         botao_salvar.setBackground(new java.awt.Color(51, 255, 51));
         botao_salvar.setText("Salvar");
@@ -373,26 +350,20 @@ public class FormContaReceber extends WebInternalFrame {
                 botao_salvarActionPerformed(evt);
             }
         });
-        webPanel1.add(botao_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 480, 130, 33));
 
         webLabel11.setText("Forma de pagamento/Recebimento:");
-        webPanel1.add(webLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, 22));
 
         webLabel12.setText("Descrição:");
-        webPanel1.add(webLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, 22));
 
         txt_descricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_descricaoActionPerformed(evt);
             }
         });
-        webPanel1.add(txt_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 490, 26));
 
         webLabel13.setText("Data lançamento:");
-        webPanel1.add(webLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, 22));
 
         webLabel14.setText("Meio de pagamento/Recebimento:");
-        webPanel1.add(webLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, 22));
 
         checkboxEntrada.setText("Pendente");
         checkboxEntrada.addActionListener(new java.awt.event.ActionListener() {
@@ -400,23 +371,18 @@ public class FormContaReceber extends WebInternalFrame {
                 checkboxEntradaActionPerformed(evt);
             }
         });
-        webPanel1.add(checkboxEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, -1, -1));
 
         checkboxEntrada3.setText("Pago");
-        webPanel1.add(checkboxEntrada3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 60, -1, -1));
 
         webLabel15.setText("Valor total:");
-        webPanel1.add(webLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, 23));
 
         txt_data_lançamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_data_lançamentoActionPerformed(evt);
             }
         });
-        webPanel1.add(txt_data_lançamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 111, -1));
 
         webLabel16.setText("Data Inicial:");
-        webPanel1.add(webLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 60, -1, 22));
 
         comb_parcelas.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
         comb_parcelas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -424,60 +390,48 @@ public class FormContaReceber extends WebInternalFrame {
                 comb_parcelasMouseClicked(evt);
             }
         });
-        webPanel1.add(comb_parcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 150, 32));
 
         txt_pess_cad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_pess_cadActionPerformed(evt);
             }
         });
-        webPanel1.add(txt_pess_cad, new org.netbeans.lib.awtextra.AbsoluteConstraints(755, 16, 490, 30));
 
         webLabel17.setText("Cliente/Fornecedor:");
-        webPanel1.add(webLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(641, 20, -1, 22));
 
-        comb_status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pago", "Pendente", " " }));
+        comb_status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fechada", "Pendente", "Pendente parcial", " " }));
         comb_status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comb_statusActionPerformed(evt);
             }
         });
-        webPanel1.add(comb_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 110, 30));
 
         webLabel18.setText("Status:");
-        webPanel1.add(webLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, -1, 22));
 
         webDateField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 webDateField3ActionPerformed(evt);
             }
         });
-        webPanel1.add(webDateField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 60, 102, -1));
 
         webLabel19.setText("Data Final:");
-        webPanel1.add(webLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 60, -1, 22));
 
         botao_alterar.setBackground(new java.awt.Color(51, 255, 51));
         botao_alterar.setText("Alterar");
-        webPanel1.add(botao_alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 480, 130, 33));
 
         txt_busca_cliente_fornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_busca_cliente_fornecedorActionPerformed(evt);
             }
         });
-        webPanel1.add(txt_busca_cliente_fornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(349, 14, 220, 34));
-        webPanel1.add(txt_busca_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 220, 28));
 
         txt_data_lançamento1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_data_lançamento1ActionPerformed(evt);
             }
         });
-        webPanel1.add(txt_data_lançamento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 120, 30));
 
         webLabel20.setText("Data Vencimento:");
-        webPanel1.add(webLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, 28));
 
         txt_Valor_parcela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -489,25 +443,248 @@ public class FormContaReceber extends WebInternalFrame {
                 txt_Valor_parcelaActionPerformed(evt);
             }
         });
-        webPanel1.add(txt_Valor_parcela, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, 80, 31));
 
         webLabel21.setText("Valor unitário:");
-        webPanel1.add(webLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, -1, 28));
+
+        javax.swing.GroupLayout webPanel1Layout = new javax.swing.GroupLayout(webPanel1);
+        webPanel1.setLayout(webPanel1Layout);
+        webPanel1Layout.setHorizontalGroup(
+            webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(webPanel1Layout.createSequentialGroup()
+                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(webPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(webLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(170, 170, 170)
+                                .addComponent(webLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(170, 170, 170)
+                                .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_data_lançamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(280, 280, 280)
+                                .addComponent(webLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(webLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(280, 280, 280)
+                                .addComponent(txt_busca_nota, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(webLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Comb_forma_pagamento_recebimento, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(50, 50, 50)
+                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(webLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_preco_uni, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(50, 50, 50)
+                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(webLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comb_parcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(comb_meio_recebimento, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(webPanel1Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(webLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(50, 50, 50)
+                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_Valor_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(webLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(60, 60, 60)
+                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(webLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_Valor_parcela, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(webPanel1Layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(webLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(comb_status, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(40, 40, 40)
+                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(webLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_data_lançamento, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(botao_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(botao_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(botao_alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(botao_abrir_relatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(webPanel1Layout.createSequentialGroup()
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, webPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(Comb_tip_operacao, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(webLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(combo_tip_lancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(webLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(10, 10, 10)))
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_busca_cliente_fornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(webLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_busca_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(webLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(56, 56, 56)
+                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(webPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(webLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_pess_cad, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(webPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkboxEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(webLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addComponent(checkboxEntrada3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(webLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(webDateField3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(webLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(webDateField1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+        webPanel1Layout.setVerticalGroup(
+            webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(webPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(webPanel1Layout.createSequentialGroup()
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(webLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(webLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(combo_tip_lancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addComponent(txt_busca_cliente_fornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(webLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(webPanel1Layout.createSequentialGroup()
+                                        .addComponent(webLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(Comb_tip_operacao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_busca_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(webLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(webLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(txt_data_lançamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(webLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(webLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(70, 70, 70)
+                                .addComponent(txt_descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(txt_busca_nota, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(24, 24, 24)
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(webLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addComponent(webLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(txt_preco_uni, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(webLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Comb_forma_pagamento_recebimento, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comb_parcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(16, 16, 16)
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addComponent(webLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(2, 2, 2)
+                                .addComponent(txt_Valor_parcela, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(webPanel1Layout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addComponent(comb_meio_recebimento, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(webLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(webPanel1Layout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addComponent(txt_Valor_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(webLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(8, 8, 8)
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(webLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(comb_status, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addComponent(webLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(txt_data_lançamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(80, 80, 80)
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botao_excluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botao_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botao_alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botao_abrir_relatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(webPanel1Layout.createSequentialGroup()
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(webLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(txt_pess_cad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(20, 20, 20)
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(checkboxEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(webLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(checkboxEntrada3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(webLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
+                                .addComponent(webDateField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(webPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(webLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
+                                .addComponent(webDateField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(14, 14, 14)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(webPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(webPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(webPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(webPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -545,17 +722,18 @@ public class FormContaReceber extends WebInternalFrame {
         Object parcela = comb_parcelas.getValue();
 
         int numParcela = Integer.parseInt(parcela.toString());
-        
-        
+
+        TipoConta tipoConta = TipoConta.Entrada;
+
         // tipo de operação
-        if (Comb_tip_operacao.getSelectedIndex() == 1) {
-            conta.setTipoDeConta(TipoConta.Entrada);
-        } else if (Comb_tip_operacao.getSelectedIndex() == 2) {
-            conta.setTipoDeConta(TipoConta.Saida);
-        }else{
-            conta.setTipoDeConta(TipoConta.ambos);
-            
+        if (combo_tip_lancamento.getSelectedIndex() == 0) {
+            tipoConta = TipoConta.Entrada;
+        } else if (combo_tip_lancamento.getSelectedIndex() == 1) {
+            tipoConta = TipoConta.Saida;
         }
+        conta.setTipoDeConta(tipoConta);
+
+        Utils.notificacao("Valor: " + String.valueOf(conta.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
 
         String[] txt = txt_busca_produto.getText().split("-");
 
@@ -567,13 +745,13 @@ public class FormContaReceber extends WebInternalFrame {
 
         conta.setProdutoId(produto);
 
-            //pegar data lançamento
+        //pegar data lançamento
         conta.setDatLancamento(txt_data_lançamento.getDate());
 
-             //pegar descrição
+        //pegar descrição
         conta.setDescricao(txt_descricao.getText());
 
-            //pegar parcela
+        //pegar parcela
         conta.setNumeroParcela(numParcela);
 
         // quantidade produto
@@ -596,10 +774,10 @@ public class FormContaReceber extends WebInternalFrame {
 
         conta.setOperacaoNota(chave);
 
-          //movimento
+        //movimento
         conta.setMovimento(TipoMovimento.venda);
 
-          //quantiade
+        //quantiade
         String j = txtQuantidade.getText();
 
         double b = Double.parseDouble(j);
@@ -612,14 +790,33 @@ public class FormContaReceber extends WebInternalFrame {
 
             if (contareceber) {
 
-            //tipo operação 02
+                //tipo operação 02
 //            if (Comb_tip_operacao.getSelectedIndex() == 0) {
 //                conta02.setCarEstTipoOperacao(null);
 //            } else {
 //                conta.setTipoDeConta(TipoConta.Saida);
 //            } 
 //            
-            // pega o produto
+                double valorTotal = Double.parseDouble(txt_Valor_Total.getText());
+
+                if (comb_status.getSelectedIndex() == 0) {
+
+                    conta02.setCapContaStatus(StatusConta.Fechada);
+                } else if (comb_status.getSelectedIndex() == 1) {
+
+                    conta02.setCapContaStatus(StatusConta.Pendente);
+                } else {
+                    conta02.setCapContaStatus(StatusConta.PendenteParcial);
+
+                }
+
+                conta02.setContaValorTotal(valorTotal);
+
+                double valorParcela = Double.parseDouble(txt_Valor_parcela.getText());
+
+                conta02.setContaValorPago(valorParcela);
+
+                // pega o produto
                 conta02.setProduto(produto);
 
                 conta02.setContaDataEmissao(txt_data_lançamento.getDate());
@@ -634,26 +831,27 @@ public class FormContaReceber extends WebInternalFrame {
                 conta02.setPessoaNome(nome);
 
                 conta02.setQuantidade_produto(b);
-         //pegar nota
+                //pegar nota
 
                 conta02.setPatNotaFiscal(chave);
 
                 conta02.setTipoOperacaoDescricao("");
 
                 Object forma = Comb_forma_pagamento_recebimento.getSelectedItem();
-                
+
                 String n = forma.toString();
-                
+
                 conta02.setForma_rece_pagamento(n);
-                
-                 Object meio = comb_meio_recebimento.getSelectedItem();
-                
+
+                Object meio = comb_meio_recebimento.getSelectedItem();
+
                 String x = meio.toString();
                 conta02.setMeio_recebimento(x);
 
+                conta02.setContaTipo(tipoConta);
+
                 new CarCapContasDAO().insert(conta02);
 
-                
                 Preenche_tabela();
             }
 
@@ -754,32 +952,30 @@ public class FormContaReceber extends WebInternalFrame {
     }//GEN-LAST:event_txt_busca_cliente_fornecedorActionPerformed
 
     private void txt_Valor_parcelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_Valor_parcelaMouseClicked
-        
+
         Object parcela = comb_parcelas.getValue();
 
         int numParcela = Integer.parseInt(parcela.toString());
-      
+
         double valor_total = Double.parseDouble(txt_Valor_Total.getText());
-        
+
         double valor_parcela = 0;
-        
-        String setvalorParcela =""; 
-                
-            setvalorParcela = ""+valor_parcela;
-        
-        
-                
-        if(numParcela > 1){
+
+        String setvalorParcela = "";
+
+        setvalorParcela = "" + valor_parcela;
+
+        if (numParcela > 1) {
             valor_parcela = valor_total / numParcela;
-            setvalorParcela = ""+valor_parcela;
+            setvalorParcela = "" + valor_parcela;
             txt_Valor_parcela.setText(setvalorParcela);
-            
-        }else {
-            
+
+        } else {
+
             txt_Valor_parcela.setEnabled(true);
         }
-        
-        
+
+
     }//GEN-LAST:event_txt_Valor_parcelaMouseClicked
 
     private void txt_Valor_parcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_Valor_parcelaActionPerformed
