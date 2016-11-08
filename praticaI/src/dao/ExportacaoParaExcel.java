@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.CarCapContas;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -29,6 +30,9 @@ public class ExportacaoParaExcel {
 
     private HSSFWorkbook workbook = new HSSFWorkbook();
     private HSSFSheet firstSheet = workbook.createSheet("FluxoCaixa");
+    private final FlxcxOperacoesDAO operacoesDao = new FlxcxOperacoesDAO();
+    private final FlxcxEspecificacoesDAO especificacaoDAO = new FlxcxEspecificacoesDAO();
+    private final CarCapContasDAO contasDAO = new CarCapContasDAO();
 
     public void Exportar(List<ExportacaoExcel> exportacao, String nomeArquivo, Date dataInicial, Date dataFinal) {
 
@@ -39,23 +43,27 @@ public class ExportacaoParaExcel {
 
             row.createCell(0).setCellValue("Data Inicial: ");
             row.createCell(1).setCellValue(dataInicial);
+            
             row.createCell(3).setCellValue("Data Final: ");
             row.createCell(4).setCellValue(dataFinal);
 
             row = firstSheet.createRow(1);
 
-            
             List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
-            
-            for (FlxcxEspecificacoes especificacao : especificacoes){
-            
-                
-                
-                
-                
-            
+
+            for (FlxcxEspecificacoes especificacao : especificacoes) {
+
+                for (FlxcxOperacoes operacao : BuscarOperacoes(especificacao.getEspCodigo()) ) {
+                    
+                    for (CarCapContas conta : BuscaContas(operacao.getOpCodigo())){
+                    
+                        
+                    
+                    }
+                    
+                    
+                }
             }
-            
 
             this.workbook.write(arquivo);
 
@@ -65,24 +73,23 @@ public class ExportacaoParaExcel {
 
     }
 
-    public List<FlxcxEspecificacoes> BuscarEspecificoes(){
-        
-        FlxcxEspecificacoesDAO espDAO = new FlxcxEspecificacoesDAO();
-     
-        
-        return espDAO.ListarTodas();       
-    
+    public List<FlxcxEspecificacoes> BuscarEspecificoes() {
+
+        return this.especificacaoDAO.ListarTodas();
+
+    }
+
+    public List<FlxcxOperacoes> BuscarOperacoes(int codigoEspecificacao) {
+
+        return this.operacoesDao.BuscaOperacoes(codigoEspecificacao);
+
     }
     
+    public List<CarCapContas> BuscaContas(int codigoOperacao){
     
-    public List<FlxcxOperacoes> BuscarOperacoes(){
-    
-        FlxcxOperacoesDAO operacoesDao = new FlxcxOperacoesDAO();
-        
-        return operacoesDao.ListarTodas();
+        return this.contasDAO.BuscarContasOperacao(codigoOperacao);
         
     
     }
-    
-    
+
 }

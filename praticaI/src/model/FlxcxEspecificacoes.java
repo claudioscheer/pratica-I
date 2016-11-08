@@ -2,6 +2,7 @@ package model;
 // Generated 22/10/2016 10:09:26 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,14 +24,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "flxcx_especificacoes", schema = "public"
 )
-@SequenceGenerator(name = "seq_EstCodigo", sequenceName = "seq_EstCodigo",
-        allocationSize = 1)
 public class FlxcxEspecificacoes implements java.io.Serializable {
 
     private int espCodigo;
     private String espDescricao;
     private Integer espCodigoPai;
-    private Set<FlxcxOperacoes> operacao;
+    private List<FlxcxOperacoes> operacao;
     
 
     public FlxcxEspecificacoes() {
@@ -49,7 +48,6 @@ public class FlxcxEspecificacoes implements java.io.Serializable {
     @Id
 
     @Column(name = "esp_codigo", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_EstCodigo")
     public int getEspCodigo() {
         return this.espCodigo;
     }
@@ -77,11 +75,11 @@ public class FlxcxEspecificacoes implements java.io.Serializable {
     }
 
     @OneToMany(mappedBy = "flxcxEspecificacoes")
-    public Set<FlxcxOperacoes> getOperacao() {
+    public List<FlxcxOperacoes> getOperacao() {
         return operacao;
     }
 
-    public void setOperacao(Set<FlxcxOperacoes> operacao) {
+    public void setOperacao(List<FlxcxOperacoes> operacao) {
         this.operacao = operacao;
     }
    

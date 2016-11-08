@@ -37,7 +37,7 @@ public class CarCapContasDAO {
         return true;
     }
 
-     public List<CarCapContas> getAll() {
+    public List<CarCapContas> getAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("from CarCapContas as a");
@@ -46,7 +46,6 @@ public class CarCapContasDAO {
         session.close();
         return contas;
     }
-  
 
     public List<CarCapContas> ListarTodos(Date dataInicial, Date dataFinal) {
 
@@ -68,12 +67,27 @@ public class CarCapContasDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
 
-
         Query query = session.createQuery("from CarCapContas as a where conta_data_emissao BETWEEN :datainicial and :datafinal and contatipo= :tipo");
         query.setParameter("datainicial", dataInicial);
         query.setParameter("datafinal", dataFinal);
 
         query.setParameter("tipo", tipo.ordinal());
+
+        List<CarCapContas> contas = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return contas;
+
+    }
+
+    public List<CarCapContas> BuscarContasOperacao(int codigoOperacao) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+
+        Query query = session.createQuery("from CarCapContas as a where flxcxoperacoes_opcodigo = :codigo ");
+
+        query.setParameter("codigo", codigoOperacao);
 
         List<CarCapContas> contas = query.list();
         session.getTransaction().commit();
@@ -95,7 +109,7 @@ public class CarCapContasDAO {
         query.setParameter("tipo", tipo);
 
         double total = (double) (query.uniqueResult() == null ? 0.0 : query.uniqueResult());
-        
+
         session.getTransaction().commit();
         session.close();
         return total;

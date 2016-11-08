@@ -60,7 +60,7 @@ public class CarCapContas implements java.io.Serializable {
     private String tipoOperacaoDescricao;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "conta_nota_fiscal", unique = true)
+    @JoinColumn(name = "conta_nota_fiscal", unique = false)
     private PatNotaFiscal patNotaFiscal;
 
     @Column(name = "conta_valor_total", nullable = false, precision = 17, scale = 17)
