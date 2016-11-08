@@ -5,6 +5,7 @@
  */
 package dao;
 
+import enumeraveis.TipoConta;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -39,29 +40,47 @@ public class ExportacaoParaExcel {
         try {
             FileOutputStream arquivo = new FileOutputStream(new File(nomeArquivo));
 
-            HSSFRow row = firstSheet.createRow(0);
+            //controla linha posicionada
+            int linha = 0;
+
+            double totalEntradas = 0;
+            double totalSaidas = 0;
+
+            HSSFRow row = firstSheet.createRow(linha);
 
             row.createCell(0).setCellValue("Data Inicial: ");
             row.createCell(1).setCellValue(dataInicial);
-            
+
             row.createCell(3).setCellValue("Data Final: ");
             row.createCell(4).setCellValue(dataFinal);
-
-            row = firstSheet.createRow(1);
 
             List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
 
             for (FlxcxEspecificacoes especificacao : especificacoes) {
 
-                for (FlxcxOperacoes operacao : BuscarOperacoes(especificacao.getEspCodigo()) ) {
-                    
-                    for (CarCapContas conta : BuscaContas(operacao.getOpCodigo())){
-                    
-                        
-                    
+                linha += 1;
+                row = firstSheet.createRow(linha);
+
+                row.createCell(0).setCellValue(especificacao.getEspDescricao());
+
+                for (FlxcxOperacoes operacao : BuscarOperacoes(especificacao.getEspCodigo())) {
+
+                    linha += 1;
+                    row = firstSheet.createRow(linha);
+
+                    row.createCell(0).setCellValue(operacao.getOpDescricao());
+
+                    for (CarCapContas conta : BuscaContas(operacao.getOpCodigo())) {
+
+                        //Realiza soma
+                        if (conta.getContaTipo() == TipoConta.Entrada) {
+                            totalEntradas += conta.getContaValorPago();
+                        } else {
+                            totalSaidas += conta.getContaValorPago();
+                        }
+
                     }
-                    
-                    
+
                 }
             }
 
@@ -84,12 +103,11 @@ public class ExportacaoParaExcel {
         return this.operacoesDao.BuscaOperacoes(codigoEspecificacao);
 
     }
-    
-    public List<CarCapContas> BuscaContas(int codigoOperacao){
-    
+
+    public List<CarCapContas> BuscaContas(int codigoOperacao) {
+
         return this.contasDAO.BuscarContasOperacao(codigoOperacao);
-        
-    
+
     }
 
 }
