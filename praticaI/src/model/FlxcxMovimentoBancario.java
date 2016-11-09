@@ -1,19 +1,17 @@
 package model;
 // Generated 22/10/2016 10:09:26 by Hibernate Tools 4.3.1
 
+import enumeraveis.TipoConta;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -38,8 +36,9 @@ public class FlxcxMovimentoBancario implements java.io.Serializable {
     private BigDecimal movBanNumero;
     private BigDecimal movBanEntrada;
     private BigDecimal movBanSaida;
-    private CarCapContas carCapContas;
-    private Set<FlxcxEspecificacoes> flxcxEspecificacoeses = new HashSet(0);
+    private TipoConta tipoConta;
+    private CarcapOperacoesComerciais operacoesComerciais;
+    
 
     public FlxcxMovimentoBancario() {
     }
@@ -50,7 +49,7 @@ public class FlxcxMovimentoBancario implements java.io.Serializable {
         this.flxcxOperacoes = flxcxOperacoes;
     }
 
-    public FlxcxMovimentoBancario(int movBanCodigo, CarPessoa carPessoa, FlxcxOperacoes flxcxOperacoes, Date movBanData, BigDecimal movBanDocumento, BigDecimal movBanNumero, BigDecimal movBanEntrada, BigDecimal movBanSaida, Set<FlxcxEspecificacoes> flxcxEspecificacoeses) {
+    public FlxcxMovimentoBancario(int movBanCodigo, CarPessoa carPessoa, FlxcxOperacoes flxcxOperacoes, Date movBanData, BigDecimal movBanDocumento, BigDecimal movBanNumero, BigDecimal movBanEntrada, BigDecimal movBanSaida, TipoConta tipoConta ,CarcapOperacoesComerciais operacoesComerciais) {
         this.movBanCodigo = movBanCodigo;
         this.carPessoa = carPessoa;
         this.flxcxOperacoes = flxcxOperacoes;
@@ -59,7 +58,9 @@ public class FlxcxMovimentoBancario implements java.io.Serializable {
         this.movBanNumero = movBanNumero;
         this.movBanEntrada = movBanEntrada;
         this.movBanSaida = movBanSaida;
-        this.flxcxEspecificacoeses = flxcxEspecificacoeses;
+        this.tipoConta = tipoConta;
+        this.operacoesComerciais = operacoesComerciais;
+        
     }
 
     @Id
@@ -138,26 +139,23 @@ public class FlxcxMovimentoBancario implements java.io.Serializable {
     public void setMovBanSaida(BigDecimal movBanSaida) {
         this.movBanSaida = movBanSaida;
     }
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "flxcx_movimentos_especificacoes", schema = "public", joinColumns = {
-        @JoinColumn(name = "mov_ban_codigo", nullable = false, updatable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "esp_codigo", nullable = false, updatable = false)})
-    public Set<FlxcxEspecificacoes> getFlxcxEspecificacoeses() {
-        return this.flxcxEspecificacoeses;
-    }
-
-    public void setFlxcxEspecificacoeses(Set<FlxcxEspecificacoes> flxcxEspecificacoeses) {
-        this.flxcxEspecificacoeses = flxcxEspecificacoeses;
-    }
-
+    
     @ManyToOne
-    public CarCapContas getCarCapContas() {
-        return carCapContas;
+    public CarcapOperacoesComerciais getFlxcxEspecificacoeses() {
+        return this.operacoesComerciais;
     }
 
-    public void setCarCapContas(CarCapContas carCapContas) {
-        this.carCapContas = carCapContas;
+    public void setFlxcxEspecificacoeses(CarcapOperacoesComerciais operacoesComerciais) {
+        this.operacoesComerciais = operacoesComerciais;
+    }
+
+    @Enumerated
+    public TipoConta getTipoConta() {
+        return tipoConta;
+    }
+
+    public void setTipoConta(TipoConta tipoConta) {
+        this.tipoConta = tipoConta;
     }
 
 }

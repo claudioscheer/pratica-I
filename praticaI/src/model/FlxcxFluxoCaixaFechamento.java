@@ -25,6 +25,8 @@ public class FlxcxFluxoCaixaFechamento implements java.io.Serializable {
 
     private int fechCodigo;
     private Date fechData;
+    private int mesEquivalente;
+    private int anoEquivalente;
     private double fechSaldoMes;
     private double fechSaldoDisponivel;
 
@@ -80,6 +82,22 @@ public class FlxcxFluxoCaixaFechamento implements java.io.Serializable {
 
     public void setFechSaldoDisponivel(double fechSaldoDisponivel) {
         this.fechSaldoDisponivel = fechSaldoDisponivel;
+    }
+
+    public int getMesEquivalente() {
+        return mesEquivalente;
+    }
+
+    public void setMesEquivalente(int mesEquivalente) {
+        this.mesEquivalente = mesEquivalente;
+    }
+
+    public int getAnoEquivalente() {
+        return anoEquivalente;
+    }
+
+    public void setAnoEquivalente(int anoEquivalente) {
+        this.anoEquivalente = anoEquivalente;
     }
 
 }

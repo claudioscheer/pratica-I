@@ -13,9 +13,11 @@ import com.alee.managers.language.LanguageManager;
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
 import dao.CarCapContasDAO;
+import dao.ExportacaoParaExcel;
 import enumeraveis.TipoConta;
 import enumeraveis.TipoGrafico;
 import java.awt.Image;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +27,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -1093,6 +1096,28 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     }
     
   
+    public void Excel(){
+    
+        JFileChooser fileChooser = new JFileChooser();
+
+        if (fileChooser.showSaveDialog(fileChooser.getComponent(0)) == JFileChooser.APPROVE_OPTION) { //Exibe janela onde salvar o arquivo HTML
+
+            File file = fileChooser.getSelectedFile(); //Pega o caminho completo
+
+            if (file.getPath().contains(".xls")) {
+
+                new ExportacaoParaExcel().Exportar(file.getPath(), dataInicial, dataFinal);
+                
+            } else {
+                 new ExportacaoParaExcel().Exportar(file.getPath() + ".xls", dataInicial, dataFinal);
+                
+            }
+
+        }
+    
+    
+    }
+    
    
 
 //    private void BuscaValoresTotais(){
@@ -1155,9 +1180,10 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
             CarregarNotificacao("Relatório gerado com sucesso!");
 
-        } else {
-
-        }
+         }else{
+            Excel();
+            
+        } 
 
 
     }//GEN-LAST:event_btn_GerarRelatorioActionPerformed

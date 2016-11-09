@@ -5,6 +5,9 @@
  */
 package dao;
 
+import enumeraveis.TipoConta;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import model.FlxcxFluxoCaixaFechamento;
 import org.hibernate.HibernateException;
@@ -17,7 +20,7 @@ import utils.HibernateUtil;
  * @author Diego
  */
 public class FlxcxFluxoCaixaFechamentoDAO {
-    
+
     public boolean Inserir(FlxcxFluxoCaixaFechamento fluxoCaixaFechamento) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -53,9 +56,9 @@ public class FlxcxFluxoCaixaFechamentoDAO {
     }
 
     public boolean Excluir(int codigo) {
-        
+
         Session session = HibernateUtil.getSessionFactory().openSession();
-        
+
         try {
 
             FlxcxFluxoCaixaFechamento fluxoCaixaFechamento = (FlxcxFluxoCaixaFechamento) session.get(FlxcxFluxoCaixaFechamento.class, codigo);
@@ -71,9 +74,9 @@ public class FlxcxFluxoCaixaFechamentoDAO {
     }
 
     public List<FlxcxFluxoCaixaFechamento> ListarTodas() {
-        
+
         Session session = HibernateUtil.getSessionFactory().openSession();
-        
+
         try {
             session.getTransaction().begin();
 
@@ -91,9 +94,9 @@ public class FlxcxFluxoCaixaFechamentoDAO {
     }
 
     public FlxcxFluxoCaixaFechamento Buscar(int codigo) {
-        
+
         Session session = HibernateUtil.getSessionFactory().openSession();
-        
+
         try {
             session.getTransaction().begin();
 
@@ -106,4 +109,33 @@ public class FlxcxFluxoCaixaFechamentoDAO {
             session.close();
         }
     }
+
+    public void VerificaFluxoCaixa() {
+
+        //se tem algum registro no fechamento que tem o ano e mes em branco
+        Calendar c = Calendar.getInstance();
+
+        c.set(Calendar.DAY_OF_MONTH, 1);
+
+        Date dataInicial = c.getTime();
+
+        c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+        Date dataFinal = c.getTime();
+        
+    }
+
+    public void FecharCaixa(Date dataInicial, Date dataFinal) {
+
+//        insert fechamento, em branco mes e ano
+        CarCapContasDAO contasDAO = new CarCapContasDAO();
+
+        double entrada = contasDAO.SomarContas(TipoConta.Entrada, dataInicial, dataFinal);
+
+        double saida = contasDAO.SomarContas(TipoConta.Saida, dataInicial, dataFinal);
+
+        //update fechamento
+    }
+
+    
 }

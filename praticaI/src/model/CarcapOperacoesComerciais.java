@@ -8,11 +8,13 @@ package model;
 import enumeraveis.TipoConta;
 import enumeraveis.TipoMovimento;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
@@ -46,6 +48,8 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
     private double quantidade;
     
     private TipoConta tipoDeConta;
+    
+    private List<FlxcxMovimentoBancario> flxcxMovimentoBancarios;
 
     public CarcapOperacoesComerciais() {
     }
@@ -59,7 +63,7 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
        
     }
 
-    public CarcapOperacoesComerciais(int operacoesID, Date datLancamento, PatNotaFiscal OperacaoNota, int numeroParcela, EstProduto idProduto, CarPessoa pessoa, String Descricao, TipoMovimento movimento, double quantidade) {
+    public CarcapOperacoesComerciais(int operacoesID, Date datLancamento, PatNotaFiscal OperacaoNota, int numeroParcela, EstProduto idProduto, CarPessoa pessoa, String Descricao, TipoMovimento movimento, double quantidade, List<FlxcxMovimentoBancario> flxcxMovimentoBancarios) {
         this.operacoesID = operacoesID;
         this.datLancamento = datLancamento;
         this.OperacaoNota = OperacaoNota;
@@ -69,6 +73,7 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
         this.Descricao = Descricao;
         this.movimento = movimento;
         this.quantidade = quantidade;
+        this.flxcxMovimentoBancarios = flxcxMovimentoBancarios;
     }
 
     @Id
@@ -174,6 +179,15 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
 
     public void setTipoDeConta(TipoConta tipoDeConta) {
         this.tipoDeConta = tipoDeConta;
+    }
+
+    @OneToMany(mappedBy = "flxcxEspecificacoeses")
+    public List<FlxcxMovimentoBancario> getFlxcxMovimentoBancarios() {
+        return flxcxMovimentoBancarios;
+    }
+
+    public void setFlxcxMovimentoBancarios(List<FlxcxMovimentoBancario> flxcxMovimentoBancarios) {
+        this.flxcxMovimentoBancarios = flxcxMovimentoBancarios;
     }
 
 }

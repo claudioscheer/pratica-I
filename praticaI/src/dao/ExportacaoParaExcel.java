@@ -7,19 +7,14 @@ package dao;
 
 import enumeraveis.TipoConta;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.CarCapContas;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import utils.Utils;
-import model.ExportacaoExcel;
-import model.ExportacaoExcelItens;
 import model.FlxcxEspecificacoes;
 import model.FlxcxOperacoes;
 
@@ -35,7 +30,7 @@ public class ExportacaoParaExcel {
     private final FlxcxEspecificacoesDAO especificacaoDAO = new FlxcxEspecificacoesDAO();
     private final CarCapContasDAO contasDAO = new CarCapContasDAO();
 
-    public void Exportar(List<ExportacaoExcel> exportacao, String nomeArquivo, Date dataInicial, Date dataFinal) {
+    public void Exportar(String nomeArquivo, Date dataInicial, Date dataFinal) {
 
         try {
             FileOutputStream arquivo = new FileOutputStream(new File(nomeArquivo));
@@ -62,13 +57,13 @@ public class ExportacaoParaExcel {
                 row = firstSheet.createRow(linha);
 
                 row.createCell(0).setCellValue(especificacao.getEspDescricao());
-
+                
                 for (FlxcxOperacoes operacao : BuscarOperacoes(especificacao.getEspCodigo())) {
 
                     linha += 1;
                     row = firstSheet.createRow(linha);
 
-                    row.createCell(0).setCellValue(operacao.getOpDescricao());
+                    row.createCell(1).setCellValue(operacao.getOpDescricao());
 
                     for (CarCapContas conta : BuscaContas(operacao.getOpCodigo())) {
 
@@ -81,10 +76,12 @@ public class ExportacaoParaExcel {
 
                     }
 
+                   row.createCell(3).setCellValue(totalEntradas - totalSaidas);
                 }
             }
 
             this.workbook.write(arquivo);
+            arquivo.close();
 
         } catch (Exception ex) {
             utils.Utils.notificacao("Não foi possível gerar o arquivo de exportação", Utils.TipoNotificacao.erro, 0);
