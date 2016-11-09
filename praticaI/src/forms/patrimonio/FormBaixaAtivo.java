@@ -30,6 +30,8 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
         FormBuscaTipoBaixa tipoBaixa = new FormBuscaTipoBaixa();
         tipoBaixa.setFrameBloquear(FormPrincipal.getInstance());
         txtMotivo.setFrame(tipoBaixa);
+        
+        this.txtDataAtivo.setDateFormat(utils.Utils.formatoDataPadrao);
 
     }
 
@@ -115,16 +117,20 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(txtDataAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(txtDataAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(200, 200, 200))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, 0)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, 0))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,7 +174,6 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-
         PatBaixa baixa = new PatBaixa();
 
         baixa.setBaixaDataBaixa(this.txtDataAtivo.getDate());
@@ -176,9 +181,6 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
         baixa.setPatAtivoImobilizado((PatAtivoImobilizado) this.ativoImobilizado);
 
         new PatBaixaDAO().insert(baixa);
-        
-
-
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
