@@ -56,6 +56,7 @@ public class FormListaTipoOperacao extends javax.swing.JDialog {
         tblTipoOperacao = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Listagem de Tipos de Operação");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {

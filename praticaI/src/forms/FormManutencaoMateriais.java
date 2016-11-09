@@ -88,14 +88,25 @@ public class FormManutencaoMateriais extends javax.swing.JFrame {
         this.txtUnidadeMedida.setFrame(formUn);
 
         //this.txtReferencia.setText(produto.getProdutoReferencia());
-        this.txtDescricao.setText(produto.getProdutoDescricao());
-        //this.txtCategoria.setText(produto.getEstCategoria().getCategoriaId() + " - " + produto.getEstCategoria().getCategoriaDescricao());
-        //this.txtMarca.setText(produto.getEstMarca().getMarcaId() + " - " + produto.getEstMarca().getMarcaDescricao());
-        //this.txtUnidadeMedida.setText(produto.getEstUnidadeMedida().getUnidadeMedidaId() + " - " + produto.getEstUnidadeMedida().getUnidadeMedidaDescricao());
+        //this.txtDescricao.setText(produto.getProdutoDescricao());
+        
 
         this.comboAtivo.setSelectedIndex(produto.getProdutoStatus());
         
         this.produtoEditar = produto;
+        
+        EstProdutoDAO p = new EstProdutoDAO();
+        EstCategoriaDAO c = new EstCategoriaDAO();
+        
+        int codigo = produto.getProdutoId();
+        EstProduto p2 = p.get(codigo);
+        txtReferencia.setText(p2.getProdutoReferencia());
+        txtDescricao.setText(p2.getProdutoDescricao());
+        EstCategoria categoria = c.get(p2.getEstCategoria().getCategoriaId());
+        txtCategoria.setText(categoria.getCategoriaId() + " - " + categoria.getCategoriaDescricao());
+        //txtMarca.setText(p2.getEstMarca().getMarcaId() + " - " + p2.getEstMarca().getMarcaDescricao());
+        //txtUnidadeMedida.setText(p2.getEstUnidadeMedida().getUnidadeMedidaId() + " - " + p2.getEstUnidadeMedida().getUnidadeMedidaDescricao());
+        
     }
 
     public void setEvents(ActionListener salvar, ActionListener cancelar) {
@@ -128,10 +139,20 @@ public class FormManutencaoMateriais extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                iniciaTela(evt);
+            }
+        });
 
         jLabel2.setText("Referência");
 
         comboAtivo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ativo", "Inativo" }));
+        comboAtivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboAtivoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Descrição");
 
@@ -253,6 +274,16 @@ public class FormManutencaoMateriais extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void iniciaTela(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_iniciaTela
+        // TODO add your handling code here:
+     
+        
+    }//GEN-LAST:event_iniciaTela
+
+    private void comboAtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAtivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboAtivoActionPerformed
 
     /**
      * @param args the command line arguments

@@ -225,7 +225,9 @@ public class FormMateriais extends javax.swing.JFrame {
         }
         EstProduto produto = new EstProduto();
         produto.setProdutoId(Integer.parseInt((String)tblMateriais.getValueAt(tblMateriais.getSelectedRow(), 0)));
+        
         produto.setProdutoDescricao((String)tblMateriais.getValueAt(tblMateriais.getSelectedRow(), 1));
+        produto.setEstMarca(produto.getEstMarca());
         FormManutencaoMateriais manut = new FormManutencaoMateriais(null, rootPaneCheckingEnabled, produto);                
         manut.setVisible(true);
         preencheTabela();
@@ -308,8 +310,8 @@ public class FormMateriais extends javax.swing.JFrame {
                 "" + prd.getProdutoId(),
                 prd.getProdutoDescricao(),
                 prd.getEstCategoria().getCategoriaDescricao(),
-                prd.getEstMarca().getMarcaDescricao()
-            //prd.getEstUnidadeMedida().getUnidadeMedidaDescricao()
+                prd.getEstMarca().getMarcaDescricao(),
+                prd.getEstUnidadeMedida().getUnidadeMedidaDescricao(),
             });
         }
     }

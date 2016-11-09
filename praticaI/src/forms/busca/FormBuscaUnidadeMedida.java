@@ -2,6 +2,7 @@ package forms.busca;
 
 import components.JFrameBusca;
 import components.TextFieldFK;
+import dao.EstUnidadeMedidaDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
@@ -27,17 +28,18 @@ public class FormBuscaUnidadeMedida extends JFrameBusca
         this.loadUnidadeMedida.execute();
     }
 
-    public class LoadUnidadeMedida extends SwingWorker<Void, Void>
-    {
+    public class LoadUnidadeMedida extends SwingWorker<Void, Void> {
 
-        protected Void doInBackground() throws Exception
-        {
+        protected Void doInBackground() throws Exception {
 
             DefaultTableModel model = (DefaultTableModel) tabelaUnidadeMedida.getModel();
 
-           // unidadeMedida = new EstUnidadeMedida().getAll(); aaFAZER EstUnidadeMedida DAO
-            for (EstUnidadeMedida unidadeMedida : unidadeMedida)
-            {
+            EstUnidadeMedidaDAO doa = new EstUnidadeMedidaDAO();
+            unidadeMedida = doa.ListarTodas();
+          
+                    
+                    
+            for (EstUnidadeMedida unidadeMedida : unidadeMedida) {
                 Object[] o = new Object[2];
                 o[0] = unidadeMedida.getUnidadeMedidaId();
                 o[1] = unidadeMedida.getUnidadeMedidaDescricao();
@@ -47,11 +49,11 @@ public class FormBuscaUnidadeMedida extends JFrameBusca
             return null;
         }
 
-        public void done()
-        {
+        public void done() {
 
         }
     }
+
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

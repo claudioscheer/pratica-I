@@ -9,13 +9,13 @@ package forms;
  *
  * @author Anderson
  */
-public class FormEstoque extends javax.swing.JDialog {
+public class FormEstoque extends javax.swing.JFrame {
 
     /**
      * Creates new form FormEstoque
      */
     public FormEstoque(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+        //super(parent, modal);
         initComponents();
     }
 
@@ -32,8 +32,11 @@ public class FormEstoque extends javax.swing.JDialog {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gerenciamento de Estoque");
         setResizable(false);
 
         jMenu1.setText("Cadastros");
@@ -50,6 +53,13 @@ public class FormEstoque extends javax.swing.JDialog {
 
         jMenu2.setText("Relatórios");
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Lançamentos");
+
+        jMenuItem2.setText("Movimentação de Estoque");
+        jMenu3.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -119,7 +129,9 @@ public class FormEstoque extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }

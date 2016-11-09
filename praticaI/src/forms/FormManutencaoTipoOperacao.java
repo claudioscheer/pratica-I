@@ -49,6 +49,7 @@ public class FormManutencaoTipoOperacao extends javax.swing.JDialog {
         edtDescricao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Manutenção de Tipos de Operação");
         setResizable(false);
 
         btnCancelar.setText("Cancelar");
