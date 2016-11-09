@@ -10,7 +10,7 @@ import utils.HibernateUtil;
 public class PatBaixaDAO {
 
     public boolean insert(PatBaixa baixa) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
         try {
             session.getTransaction().begin();
             baixa.getPatAtivoImobilizado().setAtivo(false);
@@ -20,13 +20,11 @@ public class PatBaixaDAO {
             return true;
         } catch (HibernateException e) {
             throw e;
-        } finally {
-            session.close();
         }
     }
 
     public boolean update(PatBaixa baixa) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
         try {
             session.getTransaction().begin();
             session.update(baixa);
@@ -34,8 +32,6 @@ public class PatBaixaDAO {
             return true;
         } catch (HibernateException e) {
             throw e;
-        } finally {
-            session.close();
         }
     }
 

@@ -4,8 +4,9 @@ import java.util.List;
 import model.PatAtivoImobilizado;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import utils.HibernateUtil;
 
-public  class PatAtivoImobilizadoDAO {
+public class PatAtivoImobilizadoDAO {
 
     public Boolean update(PatAtivoImobilizado ativoImobilizado) {
         Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
@@ -49,6 +50,15 @@ public  class PatAtivoImobilizadoDAO {
         PatAtivoImobilizado ativoImobilizado = (PatAtivoImobilizado) session.get(PatAtivoImobilizado.class, ativo);
         session.getTransaction().commit();
         return ativoImobilizado;
+    }
+
+    public List<PatAtivoImobilizado> getParaRelatorio() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("from PatAtivoImobilizado a left join fetch a.patItemNota ");
+        List<PatAtivoImobilizado> ativos = query.list();
+        session.getTransaction().commit();
+        return ativos;
     }
 
 }
