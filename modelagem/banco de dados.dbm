@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="735,761" last-zoom="0.75"
+<dbmodel pgmodeler-ver="0.8.2" last-position="1640,799" last-zoom="0.85"
 	 default-schema="public" default-owner="postgres">
 <database name="pratica_1" encoding="UTF8" lc-collate="Portuguese_Brazil" lc-ctype="Portuguese_Brazil">
 	<role name="postgres"/>
@@ -801,6 +801,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="fech_saldo_disponivel">
 		<type name="numeric" length="14" precision="2"/>
 	</column>
+	<column name="fech_mesEquivalente">
+		<type name="integer"/>
+	</column>
+	<column name="fech_anoEquivalente">
+		<type name="integer"/>
+	</column>
 	<constraint name="fluxo_caixa_fechamento_pkey" type="pk-constr" table="public.flxcx_fluxo_caixa_fechamento">
 		<columns names="fech_codigo" ref-type="src-columns"/>
 	</constraint>
@@ -813,15 +819,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#83af1f"
 	 src-table="public.flxcx_operacoes"
 	 dst-table="public.car_cap_contas"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="car_cap_contas_tem_muitos_flxcx_movimento_bancario" type="rel1n"
-	 src-col-pattern="car_cap_contas_mov_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#83af1f"
-	 src-table="public.car_cap_contas"
-	 dst-table="public.flxcx_movimento_bancario"
 	 src-required="false" dst-required="false"/>
 
 <table name="car_cap_operacoes_comerciais">
@@ -896,6 +893,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#83af1f"
 	 src-table="public.flxcx_especificacoes"
 	 dst-table="public.flxcx_operacoes"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="car_cap_operacoes_comerciais_tem_muitos_flxcx_movimento_bancari" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#83af1f"
+	 src-table="public.car_cap_operacoes_comerciais"
+	 dst-table="public.flxcx_movimento_bancario"
 	 src-required="false" dst-required="false"/>
 
 <constraint name="nota_fiscal_ativoimobilizado_fk" type="fk-constr" comparison-type="MATCH FULL"
