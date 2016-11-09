@@ -31,6 +31,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
     private EstadoBem ativoEstadoBem;
     private UtilizacaoBem ativoUtilizacao;
     private List<PatHistoricoDepreciacao> patHistoricoDepreciacaos;
+    private boolean ativoDepreciavel;
     private boolean ativo;
 
     @Id
@@ -147,6 +148,15 @@ public class PatAtivoImobilizado implements java.io.Serializable {
 
     public void setPatItemNota(PatItemNota patItemNota) {
         this.patItemNota = patItemNota;
+    }
+
+    @Column(name = "ativo_ativo_depreciavel", nullable = false)
+    public boolean isAtivoDepreciavel() {
+        return ativoDepreciavel;
+    }
+
+    public void setAtivoDepreciavel(boolean ativoDepreciavel) {
+        this.ativoDepreciavel = ativoDepreciavel;
     }
 
     @Column(name = "ativo_ativo", nullable = false)
