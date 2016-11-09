@@ -11,8 +11,6 @@ import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.xy.XYDataset;
 
 public class Utils {
 
