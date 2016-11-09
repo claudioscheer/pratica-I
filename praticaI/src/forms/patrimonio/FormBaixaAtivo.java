@@ -7,6 +7,7 @@ import forms.busca.FormBuscaTipoBaixa;
 import model.PatAtivoImobilizado;
 import model.PatBaixa;
 import model.PatTipoBaixa;
+import utils.Utils;
 
 /**
  *
@@ -30,7 +31,7 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
         FormBuscaTipoBaixa tipoBaixa = new FormBuscaTipoBaixa();
         tipoBaixa.setFrameBloquear(FormPrincipal.getInstance());
         txtMotivo.setFrame(tipoBaixa);
-        
+
         this.txtDataAtivo.setDateFormat(utils.Utils.formatoDataPadrao);
 
     }
@@ -179,8 +180,12 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
         baixa.setBaixaDataBaixa(this.txtDataAtivo.getDate());
         baixa.setPatTipoBaixa((PatTipoBaixa) this.txtMotivo.getValue());
         baixa.setPatAtivoImobilizado((PatAtivoImobilizado) this.ativoImobilizado);
-
         new PatBaixaDAO().insert(baixa);
+        
+        Utils.notificacao("Baixa realizada", Utils.TipoNotificacao.ok, 0);
+        this.dispose();
+
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
