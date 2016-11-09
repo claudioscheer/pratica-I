@@ -5,6 +5,7 @@ import com.alee.laf.optionpane.WebOptionPane;
 import components.panelsCads.PanelCadAtivoImobilizado;
 import components.panelsListagem.PanelConsultaAtivoImobilizado;
 import dao.PatAtivoImobilizadoDAO;
+import dao.SessaoUnica;
 import java.awt.Dimension;
 import model.PatAtivoImobilizado;
 import utils.Utils;
@@ -16,6 +17,36 @@ public class FormAtivoImobilizado extends WebInternalFrame {
     public FormAtivoImobilizado() {
         super("Ativos Imobilizados", true, true, true, true);
         this.initComponents();
+        this.addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            @Override
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+
+            @Override
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+
+            @Override
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                SessaoUnica.closeSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+            }
+
+            @Override
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+
+            @Override
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+
+            @Override
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+
+            @Override
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
     }
 
     private void initComponents() {
