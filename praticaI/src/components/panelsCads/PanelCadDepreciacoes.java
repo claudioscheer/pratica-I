@@ -29,8 +29,8 @@ public class PanelCadDepreciacoes extends WebPanel {
 
     private void setDadosForm() {
         this.txtCategoria.setValue(this.depreciacao.getEstCategoria());
-        this.txtCategoria.setText(this.depreciacao.getEstCategoria().getCategoriaDescricao()
-                + " - " + this.depreciacao.getEstCategoria().getCategoriaId());
+        this.txtCategoria.setText(this.depreciacao.getEstCategoria().getCategoriaId()
+                + " - " + this.depreciacao.getEstCategoria().getCategoriaDescricao());
         this.txtTaxaAnual.setValue(this.depreciacao.getDepreciacaoTaxaAnual());
         this.txtTaxaMensal.setValue(this.depreciacao.getDepreciacaoTaxaMensal());
         this.txtTaxaDiaria.setValue(this.depreciacao.getDepreciacaoTaxaDiaria());
@@ -98,7 +98,7 @@ public class PanelCadDepreciacoes extends WebPanel {
 
         panelItens.setBackground(new java.awt.Color(255, 255, 255));
         panelItens.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        panelItens.setPreferredSize(new java.awt.Dimension(0, 500));
+        panelItens.setPreferredSize(new java.awt.Dimension(0, 400));
 
         jLabel3.setText("Categoria");
 
@@ -154,7 +154,7 @@ public class PanelCadDepreciacoes extends WebPanel {
                                     .addComponent(jLabel8))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(txtTaxaDiaria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(299, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         panelItensLayout.setVerticalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,7 +195,7 @@ public class PanelCadDepreciacoes extends WebPanel {
         panelOpcoesLayout.setHorizontalGroup(
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
-                .addContainerGap(703, Short.MAX_VALUE)
+                .addContainerGap(432, Short.MAX_VALUE)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)

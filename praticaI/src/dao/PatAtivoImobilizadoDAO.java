@@ -5,7 +5,7 @@ import model.PatAtivoImobilizado;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-public class PatAtivoImobilizadoDAO {
+public  class PatAtivoImobilizadoDAO {
 
     public Boolean update(PatAtivoImobilizado ativoImobilizado) {
         Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);

@@ -8,6 +8,7 @@ import dao.PatHistoricoDepreciacaoDAO;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.SwingWorker;
 import model.PatAtivoImobilizado;
@@ -28,6 +29,10 @@ public class PanelDepreciar extends WebPanel {
 
     public PanelDepreciar() {
         this.initComponents();
+
+        this.txtMesDepreciar.setDateFormat(new SimpleDateFormat("MM/yyyy"));
+        this.txtMesDepreciar.setDate(new Date());
+
         new LoadDados().execute();
     }
 
@@ -80,9 +85,10 @@ public class PanelDepreciar extends WebPanel {
             ativosSize = 5;
             progressBar.setMaximum(ativosSize);
             progressBar.setValue(valueProgress);
+            Date dia = txtMesDepreciar.getDate();
             for (int i = 0; i < ativosSize; i++) {
                 PatAtivoImobilizado ativo = ativos.get(i);
-                new PatDepreciacaoDAO().depreciarAtivoImobilizado(ativo);
+                new PatDepreciacaoDAO().depreciarAtivoImobilizado(ativo, dia);
                 progressBar.setValue(++valueProgress);
                 setPorcentagem();
                 Thread.sleep(1000);
@@ -134,6 +140,8 @@ public class PanelDepreciar extends WebPanel {
         lblDataDepreciado = new javax.swing.JLabel();
         progressBar = new com.alee.laf.progressbar.WebProgressBar();
         lblPorcentagem = new com.alee.laf.label.WebLabel();
+        txtMesDepreciar = new com.alee.extended.date.WebDateField();
+        webLabel1 = new com.alee.laf.label.WebLabel();
 
         setMinimumSize(new java.awt.Dimension(565, 496));
 
@@ -150,6 +158,8 @@ public class PanelDepreciar extends WebPanel {
 
         lblPorcentagem.setText("0.00%");
 
+        webLabel1.setText("Selecione o mês para depreciar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,11 +168,6 @@ public class PanelDepreciar extends WebPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblDataDepreciado)
-                        .addGap(0, 228, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,7 +175,16 @@ public class PanelDepreciar extends WebPanel {
                                 .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(buttonDepreciar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblPorcentagem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lblPorcentagem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblDataDepreciado))
+                            .addComponent(webLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMesDepreciar, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 228, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -180,7 +194,11 @@ public class PanelDepreciar extends WebPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(lblDataDepreciado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 372, Short.MAX_VALUE)
+                .addGap(93, 93, 93)
+                .addComponent(webLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtMesDepreciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
                 .addComponent(lblPorcentagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -200,5 +218,7 @@ public class PanelDepreciar extends WebPanel {
     private javax.swing.JLabel lblDataDepreciado;
     private com.alee.laf.label.WebLabel lblPorcentagem;
     private com.alee.laf.progressbar.WebProgressBar progressBar;
+    private com.alee.extended.date.WebDateField txtMesDepreciar;
+    private com.alee.laf.label.WebLabel webLabel1;
     // End of variables declaration//GEN-END:variables
 }

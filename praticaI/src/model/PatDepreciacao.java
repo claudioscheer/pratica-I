@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -34,8 +37,8 @@ public class PatDepreciacao implements java.io.Serializable {
         this.depreciacaoCodigo = depreciacaoCodigo;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "categoria", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "depreciacao_categoria")
     public EstCategoria getEstCategoria() {
         return this.estCategoria;
     }

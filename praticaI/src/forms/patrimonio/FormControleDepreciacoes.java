@@ -29,7 +29,7 @@ public class FormControleDepreciacoes extends JFrame {
     }
 
     private void initComponents() {
-        this.setBounds(10, 10, Utils.wPadrao, Utils.hPadrao);
+        this.setBounds(10, 10, 878, 421);
         this.setMinimumSize(new Dimension(Utils.wPadrao, Utils.hPadrao));
 
         this.panelConsultaDepreciacao = new PanelConsultaDepreciacao();
@@ -115,8 +115,6 @@ public class FormControleDepreciacoes extends JFrame {
 
         this.initFormCad();
         this.fecharAbrirPanelCadastro(false);
-        
-        
 
         this.panelCadastroDepreciacao.setDadosEditar(depreciacao);
         this.panelCadastroDepreciacao.revalidate();
