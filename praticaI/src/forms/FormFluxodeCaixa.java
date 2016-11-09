@@ -1180,10 +1180,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
             CarregarNotificacao("Relatório gerado com sucesso!");
 
-         }else{
-            Excel();
-            
-        } 
+         }
 
 
     }//GEN-LAST:event_btn_GerarRelatorioActionPerformed
@@ -1426,7 +1423,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     }//GEN-LAST:event_comboFiltroDataActionPerformed
 
     private void webButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton6ActionPerformed
-
+        Excel();
     }//GEN-LAST:event_webButton6ActionPerformed
 
     /**

@@ -49,8 +49,6 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
     
     private TipoConta tipoDeConta;
     
-    private List<FlxcxMovimentoBancario> flxcxMovimentoBancarios;
-
     public CarcapOperacoesComerciais() {
     }
 
@@ -63,7 +61,7 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
        
     }
 
-    public CarcapOperacoesComerciais(int operacoesID, Date datLancamento, PatNotaFiscal OperacaoNota, int numeroParcela, EstProduto idProduto, CarPessoa pessoa, String Descricao, TipoMovimento movimento, double quantidade, List<FlxcxMovimentoBancario> flxcxMovimentoBancarios) {
+    public CarcapOperacoesComerciais(int operacoesID, Date datLancamento, PatNotaFiscal OperacaoNota, int numeroParcela, EstProduto idProduto, CarPessoa pessoa, String Descricao, TipoMovimento movimento, double quantidade) {
         this.operacoesID = operacoesID;
         this.datLancamento = datLancamento;
         this.OperacaoNota = OperacaoNota;
@@ -72,8 +70,7 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
         this.pessoa = pessoa;
         this.Descricao = Descricao;
         this.movimento = movimento;
-        this.quantidade = quantidade;
-        this.flxcxMovimentoBancarios = flxcxMovimentoBancarios;
+        this.quantidade = quantidade;    
     }
 
     @Id
@@ -179,15 +176,6 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
 
     public void setTipoDeConta(TipoConta tipoDeConta) {
         this.tipoDeConta = tipoDeConta;
-    }
-
-    @OneToMany(mappedBy = "flxcxEspecificacoeses")
-    public List<FlxcxMovimentoBancario> getFlxcxMovimentoBancarios() {
-        return flxcxMovimentoBancarios;
-    }
-
-    public void setFlxcxMovimentoBancarios(List<FlxcxMovimentoBancario> flxcxMovimentoBancarios) {
-        this.flxcxMovimentoBancarios = flxcxMovimentoBancarios;
     }
 
 }

@@ -24,8 +24,7 @@ import javax.persistence.Table;
 public class FlxcxOperacoes implements java.io.Serializable {
 
     private int opCodigo;
-    private String opDescricao;   
-    private Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios = new HashSet(0);
+    private String opDescricao;       
     private Set<CarCapContas> carCapContass = new HashSet(0);
     private FlxcxEspecificacoes flxcxEspecificacoes;
 
@@ -36,11 +35,10 @@ public class FlxcxOperacoes implements java.io.Serializable {
         this.opCodigo = opCodigo;
     }
 
-    public FlxcxOperacoes(int opCodigo, String opDescricao, Set<CarCapContas> carCapContass, Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios) {
+    public FlxcxOperacoes(int opCodigo, String opDescricao, Set<CarCapContas> carCapContass) {
         this.opCodigo = opCodigo;
         this.opDescricao = opDescricao;      
-        this.carCapContass = carCapContass;
-        this.flxcxMovimentoBancarios = flxcxMovimentoBancarios;
+        this.carCapContass = carCapContass;        
     }
 
     @Id
@@ -59,16 +57,6 @@ public class FlxcxOperacoes implements java.io.Serializable {
 
     public void setOpDescricao(String opDescricao) {
         this.opDescricao = opDescricao;
-    }
-
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "flxcxOperacoes")
-    public Set<FlxcxMovimentoBancario> getFlxcxMovimentoBancarios() {
-        return this.flxcxMovimentoBancarios;
-    }
-
-    public void setFlxcxMovimentoBancarios(Set<FlxcxMovimentoBancario> flxcxMovimentoBancarios) {
-        this.flxcxMovimentoBancarios = flxcxMovimentoBancarios;
     }
 
     @OneToMany(mappedBy = "flxcxOperacoes")
