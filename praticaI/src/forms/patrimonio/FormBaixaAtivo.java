@@ -38,8 +38,6 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
 
     }
 
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -170,19 +168,17 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+
+        PatBaixa baixa = new PatBaixa();
+
+        baixa.setBaixaDataBaixa(this.txtDataAtivo.getDate());
+        baixa.setPatTipoBaixa((PatTipoBaixa) this.txtMotivo.getValue());
+        baixa.setPatAtivoImobilizado((PatAtivoImobilizado) this.ativoImobilizado);
+
+        new PatBaixaDAO().insert(baixa);
         
-      //  if (!new PatAtivoImobilizadoDAO().delete(this.ativoImobilizado)){
-        //    utils.Utils.notificacao("larissa retarda", Utils.TipoNotificacao.erro, 0);
-       // }
-        
-       PatBaixa baixa = new PatBaixa();
-       
-       baixa.setBaixaDataBaixa(this.txtDataAtivo.getDate());
-       baixa.setPatTipoBaixa((PatTipoBaixa) this.txtMotivo.getValue());
-       baixa.setPatAtivoImobilizado((PatAtivoImobilizado)this.ativoImobilizado);
-       
-       new PatBaixaDAO().insert(baixa);
-        
+
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing

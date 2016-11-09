@@ -24,9 +24,10 @@ public  class PatAtivoImobilizadoDAO {
     }
 
     public Boolean delete(PatAtivoImobilizado ativoImobilizado) {
+        ativoImobilizado.setAtivo(false);
         Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
         session.getTransaction().begin();
-        session.delete(ativoImobilizado);
+        session.update(ativoImobilizado);
         session.getTransaction().commit();
         return true;
     }

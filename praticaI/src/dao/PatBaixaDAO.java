@@ -13,6 +13,8 @@ public class PatBaixaDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
+            baixa.getPatAtivoImobilizado().setAtivo(false);
+            session.update(baixa.getPatAtivoImobilizado());
             session.save(baixa);
             session.getTransaction().commit();
             return true;
