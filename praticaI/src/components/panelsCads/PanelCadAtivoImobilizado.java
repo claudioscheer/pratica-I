@@ -49,7 +49,8 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.comboEstadoBem.setSelectedIndex(this.ativoImobilizado.getAtivoEstadoBem().ordinal());
         this.comboUtilizacaoBem.setSelectedIndex(this.ativoImobilizado.getAtivoUtilizacao().ordinal());
         this.cbAtivoDepreciavel.setSelected(this.ativoImobilizado.isAtivoDepreciavel());
-
+        this.txtValorJaDepreciado.setValue(this.ativoImobilizado.getAtivoValorOriginal() - this.ativoImobilizado.getAtivoValorAtual());
+        
         if (this.ativoImobilizado.getPatItemNota() != null) {
             this.txtNotaFiscal.setText(this.ativoImobilizado.getPatItemNota().getPatNotaFiscal().getNotaCodigo()
                     + " - " + this.ativoImobilizado.getPatItemNota().getPatNotaFiscal().getNotaChaveAcesso());
@@ -113,6 +114,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
             this.ativoImobilizado = new PatAtivoImobilizado();
         }
 
+        this.ativoImobilizado.setAtivo(true);
         this.ativoImobilizado.setAtivoDepreciavel(this.cbAtivoDepreciavel.isSelected());
         this.ativoImobilizado.setAtivoDescricao(this.txtDescricao.getText());
         this.ativoImobilizado.setEstCategoria((EstCategoria) this.txtCategoria.getValue());
@@ -174,7 +176,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
 
         panelItens.setBackground(new java.awt.Color(255, 255, 255));
         panelItens.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        panelItens.setPreferredSize(new java.awt.Dimension(0, 500));
+        panelItens.setPreferredSize(new java.awt.Dimension(0, 800));
 
         jLabel1.setText("Descrição");
 
@@ -254,7 +256,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
                         .addGroup(panelItensLayout.createSequentialGroup()
                             .addComponent(comboEstadoBem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGap(282, 282, 282))))
-                .addContainerGap(299, Short.MAX_VALUE))
+                .addContainerGap(296, Short.MAX_VALUE))
         );
         panelItensLayout.setVerticalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
