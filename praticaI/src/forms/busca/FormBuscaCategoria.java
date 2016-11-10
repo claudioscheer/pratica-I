@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import model.EstCategoria;
+import model.PatDepreciacao;
 import utils.Utils;
 
 public class FormBuscaCategoria extends JFrameBusca {

@@ -4,6 +4,7 @@ import com.alee.laf.desktoppane.WebInternalFrame;
 import com.alee.laf.optionpane.WebOptionPane;
 import components.panelsCads.PanelCadNotaFiscal;
 import components.panelsListagem.PanelConsultaNotaFiscal;
+import dao.PatAtivoImobilizadoDAO;
 import dao.PatNotaFiscalDAO;
 import forms.FormPrincipal;
 import utils.Utils;
@@ -76,6 +77,11 @@ public class FormNotaFiscal extends WebInternalFrame {
 
         if (!this.panelCadastroNotaFiscal.editando) {
             new PatNotaFiscalDAO().insert(notaFiscal);
+
+            this.panelCadastroNotaFiscal.getAtivos().forEach((key, value) -> {
+                new PatAtivoImobilizadoDAO().insert(value);
+            });
+
         } else {
             new PatNotaFiscalDAO().update(notaFiscal);
             this.panelCadastroNotaFiscal.editando = false;
