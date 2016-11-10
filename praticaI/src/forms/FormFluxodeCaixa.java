@@ -1080,12 +1080,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         }
 
     }
-<<<<<<< .mine
-||||||| .r179
-    
-  
-   
-=======
     
   
     public void Excel(){
@@ -1110,8 +1104,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     
     }
     
-   
->>>>>>> .r218
 
 //    private void BuscaValoresTotais(){
 //        CarCapContasDAO contasDao = new CarCapContasDAO();

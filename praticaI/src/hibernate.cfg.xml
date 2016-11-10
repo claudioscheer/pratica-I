@@ -22,7 +22,6 @@
         <mapping class="model.PatBaixa" />
         <mapping class="model.PatTipoBaixa" />
         <mapping class="model.FlxcxFluxoCaixaFechamento" />
-        <mapping class="model.FlxcxLivroCaixa"/>
         <mapping class="model.EstMarca" />
         <mapping class="model.Saldo" />
         <mapping class="model.CarCapContas"/>
