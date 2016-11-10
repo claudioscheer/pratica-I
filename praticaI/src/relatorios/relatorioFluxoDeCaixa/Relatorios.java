@@ -47,7 +47,13 @@ public class Relatorios {
             
         }
         
-        JasperPrint print = JasperFillManager.fillReport(report,null, new JRBeanCollectionDataSource(contaRelatorio,false));
+        HashMap parametros = new HashMap();
+        
+        parametros.put("DataAtual", new Date());
+        parametros.put("DataInicial", dataIni);
+        parametros.put("DataFinal", dataFim);
+        
+        JasperPrint print = JasperFillManager.fillReport(report,parametros, new JRBeanCollectionDataSource(contaRelatorio,false));
        
         JasperViewer.viewReport(print,false);
         

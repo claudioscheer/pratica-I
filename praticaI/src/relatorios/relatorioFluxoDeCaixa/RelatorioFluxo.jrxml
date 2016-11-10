@@ -2,6 +2,19 @@
 <!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFluxo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2aa1104-ccd2-4655-ac8f-735df765de3f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Zebra" scaleImage="Clip" pattern="">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2==1]]></conditionExpression>
+			<style backcolor="#EDE6E6" fill="Solid"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="DataInicial" class="java.util.Date"/>
+	<parameter name="DataFinal" class="java.util.Date">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="DataAtual" class="java.util.Date">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -14,7 +27,7 @@
 	<field name="contaTipoDescricao" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="contaDataEmissao" class="java.sql.Date">
+	<field name="contaDataEmissao" class="java.util.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="contaValorPago" class="java.lang.Double">
@@ -23,8 +36,14 @@
 	<field name="contaValorTotal" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<variable name="somaContas" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{contaValorPago}]]></variableExpression>
+	<variable name="somarSaidas" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{contaTipoDescricao}.equals("Saida")?$F{contaValorPago}:0]]></variableExpression>
+	</variable>
+	<variable name="somarEntradas" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{contaTipoDescricao}.equals("Entrada")?$F{contaValorPago}:0]]></variableExpression>
+	</variable>
+	<variable name="somarSaldo" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{somarEntradas}-$V{somarSaidas}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -56,6 +75,14 @@
 				<reportElement x="446" y="2" width="12" height="20" uuid="fa5d17cc-fc89-4759-aa93-d7503458eb3c"/>
 				<text><![CDATA[à]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="358" y="2" width="82" height="20" uuid="494055b7-9ce4-4f5a-839f-b2f82c168f67"/>
+				<textFieldExpression><![CDATA[$P{DataInicial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="2" width="87" height="20" uuid="b0ffc51a-bc83-4202-a69c-43b4336285a5"/>
+				<textFieldExpression><![CDATA[$P{DataFinal}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -112,44 +139,88 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="47" splitType="Stretch">
+		<band height="27" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="5" width="100" height="20" uuid="27d8c7fa-6bba-4a1d-8495-ff1fd8233e81"/>
+				<reportElement key="" style="Zebra" mode="Opaque" x="0" y="0" width="600" height="20" uuid="27d8c7fa-6bba-4a1d-8495-ff1fd8233e81"/>
 				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="120" y="5" width="80" height="20" uuid="646d6076-26ad-4513-a821-5880b01030bf"/>
+				<reportElement x="120" y="0" width="80" height="20" uuid="646d6076-26ad-4513-a821-5880b01030bf"/>
 				<textFieldExpression><![CDATA[$F{contaStatusDescricao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="220" y="5" width="70" height="20" uuid="18f1cd9f-ee71-418b-8276-beec7f8ae09a"/>
+				<reportElement x="220" y="0" width="70" height="20" uuid="18f1cd9f-ee71-418b-8276-beec7f8ae09a"/>
 				<textFieldExpression><![CDATA[$F{contaTipoDescricao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="300" y="5" width="80" height="20" uuid="e86b720e-ddb9-4f6d-bb5e-b9d70c2a9067"/>
+				<reportElement x="300" y="0" width="80" height="20" uuid="e86b720e-ddb9-4f6d-bb5e-b9d70c2a9067"/>
 				<textFieldExpression><![CDATA[$F{contaDataEmissao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="390" y="5" width="80" height="20" uuid="67377e4e-e455-415c-be18-29cd59685c69"/>
+				<reportElement x="390" y="0" width="80" height="20" uuid="67377e4e-e455-415c-be18-29cd59685c69"/>
 				<textFieldExpression><![CDATA[$F{contaValorPago}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="480" y="5" width="74" height="20" uuid="4d93f8cb-6379-4445-8eef-c119f460743d"/>
+				<reportElement x="480" y="0" width="74" height="20" uuid="4d93f8cb-6379-4445-8eef-c119f460743d"/>
 				<textFieldExpression><![CDATA[$F{contaValorTotal}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch">
+		<band height="93" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="12" width="554" height="30" backcolor="#E6EFF5" uuid="0506f9d3-1667-45c6-a9cc-5937d3b14696"/>
+				<reportElement x="0" y="50" width="554" height="30" backcolor="#E6EFF5" uuid="0506f9d3-1667-45c6-a9cc-5937d3b14696"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="182" y="18" width="228" height="20" uuid="fcd85598-9f71-4f76-b5ae-e44cd9abb636"/>
-				<text><![CDATA[Todos os direitos Reservados - CowTábil - 2016]]></text>
+				<reportElement x="163" y="55" width="194" height="20" uuid="fcd85598-9f71-4f76-b5ae-e44cd9abb636"/>
+				<text><![CDATA[Todos os direitos Reservados - CowTábil - ]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="357" y="55" width="62" height="20" uuid="5eba6532-42f8-408c-9cf1-0bd21f9a6844"/>
+				<textFieldExpression><![CDATA[$P{DataAtual}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="190" y="40" width="363" height="1" uuid="d6da3ca8-f34b-4aa1-a298-ee70c3ec031f"/>
+			</line>
+			<staticText>
+				<reportElement x="190" y="25" width="72" height="15" uuid="e1e2bccd-7c61-439a-af79-aef9597ee04d">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<text><![CDATA[Total Entradas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="25" width="60" height="15" uuid="b8cc83ee-f71d-4ba8-a91b-5e72d09bbadd">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<text><![CDATA[Total Saídas:  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="420" y="25" width="80" height="15" uuid="a3889463-0c65-4dde-83cb-1b5e3d83e052">
+					<property name="local_mesure_unity" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<text><![CDATA[Saldo Disponível:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="262" y="25" width="42" height="16" uuid="c3ac11b6-d131-4ed7-b389-63f3031df968"/>
+				<textFieldExpression><![CDATA[$V{somarEntradas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="25" width="40" height="16" uuid="1e2a3d96-1327-4a15-9579-88198bfbd1ee"/>
+				<textFieldExpression><![CDATA[$V{somarSaidas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="25" width="52" height="16" uuid="01969438-5799-4936-b537-f1459741b77d"/>
+				<textFieldExpression><![CDATA[$V{somarSaldo}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>
