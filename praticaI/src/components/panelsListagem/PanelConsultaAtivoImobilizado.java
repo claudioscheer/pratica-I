@@ -100,7 +100,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         });
         popupMenuOpcoes.add(menuHistoricoDepreciacao);
 
-        WebMenuItem menuBaixa = new WebMenuItem("Dar Baixa", Hotkey.NUMBER_3);
+        WebMenuItem menuBaixa = new WebMenuItem("Dar baixa", Hotkey.NUMBER_3);
         menuBaixa.addActionListener((e) -> {
             int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
             if (linhaselecionada < 0) {
@@ -108,12 +108,10 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
                 return;
             }
 
-            FormPrincipal formBloquear = FormPrincipal.getInstance();
-
             FormBaixaAtivo form = new FormBaixaAtivo();
             form.setAtivoImobilizado(this.ativosImobilizados.get(linhaselecionada));
             form.setVisible(true);
-            formBloquear.setEnabled(false);
+            FormPrincipal.getInstance().setEnabled(false);
         });
         popupMenuOpcoes.add(menuBaixa);
 
@@ -147,7 +145,9 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
 
         protected Void doInBackground() throws Exception {
 //            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
+            System.out.println("slknsdklfjgk");
             ativosImobilizados.addAll(new PatAtivoImobilizadoDAO().getAll(txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
+            System.out.println(ativosImobilizados.size());
             atualizarTabela(true);
             return null;
         }
@@ -204,19 +204,20 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
     }
 
     private Object[] ativoToArray(PatAtivoImobilizado ativo) {
-        Object[] o = new Object[5];
+        Object[] o = new Object[6];
         o[0] = ativo.getAtivoCodigo();
         o[1] = ativo.getAtivoDescricao();
         o[2] = ativo.getEstCategoria().getCategoriaDescricao();
         o[3] = ativo.getEstMarca().getMarcaDescricao();
-        o[4] = ativo.getAtivoValorAtual();
+        o[4] = ativo.getAtivoValorOriginal();
+        o[5] = ativo.getAtivoValorAtual();
         return o;
     }
 
     public void setEvents(ActionListener add, ActionListener edit, ActionListener delete) {
         buttonAdd.addActionListener(add);
         buttonEditar.addActionListener(edit);
-      //  buttonExcluir.addActionListener(delete);
+        //  buttonExcluir.addActionListener(delete);
     }
 
     private void onScroll() {
@@ -246,6 +247,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         tabelaAtivosImobilizados = new com.alee.laf.table.WebTable();
         panelOpcoes = new javax.swing.JPanel();
         buttonAdd = new com.alee.laf.button.WebButton();
+        buttonExcluir = new com.alee.laf.button.WebButton();
         buttonEditar = new com.alee.laf.button.WebButton();
         buttonOpcoes = new com.alee.extended.button.WebSplitButton();
         buttonManutencoes = new com.alee.extended.button.WebSplitButton();
@@ -261,11 +263,11 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
 
             },
             new String [] {
-                "Código", "Descrição", "Categoria", "Marca", "Valor atual"
+                "Código", "Descrição", "Categoria", "Marca", "Valor original", "Valor atual"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -281,6 +283,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         buttonAdd.setText("Novo");
         buttonAdd.setMaximumSize(new java.awt.Dimension(24, 24));
         buttonAdd.setPreferredSize(new java.awt.Dimension(24, 24));
+
+        buttonExcluir.setText("Excluir");
 
         buttonEditar.setText("Editar");
 
@@ -298,6 +302,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,6 +314,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -337,6 +344,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.button.WebButton buttonAdd;
     private com.alee.laf.button.WebButton buttonEditar;
+    private com.alee.laf.button.WebButton buttonExcluir;
     private com.alee.extended.button.WebSplitButton buttonManutencoes;
     private com.alee.extended.button.WebSplitButton buttonOpcoes;
     private javax.swing.JPanel panelOpcoes;

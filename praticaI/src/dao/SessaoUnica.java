@@ -17,7 +17,7 @@ public class SessaoUnica {
 
     public static Session getSession(Tela telaSessao) {
         Session session = sessions[telaSessao.ordinal()];
-        if (session == null) {
+        if (session == null || !session.isConnected()) {
             return openSession(telaSessao);
         }
         return session;
@@ -38,6 +38,7 @@ public class SessaoUnica {
             session.close();
         } catch (Exception e) {
         }
+        sessions[telaSessao.ordinal()] = null;
     }
 
 }

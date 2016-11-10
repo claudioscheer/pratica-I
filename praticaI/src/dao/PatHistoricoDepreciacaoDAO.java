@@ -14,9 +14,9 @@ public class PatHistoricoDepreciacaoDAO {
     public Boolean insert(PatHistoricoDepreciacao historicoDepreciacao) {
         Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
         session.getTransaction().begin();
+        session.update(historicoDepreciacao.getPatAtivoImobilizado());
         session.save(historicoDepreciacao);
         session.getTransaction().commit();
-        session.close();
         return true;
     }
 
@@ -27,7 +27,6 @@ public class PatHistoricoDepreciacaoDAO {
         query.setParameter("ativoImobilizado", ativo.getAtivoCodigo());
         List<PatHistoricoDepreciacao> marcas = query.list();
         session.getTransaction().commit();
-        session.close();
         return marcas;
     }
 
@@ -60,7 +59,6 @@ public class PatHistoricoDepreciacaoDAO {
         query.setMaxResults(1);
         List<PatHistoricoDepreciacao> historico = query.list();
         session.getTransaction().commit();
-        session.close();
         if (historico.size() > 0) {
             return historico.get(0);
         }

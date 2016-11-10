@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import model.EstCategoria;
@@ -81,20 +82,34 @@ public class PatDepreciacaoDAO {
         }
     }
 
-    public Boolean depreciarAtivoImobilizado(PatAtivoImobilizado ativo, Date dia) {
+    public String depreciarAtivoImobilizado(PatAtivoImobilizado ativo, Date dia) {
         PatHistoricoDepreciacao historico = new PatHistoricoDepreciacaoDAO().getDepreciacaoMes(ativo, dia);
-        if (historico == null) {
-            return false;
+        if (historico != null) {
+            return "O ativo " + ativo.getAtivoDescricao() + " já foi depreciado!";
         }
 
+        Calendar c = Calendar.getInstance();
+        c.setTime(dia);
+
+        historico = new PatHistoricoDepreciacao();
+        historico.setHistoricoDepreciacaoAno(c.get(Calendar.YEAR));
+        historico.setHistoricoDepreciacaoMes(c.get(Calendar.MONTH));
+
         PatDepreciacao depreciacao = ativo.getEstCategoria().getDepreciacao();
+        if (depreciacao == null) {
+            return "A categoria " + ativo.getEstCategoria().getCategoriaDescricao() + " não possuí depreciação relacionada!";
+        }
         double valororiginal = ativo.getAtivoValorOriginal();
+        double valordepreciar = valororiginal * (depreciacao.getDepreciacaoTaxaMensal() / 100);
 
-        double valordepreciar = valororiginal * depreciacao.getDepreciacaoTaxaMensal();
-
+        historico.setHistoricoDepreciacaoValor(valordepreciar);
+        historico.setHistoricoDepreciacaoDia(new Date());
         ativo.setAtivoValorAtual(ativo.getAtivoValorAtual() - valordepreciar);
+        historico.setPatAtivoImobilizado(ativo);
 
-        return true;
+        new PatHistoricoDepreciacaoDAO().insert(historico);
+
+        return "Depreciação do ativo " + ativo.getAtivoDescricao() + " realizada!";
     }
 
 }

@@ -181,11 +181,10 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
         baixa.setPatTipoBaixa((PatTipoBaixa) this.txtMotivo.getValue());
         baixa.setPatAtivoImobilizado((PatAtivoImobilizado) this.ativoImobilizado);
         new PatBaixaDAO().insert(baixa);
-        
+
         Utils.notificacao("Baixa realizada", Utils.TipoNotificacao.ok, 0);
+        FormPrincipal.getInstance().setEnabled(true);
         this.dispose();
-
-
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
