@@ -1,18 +1,24 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import model.EstCategoria;
 import model.EstProduto;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.jboss.logging.Logger;
 import utils.HibernateUtil;
 
-public class EstProdutoDAO
-{
+public class EstProdutoDAO {
 
-    public Boolean update(EstProduto produto)
-    {
+    public Boolean update(EstProduto produto) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.update(produto);
@@ -21,8 +27,7 @@ public class EstProdutoDAO
         return true;
     }
 
-    public Boolean insert(EstProduto produto)
-    {
+    public Boolean insert(EstProduto produto) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.save(produto);
@@ -30,9 +35,9 @@ public class EstProdutoDAO
         session.close();
         return true;
     }
-     /* movimentação fazer getAll  Est Produto  */
-    public Boolean delete(int codigo)
-    {
+    /* movimentação fazer getAll  Est Produto  */
+
+    public Boolean delete(int codigo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
@@ -47,16 +52,14 @@ public class EstProdutoDAO
         }
     }
 
-    public List<EstProduto> getAll()
-    {
-        Session session = HibernateUtil.getSessionFactory().openSession();        
+    public List<EstProduto> getAll() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Query query = session.createQuery("from EstProduto ");
         List<EstProduto> produto = query.list();
         return produto;
     }
 
-    public EstProduto get(int value)
-    {
+    public EstProduto get(int value) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         EstProduto produto = (EstProduto) session.get(EstProduto.class, value);
@@ -65,4 +68,16 @@ public class EstProdutoDAO
         return produto;
     }
 
+    public void GerarRelatorioProdutos() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<EstProduto> listaProdutos = session.createQuery("from EstProduto").list();
+        JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(listaProdutos);
+        Map parametros = new HashMap();
+        try {
+            JasperPrint jpr = JasperFillManager.fillReport("C:\\Users\\Anderson\\Documents\\GitHub\\praticaI\\praticaI\\src\\relatorios\\estoque\\relatorio_produtos.jasper", null, jrs);
+            JasperViewer.viewReport(jpr, true);
+        }catch(JRException ex){
+            System.out.println(""+ex);
+        }
+    }
 }

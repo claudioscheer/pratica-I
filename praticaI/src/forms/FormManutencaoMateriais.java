@@ -85,28 +85,29 @@ public class FormManutencaoMateriais extends javax.swing.JFrame {
 
         FormBuscaUnidadeMedida formUn = new FormBuscaUnidadeMedida();
         formUn.setFrameBloquear(FormPrincipal.getInstance());
-        this.txtUnidadeMedida.setFrame(formUn);
-
-        //this.txtReferencia.setText(produto.getProdutoReferencia());
-        //this.txtDescricao.setText(produto.getProdutoDescricao());
-        
+        this.txtUnidadeMedida.setFrame(formUn);              
 
         this.comboAtivo.setSelectedIndex(produto.getProdutoStatus());
         
         this.produtoEditar = produto;
         
-        EstProdutoDAO p = new EstProdutoDAO();
-        EstCategoriaDAO c = new EstCategoriaDAO();
-        
-        int codigo = produto.getProdutoId();
-        EstProduto p2 = p.get(codigo);
-        txtReferencia.setText(p2.getProdutoReferencia());
-        txtDescricao.setText(p2.getProdutoDescricao());
-        EstCategoria categoria = c.get(p2.getEstCategoria().getCategoriaId());
+        EstProdutoDAO produtoDao = new EstProdutoDAO();
+        EstCategoriaDAO categoriaDao = new EstCategoriaDAO();
+        EstMarcaDAO marcaDao = new EstMarcaDAO();
+        EstUnidadeMedidaDAO unMedDao = new EstUnidadeMedidaDAO();
+                
+        EstProduto prod = produtoDao.get(produto.getProdutoId());
+        txtReferencia.setText(prod.getProdutoReferencia());
+        txtDescricao.setText(prod.getProdutoDescricao());
+        EstCategoria categoria = categoriaDao.get(prod.getEstCategoria().getCategoriaId());
         txtCategoria.setText(categoria.getCategoriaId() + " - " + categoria.getCategoriaDescricao());
-        //txtMarca.setText(p2.getEstMarca().getMarcaId() + " - " + p2.getEstMarca().getMarcaDescricao());
-        //txtUnidadeMedida.setText(p2.getEstUnidadeMedida().getUnidadeMedidaId() + " - " + p2.getEstUnidadeMedida().getUnidadeMedidaDescricao());
-        
+        txtCategoria.setValue(categoria);
+        EstMarca marca = marcaDao.Buscar(prod.getEstMarca().getMarcaId());
+        txtMarca.setText(marca.getMarcaId() + " - " + marca.getMarcaDescricao());
+        txtMarca.setValue(marca);
+        EstUnidadeMedida unMedida = unMedDao.Buscar(prod.getEstUnidadeMedida().getUnidadeMedidaId());
+        txtUnidadeMedida.setText(unMedida.getUnidadeMedidaId() + " - " + unMedida.getUnidadeMedidaDescricao());
+        txtUnidadeMedida.setValue(unMedida);
     }
 
     public void setEvents(ActionListener salvar, ActionListener cancelar) {
