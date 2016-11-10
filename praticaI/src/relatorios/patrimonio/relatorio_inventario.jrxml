@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-11-09T20:52:23 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_inventario" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ecfe80d5-cfa9-4a67-a051-ed1d290cee8f">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="teste" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="ativoCodigo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ativoDescricao" class="java.lang.String"/>
+	<field name="ativoValorOriginal" class="java.lang.Double"/>
+	<field name="ativoValorAtual" class="java.lang.Double"/>
+	<variable name="jaDepreciado" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{ativoValorOriginal} - $F{ativoValorAtual}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="30" y="24" width="150" height="30" uuid="53b71c6d-5103-4faa-8994-9f21f6545dab"/>
+				<text><![CDATA[Patrimônio]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="24" width="100" height="30" uuid="fdbd441b-2853-4e4a-85c7-9ff2e6666724"/>
+				<textFieldExpression><![CDATA[$P{teste}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="15" width="80" height="30" uuid="40ace99a-6817-4ff5-9ca5-d9705ef1cbcb"/>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="15" width="100" height="30" uuid="83fdec3b-6273-4107-9345-0b65c714652c"/>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="15" width="100" height="30" uuid="c6d6f93a-4cef-4bf0-9305-f5688251f459"/>
+				<text><![CDATA[Valor original]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="15" width="100" height="30" uuid="6ac724b2-7749-4596-a047-e28321859397"/>
+				<text><![CDATA[Valor atual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="15" width="100" height="30" uuid="2f79e5b8-9325-4d84-a154-bf2e69d03463"/>
+				<text><![CDATA[Já depreciado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="40" width="80" height="30" uuid="8aabf1d1-ceec-4352-9223-c695607d853b"/>
+				<textFieldExpression><![CDATA[$F{ativoCodigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="40" width="100" height="30" uuid="5ba88ffa-62aa-46e4-bb6b-5f745daaeda5"/>
+				<textFieldExpression><![CDATA[$F{ativoDescricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="40" width="100" height="30" uuid="74a937dd-f198-4b02-aa11-6a549053cae9"/>
+				<textFieldExpression><![CDATA[$F{ativoValorOriginal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="40" width="100" height="30" uuid="ef68a1e5-9c15-471b-8314-a9fefdea0ffb"/>
+				<textFieldExpression><![CDATA[$F{ativoValorAtual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="40" width="100" height="30" uuid="737d3919-3e79-4e34-8d9a-0352f8b66a72"/>
+				<textFieldExpression><![CDATA[$V{jaDepreciado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
