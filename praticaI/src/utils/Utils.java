@@ -68,21 +68,15 @@ public class Utils {
         ContasReceber,
         addpessoa,
         estoque,
-<<<<<<< .mine
         movimentacoes,
         barraMarcado,
         barraDesmarcado,
         linhasMarcado,
         linhasDesmarcado,
         pizzaMarcado,
-        pizzaDesmarcado
-
-||||||| .r179
-        movimentacoes
-=======
-        movimentacoes,
+        pizzaDesmarcado,
         produto
->>>>>>> .r223
+
     }
 
     public static ImageIcon getImage(Image icone) {
