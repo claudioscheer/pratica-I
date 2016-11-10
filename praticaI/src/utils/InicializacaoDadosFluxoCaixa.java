@@ -7,7 +7,6 @@ package utils;
 
 import dao.FlxcxEspecificacoesDAO;
 import dao.FlxcxOperacoesDAO;
-import java.util.List;
 import model.FlxcxEspecificacoes;
 import model.FlxcxOperacoes;
 

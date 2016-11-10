@@ -44,27 +44,42 @@ public class ExportacaoParaExcel {
             HSSFRow row = firstSheet.createRow(linha);
 
             row.createCell(0).setCellValue("Data Inicial: ");
-            row.createCell(1).setCellValue(dataInicial);
+            row.createCell(1).setCellValue(dataInicial.getDate() + "/" + dataInicial.getMonth() + "/" + dataInicial.getYear());
 
             row.createCell(3).setCellValue("Data Final: ");
-            row.createCell(4).setCellValue(dataFinal);
+            row.createCell(4).setCellValue(dataFinal.getDate() + "/" + dataFinal.getMonth() + "/" + dataFinal.getYear());
 
+            linha += 1;
+            row = firstSheet.createRow(linha);
+                        
             List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
 
             for (FlxcxEspecificacoes especificacao : especificacoes) {
 
+                //Linha alimenta uma nova especificacao
                 linha += 1;
                 row = firstSheet.createRow(linha);
 
+                //Coluna com a descricao da especificacao
                 row.createCell(0).setCellValue(especificacao.getEspDescricao());
+
+                int sequenciaOperacao = 0;
                 
                 for (FlxcxOperacoes operacao : BuscarOperacoes(especificacao.getEspCodigo())) {
 
+                    //Linha alimenta uma nova operacao
                     linha += 1;
                     row = firstSheet.createRow(linha);
 
+                    //codigo sequencial
+                    sequenciaOperacao += 1;
+                    row.createCell(0).setCellValue(sequenciaOperacao);
+                    
+                    //Descricao da operacao
                     row.createCell(1).setCellValue(operacao.getOpDescricao());
 
+                    totalEntradas = 0;
+                    totalSaidas = 0;
                     for (CarCapContas conta : BuscaContas(operacao.getOpCodigo())) {
 
                         //Realiza soma
@@ -76,7 +91,8 @@ public class ExportacaoParaExcel {
 
                     }
 
-                   row.createCell(3).setCellValue(totalEntradas - totalSaidas);
+                    //Linha alimenta novo valor
+                    row.createCell(3).setCellValue(totalEntradas - totalSaidas);
                 }
             }
 

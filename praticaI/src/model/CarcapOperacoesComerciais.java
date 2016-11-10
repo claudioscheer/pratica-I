@@ -100,6 +100,7 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
         return OperacaoNota;
     }
 
+    
     public void setOperacaoNota(PatNotaFiscal OperacaoNota) {
         this.OperacaoNota = OperacaoNota;
     }

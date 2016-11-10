@@ -11,8 +11,6 @@ import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.xy.XYDataset;
 
 public class Utils {
 
@@ -41,11 +39,13 @@ public class Utils {
     }
 
     public static enum TipoNotificacao {
+
         erro,
         ok
     }
 
     public static enum Image {
+
         fundo,
         logo,
         frame,
@@ -68,8 +68,21 @@ public class Utils {
         ContasReceber,
         addpessoa,
         estoque,
+<<<<<<< .mine
+        movimentacoes,
+        barraMarcado,
+        barraDesmarcado,
+        linhasMarcado,
+        linhasDesmarcado,
+        pizzaMarcado,
+        pizzaDesmarcado
+
+||||||| .r179
+        movimentacoes
+=======
         movimentacoes,
         produto
+>>>>>>> .r223
     }
 
     public static ImageIcon getImage(Image icone) {
@@ -153,9 +166,11 @@ public class Utils {
             case ContasReceber:
                 url = "contasReceber.png";
                 break;
+                
             case addpessoa:
                 url = "addPessoa.png";
                 break;
+                
             case estoque:
                 url = "estoque.png";
                 break; 
@@ -167,6 +182,33 @@ public class Utils {
 
                 url = "movimentacoes-icon.png";
                 break;
+
+            case barraMarcado:
+
+                url = "barraMarcado.png";
+                break;
+
+            case barraDesmarcado:
+
+                url = "barraDesmarcado.png";
+                break;
+
+            case linhasMarcado:
+                url = "linhasMarcado.png";
+                break;
+
+            case linhasDesmarcado:
+                url = "linhasDesmarcado.png";
+                break;
+
+            case pizzaMarcado:
+                url = "pizzaMarcado.png";
+                break;
+
+            case pizzaDesmarcado:
+                url = "pizzaDesmarcado.png";
+                break;
+
         }
 
         return new ImageIcon(Utils.class.getResource("/imagens/" + url));
