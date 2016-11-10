@@ -44,10 +44,31 @@ public class PessoaDAO {
         return true;
     }
 
-    public List<CarPessoa> getAll() {
+    public List<CarPessoa> getAll(int indexfiltro, String filtro) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from CarPessoa as a ");
+        String where = "";
+        if (!filtro.isEmpty()) {
+            switch (indexfiltro) {
+                case 0:
+                    where = " and a.pessoaId = :p1";
+                    break;
+                case 1:
+                    where = " and a.pessoaNome like :p1";
+                    break;
+            }
+        }
+        Query query = session.createQuery("from CarPessoa a where 1 = 1 " + where);
+        if (!filtro.isEmpty()) {
+            switch (indexfiltro) {
+                case 0:
+                    query.setParameter("p1", Integer.parseInt(filtro));
+                    break;
+                case 1:
+                    query.setParameter("p1", "%" + filtro + "%");
+                    break;
+            }
+        }
         List<CarPessoa> ativos = query.list();
         session.getTransaction().commit();
         session.close();

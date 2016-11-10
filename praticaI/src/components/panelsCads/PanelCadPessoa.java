@@ -4,19 +4,17 @@ import com.alee.laf.panel.WebPanel;
 import components.Validador;
 import dao.PessoaDAO;
 import java.awt.event.ActionListener;
-import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 import model.CarPessoa;
-import utils.Utils;
 
 public class PanelCadPessoa extends WebPanel {
 
     public Validador validador;
+    private CarPessoa pessoa;
+    public boolean editando;
     
     PessoaDAO p = new PessoaDAO();
 
-    public PanelCadPessoa() {
-        
-    }
+    public PanelCadPessoa() {}
 
     public void init() {
         this.initComponents();
@@ -37,7 +35,57 @@ public class PanelCadPessoa extends WebPanel {
         this.btnSalvar.addActionListener(salvar);
         this.btnCancelar.addActionListener(cancelar);
     }
+    
+    public CarPessoa getPessoa() {
+        if (!this.editando) {
+            this.pessoa = new CarPessoa();
+        }
+        
+        if (radiobtnPF.isSelected()) {     // verifica se a pessoa é do tipo Física
+            pessoa.setPessoaTipo(0); }  // atribui ao tipo o valor adequado
+        else {                              // senão, verifica se a pessoa é do tipo Jurídica
+            if (radiobtnPJ.isSelected()) {
+                pessoa.setPessoaTipo(1);  // atribui ao tipo o valor adequado
+            }
+        }
+        pessoa.setPessoaCpfCnpj(fieldCpfCnpj.getText());
+        pessoa.setPessoaNome(fieldNome.getText());
+        pessoa.setPessoaEndereco(fieldEndereco.getText());
+        pessoa.setPessoaComplemento(fieldComplemento.getText());
+        pessoa.setPessoaBairro(fieldBairro.getText());
+        pessoa.setPessoaFone(fieldFone.getText());        
+        pessoa.setPessoaEmail(fieldEmail.getText());
+        pessoa.setPessoaCEP(Integer.parseInt(fieldCEP.getText()));
+        pessoa.setPessoaCidade(fieldCidade.getText());
+        pessoa.setPessoaUF((String) comboboxUF.getSelectedItem());
+        return this.pessoa;
+    }
 
+    public void setDadosEditar(CarPessoa pessoa) {
+        this.pessoa = pessoa;
+        this.editando = true;
+        this.setDadosForm();
+    }
+    
+    private void setDadosForm() {
+        this.fieldNome.setText(this.pessoa.getPessoaNome());
+        this.fieldCpfCnpj.setText(this.pessoa.getPessoaCnpjCpf());
+        this.fieldFone.setText(this.pessoa.getPessoaFone());
+        this.fieldEmail.setText(this.pessoa.getPessoaEmail());
+        this.fieldEndereco.setText(this.pessoa.getPessoaEndereco());
+        this.fieldComplemento.setText(this.pessoa.getPessoaComplemento());
+        this.fieldBairro.setText(this.pessoa.getPessoaBairro());
+        this.fieldCidade.setText(this.pessoa.getPessoaCidade());
+        this.comboboxUF.setSelectedItem(this.pessoa.getPessoaUF());
+        this.fieldCEP.setText(String.valueOf(this.pessoa.getPessoaCEP()));
+        if (this.pessoa.getPessoaTipo() == 0) {
+            radiobtnPF.setSelected(true);
+        }
+        if (this.pessoa.getPessoaTipo() == 1) {
+            radiobtnPJ.setSelected(true);
+        }
+    }
+    
     public boolean validaNome(String texto) {
         if (radiobtnPF.isSelected()) {
             if (texto.matches("([a-zA-Z ])+")) {   // valida se o texto do campo Nome possui somente letras
@@ -164,6 +212,15 @@ public class PanelCadPessoa extends WebPanel {
             .addGroup(panelItensLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelItensLayout.createSequentialGroup()
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtComplemento)
+                            .addComponent(fieldComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBairro)
+                            .addComponent(fieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtEndereco)
                     .addComponent(txtCpfCnpj)
                     .addComponent(fieldCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCadastrar)
@@ -179,33 +236,21 @@ public class PanelCadPessoa extends WebPanel {
                     .addComponent(fieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fieldFone, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelItensLayout.createSequentialGroup()
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelItensLayout.createSequentialGroup()
-                                .addComponent(fieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fieldComplemento)
-                                    .addGroup(panelItensLayout.createSequentialGroup()
-                                        .addComponent(txtUF)
-                                        .addGap(41, 41, 41)
-                                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtCEP)
-                                            .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 21, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelItensLayout.createSequentialGroup()
-                                .addComponent(txtEndereco)
-                                .addGap(167, 167, 167)
-                                .addComponent(txtComplemento))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelItensLayout.createSequentialGroup()
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelItensLayout.createSequentialGroup()
+                                .addGap(225, 225, 225)
+                                .addComponent(txtUF))
+                            .addGroup(panelItensLayout.createSequentialGroup()
                                 .addComponent(fieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboboxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtCidade, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(18, 18, 18)
+                            .addComponent(txtCidade))
+                        .addGap(16, 16, 16)
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBairro)
-                            .addComponent(fieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(208, Short.MAX_VALUE))
+                            .addComponent(txtCEP)
+                            .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(fieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
         panelItensLayout.setVerticalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,16 +280,18 @@ public class PanelCadPessoa extends WebPanel {
                 .addGap(18, 18, 18)
                 .addComponent(fieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(txtEndereco)
+                .addGap(18, 18, 18)
+                .addComponent(fieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEndereco)
                     .addComponent(txtComplemento)
                     .addComponent(txtBairro))
                 .addGap(18, 18, 18)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fieldComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelItensLayout.createSequentialGroup()
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -258,7 +305,7 @@ public class PanelCadPessoa extends WebPanel {
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboboxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         scrollCadastro.setViewportView(panelItens);
@@ -266,11 +313,6 @@ public class PanelCadPessoa extends WebPanel {
         panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
 
         btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
 
         btnCancelar.setText("Cancelar");
 
@@ -318,36 +360,6 @@ public class PanelCadPessoa extends WebPanel {
     private void radiobtnPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiobtnPJActionPerformed
         this.validador.isValid();        // TODO add your handling code here:
     }//GEN-LAST:event_radiobtnPJActionPerformed
-
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        CarPessoa c = new CarPessoa();
-        if (radiobtnPF.isSelected()) {     // verifica se a pessoa é do tipo Física
-            c.setPessoaTipo(0); }  // atribui ao tipo o valor adequado
-        else {                              // senão, verifica se a pessoa é do tipo Jurídica
-            if (radiobtnPJ.isSelected()) {
-                c.setPessoaTipo(1);  // atribui ao tipo o valor adequado
-            }
-        }
-        c.setPessoaCpfCnpj(fieldCpfCnpj.getText());
-        c.setPessoaNome(fieldNome.getText());
-        c.setPessoaEndereco(fieldEndereco.getText());
-        c.setPessoaComplemento(fieldComplemento.getText());
-        c.setPessoaBairro(fieldBairro.getText());
-        c.setPessoaFone(fieldFone.getText());        
-        c.setPessoaEmail(fieldEmail.getText());
-        c.setPessoaCEP(Integer.parseInt(fieldCEP.getText()));
-        c.setPessoaCidade(fieldCidade.getText());
-    //    c.setPessoaUF(comboboxUF.getSelectedItem());
-
-        if (this.validador.isValid()) // se a validação estiver OK
-        {
-            p.insert(c);
-            utils.Utils.notificacao("Cadastro feito com sucesso", Utils.TipoNotificacao.ok, DO_NOTHING_ON_CLOSE);
-        } else {                             // senão, há algum erro
-            utils.Utils.notificacao("Erro!", Utils.TipoNotificacao.erro, ERROR);
-        }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSalvarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.button.WebButton btnCancelar;

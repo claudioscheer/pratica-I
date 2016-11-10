@@ -67,9 +67,21 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtComplemento" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fieldComplemento" min="-2" pref="135" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtBairro" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fieldBairro" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="txtEndereco" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="txtCpfCnpj" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="fieldCpfCnpj" alignment="0" min="-2" pref="228" max="-2" attributes="0"/>
                           <Component id="txtCadastrar" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -86,27 +98,10 @@
                           <Component id="fieldEmail" alignment="0" min="-2" pref="245" max="-2" attributes="0"/>
                           <Component id="fieldFone" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="fieldEndereco" min="-2" pref="213" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="fieldComplemento" alignment="0" max="32767" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="txtUF" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="txtCEP" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="fieldCEP" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="0" pref="21" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="txtEndereco" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
-                                      <Component id="txtComplemento" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="225" max="-2" attributes="0"/>
+                                      <Component id="txtUF" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="fieldCidade" min="-2" pref="213" max="-2" attributes="0"/>
@@ -115,14 +110,15 @@
                                   </Group>
                                   <Component id="txtCidade" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtBairro" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="fieldBairro" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
+                                  <Component id="txtCEP" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fieldCEP" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Component id="fieldEndereco" min="-2" pref="400" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="208" max="32767" attributes="0"/>
+                      <EmptySpace pref="211" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -155,18 +151,20 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="fieldEmail" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="txtEndereco" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="fieldEndereco" min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtComplemento" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtBairro" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="fieldEndereco" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="fieldComplemento" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="fieldBairro" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -185,7 +183,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="195" max="32767" attributes="0"/>
+                      <EmptySpace pref="104" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -372,9 +370,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Salvar"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarActionPerformed"/>
-          </Events>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="btnCancelar">
           <Properties>
