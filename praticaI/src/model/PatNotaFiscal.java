@@ -46,7 +46,7 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.notaCodigo = notaCodigo;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pessoa", nullable = false)
     public CarPessoa getCarPessoa() {
         return this.carPessoa;
@@ -94,7 +94,7 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.notaDataEntrada = notaDataEntrada;
     }
 
-    @OneToMany(mappedBy = "patNotaFiscal", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "patNotaFiscal", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @OrderBy("itemNotaOrdem ASC")
     public List<PatItemNota> getPatItemNotas() {
         if (this.patItemNotas == null) {
