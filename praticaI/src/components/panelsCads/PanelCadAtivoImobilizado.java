@@ -50,7 +50,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.comboUtilizacaoBem.setSelectedIndex(this.ativoImobilizado.getAtivoUtilizacao().ordinal());
         this.cbAtivoDepreciavel.setSelected(this.ativoImobilizado.isAtivoDepreciavel());
         this.txtValorJaDepreciado.setValue(this.ativoImobilizado.getAtivoValorOriginal() - this.ativoImobilizado.getAtivoValorAtual());
-        
+
         if (this.ativoImobilizado.getPatItemNota() != null) {
             this.txtNotaFiscal.setText(this.ativoImobilizado.getPatItemNota().getPatNotaFiscal().getNotaCodigo()
                     + " - " + this.ativoImobilizado.getPatItemNota().getPatNotaFiscal().getNotaChaveAcesso());
@@ -77,6 +77,8 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.validador.addApenasNumeroValidator(this.txtTaxaValorResidual);
         this.validador.addObrigatorioValidator(this.txtValorResidual);
         this.validador.addApenasNumeroValidator(this.txtValorResidual);
+
+        this.validador.addMenorQueValidator(this.txtTaxaValorResidual, 100.00);
 
         FormBuscaCategoria formCategoria = new FormBuscaCategoria();
         formCategoria.setFrameBloquear(FormPrincipal.getInstance());
@@ -107,6 +109,11 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         for (PatItemNota itemNota : this.notaFiscal.getPatItemNotas()) {
             model.addElement(itemNota.getEstProduto().getProdutoDescricao());
         }
+    }
+
+    public void setEnableItemNota(boolean enable) {
+        this.txtNotaFiscal.setEnabled(enable);
+        this.comboItemNota.setEnabled(enable);
     }
 
     public PatAtivoImobilizado getAtivoImobilizado() {
@@ -186,13 +193,13 @@ public class PanelCadAtivoImobilizado extends WebPanel {
 
         jLabel2.setText("Valor");
 
-        jLabel5.setText("Valor Atual");
+        jLabel5.setText("Valor atual");
 
-        jLabel6.setText("Nota Fiscal");
+        jLabel6.setText("Nota fiscal");
 
         jLabel7.setText("Taxa valor residual");
 
-        jLabel8.setText("Valor Residual");
+        jLabel8.setText("Valor residual");
 
         jLabel9.setText("Estado do bem");
 
@@ -202,11 +209,27 @@ public class PanelCadAtivoImobilizado extends WebPanel {
 
         comboUtilizacaoBem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diariamente", "Semanalmente", "Mensalmente", "Semestralmente", "Trimestralmente", "Anualmente" }));
 
+        txtValorOriginal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtValorOriginalKeyReleased(evt);
+            }
+        });
+
+        txtValorAtual.setEnabled(false);
+
+        txtTaxaValorResidual.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTaxaValorResidualKeyReleased(evt);
+            }
+        });
+
         jLabel11.setText("Produto da nota");
 
         cbAtivoDepreciavel.setText("Ativo é depreciável?");
 
         jLabel12.setText("Valor já depreciado");
+
+        txtValorJaDepreciado.setEnabled(false);
 
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
@@ -360,6 +383,20 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtTaxaValorResidualKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTaxaValorResidualKeyReleased
+        this.calcularValorResidual();
+    }//GEN-LAST:event_txtTaxaValorResidualKeyReleased
+
+    private void txtValorOriginalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtValorOriginalKeyReleased
+        this.calcularValorResidual();
+    }//GEN-LAST:event_txtValorOriginalKeyReleased
+
+    private void calcularValorResidual() {
+        double valor = this.txtValorOriginal.getValue();
+        double taxa = this.txtTaxaValorResidual.getValue() / 100;
+
+        this.txtValorResidual.setValue(valor * taxa);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.button.WebButton btnCancelar;

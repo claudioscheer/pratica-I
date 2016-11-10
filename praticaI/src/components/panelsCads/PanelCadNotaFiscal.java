@@ -15,11 +15,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.MaskFormatter;
 import model.CarPessoa;
@@ -30,6 +34,7 @@ import utils.Utils;
 
 public class PanelCadNotaFiscal extends WebPanel {
 
+    private Map<Integer, PatAtivoImobilizado> ativos;
     public PatNotaFiscal notaFiscal;
     public Validador validador;
     private int indexEditandoItemNota;
@@ -44,6 +49,7 @@ public class PanelCadNotaFiscal extends WebPanel {
     public void init() {
         this.initComponents();
 
+        this.ativos = new HashMap<>();
         this.notaFiscal = new PatNotaFiscal();
 
         this.tabelaProdutos.getModel().addTableModelListener(e -> {
@@ -57,9 +63,7 @@ public class PanelCadNotaFiscal extends WebPanel {
                 } else if (WebOptionPane.showConfirmDialog(null, "Não controlar o item?", "Remover ativo",
                         WebOptionPane.YES_NO_OPTION,
                         WebOptionPane.QUESTION_MESSAGE) == WebOptionPane.OK_OPTION) {
-                    
-                    
-                    
+                    this.ativos.remove(row);
                 }
             }
         });
@@ -98,11 +102,14 @@ public class PanelCadNotaFiscal extends WebPanel {
     public void setDadosEditar(PatNotaFiscal notaFiscal) {
         this.notaFiscal = notaFiscal;
         this.editando = true;
+        TableColumnModel tcm = tabelaProdutos.getColumnModel();
+        tcm.removeColumn(tcm.getColumn(5));
         this.setDadosForm();
     }
 
     private void abrirFormAddAtivo(int linha) {
         FormAddAtivoNotaFiscal form = new FormAddAtivoNotaFiscal();
+        form.panelCadastroAtivoImobilizado.setEnableItemNota(false);
         form.panelCadastroAtivoImobilizado.setEvents((e) -> {
             if (!form.panelCadastroAtivoImobilizado.validador.isValid()) {
                 return;
@@ -110,6 +117,7 @@ public class PanelCadNotaFiscal extends WebPanel {
 
             PatAtivoImobilizado ativo = form.panelCadastroAtivoImobilizado.getAtivoImobilizado();
             ativo.setPatItemNota(this.notaFiscal.getPatItemNotas().get(linha));
+            this.ativos.put(linha, ativo);
             form.dispose();
         }, (e) -> {
             form.dispose();
@@ -130,6 +138,10 @@ public class PanelCadNotaFiscal extends WebPanel {
     public void setEvents(ActionListener salvar, ActionListener cancelar) {
         this.btnSalvar.addActionListener(salvar);
         this.btnCancelar.addActionListener(cancelar);
+    }
+
+    public Map<Integer, PatAtivoImobilizado> getAtivos() {
+        return this.ativos;
     }
 
     public PatNotaFiscal getNotaFiscal() {

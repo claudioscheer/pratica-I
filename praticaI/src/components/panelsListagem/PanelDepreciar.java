@@ -81,8 +81,8 @@ public class PanelDepreciar extends WebPanel {
         @Override
         protected Void doInBackground() throws Exception {
             depreciando = true;
-            List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().getAll(0);
-            ativosSize = 5;
+            List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().getAtivosParaDepreciar();
+            ativosSize = ativos.size();
             progressBar.setMaximum(ativosSize);
             progressBar.setValue(valueProgress);
             Date dia = txtMesDepreciar.getDate();

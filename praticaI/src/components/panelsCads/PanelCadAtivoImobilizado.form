@@ -219,12 +219,12 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Valor Atual"/>
+                <Property name="text" type="java.lang.String" value="Valor atual"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Nota Fiscal"/>
+                <Property name="text" type="java.lang.String" value="Nota fiscal"/>
               </Properties>
             </Component>
             <Component class="components.TextFieldFK" name="txtNotaFiscal">
@@ -236,7 +236,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Valor Residual"/>
+                <Property name="text" type="java.lang.String" value="Valor residual"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
@@ -280,10 +280,19 @@
               </AuxValues>
             </Component>
             <Component class="components.TextFieldValorMonetario" name="txtValorOriginal">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtValorOriginalKeyReleased"/>
+              </Events>
             </Component>
             <Component class="components.TextFieldValorMonetario" name="txtValorAtual">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="components.TextFieldValorMonetario" name="txtTaxaValorResidual">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTaxaValorResidualKeyReleased"/>
+              </Events>
             </Component>
             <Component class="components.TextFieldValorMonetario" name="txtValorResidual">
             </Component>
@@ -313,6 +322,9 @@
               </Properties>
             </Component>
             <Component class="components.TextFieldValorMonetario" name="txtValorJaDepreciado">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

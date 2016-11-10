@@ -147,7 +147,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
 
         protected Void doInBackground() throws Exception {
 //            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
-            ativosImobilizados.addAll(new PatAtivoImobilizadoDAO().getAll(paginaBuscar));
+            ativosImobilizados.addAll(new PatAtivoImobilizadoDAO().getAll(txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
             atualizarTabela(true);
             return null;
         }
