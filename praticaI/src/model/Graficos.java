@@ -119,7 +119,7 @@ public final class Graficos {
 
         for (int j = 0; j < meses.length; j++) {
 
-            int mes = j + 1;
+         //   int mes = j + 1;
 
             dataset.addValue(0, "Contas a pagar", meses[j]);
             dataset.addValue(0, "Contas a receber", meses[j]);
