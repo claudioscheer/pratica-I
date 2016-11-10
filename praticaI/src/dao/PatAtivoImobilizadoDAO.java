@@ -33,12 +33,31 @@ public class PatAtivoImobilizadoDAO {
         return true;
     }
 
-    public List<PatAtivoImobilizado> getAll(int paginaBuscar) {
+    public List<PatAtivoImobilizado> getAll(int indexfiltro, String filtro) {
         Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
         session.getTransaction().begin();
-        Query query = session.createQuery("from PatAtivoImobilizado as a ");
-//        query.setFirstResult(paginaBuscar * Utils.MaxResultQuery);
-//        query.setMaxResults(Utils.MaxResultQuery);
+        String where = "";
+        if (!filtro.isEmpty()) {
+            switch (indexfiltro) {
+                case 0:
+                    where = " and a.ativoCodigo = :p1";
+                    break;
+                case 1:
+                    where = " and a.ativoDescricao like :p1";
+                    break;
+            }
+        }
+        Query query = session.createQuery("from PatAtivoImobilizado a where a.ativo = true " + where);
+        if (!filtro.isEmpty()) {
+            switch (indexfiltro) {
+                case 0:
+                    query.setParameter("p1", Integer.parseInt(filtro));
+                    break;
+                case 1:
+                    query.setParameter("p1", "%" + filtro + "%");
+                    break;
+            }
+        }
         List<PatAtivoImobilizado> ativos = query.list();
         session.getTransaction().commit();
         return ativos;
@@ -53,9 +72,18 @@ public class PatAtivoImobilizadoDAO {
     }
 
     public List<PatAtivoImobilizado> getParaRelatorio() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
         session.getTransaction().begin();
-        Query query = session.createQuery("from PatAtivoImobilizado a left join fetch a.patItemNota ");
+        Query query = session.createQuery("from PatAtivoImobilizado a left join fetch a.patItemNota where a.ativo = true ");
+        List<PatAtivoImobilizado> ativos = query.list();
+        session.getTransaction().commit();
+        return ativos;
+    }
+
+    public List<PatAtivoImobilizado> getAtivosParaDepreciar() {
+        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        session.getTransaction().begin();
+        Query query = session.createQuery("from PatAtivoImobilizado a where a.ativo = true and a.ativoDepreciavel = true ");
         List<PatAtivoImobilizado> ativos = query.list();
         session.getTransaction().commit();
         return ativos;

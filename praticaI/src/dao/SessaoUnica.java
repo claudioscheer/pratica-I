@@ -6,7 +6,8 @@ import utils.HibernateUtil;
 public class SessaoUnica {
 
     public enum Tela {
-        ATIVO_IMOBILIZADO
+        ATIVO_IMOBILIZADO,
+        NOTA_FISCAL
     }
 
     private static final Session[] sessions = new Session[Tela.values().length];
@@ -33,7 +34,10 @@ public class SessaoUnica {
         if (session == null) {
             return;
         }
-        session.close();
+        try {
+            session.close();
+        } catch (Exception e) {
+        }
     }
 
 }

@@ -9,35 +9,32 @@ import utils.HibernateUtil;
 public class PatNotaFiscalDAO {
 
     public Boolean update(PatNotaFiscal notaFiscal) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
         session.getTransaction().begin();
         session.update(notaFiscal);
         session.getTransaction().commit();
-        session.close();
         return true;
     }
 
     public Boolean insert(PatNotaFiscal notaFiscal) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
         session.getTransaction().begin();
         session.save(notaFiscal);
         session.getTransaction().commit();
-        session.close();
         return true;
     }
 
     public Boolean delete(PatNotaFiscal notaFiscal) {
         notaFiscal.setNotaAtiva(false);
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
         session.getTransaction().begin();
         session.update(notaFiscal);
         session.getTransaction().commit();
-        session.close();
         return true;
     }
 
     public List<PatNotaFiscal> getAll(int indexfiltro, String filtro) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
         session.getTransaction().begin();
         String where = "";
         if (!filtro.isEmpty()) {
@@ -63,16 +60,14 @@ public class PatNotaFiscalDAO {
         }
         List<PatNotaFiscal> ativos = query.list();
         session.getTransaction().commit();
-        session.close();
         return ativos;
     }
 
     public PatNotaFiscal get(int nota) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
         session.getTransaction().begin();
         PatNotaFiscal notaFiscal = (PatNotaFiscal) session.get(PatNotaFiscal.class, nota);
         session.getTransaction().commit();
-        session.close();
         return notaFiscal;
     }
 
