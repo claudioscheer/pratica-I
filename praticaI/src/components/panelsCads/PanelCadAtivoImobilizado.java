@@ -163,14 +163,14 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        comboEstadoBem = new javax.swing.JComboBox<>();
+        comboEstadoBem = new javax.swing.JComboBox<String>();
         jLabel10 = new javax.swing.JLabel();
-        comboUtilizacaoBem = new javax.swing.JComboBox<>();
+        comboUtilizacaoBem = new javax.swing.JComboBox<String>();
         txtValorOriginal = new components.TextFieldValorMonetario();
         txtValorAtual = new components.TextFieldValorMonetario();
         txtTaxaValorResidual = new components.TextFieldValorMonetario();
         txtValorResidual = new components.TextFieldValorMonetario();
-        comboItemNota = new javax.swing.JComboBox<>();
+        comboItemNota = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
         cbAtivoDepreciavel = new com.alee.laf.checkbox.WebCheckBox();
         jLabel12 = new javax.swing.JLabel();
@@ -207,11 +207,11 @@ public class PanelCadAtivoImobilizado extends WebPanel {
 
         jLabel9.setText("Estado do bem");
 
-        comboEstadoBem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Novo", "Usado" }));
+        comboEstadoBem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Novo", "Usado" }));
 
         jLabel10.setText("Utilização do bem");
 
-        comboUtilizacaoBem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diariamente", "Semanalmente", "Mensalmente", "Semestralmente", "Trimestralmente", "Anualmente" }));
+        comboUtilizacaoBem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Diariamente", "Semanalmente", "Mensalmente", "Semestralmente", "Trimestralmente", "Anualmente" }));
 
         txtValorOriginal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -229,7 +229,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
 
         jLabel11.setText("Produto da nota");
 
-        cbAtivoDepreciavel.setText("Ativo é depreciável?");
+        cbAtivoDepreciavel.setText("Ativo Depreciável");
 
         jLabel12.setText("Valor já depreciado");
 

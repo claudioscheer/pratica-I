@@ -313,7 +313,7 @@
             </Component>
             <Component class="com.alee.laf.checkbox.WebCheckBox" name="cbAtivoDepreciavel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ativo &#xe9; depreci&#xe1;vel?"/>
+                <Property name="text" type="java.lang.String" value="Ativo Depreci&#xe1;vel"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
