@@ -7,6 +7,7 @@ import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import model.PatAtivoImobilizado;
 import model.PatHistoricoDepreciacao;
+import utils.Utils;
 
 public class FormHistoricoDepreciacoes extends JFrameBusca {
 
@@ -15,7 +16,6 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
     public FormHistoricoDepreciacoes() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.txtBuscar.showComboOpcoes(false);
     }
 
     public void setAtivoImobilizado(PatAtivoImobilizado ativoImobilizado) {
@@ -24,20 +24,20 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
     }
 
     private void atualizarTabela() {
-        LoadHistoricosDepreciacoes load = new LoadHistoricosDepreciacoes();
-        load.execute();
+        new LoadHistoricosDepreciacoes().execute();
     }
 
     private class LoadHistoricosDepreciacoes extends SwingWorker<Void, Void> {
 
+        @Override
         protected Void doInBackground() throws Exception {
 
             DefaultTableModel model = (DefaultTableModel) tabelaHistoricoDepreciacoes.getModel();
 
-            List<PatHistoricoDepreciacao> historicoDepreciacoes = new PatHistoricoDepreciacaoDAO().getAll(ativoImobilizado);
+            List<PatHistoricoDepreciacao> historicoDepreciacoes = ativoImobilizado.getPatHistoricoDepreciacaos();
             for (PatHistoricoDepreciacao hd : historicoDepreciacoes) {
                 Object[] o = new Object[2];
-                o[0] = hd.getHistoricoDepreciacaoDia();
+                o[0] = Utils.formatData(hd.getHistoricoDepreciacaoDia());
                 o[1] = hd.getHistoricoDepreciacaoValor();
                 model.addRow(o);
             }
@@ -46,6 +46,7 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
             return null;
         }
 
+        @Override
         public void done() {
 
         }
@@ -56,7 +57,6 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
     private void initComponents() {
 
         textFieldBuscar1 = new components.TextFieldBuscar();
-        txtBuscar = new components.TextFieldBuscar();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaHistoricoDepreciacoes = new com.alee.laf.table.WebTable();
 
@@ -93,17 +93,14 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -118,6 +115,5 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
     private javax.swing.JScrollPane jScrollPane1;
     private com.alee.laf.table.WebTable tabelaHistoricoDepreciacoes;
     private components.TextFieldBuscar textFieldBuscar1;
-    private components.TextFieldBuscar txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

@@ -172,6 +172,7 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
+        FormPrincipal.getInstance().setEnabled(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -183,8 +184,9 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
         new PatBaixaDAO().insert(baixa);
 
         Utils.notificacao("Baixa realizada", Utils.TipoNotificacao.ok, 0);
-        FormPrincipal.getInstance().setEnabled(true);
         this.dispose();
+        
+        FormPrincipal.getInstance().setEnabled(true);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
