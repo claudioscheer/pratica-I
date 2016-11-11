@@ -152,9 +152,13 @@ public class FormNotaFiscal extends WebInternalFrame {
 
             int index = this.panelConsultaNotaFiscal.getIndiceSelecionado();
 
-            new PatNotaFiscalDAO().delete(notaFiscal);
-            this.panelConsultaNotaFiscal.removeNotaFiscal(index);
-            Utils.notificacao("Nota fiscal removida!", Utils.TipoNotificacao.ok, 0);
+            if (new PatNotaFiscalDAO().delete(notaFiscal)) {
+                this.panelConsultaNotaFiscal.removeNotaFiscal(index);
+                Utils.notificacao("Nota fiscal removida!", Utils.TipoNotificacao.ok, 0);
+            } else {
+                Utils.notificacao("Nota fiscal já está sendo usada!", Utils.TipoNotificacao.erro, 0);
+            }
+
         }
     }
 

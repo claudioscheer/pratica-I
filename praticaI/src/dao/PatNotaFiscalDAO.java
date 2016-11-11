@@ -2,34 +2,58 @@ package dao;
 
 import java.util.List;
 import model.PatNotaFiscal;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import utils.HibernateUtil;
 
 public class PatNotaFiscalDAO {
 
     public Boolean update(PatNotaFiscal notaFiscal) {
         Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
-        session.getTransaction().begin();
-        session.update(notaFiscal);
-        session.getTransaction().commit();
+        try {
+            session.getTransaction().begin();
+            session.update(notaFiscal);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 
     public Boolean insert(PatNotaFiscal notaFiscal) {
         Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
-        session.getTransaction().begin();
-        session.save(notaFiscal);
-        session.getTransaction().commit();
+        try {
+            session.getTransaction().begin();
+            session.save(notaFiscal);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 
     public Boolean delete(PatNotaFiscal notaFiscal) {
+        Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
+        try {
+            session.getTransaction().begin();
+            session.delete(notaFiscal);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean inativaNotaFiscal(PatNotaFiscal notaFiscal) {
         notaFiscal.setNotaAtiva(false);
         Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
-        session.getTransaction().begin();
-        session.update(notaFiscal);
-        session.getTransaction().commit();
+        try {
+            session.getTransaction().begin();
+            session.update(notaFiscal);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 

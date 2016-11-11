@@ -123,8 +123,8 @@ public class PanelConsultaNotaFiscal extends WebPanel {
     private Object[] notaToArray(PatNotaFiscal nota) {
         Object[] o = new Object[5];
         o[0] = nota.getNotaChaveAcesso();
-        o[1] = nota.getNotaDataEmissao();
-        o[2] = nota.getNotaDataEntrada();
+        o[1] = Utils.formatData(nota.getNotaDataEmissao());
+        o[2] = Utils.formatData(nota.getNotaDataEntrada());
         o[3] = nota.getCarPessoa().getPessoaNome();
         o[4] = nota.getNotaValor();
         return o;
@@ -148,7 +148,7 @@ public class PanelConsultaNotaFiscal extends WebPanel {
     public void setEventsBuscar(ActionListener select, ActionListener novo) {
         this.buttonAdd.addActionListener(select);
         this.buttonEditar.addActionListener(novo);
-        
+
         this.buttonAdd.setText("Selecionar");
         this.buttonEditar.setText("Novo");
         this.buttonExcluir.setVisible(false);

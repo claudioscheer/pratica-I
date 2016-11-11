@@ -186,7 +186,7 @@ public class PanelCadNotaFiscal extends WebPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaProdutos = new com.alee.laf.table.WebTable();
         txtValor = new components.TextFieldValorMonetario();
-        txtChaveAcesso = new javax.swing.JFormattedTextField();
+        txtChaveAcesso = new com.alee.laf.text.WebTextField();
         panelOpcoes = new javax.swing.JPanel();
         btnSalvar = new com.alee.laf.button.WebButton();
         btnCancelar = new com.alee.laf.button.WebButton();
@@ -258,12 +258,6 @@ public class PanelCadNotaFiscal extends WebPanel {
         });
         jScrollPane1.setViewportView(tabelaProdutos);
 
-        try {
-            txtChaveAcesso.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##/##-##.###.###/####-##-##-###-###.###.###-###.###.###-#")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
         panelItensLayout.setHorizontalGroup(
@@ -283,8 +277,8 @@ public class PanelCadNotaFiscal extends WebPanel {
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(panelItensLayout.createSequentialGroup()
-                                .addComponent(txtChaveAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46)
+                                .addComponent(txtChaveAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
                                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -318,7 +312,7 @@ public class PanelCadNotaFiscal extends WebPanel {
                     .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtChaveAcesso))
+                    .addComponent(txtChaveAcesso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -496,7 +490,7 @@ public class PanelCadNotaFiscal extends WebPanel {
     private javax.swing.JPanel panelOpcoes;
     private javax.swing.JScrollPane scrollCadastro;
     private com.alee.laf.table.WebTable tabelaProdutos;
-    private javax.swing.JFormattedTextField txtChaveAcesso;
+    private com.alee.laf.text.WebTextField txtChaveAcesso;
     private com.alee.extended.date.WebDateField txtDataEmissao;
     private com.alee.extended.date.WebDateField txtDataEntrada;
     private components.TextFieldFK txtFornecedor;

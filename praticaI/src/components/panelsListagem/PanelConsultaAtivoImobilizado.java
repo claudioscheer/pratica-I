@@ -16,10 +16,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import model.PatAtivoImobilizado;
 import model.PatBaixa;
+import net.sf.jasperreports.engine.JRException;
 import utils.Utils;
 
 public class PanelConsultaAtivoImobilizado extends WebPanel {
@@ -69,14 +72,11 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
                 Utils.notificacao("Selecione um ativo imobilizado!", Utils.TipoNotificacao.erro, 0);
                 return;
             }
-
             FormPrincipal formBloquear = FormPrincipal.getInstance();
-
             FormQrCodeAtivoImobilizado form = new FormQrCodeAtivoImobilizado();
             form.setFrameBloquear(formBloquear);
             form.setAtivoImobilizado(this.ativosImobilizados.get(linhaselecionada));
             form.setVisible(true);
-
             formBloquear.setEnabled(false);
         });
         popupMenuOpcoes.add(menuQrCode);
@@ -88,14 +88,11 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
                 Utils.notificacao("Selecione um ativo imobilizado!", Utils.TipoNotificacao.erro, 0);
                 return;
             }
-
             FormPrincipal formBloquear = FormPrincipal.getInstance();
-
             FormHistoricoDepreciacoes form = new FormHistoricoDepreciacoes();
             form.setFrameBloquear(formBloquear);
             form.setAtivoImobilizado(this.ativosImobilizados.get(linhaselecionada));
             form.setVisible(true);
-
             formBloquear.setEnabled(false);
         });
         popupMenuOpcoes.add(menuHistoricoDepreciacao);
@@ -107,14 +104,12 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
                 Utils.notificacao("Selecione um ativo imobilizado!", Utils.TipoNotificacao.erro, 0);
                 return;
             }
-
             FormBaixaAtivo form = new FormBaixaAtivo();
             form.setAtivoImobilizado(this.ativosImobilizados.get(linhaselecionada));
             form.setVisible(true);
             FormPrincipal.getInstance().setEnabled(false);
         });
         popupMenuOpcoes.add(menuBaixa);
-
         buttonOpcoes.setPopupMenuWay(PopupMenuWay.aboveStart);
         buttonOpcoes.setPopupMenu(popupMenuOpcoes);
 
@@ -123,7 +118,6 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         menuDepreciar.addActionListener((e) -> {
             FormDepreciar depreciacoes = new FormDepreciar();
             depreciacoes.setVisible(true);
-
             FormPrincipal.getInstance().setEnabled(false);
         });
         popupMenuManutencao.add(menuDepreciar);
@@ -132,22 +126,37 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         menuGerenciarDepreciacoes.addActionListener((e) -> {
             FormControleDepreciacoes depreciacoes = new FormControleDepreciacoes();
             depreciacoes.setVisible(true);
-
             FormPrincipal.getInstance().setEnabled(false);
         });
         popupMenuManutencao.add(menuGerenciarDepreciacoes);
-
         buttonManutencoes.setPopupMenuWay(PopupMenuWay.aboveStart);
         buttonManutencoes.setPopupMenu(popupMenuManutencao);
+
+        WebPopupMenu popupMenuRelatorios = new WebPopupMenu();
+        WebMenuItem menuRelatorioInventario = new WebMenuItem("Relatório inventário", Hotkey.NUMBER_1);
+        menuRelatorioInventario.addActionListener((e) -> {
+            try {
+                relatorios.patrimonio.RelatoriosPatrimonio.relatorioInventario();
+            } catch (JRException ex) {
+                utils.Utils.notificacao("Erro ao gerar relatório!", Utils.TipoNotificacao.erro, 0);
+            }
+        });
+        popupMenuRelatorios.add(menuRelatorioInventario);
+
+        WebMenuItem menuRelatorioOutros = new WebMenuItem("Outros", Hotkey.NUMBER_2);
+        menuRelatorioOutros.addActionListener((e) -> {
+            System.out.println("relatório outros");
+        });
+        popupMenuRelatorios.add(menuRelatorioOutros);
+        buttonRelatorios.setPopupMenuWay(PopupMenuWay.aboveStart);
+        buttonRelatorios.setPopupMenu(popupMenuRelatorios);
     }
 
     public class LoadAtivosImobilizados extends SwingWorker<Void, Void> {
 
         protected Void doInBackground() throws Exception {
 //            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
-            System.out.println("slknsdklfjgk");
             ativosImobilizados.addAll(new PatAtivoImobilizadoDAO().getAll(txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
-            System.out.println(ativosImobilizados.size());
             atualizarTabela(true);
             return null;
         }
@@ -251,6 +260,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         buttonEditar = new com.alee.laf.button.WebButton();
         buttonOpcoes = new com.alee.extended.button.WebSplitButton();
         buttonManutencoes = new com.alee.extended.button.WebSplitButton();
+        buttonRelatorios = new com.alee.extended.button.WebSplitButton();
         txtBuscar = new components.TextFieldBuscar();
 
         setMinimumSize(new java.awt.Dimension(565, 496));
@@ -292,6 +302,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
 
         buttonManutencoes.setText("Manutenções");
 
+        buttonRelatorios.setText("Relatórios");
+
         javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
         panelOpcoes.setLayout(panelOpcoesLayout);
         panelOpcoesLayout.setHorizontalGroup(
@@ -301,6 +313,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
                 .addComponent(buttonManutencoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -318,7 +332,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
                     .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonManutencoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonManutencoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13))
         );
 
@@ -328,7 +343,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+            .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,6 +362,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
     private com.alee.laf.button.WebButton buttonExcluir;
     private com.alee.extended.button.WebSplitButton buttonManutencoes;
     private com.alee.extended.button.WebSplitButton buttonOpcoes;
+    private com.alee.extended.button.WebSplitButton buttonRelatorios;
     private javax.swing.JPanel panelOpcoes;
     private javax.swing.JScrollPane scrollPanel;
     private com.alee.laf.table.WebTable tabelaAtivosImobilizados;

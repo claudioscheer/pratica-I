@@ -23,7 +23,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="panelOpcoes" alignment="0" max="32767" attributes="0"/>
           <Component id="txtBuscar" alignment="1" max="32767" attributes="0"/>
-          <Component id="scrollPanel" alignment="0" pref="601" max="32767" attributes="0"/>
+          <Component id="scrollPanel" alignment="0" pref="695" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -85,6 +85,8 @@
                   <Component id="buttonManutencoes" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonOpcoes" min="-2" pref="85" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="buttonRelatorios" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="buttonExcluir" min="-2" pref="66" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -105,6 +107,7 @@
                       <Component id="buttonOpcoes" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonManutencoes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonRelatorios" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
               </Group>
@@ -141,6 +144,11 @@
         <Component class="com.alee.extended.button.WebSplitButton" name="buttonManutencoes">
           <Properties>
             <Property name="text" type="java.lang.String" value="Manuten&#xe7;&#xf5;es"/>
+          </Properties>
+        </Component>
+        <Component class="com.alee.extended.button.WebSplitButton" name="buttonRelatorios">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
           </Properties>
         </Component>
       </SubComponents>
