@@ -638,8 +638,6 @@ public class FormContaReceber extends WebInternalFrame {
 // da.set(Calendar.YEAR, da.get(Calendar.YEAR) + 1);
 
             //pegar data lançamento
-           
-
             if (contareceber) {
 
                 conta02.setPessoaNome(txt_busca_cliente_fornecedor.getText());
@@ -681,7 +679,6 @@ public class FormContaReceber extends WebInternalFrame {
                 //pegar nota
 
 //                conta02.setPatNotaFiscal(chave);
-
                 conta02.setTipoOperacaoDescricao("iuaszzzdj");
 
                 Object forma = Comb_forma_pagamento_recebimento.getSelectedItem();
@@ -701,7 +698,6 @@ public class FormContaReceber extends WebInternalFrame {
 
                 Preenche_tabela();
             }
-
 
     }//GEN-LAST:event_botao_salvarActionPerformed
     }

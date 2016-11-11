@@ -228,7 +228,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         webPanel_Tabela.setLayout(webPanel_TabelaLayout);
         webPanel_TabelaLayout.setHorizontalGroup(
             webPanel_TabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1202, Short.MAX_VALUE)
         );
         webPanel_TabelaLayout.setVerticalGroup(
             webPanel_TabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1080,8 +1080,21 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         }
 
     }
+<<<<<<< .mine
+
+||||||| .r231
+<<<<<<< .mine
+||||||| .r179
     
   
+   
+=======
+    
+  
+=======
+    
+  
+>>>>>>> .r245
     public void Excel(){
     
         JFileChooser fileChooser = new JFileChooser();
@@ -1103,7 +1116,15 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     
     
     }
+<<<<<<< .mine
+||||||| .r231
     
+   
+>>>>>>> .r218
+=======
+    
+>>>>>>> .r245
+
 
 //    private void BuscaValoresTotais(){
 //        CarCapContasDAO contasDao = new CarCapContasDAO();
