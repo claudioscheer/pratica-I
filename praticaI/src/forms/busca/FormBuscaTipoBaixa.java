@@ -18,29 +18,81 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
     private PanelCadTipoBaixa panelCadastro;
     public int indexEditando;
 
+    private int paginaBuscar;
+
     private List<PatTipoBaixa> tiposBaixa;
 
     public FormBuscaTipoBaixa() {
         initComponents();
+
+        this.tabelaTipoBaixa.setModel(new DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Código", "Nome"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        this.tabelaTipoBaixa.setLoadMore(x -> new LoadTipoBaixa().execute());
+        this.paginaBuscar = 0;
+
         this.setLocationRelativeTo(null);
-        this.txtBuscar.showComboOpcoes(false);
+
         new LoadTipoBaixa().execute();
+
+        this.txtBuscar.setEventBuscar((e) -> {
+            this.paginaBuscar = 0;
+            this.tiposBaixa.clear();
+            Utils.clearTableModel((DefaultTableModel) this.tabelaTipoBaixa.getModel());
+            new LoadTipoBaixa().execute();
+        });
+
+        this.txtBuscar.addOpcoesBuscar(new String[]{
+            "Código",
+            "Descrição"
+        });
+
+        this.verificaPlaceholderText();
+        this.txtBuscar.setEventChangeComboBox(al -> {
+            this.verificaPlaceholderText();
+        });
+
+    }
+
+    private void verificaPlaceholderText() {
+        switch (this.txtBuscar.getFiltroSelecionado()) {
+            case 0:
+                this.txtBuscar.setPlaceholderText("Digite o código");
+                break;
+
+            case 1:
+                this.txtBuscar.setPlaceholderText("Digite a descrição");
+                break;
+        }
     }
 
     public class LoadTipoBaixa extends SwingWorker<Void, Void> {
 
+        @Override
         protected Void doInBackground() throws Exception {
-
             DefaultTableModel model = (DefaultTableModel) tabelaTipoBaixa.getModel();
 
-            tiposBaixa = new PatTipoBaixaDAO().getAll();
-            for (PatTipoBaixa tipoBaixa : tiposBaixa) {
+            tiposBaixa = new PatTipoBaixaDAO().getAll(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText());
+            tiposBaixa.stream().forEach((tipoBaixa) -> {
                 model.addRow(impostoToArray(tipoBaixa));
-            }
+            });
             tabelaTipoBaixa.setModel(model);
             return null;
         }
 
+        @Override
         public void done() {
 
         }
@@ -58,8 +110,7 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
         buttonEditar = new com.alee.laf.button.WebButton();
         btnExcluir = new com.alee.laf.button.WebButton();
         txtBuscar = new components.TextFieldBuscar();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabelaTipoBaixa = new javax.swing.JTable();
+        tabelaTipoBaixa = new components.JTableLoadScroll();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -125,34 +176,16 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
                 .addGap(6, 6, 6))
         );
 
-        tabelaTipoBaixa.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Nome"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tabelaTipoBaixa);
-
         javax.swing.GroupLayout panelConsultaLayout = new javax.swing.GroupLayout(panelConsulta);
         panelConsulta.setLayout(panelConsultaLayout);
         panelConsultaLayout.setHorizontalGroup(
             panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConsultaLayout.createSequentialGroup()
+            .addGroup(panelConsultaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tabelaTipoBaixa, javax.swing.GroupLayout.DEFAULT_SIZE, 922, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelConsultaLayout.setVerticalGroup(
@@ -161,7 +194,7 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
                 .addGap(10, 10, 10)
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                .addComponent(tabelaTipoBaixa, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -200,7 +233,7 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
     }//GEN-LAST:event_formWindowClosing
 
     private void buttonSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelecionarActionPerformed
-        int linhaselecionada = this.tabelaTipoBaixa.getSelectedRow();
+        int linhaselecionada = this.tabelaTipoBaixa.getTable().getSelectedRow();
         if (linhaselecionada < 0) {
             Utils.notificacao("Selecione um tipo de baixa!", Utils.TipoNotificacao.erro, 0);
             return;
@@ -225,7 +258,7 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
-        int linhaselecionada = this.tabelaTipoBaixa.getSelectedRow();
+        int linhaselecionada = this.tabelaTipoBaixa.getTable().getSelectedRow();
         if (linhaselecionada < 0) {
             Utils.notificacao("Selecione um tipo de baixa!", Utils.TipoNotificacao.erro, 0);
             return;
@@ -242,7 +275,7 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
     }//GEN-LAST:event_buttonEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        int linhaselecionada = this.tabelaTipoBaixa.getSelectedRow();
+        int linhaselecionada = this.tabelaTipoBaixa.getTable().getSelectedRow();
         if (linhaselecionada < 0) {
             Utils.notificacao("Selecione um tipo de baixa!", Utils.TipoNotificacao.erro, 0);
             return;
@@ -332,11 +365,10 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
     private com.alee.laf.button.WebButton btnNovo;
     private com.alee.laf.button.WebButton buttonEditar;
     private com.alee.laf.button.WebButton buttonSelecionar;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelConsulta;
     private javax.swing.JPanel panelOpcoes;
     private javax.swing.JPanel panelPanels;
-    private javax.swing.JTable tabelaTipoBaixa;
+    private components.JTableLoadScroll tabelaTipoBaixa;
     private components.TextFieldBuscar txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

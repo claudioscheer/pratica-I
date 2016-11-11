@@ -51,11 +51,34 @@ public class PatTipoBaixaDAO {
         }
     }
 
-    public List<PatTipoBaixa> getAll() {
+    public List<PatTipoBaixa> getAll(int paginaBuscar, int indexfiltro, String filtro) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
-            Query query = session.createQuery("from PatTipoBaixa as t ");
+            String where = "";
+            if (!filtro.isEmpty()) {
+                switch (indexfiltro) {
+                    case 0:
+                        where = " AND t.tipoBaixaCodigo = :p1";
+                        break;
+                    case 1:
+                        where = " AND t.tipoBaixaDescricao like :p1";
+                        break;
+                }
+            }
+            Query query = session.createQuery("FROM PatTipoBaixa t WHERE 1 = 1 " + where);
+            query.setMaxResults(utils.Utils.MaxResultQuery);
+            query.setFirstResult(paginaBuscar * utils.Utils.MaxResultQuery);
+            if (!filtro.isEmpty()) {
+                switch (indexfiltro) {
+                    case 0:
+                        query.setParameter("p1", Integer.parseInt(filtro));
+                        break;
+                    case 1:
+                        query.setParameter("p1", "%" + filtro + "%");
+                        break;
+                }
+            }
             List<PatTipoBaixa> tipOperacao = query.list();
             session.getTransaction().commit();
             return tipOperacao;
