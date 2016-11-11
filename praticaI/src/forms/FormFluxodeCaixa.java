@@ -1080,21 +1080,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         }
 
     }
-<<<<<<< .mine
 
-||||||| .r231
-<<<<<<< .mine
-||||||| .r179
-    
-  
-   
-=======
-    
-  
-=======
-    
-  
->>>>>>> .r245
     public void Excel(){
     
         JFileChooser fileChooser = new JFileChooser();
@@ -1116,15 +1102,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     
     
     }
-<<<<<<< .mine
-||||||| .r231
-    
-   
->>>>>>> .r218
-=======
-    
->>>>>>> .r245
-
 
 //    private void BuscaValoresTotais(){
 //        CarCapContasDAO contasDao = new CarCapContasDAO();
