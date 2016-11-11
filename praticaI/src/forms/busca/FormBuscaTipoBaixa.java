@@ -233,7 +233,7 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
     }//GEN-LAST:event_formWindowClosing
 
     private void buttonSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelecionarActionPerformed
-        int linhaselecionada = this.tabelaTipoBaixa.getTable().getSelectedRow();
+        int linhaselecionada = this.tabelaTipoBaixa.getSelectedRow();
         if (linhaselecionada < 0) {
             Utils.notificacao("Selecione um tipo de baixa!", Utils.TipoNotificacao.erro, 0);
             return;
@@ -258,7 +258,7 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
-        int linhaselecionada = this.tabelaTipoBaixa.getTable().getSelectedRow();
+        int linhaselecionada = this.tabelaTipoBaixa.getSelectedRow();
         if (linhaselecionada < 0) {
             Utils.notificacao("Selecione um tipo de baixa!", Utils.TipoNotificacao.erro, 0);
             return;
@@ -275,7 +275,7 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
     }//GEN-LAST:event_buttonEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        int linhaselecionada = this.tabelaTipoBaixa.getTable().getSelectedRow();
+        int linhaselecionada = this.tabelaTipoBaixa.getSelectedRow();
         if (linhaselecionada < 0) {
             Utils.notificacao("Selecione um tipo de baixa!", Utils.TipoNotificacao.erro, 0);
             return;

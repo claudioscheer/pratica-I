@@ -88,8 +88,6 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonRelatorios" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="buttonExcluir" min="-2" pref="66" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonEditar" min="-2" pref="61" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonAdd" min="-2" pref="76" max="-2" attributes="0"/>
@@ -102,7 +100,6 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="13" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="buttonExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonEditar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonOpcoes" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonAdd" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -124,11 +121,6 @@
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[24, 24]"/>
             </Property>
-          </Properties>
-        </Component>
-        <Component class="com.alee.laf.button.WebButton" name="buttonExcluir">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Excluir"/>
           </Properties>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="buttonEditar">

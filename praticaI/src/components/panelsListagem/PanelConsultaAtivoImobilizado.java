@@ -223,10 +223,9 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         return o;
     }
 
-    public void setEvents(ActionListener add, ActionListener edit, ActionListener delete) {
+    public void setEvents(ActionListener add, ActionListener edit) {
         buttonAdd.addActionListener(add);
         buttonEditar.addActionListener(edit);
-        //  buttonExcluir.addActionListener(delete);
     }
 
     private void onScroll() {
@@ -256,7 +255,6 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         tabelaAtivosImobilizados = new com.alee.laf.table.WebTable();
         panelOpcoes = new javax.swing.JPanel();
         buttonAdd = new com.alee.laf.button.WebButton();
-        buttonExcluir = new com.alee.laf.button.WebButton();
         buttonEditar = new com.alee.laf.button.WebButton();
         buttonOpcoes = new com.alee.extended.button.WebSplitButton();
         buttonManutencoes = new com.alee.extended.button.WebSplitButton();
@@ -294,8 +292,6 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         buttonAdd.setMaximumSize(new java.awt.Dimension(24, 24));
         buttonAdd.setPreferredSize(new java.awt.Dimension(24, 24));
 
-        buttonExcluir.setText("Excluir");
-
         buttonEditar.setText("Editar");
 
         buttonOpcoes.setText("Opções");
@@ -316,8 +312,6 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,7 +322,6 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -359,7 +352,6 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.button.WebButton buttonAdd;
     private com.alee.laf.button.WebButton buttonEditar;
-    private com.alee.laf.button.WebButton buttonExcluir;
     private com.alee.extended.button.WebSplitButton buttonManutencoes;
     private com.alee.extended.button.WebSplitButton buttonOpcoes;
     private com.alee.extended.button.WebSplitButton buttonRelatorios;

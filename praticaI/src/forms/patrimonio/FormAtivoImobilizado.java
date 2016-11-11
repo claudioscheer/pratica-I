@@ -62,8 +62,6 @@ public class FormAtivoImobilizado extends WebInternalFrame {
             this.addAtivoImobilizado();
         }, (e) -> {
             this.editarAtivoImobilizado();
-        }, (e) -> {
-            this.excluirAtivoImobilizado();
         });
 
         this.add(this.panelConsultaAtivoImobilizado);
@@ -145,26 +143,26 @@ public class FormAtivoImobilizado extends WebInternalFrame {
         this.panelCadastroAtivoImobilizado.revalidate();
     }
 
-    private void excluirAtivoImobilizado() {
-        PatAtivoImobilizado ativoImobilizado = this.panelConsultaAtivoImobilizado.getAtivoImobilizadoSelecionado();
-
-        if (ativoImobilizado == null) {
-            return;
-        }
-
-        if (WebOptionPane.showConfirmDialog(this.panelConsultaAtivoImobilizado, "Deseja dar baixa no ativo imobilizado?", "Excluir",
-                WebOptionPane.YES_NO_OPTION,
-                WebOptionPane.QUESTION_MESSAGE) == WebOptionPane.OK_OPTION) {
-
-            int index = this.panelConsultaAtivoImobilizado.getIndiceSelecionado();
-
-            new PatAtivoImobilizadoDAO().delete(ativoImobilizado);
-            this.panelConsultaAtivoImobilizado.removeAtivoImobilizado(index);
-            Utils.notificacao("Ativo imobilizado removido!", Utils.TipoNotificacao.ok, 0);
-            
-        }
-
-    }
+//    private void excluirAtivoImobilizado() {
+//        PatAtivoImobilizado ativoImobilizado = this.panelConsultaAtivoImobilizado.getAtivoImobilizadoSelecionado();
+//
+//        if (ativoImobilizado == null) {
+//            return;
+//        }
+//
+//        if (WebOptionPane.showConfirmDialog(this.panelConsultaAtivoImobilizado, "Deseja dar baixa no ativo imobilizado?", "Excluir",
+//                WebOptionPane.YES_NO_OPTION,
+//                WebOptionPane.QUESTION_MESSAGE) == WebOptionPane.OK_OPTION) {
+//
+//            int index = this.panelConsultaAtivoImobilizado.getIndiceSelecionado();
+//
+//            new PatAtivoImobilizadoDAO().delete(ativoImobilizado);
+//            this.panelConsultaAtivoImobilizado.removeAtivoImobilizado(index);
+//            Utils.notificacao("Ativo imobilizado removido!", Utils.TipoNotificacao.ok, 0);
+//            
+//        }
+//
+//    }
 
     private PanelConsultaAtivoImobilizado panelConsultaAtivoImobilizado;
     private PanelCadAtivoImobilizado panelCadastroAtivoImobilizado;

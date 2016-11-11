@@ -2,20 +2,19 @@ package components;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.Vector;
 import java.util.function.Consumer;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JViewport;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 public class JTableLoadScroll extends JScrollPane implements ChangeListener {
 
     private JTable table;
     private Consumer loadMore;
+    private boolean sortable;
 
     private JViewport viewReport;
 
@@ -26,12 +25,28 @@ public class JTableLoadScroll extends JScrollPane implements ChangeListener {
         this.viewReport.addChangeListener(this);
     }
 
+    public int getSelectedRow() {
+        if (this.sortable) {
+            return this.table.getRowSorter().convertRowIndexToModel(this.table.getSelectedRow());
+        }
+        return this.table.getSelectedRow();
+    }
+
     public TableModel getModel() {
         return this.table.getModel();
     }
 
     public JTable getTable() {
         return this.table;
+    }
+
+    public boolean getSortable() {
+        return this.sortable;
+    }
+
+    public void setSortable(boolean sortable) {
+        this.sortable = sortable;
+        this.table.setAutoCreateRowSorter(sortable);
     }
 
     public void setModel(TableModel model) {
@@ -56,7 +71,10 @@ public class JTableLoadScroll extends JScrollPane implements ChangeListener {
         }
 
         for (int i = first; i <= last; i++) {
-            int row = i; // or: sorter.convertRowIndexToModel(i);
+            int row = i;
+            if (this.sortable) {
+                row = this.table.getRowSorter().convertRowIndexToModel(i);
+            }
             // do stuff with each visible row
         }
 
