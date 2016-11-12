@@ -1,14 +1,11 @@
 package pessoa;
 
 import components.JFrameBusca;
-import components.TextFieldFK;
 import components.Validador;
 import dao.PessoaDAO;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import model.CarPessoa;
@@ -17,8 +14,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-import org.hibernate.Session;
-import utils.HibernateUtil;
 import utils.Utils;
 
 public class FormRelatorioPessoa extends JFrameBusca {
@@ -82,6 +77,7 @@ public class FormRelatorioPessoa extends JFrameBusca {
         fieldNome = new javax.swing.JTextField();
         fieldCpfCnpj = new javax.swing.JTextField();
         webButton1 = new com.alee.laf.button.WebButton();
+        txtInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -162,6 +158,8 @@ public class FormRelatorioPessoa extends JFrameBusca {
             }
         });
 
+        txtInfo.setText("Filtre os resultados para gerar um relatório personalizado, ou selecione \"Gerar Relatórios\" para um relatório de todas as pessoas.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -170,7 +168,7 @@ public class FormRelatorioPessoa extends JFrameBusca {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 772, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelTipo)
                         .addGap(18, 18, 18)
@@ -186,7 +184,8 @@ public class FormRelatorioPessoa extends JFrameBusca {
                                 .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(webButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(68, 68, 68)))))
+                                .addGap(68, 68, 68))))
+                    .addComponent(txtInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -208,7 +207,9 @@ public class FormRelatorioPessoa extends JFrameBusca {
                     .addComponent(radioCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fieldCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtInfo)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -319,6 +320,7 @@ public class FormRelatorioPessoa extends JFrameBusca {
     private com.alee.laf.radiobutton.WebRadioButton radioId;
     private com.alee.laf.radiobutton.WebRadioButton radioNome;
     private javax.swing.JTable tablePessoa;
+    private javax.swing.JLabel txtInfo;
     private com.alee.laf.button.WebButton webButton1;
     // End of variables declaration//GEN-END:variables
 }
