@@ -40,6 +40,7 @@ public class PatTipoBaixaDAO {
     public boolean delete(PatTipoBaixa tipoBaixa) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
+            session.getTransaction().begin();
             session.delete(tipoBaixa);
             session.getTransaction().commit();
             session.close();
