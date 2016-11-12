@@ -91,25 +91,59 @@ public class ExportacaoParaExcel {
 
                     totalEntradas = 0;
                     totalSaidas = 0;
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM");
+                    int mesAnterior = Integer.valueOf(sdf.format(dataInicial));
+
+                    int colunaConta = 3; //Deve comecar no tres pq as outra colunas possue outros valores ja
+
                     for (CarCapContas conta : BuscaContas(operacao.getOpCodigo(), dataInicial, dataFinal)) {
 
-                        //Realiza soma
-                        if (conta.getContaTipo() == TipoConta.Entrada) {
-                            totalEntradas += conta.getContaValorPago();
-                        } else {
-                            totalSaidas += conta.getContaValorPago();
+                        switch (filtroData) {
+
+                            case 0: //Diaria
+                                break;
+
+                            case 1: //Mensal
+
+                                sdf = new SimpleDateFormat("MM");
+                                int mes = Integer.valueOf(sdf.format(conta.getContaDataEmissao()));
+
+                                if (mesAnterior == mes) { //Controla se ta no proximo mes
+
+                                    //Realiza soma
+                                    if (conta.getContaTipo() == TipoConta.Entrada) {
+                                        totalEntradas += conta.getContaValorPago();
+                                    } else {
+                                        totalSaidas += conta.getContaValorPago();
+                                    }
+
+                                } else {
+
+                                    mesAnterior = mes; //Controla se ta no proximo mes
+
+                                    //Linha alimenta novo valor
+                                    row.createCell(colunaConta).setCellValue(totalEntradas - totalSaidas);
+
+                                    colunaConta += 1;
+
+                                }
+
+                                break;
+
+                            case 2: //Anual
+                                break;
+
                         }
 
                     }
 
-                    //Linha alimenta novo valor
-                    row.createCell(3).setCellValue(totalEntradas - totalSaidas);
                 }
             }
 
             this.workbook.write(arquivo);
             arquivo.close();
-            
+
             utils.Utils.notificacao("Exportação concluída com sucesso", Utils.TipoNotificacao.ok, 0);
 
         } catch (Exception ex) {
@@ -142,10 +176,21 @@ public class ExportacaoParaExcel {
         ArrayList<String> colunas = new ArrayList<String>();
 
         Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf;
 
         switch (posicao) {
 
             case 0:
+
+                sdf = new SimpleDateFormat("yyyy");
+                long data = (dataFinal.getTime() - dataInicial.getTime()) + 3600000;
+
+                long dias = (data / 86400000L);
+
+                for (int i = 0; i <= dias; i++) { //adiciona coluna de dias.
+//                    colunas.add(dataInicial + i);
+                            
+                }
 
                 break;
 
@@ -168,17 +213,18 @@ public class ExportacaoParaExcel {
 
             case 2: //Anual
 
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-                int anoInicio = Integer.valueOf(sdf.format(dataInicial));                
+                sdf = new SimpleDateFormat("yyyy");
+                int anoInicio = Integer.valueOf(sdf.format(dataInicial));
                 int anoFim = Integer.valueOf(sdf.format(BuscaMaiorData(dataInicial, dataFinal)));
 
                 int anoDataFinal = Integer.valueOf(sdf.format(dataFinal));
-                if (anoDataFinal > anoFim){
-                
+
+                if (anoDataFinal > anoFim) {
+
                     anoFim = anoDataFinal;
-                
+
                 }
-                
+
                 while (anoInicio <= anoFim) {
 
                     colunas.add(String.valueOf(anoInicio));
