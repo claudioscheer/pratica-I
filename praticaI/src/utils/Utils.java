@@ -2,15 +2,20 @@ package utils;
 
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
+import dao.LogDAO;
 import java.awt.Color;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
+import model.Log;
+import model.LogTipo;
+import org.hibernate.exception.ExceptionUtils;
 
 public class Utils {
 
@@ -23,7 +28,6 @@ public class Utils {
 
     public static SimpleDateFormat formatoDataPadrao = new SimpleDateFormat("dd/MM/yyyy");
     public static DecimalFormat formatDouble = new DecimalFormat("##0.00");
-    
 
     public static class CoresPadrao {
 
@@ -160,14 +164,14 @@ public class Utils {
             case ContasReceber:
                 url = "contasReceber.png";
                 break;
-                
+
             case addpessoa:
                 url = "addPessoa.png";
                 break;
-                
+
             case estoque:
                 url = "estoque.png";
-                break; 
+                break;
             case produto:
                 url = "produto.png";
                 break;
@@ -269,6 +273,21 @@ public class Utils {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public static void log(String classe, String descricao, LogTipo tipo) {
+        Log log = new Log();
+        log.setLogDescricao(descricao);
+        log.setLogData(Calendar.getInstance().getTime());
+        log.setLogObjeto(classe);
+        log.setLogTipo(tipo);
+
+        new LogDAO().insert(log);
+    }
+
+    public static void log(Exception erro) {
+        String descricao = ExceptionUtils.getStackTrace(erro.getCause());
+        log("", descricao, LogTipo.ERRO);
     }
 
 }
