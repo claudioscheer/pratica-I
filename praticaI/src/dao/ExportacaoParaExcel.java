@@ -8,6 +8,8 @@ package dao;
 import enumeraveis.TipoConta;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -24,44 +26,45 @@ import model.FlxcxOperacoes;
  * @author Diego
  */
 public class ExportacaoParaExcel {
-    
-    private HSSFWorkbook workbook = new HSSFWorkbook();
-    private HSSFSheet firstSheet = workbook.createSheet("FluxoCaixa");
+
+    private final HSSFWorkbook workbook = new HSSFWorkbook();
+    private final HSSFSheet firstSheet = workbook.createSheet("FluxoCaixa");
     private final FlxcxOperacoesDAO operacoesDao = new FlxcxOperacoesDAO();
     private final FlxcxEspecificacoesDAO especificacaoDAO = new FlxcxEspecificacoesDAO();
     private final CarCapContasDAO contasDAO = new CarCapContasDAO();
-    
-    public void Exportar(String nomeArquivo, Date dataInicial, Date dataFinal) {
-        
+
+    public void Exportar(String nomeArquivo, Date dataInicial, Date dataFinal, int filtroData) {
+
         try {
             FileOutputStream arquivo = new FileOutputStream(new File(nomeArquivo));
 
             //controla linha posicionada
             int linha = 0;
-            
+
             double totalEntradas = 0;
             double totalSaidas = 0;
-            
+
             HSSFRow row = firstSheet.createRow(linha);
-            
-            Calendar c = Calendar.getInstance();
-            
-            c.setTime(dataInicial);
-            
+
             row.createCell(0).setCellValue("Data Inicial: ");
-            row.createCell(1).setCellValue(dataInicial.getDate() + "/" + dataInicial.getMonth() + "/" + dataInicial.getYear());
-            
-            
-            c.setTime(dataFinal);
-            
+            row.createCell(1).setCellValue(new SimpleDateFormat("dd-MM-yyyy").format(dataInicial));
+
             row.createCell(3).setCellValue("Data Final: ");
-            row.createCell(4).setCellValue(dataFinal.getDate() + "/" + dataFinal.getMonth() + "/" + dataFinal.getYear());
-            
+            row.createCell(4).setCellValue(new SimpleDateFormat("dd-MM-yyyy").format(dataFinal));
+
             linha += 1;
             row = firstSheet.createRow(linha);
-            
+
+            int coluna = 3;
+            for (String item : RetornaColunas(filtroData, dataInicial, dataFinal)) {
+
+                row.createCell(coluna).setCellValue(item);
+
+                coluna += 1;
+            }
+
             List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
-            
+
             for (FlxcxEspecificacoes especificacao : especificacoes) {
 
                 //Linha alimenta uma nova especificacao
@@ -70,9 +73,9 @@ public class ExportacaoParaExcel {
 
                 //Coluna com a descricao da especificacao
                 row.createCell(0).setCellValue(especificacao.getEspDescricao());
-                
+
                 int sequenciaOperacao = 0;
-                
+
                 for (FlxcxOperacoes operacao : BuscarOperacoes(especificacao.getEspCodigo())) {
 
                     //Linha alimenta uma nova operacao
@@ -85,10 +88,10 @@ public class ExportacaoParaExcel {
 
                     //Descricao da operacao
                     row.createCell(1).setCellValue(operacao.getOpDescricao());
-                    
+
                     totalEntradas = 0;
                     totalSaidas = 0;
-                    for (CarCapContas conta : BuscaContas(operacao.getOpCodigo())) {
+                    for (CarCapContas conta : BuscaContas(operacao.getOpCodigo(), dataInicial, dataFinal)) {
 
                         //Realiza soma
                         if (conta.getContaTipo() == TipoConta.Entrada) {
@@ -96,39 +99,105 @@ public class ExportacaoParaExcel {
                         } else {
                             totalSaidas += conta.getContaValorPago();
                         }
-                        
+
                     }
 
                     //Linha alimenta novo valor
                     row.createCell(3).setCellValue(totalEntradas - totalSaidas);
                 }
             }
-            
+
             this.workbook.write(arquivo);
             arquivo.close();
             
+            utils.Utils.notificacao("Exportação concluída com sucesso", Utils.TipoNotificacao.ok, 0);
+
         } catch (Exception ex) {
             utils.Utils.notificacao("Não foi possível gerar o arquivo de exportação", Utils.TipoNotificacao.erro, 0);
+            System.err.println(ex.getMessage());
         }
-        
+
     }
-    
+
     public List<FlxcxEspecificacoes> BuscarEspecificoes() {
-        
+
         return this.especificacaoDAO.ListarTodas();
-        
+
     }
-    
+
     public List<FlxcxOperacoes> BuscarOperacoes(int codigoEspecificacao) {
-        
+
         return this.operacoesDao.BuscaOperacoes(codigoEspecificacao);
-        
+
     }
-    
-    public List<CarCapContas> BuscaContas(int codigoOperacao) {
-        
-        return this.contasDAO.BuscarContasOperacao(codigoOperacao);
-        
+
+    public List<CarCapContas> BuscaContas(int codigoOperacao, Date dataInicial, Date dataFinal) {
+
+        return this.contasDAO.BuscarContasOperacao(codigoOperacao, dataInicial, dataFinal);
+
     }
-    
+
+    public ArrayList<String> RetornaColunas(int posicao, Date dataInicial, Date dataFinal) {
+
+        ArrayList<String> colunas = new ArrayList<String>();
+
+        Calendar c = Calendar.getInstance();
+
+        switch (posicao) {
+
+            case 0:
+
+                break;
+
+            case 1: //Mensal
+
+                colunas.add("Janeiro");
+                colunas.add("Fevereiro");
+                colunas.add("Março");
+                colunas.add("Abril");
+                colunas.add("Maio");
+                colunas.add("Junho");
+                colunas.add("Julho");
+                colunas.add("Agosto");
+                colunas.add("Setembro");
+                colunas.add("Outubro");
+                colunas.add("Novembro");
+                colunas.add("Dezembro");
+
+                break;
+
+            case 2: //Anual
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+                int anoInicio = Integer.valueOf(sdf.format(dataInicial));                
+                int anoFim = Integer.valueOf(sdf.format(BuscaMaiorData(dataInicial, dataFinal)));
+
+                int anoDataFinal = Integer.valueOf(sdf.format(dataFinal));
+                if (anoDataFinal > anoFim){
+                
+                    anoFim = anoDataFinal;
+                
+                }
+                
+                while (anoInicio <= anoFim) {
+
+                    colunas.add(String.valueOf(anoInicio));
+
+                    anoInicio += 1;
+
+                }
+
+                break;
+
+        }
+
+        return colunas;
+    }
+
+    public Date BuscaMaiorData(Date dataInicial, Date dataFinal) {
+
+        return this.contasDAO.BuscaUltimaData(TipoConta.ambos, dataInicial, dataFinal);
+
+    }
+
 }

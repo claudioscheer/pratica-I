@@ -16,22 +16,15 @@ import dao.CarCapContasDAO;
 import dao.ExportacaoParaExcel;
 import enumeraveis.TipoConta;
 import enumeraveis.TipoGrafico;
-import java.awt.Image;
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JScrollPane;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 import model.CarCapContas;
 import model.Graficos;
 import relatorios.relatorioFluxoDeCaixa.Relatorios;
@@ -307,7 +300,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             }
         });
 
-        comboFiltroData.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Diário", "Semanal", "Mensal" }));
+        comboFiltroData.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Diário", "Mensal", "Anual" }));
         comboFiltroData.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboFiltroDataItemStateChanged(evt);
@@ -923,8 +916,8 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
             if (checkbox_Lista.isSelected()) {
 
-                webPanel_Split.setDividerLocation(.5f);  
-       
+                webPanel_Split.setDividerLocation(.5f);
+
             } else {
 
                 if (!grapPizza.isSelected() && !grapBarras.isSelected() && !GrapLinhas.isSelected()) {
@@ -1081,26 +1074,28 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     }
 
-    public void Excel(){
-    
+    public void Excel() {
+
         JFileChooser fileChooser = new JFileChooser();
 
         if (fileChooser.showSaveDialog(fileChooser.getComponent(0)) == JFileChooser.APPROVE_OPTION) { //Exibe janela onde salvar o arquivo HTML
 
             File file = fileChooser.getSelectedFile(); //Pega o caminho completo
 
+            String caminho;
             if (file.getPath().contains(".xls")) {
 
-                new ExportacaoParaExcel().Exportar(file.getPath(), dataInicial, dataFinal);
-                
+                caminho = file.getPath();
+
             } else {
-                 new ExportacaoParaExcel().Exportar(file.getPath() + ".xls", dataInicial, dataFinal);
-                
+                caminho = file.getPath() + ".xls";
+
             }
 
+            new ExportacaoParaExcel().Exportar(caminho, dataInicial, dataFinal, comboFiltroData.getSelectedIndex());
+
         }
-    
-    
+
     }
 
 //    private void BuscaValoresTotais(){
@@ -1165,7 +1160,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
             CarregarNotificacao("Relatório gerado com sucesso!");
 
-         }
+        }
 
 
     }//GEN-LAST:event_btn_GerarRelatorioActionPerformed
@@ -1310,7 +1305,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
                 grapPizza.setIcon(null);
                 grapPizza.setIcon(Utils.getImage(Utils.Image.pizzaDesmarcado));
-                
+
                 if (marcados == 0) {
 
                     checkbox_Grafico.setSelected(false);

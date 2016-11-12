@@ -80,15 +80,18 @@ public class CarCapContasDAO {
 
     }
 
-    public List<CarCapContas> BuscarContasOperacao(int codigoOperacao) {
+    public List<CarCapContas> BuscarContasOperacao(int codigoOperacao, Date dataInicial, Date dataFinal) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
 
-        Query query = session.createQuery("from CarCapContas as a where flxcxoperacoes_opcodigo = :codigo ");
+        Query query = session.createQuery("from CarCapContas as a where flxcxoperacoes_opcodigo = :codigo and conta_data_emissao BETWEEN :dataInicial and :dataFinal");
 
         query.setParameter("codigo", codigoOperacao);
-
+        query.setParameter("dataInicial", dataInicial);
+        query.setParameter("dataFinal", dataFinal);
+        
+        
         List<CarCapContas> contas = query.list();
         session.getTransaction().commit();
         session.close();
@@ -113,6 +116,34 @@ public class CarCapContasDAO {
         session.getTransaction().commit();
         session.close();
         return total;
+
+    }
+
+    public Date BuscaUltimaData(TipoConta tipo, Date dataInicial, Date dataFinal) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+
+        System.out.println("DataFinal" + dataFinal + "DataInicial: " + dataInicial);
+
+        Query query;
+        
+        if (tipo == TipoConta.ambos) {
+            query = session.createQuery("select max(a.contaDataEmissao) as max from CarCapContas as a where conta_data_emissao BETWEEN :dataInicial and :dataFinal");
+            query.setParameter("dataInicial", dataInicial);
+            query.setParameter("dataFinal", dataFinal);            
+        } else {
+            query = session.createQuery("select max(a.contaDataEmissao) as max from CarCapContas as a where contaTipo =:tipo and conta_data_emissao BETWEEN :dataInicial and :dataFinal");
+            query.setParameter("dataInicial", dataInicial);
+            query.setParameter("dataFinal", dataFinal);
+            query.setParameter("tipo", tipo);
+        }
+
+        Date maior = (Date) (query.uniqueResult() == null ? null : query.uniqueResult());
+
+        session.getTransaction().commit();
+        session.close();
+        return maior;
 
     }
 
