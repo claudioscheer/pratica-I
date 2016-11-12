@@ -16,7 +16,7 @@ import utils.HibernateUtil;
  * @author dimhr12
  */
 public class PessoaDAO {
-    
+
     public Boolean update(CarPessoa pessoa) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
@@ -45,6 +45,10 @@ public class PessoaDAO {
     }
 
     public List<CarPessoa> getAll(int indexfiltro, String filtro) {
+        return getAll(-1, indexfiltro, filtro);
+    }
+
+    public List<CarPessoa> getAll(int paginaBuscar, int indexfiltro, String filtro) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         String where = "";
@@ -56,9 +60,16 @@ public class PessoaDAO {
                 case 1:
                     where = " and a.pessoaNome like :p1";
                     break;
+                case 2:
+                    where = " and a.pessoaCpfCnpj like :p1";
+                    break;
             }
         }
         Query query = session.createQuery("from CarPessoa a where 1 = 1 " + where);
+        if (paginaBuscar > -1) {
+            query.setMaxResults(utils.Utils.MaxResultQuery);
+            query.setFirstResult(paginaBuscar * utils.Utils.MaxResultQuery);
+        }
         if (!filtro.isEmpty()) {
             switch (indexfiltro) {
                 case 0:
@@ -66,6 +77,9 @@ public class PessoaDAO {
                     break;
                 case 1:
                     query.setParameter("p1", "%" + filtro + "%");
+                    break;
+                case 2:
+                    query.setParameter("p1", filtro);
                     break;
             }
         }
@@ -83,5 +97,5 @@ public class PessoaDAO {
         session.close();
         return pessoa;
     }
-    
+
 }

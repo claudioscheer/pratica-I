@@ -1,15 +1,15 @@
 package dao;
 
 import java.util.List;
-import model.PatTipoBaixa;
+import model.Log;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
-public class PatTipoBaixaDAO {
+public class LogDAO {
 
-    public boolean insert(PatTipoBaixa tipoBaixa) {
+    public boolean insert(Log tipoBaixa) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
@@ -23,7 +23,7 @@ public class PatTipoBaixaDAO {
         }
     }
 
-    public boolean update(PatTipoBaixa tipoBaixa) {
+    public boolean update(Log tipoBaixa) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
@@ -37,10 +37,9 @@ public class PatTipoBaixaDAO {
         }
     }
 
-    public boolean delete(PatTipoBaixa tipoBaixa) {
+    public boolean delete(Log tipoBaixa) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
-            session.getTransaction().begin();
             session.delete(tipoBaixa);
             session.getTransaction().commit();
             session.close();
@@ -52,7 +51,7 @@ public class PatTipoBaixaDAO {
         }
     }
 
-    public List<PatTipoBaixa> getAll(int paginaBuscar, int indexfiltro, String filtro) {
+    public List<Log> getAll(int paginaBuscar, int indexfiltro, String filtro) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
@@ -80,7 +79,7 @@ public class PatTipoBaixaDAO {
                         break;
                 }
             }
-            List<PatTipoBaixa> tipOperacao = query.list();
+            List<Log> tipOperacao = query.list();
             session.getTransaction().commit();
             return tipOperacao;
         } catch (HibernateException e) {
@@ -90,11 +89,11 @@ public class PatTipoBaixaDAO {
         }
     }
 
-    public PatTipoBaixa get(int codigo) {
+    public Log get(int codigo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
-            PatTipoBaixa tipOperacao = (PatTipoBaixa) session.get(PatTipoBaixa.class, codigo);
+            Log tipOperacao = (Log) session.get(Log.class, codigo);
             session.getTransaction().commit();
             return tipOperacao;
         } catch (HibernateException e) {

@@ -266,7 +266,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void loadMateriais() {
 
-        final IconDesktop iconDesktop = new IconDesktop("Materiais", Utils.getImage(Utils.Image.produto));
+        final IconDesktop iconDesktop = new IconDesktop("Materiais", Utils.getImage(Utils.Image.adicionar));
 
         iconDesktop.setActionListener((e) -> {
             if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {

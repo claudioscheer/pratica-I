@@ -53,10 +53,10 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonManutencoes" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="buttonOpcoes" min="-2" pref="85" max="-2" attributes="0"/>
+                  <Component id="buttonOpcoes" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonRelatorios" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="232" max="32767" attributes="0"/>
                   <Component id="buttonEditar" min="-2" pref="61" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonAdd" min="-2" pref="76" max="-2" attributes="0"/>
@@ -99,7 +99,7 @@
         </Component>
         <Component class="com.alee.extended.button.WebSplitButton" name="buttonOpcoes">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Op&#xe7;&#xf5;es"/>
+            <Property name="text" type="java.lang.String" value="Op&#xe7;&#xf5;es do item"/>
           </Properties>
         </Component>
         <Component class="com.alee.extended.button.WebSplitButton" name="buttonManutencoes">

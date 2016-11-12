@@ -39,6 +39,7 @@ public class PatNotaFiscalDAO {
             session.delete(notaFiscal);
             session.getTransaction().commit();
         } catch (Exception e) {
+            utils.Utils.log(e);
             return false;
         }
         return true;
