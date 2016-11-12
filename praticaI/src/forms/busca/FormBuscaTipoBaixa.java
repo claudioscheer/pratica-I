@@ -40,6 +40,7 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
                 return canEdit[columnIndex];
             }
         });
+        this.tabelaTipoBaixa.setSortable(true);
         this.tabelaTipoBaixa.setLoadMore(x -> new LoadTipoBaixa().execute());
         this.paginaBuscar = 0;
 
@@ -50,7 +51,6 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
         this.txtBuscar.setEventBuscar((e) -> {
             this.paginaBuscar = 0;
             this.tiposBaixa.clear();
-            Utils.clearTableModel((DefaultTableModel) this.tabelaTipoBaixa.getModel());
             new LoadTipoBaixa().execute();
         });
 
@@ -84,8 +84,9 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
         protected Void doInBackground() throws Exception {
             DefaultTableModel model = (DefaultTableModel) tabelaTipoBaixa.getModel();
 
-            tiposBaixa = new PatTipoBaixaDAO().getAll(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText());
-            tiposBaixa.stream().forEach((tipoBaixa) -> {
+            tiposBaixa.addAll(new PatTipoBaixaDAO().getAll(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
+            Utils.clearTableModel((DefaultTableModel) tabelaTipoBaixa.getModel());
+            tiposBaixa.forEach((tipoBaixa) -> {
                 model.addRow(impostoToArray(tipoBaixa));
             });
             tabelaTipoBaixa.setModel(model);
