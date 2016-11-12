@@ -1,4 +1,4 @@
-package forms.busca;
+package pessoa;
 
 import components.JFrameBusca;
 import components.TextFieldFK;
@@ -21,13 +21,13 @@ import org.hibernate.Session;
 import utils.HibernateUtil;
 import utils.Utils;
 
-public class FormBuscaPessoa extends JFrameBusca {
+public class FormRelatorioPessoa extends JFrameBusca {
 
     private LoadCategorias loadCategorias;
     private List<CarPessoa> pessoas;
     public Validador valid;
 
-    public FormBuscaPessoa() {
+    public FormRelatorioPessoa() {
         initComponents();
         this.buscarCategorias();
         this.setLocationRelativeTo(null);
@@ -156,6 +156,11 @@ public class FormBuscaPessoa extends JFrameBusca {
         fieldCpfCnpj.setEnabled(false);
 
         webButton1.setText("Filtrar");
+        webButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                webButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -203,9 +208,10 @@ public class FormBuscaPessoa extends JFrameBusca {
                     .addComponent(radioCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fieldCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -216,8 +222,8 @@ public class FormBuscaPessoa extends JFrameBusca {
     }//GEN-LAST:event_formWindowClosing
 
     private void buttonRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRelatorioActionPerformed
-        List<CarPessoa> listPessoas = new PessoaDAO().getAll(0, "");
-        JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(listPessoas);
+        // List<CarPessoa> listPessoas = new PessoaDAO().getAll(0, "");
+        JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(pessoas);
 
         Map parametros = new HashMap();
         try {
@@ -242,6 +248,40 @@ public class FormBuscaPessoa extends JFrameBusca {
     private void radioCpfCnpjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCpfCnpjActionPerformed
         ajustaCampos();
     }//GEN-LAST:event_radioCpfCnpjActionPerformed
+
+    private void webButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton1ActionPerformed
+        this.busca();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_webButton1ActionPerformed
+
+    private void busca() {
+        String text = "";
+        int indexfiltro = -1;
+        if (radioCpfCnpj.isSelected()) {
+            indexfiltro = 2;
+            text = fieldCpfCnpj.getText();
+        } else if (radioNome.isSelected()) {
+            indexfiltro = 1;
+            text = fieldNome.getText();
+        } else {
+            indexfiltro = 0;
+            text = fieldId.getText();
+        }
+        this.pessoas.clear();
+        Utils.clearTableModel((DefaultTableModel) tablePessoa.getModel());
+        pessoas = new PessoaDAO().getAll(indexfiltro, text);
+
+        DefaultTableModel model = (DefaultTableModel) tablePessoa.getModel();
+        for (CarPessoa pessoas : pessoas) {
+            Object[] o = new Object[4];
+            o[0] = pessoas.getPessoaId();
+            o[1] = pessoas.getPessoaNome();
+            o[2] = pessoas.getPessoaFone();
+            o[3] = pessoas.getPessoaTipo();
+            model.addRow(o);
+        }
+        tablePessoa.setModel(model);
+    }
 
     private void ajustaCampos() {
         if (radioCpfCnpj.isSelected()) {

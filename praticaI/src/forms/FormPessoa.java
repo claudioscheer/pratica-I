@@ -5,7 +5,7 @@ import com.alee.laf.optionpane.WebOptionPane;
 import components.panelsCads.PanelCadPessoa;
 import components.panelsListagem.PanelConsultaPessoa;
 import dao.PessoaDAO;
-import forms.busca.FormBuscaPessoa;
+import pessoa.FormRelatorioPessoa;
 import utils.Utils;
 import java.awt.Dimension;
 import model.CarPessoa;
@@ -94,7 +94,7 @@ public class FormPessoa extends WebInternalFrame {
     
     // evento para abrir tela de gerar relatórios
 private void telaRelatorio() {
-        this.formBuscaPessoa = new FormBuscaPessoa();
+        this.formBuscaPessoa = new FormRelatorioPessoa();
         this.formBuscaPessoa.setVisible(true);
         System.out.println("abre tela");
     }
@@ -146,7 +146,7 @@ private void telaRelatorio() {
 
     private PanelConsultaPessoa panelConsultaPessoa;
     private PanelCadPessoa panelCadastroPessoa;
-    private FormBuscaPessoa formBuscaPessoa;
+    private FormRelatorioPessoa formBuscaPessoa;
     
             
 }

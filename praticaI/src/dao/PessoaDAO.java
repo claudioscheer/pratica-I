@@ -56,6 +56,9 @@ public class PessoaDAO {
                 case 1:
                     where = " and a.pessoaNome like :p1";
                     break;
+                case 2:
+                    where = " and a.pessoaCpfCnpj like :p1";
+                    break;
             }
         }
         Query query = session.createQuery("from CarPessoa a where 1 = 1 " + where);
@@ -66,6 +69,9 @@ public class PessoaDAO {
                     break;
                 case 1:
                     query.setParameter("p1", "%" + filtro + "%");
+                    break;
+                case 2:
+                    query.setParameter("p1", filtro);
                     break;
             }
         }
