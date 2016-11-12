@@ -54,6 +54,7 @@ public class FormManutencaoMateriais extends javax.swing.JFrame {
         formMarca.setFrameBloquear(FormPrincipal.getInstance());
         this.txtMarca.setFrame(formMarca);
 
+        //busca un medida
         FormBuscaUnidadeMedida formUn = new FormBuscaUnidadeMedida();
         formUn.setFrameBloquear(FormPrincipal.getInstance());
         this.txtUnidadeMedida.setFrame(formUn);

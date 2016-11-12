@@ -6,9 +6,15 @@
 package forms;
 
 import dao.EstProdutoDAO;
+import forms.busca.FormBuscaCategoria;
+import forms.busca.FormBuscaMarca;
+import forms.busca.FormBuscaUnidadeMedida;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.EstCategoria;
+import model.EstMarca;
 import model.EstProduto;
+import model.EstUnidadeMedida;
 
 /**
  *
@@ -20,6 +26,20 @@ public class FormMateriais extends javax.swing.JFrame {
 
     public FormMateriais(java.awt.Frame parent, boolean modal) {
         initComponents();
+        //abre o form para buscar uma categoria
+        FormBuscaCategoria formCategoria = new FormBuscaCategoria();
+        formCategoria.setFrameBloquear(FormPrincipal.getInstance());
+        this.edtCategoria.setFrame(formCategoria);
+
+        //abre o form para buscar uma marca
+        FormBuscaMarca frm = new FormBuscaMarca();
+        frm.setFrameBloquear(FormPrincipal.getInstance());
+        this.edtMarca.setFrame(frm);
+
+        //busca un medida
+        FormBuscaUnidadeMedida formUn = new FormBuscaUnidadeMedida();
+        formUn.setFrameBloquear(FormPrincipal.getInstance());
+        this.edtUnMedida.setFrame(formUn);
     }
 
     /**
@@ -39,6 +59,16 @@ public class FormMateriais extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
         btnInserir = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        edtDescricao = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        edtCategoria = new components.TextFieldFK();
+        edtMarca = new components.TextFieldFK();
+        edtUnMedida = new components.TextFieldFK();
+        btnLimpar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         unMedidas = new javax.swing.JMenuItem();
@@ -120,6 +150,46 @@ public class FormMateriais extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Descrição");
+
+        edtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                AoDigitarTecla(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Categoria");
+
+        jLabel3.setText("Marca");
+
+        jLabel4.setText("Un.Medida");
+
+        edtCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtCategoriaActionPerformed(evt);
+            }
+        });
+
+        edtUnMedida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtUnMedidaActionPerformed(evt);
+            }
+        });
+
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+
         jMenu3.setText("Cadastros");
 
         unMedidas.setText("Unidades de Medida");
@@ -176,12 +246,51 @@ public class FormMateriais extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir)
                 .addGap(6, 6, 6))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1092, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(edtMarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(edtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(edtUnMedida, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+                    .addComponent(edtCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLimpar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(73, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(edtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(edtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(edtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edtUnMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimpar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -238,11 +347,11 @@ public class FormMateriais extends javax.swing.JFrame {
             return;
         }
         EstProduto produto = new EstProduto();
-        produto.setProdutoId(Integer.parseInt((String)tblMateriais.getValueAt(tblMateriais.getSelectedRow(), 0)));
-        
-        produto.setProdutoDescricao((String)tblMateriais.getValueAt(tblMateriais.getSelectedRow(), 1));
+        produto.setProdutoId(Integer.parseInt((String) tblMateriais.getValueAt(tblMateriais.getSelectedRow(), 0)));
+
+        produto.setProdutoDescricao((String) tblMateriais.getValueAt(tblMateriais.getSelectedRow(), 1));
         produto.setEstMarca(produto.getEstMarca());
-        FormManutencaoMateriais manut = new FormManutencaoMateriais(null, rootPaneCheckingEnabled, produto);                
+        FormManutencaoMateriais manut = new FormManutencaoMateriais(null, rootPaneCheckingEnabled, produto);
         manut.setVisible(true);
         preencheTabela();
 
@@ -250,7 +359,7 @@ public class FormMateriais extends javax.swing.JFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         // TODO add your handling code here:
-                // TODO add your handling code here:
+        // TODO add your handling code here:
         if (tblMateriais.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(null, "Nenhum Registro Selecionado na Tabela");
             return;
@@ -262,7 +371,7 @@ public class FormMateriais extends javax.swing.JFrame {
             //sim           
             String data = (String) tblMateriais.getValueAt(tblMateriais.getSelectedRow(), 0);
             int id = Integer.parseInt(data);
-            EstProduto produto = new EstProduto();            
+            EstProduto produto = new EstProduto();
             if (prodDao.delete(id)) {
                 JOptionPane.showMessageDialog(null, "Registro removido com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -277,6 +386,52 @@ public class FormMateriais extends javax.swing.JFrame {
         EstProdutoDAO dao = new EstProdutoDAO();
         dao.GerarRelatorioProdutos();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        EstCategoria categoria = null;
+        EstMarca marca = null;
+        EstUnidadeMedida unMedida = null;
+        String descricao = "";
+
+        if (!edtDescricao.getText().isEmpty()) {
+            descricao = edtDescricao.getText();
+        }
+        if (!edtCategoria.getText().isEmpty()) {
+            categoria = (EstCategoria) edtCategoria.getValue();
+        }
+        if (!edtMarca.getText().isEmpty()) {
+            marca = (EstMarca) edtMarca.getValue();
+        }
+        if (!edtUnMedida.getText().isEmpty()) {
+            unMedida = (EstUnidadeMedida) edtUnMedida.getValue();
+        }
+        preencheTabelaFiltro(descricao,categoria,unMedida,marca);
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void edtCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtCategoriaActionPerformed
+
+    private void edtUnMedidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtUnMedidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtUnMedidaActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        // TODO add your handling code here:        
+        edtDescricao.setText("");
+        edtCategoria.setText("");
+        //edtCategoria.setValue(null);
+        edtMarca.setText("");
+        //edtMarca.setValue(null);
+        edtUnMedida.setText("");
+        //edtUnMedida.setValue(null);
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void AoDigitarTecla(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AoDigitarTecla
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_AoDigitarTecla
 
     /**
      * @param args the command line arguments
@@ -331,16 +486,40 @@ public class FormMateriais extends javax.swing.JFrame {
                 prd.getProdutoDescricao(),
                 prd.getEstCategoria().getCategoriaDescricao(),
                 prd.getEstMarca().getMarcaDescricao(),
-                prd.getEstUnidadeMedida().getUnidadeMedidaDescricao(),
-            });
+                prd.getEstUnidadeMedida().getUnidadeMedidaDescricao(),});
+        }
+    }
+
+    private void preencheTabelaFiltro(String descricao, EstCategoria categoria, EstUnidadeMedida unMedida, EstMarca marca) {//listar dados na jtable
+        DefaultTableModel modelo = (DefaultTableModel) tblMateriais.getModel();
+        modelo.setNumRows(0);
+
+        //semelhante ao foreach
+        for (EstProduto prd : prodDao.buscarProdutos(descricao, categoria, unMedida, marca)) {
+            modelo.addRow(new String[]{
+                "" + prd.getProdutoId(),
+                prd.getProdutoDescricao(),
+                prd.getEstCategoria().getCategoriaDescricao(),
+                prd.getEstMarca().getMarcaDescricao(),
+                prd.getEstUnidadeMedida().getUnidadeMedidaDescricao(),});
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnInserir;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnVoltar;
+    private components.TextFieldFK edtCategoria;
+    private javax.swing.JTextField edtDescricao;
+    private components.TextFieldFK edtMarca;
+    private components.TextFieldFK edtUnMedida;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
