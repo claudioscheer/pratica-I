@@ -26,6 +26,11 @@ public class JTableLoadScroll extends JScrollPane implements ChangeListener {
     }
 
     public int getSelectedRow() {
+
+        if (this.table.getSelectedRow() < 0) {
+            return -1;
+        }
+
         if (this.sortable) {
             return this.table.getRowSorter().convertRowIndexToModel(this.table.getSelectedRow());
         }

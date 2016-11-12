@@ -33,7 +33,7 @@ public class PatAtivoImobilizadoDAO {
         return true;
     }
 
-    public List<PatAtivoImobilizado> getAll(int indexfiltro, String filtro) {
+    public List<PatAtivoImobilizado> getAll(int paginaBuscar, int indexfiltro, String filtro) {
         Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
         session.getTransaction().begin();
         String where = "";
@@ -58,6 +58,8 @@ public class PatAtivoImobilizadoDAO {
                     break;
             }
         }
+        query.setMaxResults(utils.Utils.MaxResultQuery);
+        query.setFirstResult(paginaBuscar * utils.Utils.MaxResultQuery);
         List<PatAtivoImobilizado> ativos = query.list();
         session.getTransaction().commit();
         return ativos;

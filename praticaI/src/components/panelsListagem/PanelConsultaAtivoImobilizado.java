@@ -29,25 +29,39 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
 
     private List<PatAtivoImobilizado> ativosImobilizados;
 
-    private AdjustmentListener eventoScroll;
-
     private int paginaBuscar;
-    private int ultimaPosicaoTabela = 0;
     private List<PatBaixa> baixas;
 
     private int indexSelecionado;
 
     public PanelConsultaAtivoImobilizado() {
         initComponents();
+
+        this.tabelaAtivosImobilizados.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Código", "Descrição", "Categoria", "Marca", "Valor original", "Valor atual"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        this.tabelaAtivosImobilizados.setLoadMore(x -> new LoadAtivosImobilizados().execute());
+        this.tabelaAtivosImobilizados.setSortable(true);
         this.ativosImobilizados = new ArrayList<>();
 
         this.createOpcoesButton();
-//        this.eventoScroll = (e) -> {
-//            onScroll();
-//        };
+
         new LoadAtivosImobilizados().execute();
 
         this.txtBuscar.setEventBuscar((e) -> {
+            this.paginaBuscar = 0;
             this.ativosImobilizados.clear();
             new LoadAtivosImobilizados().execute();
         });
@@ -154,16 +168,15 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
 
     public class LoadAtivosImobilizados extends SwingWorker<Void, Void> {
 
+        @Override
         protected Void doInBackground() throws Exception {
-//            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
-            ativosImobilizados.addAll(new PatAtivoImobilizadoDAO().getAll(txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
+            ativosImobilizados.addAll(new PatAtivoImobilizadoDAO().getAll(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
             atualizarTabela(true);
             return null;
         }
 
+        @Override
         public void done() {
-//            ultimaPosicaoTabela = scrollPanel.getVerticalScrollBar().getMaximum();
-//            scrollPanel.getVerticalScrollBar().addAdjustmentListener(eventoScroll);
         }
     }
 
@@ -228,15 +241,6 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         buttonEditar.addActionListener(edit);
     }
 
-    private void onScroll() {
-        int hPos = this.scrollPanel.getVerticalScrollBar().getValue() + this.scrollPanel.getVerticalScrollBar().getHeight();
-
-        if (hPos >= this.ultimaPosicaoTabela) {
-            this.paginaBuscar++;
-            new LoadAtivosImobilizados().execute();
-        }
-    }
-
     public PatAtivoImobilizado getAtivoImobilizadoSelecionado() {
         int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
         if (linhaselecionada < 0) {
@@ -251,8 +255,6 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scrollPanel = new javax.swing.JScrollPane();
-        tabelaAtivosImobilizados = new com.alee.laf.table.WebTable();
         panelOpcoes = new javax.swing.JPanel();
         buttonAdd = new com.alee.laf.button.WebButton();
         buttonEditar = new com.alee.laf.button.WebButton();
@@ -260,31 +262,9 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         buttonManutencoes = new com.alee.extended.button.WebSplitButton();
         buttonRelatorios = new com.alee.extended.button.WebSplitButton();
         txtBuscar = new components.TextFieldBuscar();
+        tabelaAtivosImobilizados = new components.JTableLoadScroll();
 
         setMinimumSize(new java.awt.Dimension(565, 496));
-
-        scrollPanel.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        tabelaAtivosImobilizados.setAutoCreateRowSorter(true);
-        tabelaAtivosImobilizados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Descrição", "Categoria", "Marca", "Valor original", "Valor atual"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabelaAtivosImobilizados.setEditable(false);
-        tabelaAtivosImobilizados.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        scrollPanel.setViewportView(tabelaAtivosImobilizados);
 
         panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -336,15 +316,15 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
+            .addComponent(tabelaAtivosImobilizados, javax.swing.GroupLayout.DEFAULT_SIZE, 695, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-                .addGap(3, 3, 3)
+                .addComponent(tabelaAtivosImobilizados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -356,8 +336,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
     private com.alee.extended.button.WebSplitButton buttonOpcoes;
     private com.alee.extended.button.WebSplitButton buttonRelatorios;
     private javax.swing.JPanel panelOpcoes;
-    private javax.swing.JScrollPane scrollPanel;
-    private com.alee.laf.table.WebTable tabelaAtivosImobilizados;
+    private components.JTableLoadScroll tabelaAtivosImobilizados;
     private components.TextFieldBuscar txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

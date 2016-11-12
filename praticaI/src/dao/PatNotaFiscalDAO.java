@@ -57,7 +57,7 @@ public class PatNotaFiscalDAO {
         return true;
     }
 
-    public List<PatNotaFiscal> getAll(int indexfiltro, String filtro) {
+    public List<PatNotaFiscal> getAll(int paginaBuscar, int indexfiltro, String filtro) {
         Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
         session.getTransaction().begin();
         String where = "";
@@ -82,6 +82,8 @@ public class PatNotaFiscalDAO {
                     break;
             }
         }
+        query.setMaxResults(utils.Utils.MaxResultQuery);
+        query.setFirstResult(paginaBuscar * utils.Utils.MaxResultQuery);
         List<PatNotaFiscal> ativos = query.list();
         session.getTransaction().commit();
         return ativos;

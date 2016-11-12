@@ -1,7 +1,6 @@
 package forms.patrimonio;
 
 import com.alee.laf.desktoppane.WebInternalFrame;
-import com.alee.laf.optionpane.WebOptionPane;
 import components.panelsCads.PanelCadAtivoImobilizado;
 import components.panelsListagem.PanelConsultaAtivoImobilizado;
 import dao.PatAtivoImobilizadoDAO;

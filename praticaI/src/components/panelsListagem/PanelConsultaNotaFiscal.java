@@ -16,10 +16,7 @@ public class PanelConsultaNotaFiscal extends WebPanel {
 
     private List<PatNotaFiscal> notasFiscais;
 
-    private AdjustmentListener eventoScroll;
-
     private int paginaBuscar;
-    private int ultimaPosicaoTabela = 0;
 
     private int indexSelecionado;
 
@@ -27,9 +24,24 @@ public class PanelConsultaNotaFiscal extends WebPanel {
         initComponents();
         this.notasFiscais = new ArrayList<>();
 
-//        this.eventoScroll = (e) -> {
-//            onScroll();
-//        };
+        this.tabelaNotasFiscais.setModel(new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{
+                    "Chave acesso", "Data emissão", "Data entrada", "Fornecedor", "Valor"
+                }
+        ) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        this.tabelaNotasFiscais.setLoadMore(x -> new LoadNotasFiscais().execute());
+        this.tabelaNotasFiscais.setSortable(true);
+
         new LoadNotasFiscais().execute();
 
         this.txtBuscar.addOpcoesBuscar(new String[]{
@@ -72,16 +84,13 @@ public class PanelConsultaNotaFiscal extends WebPanel {
 
         @Override
         protected Void doInBackground() throws Exception {
-//            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
-            notasFiscais.addAll(new PatNotaFiscalDAO().getAll(txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
+            notasFiscais.addAll(new PatNotaFiscalDAO().getAll(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
             atualizarTabela(true);
             return null;
         }
 
         @Override
         public void done() {
-//            ultimaPosicaoTabela = scrollPanel.getVerticalScrollBar().getMaximum();
-//            scrollPanel.getVerticalScrollBar().addAdjustmentListener(eventoScroll);
         }
     }
 
@@ -130,15 +139,6 @@ public class PanelConsultaNotaFiscal extends WebPanel {
         return o;
     }
 
-    private void onScroll() {
-        int hPos = this.scrollPanel.getVerticalScrollBar().getValue() + this.scrollPanel.getVerticalScrollBar().getHeight();
-
-        if (hPos >= this.ultimaPosicaoTabela) {
-            this.paginaBuscar++;
-            new LoadNotasFiscais().execute();
-        }
-    }
-
     public void setEvents(ActionListener add, ActionListener edit, ActionListener delete) {
         this.buttonAdd.addActionListener(add);
         this.buttonEditar.addActionListener(edit);
@@ -162,38 +162,14 @@ public class PanelConsultaNotaFiscal extends WebPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scrollPanel = new javax.swing.JScrollPane();
-        tabelaNotasFiscais = new com.alee.laf.table.WebTable();
         panelOpcoes = new javax.swing.JPanel();
         buttonAdd = new com.alee.laf.button.WebButton();
         buttonExcluir = new com.alee.laf.button.WebButton();
         buttonEditar = new com.alee.laf.button.WebButton();
         txtBuscar = new components.TextFieldBuscar();
+        tabelaNotasFiscais = new components.JTableLoadScroll();
 
         setMinimumSize(new java.awt.Dimension(565, 496));
-
-        scrollPanel.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-        tabelaNotasFiscais.setAutoCreateRowSorter(true);
-        tabelaNotasFiscais.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Chave acesso", "Data emissão", "Data entrada", "Fornecedor", "Valor"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabelaNotasFiscais.setEditable(false);
-        tabelaNotasFiscais.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        scrollPanel.setViewportView(tabelaNotasFiscais);
 
         panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -210,7 +186,7 @@ public class PanelConsultaNotaFiscal extends WebPanel {
         panelOpcoesLayout.setHorizontalGroup(
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcoesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(342, Short.MAX_VALUE)
                 .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -235,15 +211,15 @@ public class PanelConsultaNotaFiscal extends WebPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelOpcoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(txtBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+            .addComponent(tabelaNotasFiscais, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-                .addGap(3, 3, 3)
+                .addComponent(tabelaNotasFiscais, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -253,8 +229,7 @@ public class PanelConsultaNotaFiscal extends WebPanel {
     private com.alee.laf.button.WebButton buttonEditar;
     private com.alee.laf.button.WebButton buttonExcluir;
     private javax.swing.JPanel panelOpcoes;
-    private javax.swing.JScrollPane scrollPanel;
-    private com.alee.laf.table.WebTable tabelaNotasFiscais;
+    private components.JTableLoadScroll tabelaNotasFiscais;
     private components.TextFieldBuscar txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
