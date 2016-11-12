@@ -56,7 +56,10 @@ public class ExportacaoParaExcel {
             row = firstSheet.createRow(linha);
 
             int coluna = 3;
-            for (String item : RetornaColunas(filtroData, dataInicial, dataFinal)) {
+
+            ArrayList<String> colunasExcel = RetornaColunas(filtroData, dataInicial, dataFinal);
+
+            for (String item : colunasExcel) {
 
                 row.createCell(coluna).setCellValue(item);
 
@@ -97,44 +100,43 @@ public class ExportacaoParaExcel {
 
                     int colunaConta = 3; //Deve comecar no tres pq as outra colunas possue outros valores ja
 
-                    for (CarCapContas conta : BuscaContas(operacao.getOpCodigo(), dataInicial, dataFinal)) {
+                    for (int colunaControle = 0; colunaControle < colunasExcel.size(); colunaControle++) {
 
-                        switch (filtroData) {
+                        for (CarCapContas conta : BuscaContas(operacao.getOpCodigo(), dataInicial, dataFinal)) {
 
-                            case 0: //Diaria
-                                break;
+                            switch (filtroData) {
 
-                            case 1: //Mensal
+                                case 0: //Diaria
+                                    break;
 
-                                sdf = new SimpleDateFormat("MM");
-                                int mes = Integer.valueOf(sdf.format(conta.getContaDataEmissao()));
+                                case 1: //Mensal
 
-                                if (mesAnterior == mes) { //Controla se ta no proximo mes
+                                    sdf = new SimpleDateFormat("MM");
+                                    int mes = Integer.valueOf(sdf.format(conta.getContaDataEmissao()));
 
-                                    //Realiza soma
-                                    if (conta.getContaTipo() == TipoConta.Entrada) {
-                                        totalEntradas += conta.getContaValorPago();
-                                    } else {
-                                        totalSaidas += conta.getContaValorPago();
+                                    if (mes == colunaControle) {
+
+                                        //Realiza soma
+                                        if (conta.getContaTipo() == TipoConta.Entrada) {
+                                            totalEntradas += conta.getContaValorPago();
+                                        } else {
+                                            totalSaidas += conta.getContaValorPago();
+                                        }
+                                        //Linha alimenta novo valor
+                                        row.createCell(colunaConta).setCellValue(totalEntradas - totalSaidas);
+
                                     }
 
-                                } else {
+                                    break;
 
-                                    mesAnterior = mes; //Controla se ta no proximo mes
+                                case 2: //Anual
+                                    break;
 
-                                    //Linha alimenta novo valor
-                                    row.createCell(colunaConta).setCellValue(totalEntradas - totalSaidas);
-
-                                    colunaConta += 1;
-
-                                }
-
-                                break;
-
-                            case 2: //Anual
-                                break;
+                            }
 
                         }
+
+                        colunaConta += 1;
 
                     }
 
@@ -183,13 +185,25 @@ public class ExportacaoParaExcel {
             case 0:
 
                 sdf = new SimpleDateFormat("yyyy");
+
                 long data = (dataFinal.getTime() - dataInicial.getTime()) + 3600000;
 
                 long dias = (data / 86400000L);
 
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(dataInicial);
+
                 for (int i = 0; i <= dias; i++) { //adiciona coluna de dias.
-//                    colunas.add(dataInicial + i);
-                            
+
+                    if (i == 0) {
+                        sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        colunas.add(sdf.format(calendar.getTime()));
+                    } else {
+                        calendar.add(Calendar.DAY_OF_MONTH, 1);
+                        sdf = new SimpleDateFormat("dd/MM/yyyy");
+                        colunas.add(sdf.format(calendar.getTime()));
+                    }
+
                 }
 
                 break;

@@ -62,6 +62,28 @@ public class CarCapContasDAO {
         return contas;
     }
 
+    public List<CarCapContas> ListarTodosPaginacao(int paginaBuscar, Date dataInicial, Date dataFinal) {
+
+        System.out.println("DataInicial: " + dataInicial + " DataFinal: " + dataFinal);
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("from CarCapContas as a where conta_data_emissao BETWEEN :datainicial and :datafinal");
+        query.setParameter("datainicial", dataInicial);
+        query.setParameter("datafinal", dataFinal);
+        
+        int maxResults = utils.Utils.MaxResultQuery;
+        
+        query.setMaxResults(maxResults);
+        query.setFirstResult(paginaBuscar * maxResults);
+        
+        List<CarCapContas> contas = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return contas;
+    }
+    
+    
     public List<CarCapContas> ListarContas(TipoConta tipo, Date dataInicial, Date dataFinal) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
