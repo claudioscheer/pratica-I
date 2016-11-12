@@ -3,7 +3,6 @@ package components.panelsListagem;
 import com.alee.laf.panel.WebPanel;
 import dao.PatNotaFiscalDAO;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class PanelConsultaNotaFiscal extends WebPanel {
         initComponents();
         this.notasFiscais = new ArrayList<>();
 
-        this.tabelaNotasFiscais.setModel(new javax.swing.table.DefaultTableModel(
+        this.tabelaNotasFiscais.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
                     "Chave acesso", "Data emissão", "Data entrada", "Fornecedor", "Valor"
@@ -39,8 +38,8 @@ public class PanelConsultaNotaFiscal extends WebPanel {
                 return canEdit[columnIndex];
             }
         });
-        this.tabelaNotasFiscais.setLoadMore(x -> new LoadNotasFiscais().execute());
         this.tabelaNotasFiscais.setSortable(true);
+        this.tabelaNotasFiscais.setLoadMore(x -> new LoadNotasFiscais().execute());
 
         new LoadNotasFiscais().execute();
 

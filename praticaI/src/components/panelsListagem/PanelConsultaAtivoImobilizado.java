@@ -52,8 +52,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
                 return canEdit[columnIndex];
             }
         });
-        this.tabelaAtivosImobilizados.setLoadMore(x -> new LoadAtivosImobilizados().execute());
         this.tabelaAtivosImobilizados.setSortable(true);
+        this.tabelaAtivosImobilizados.setLoadMore(x -> new LoadAtivosImobilizados().execute());
         this.ativosImobilizados = new ArrayList<>();
 
         this.createOpcoesButton();
@@ -274,7 +274,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
 
         buttonEditar.setText("Editar");
 
-        buttonOpcoes.setText("Opções");
+        buttonOpcoes.setText("Opções do item");
 
         buttonManutencoes.setText("Manutenções");
 
@@ -288,10 +288,10 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
                 .addContainerGap()
                 .addComponent(buttonManutencoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonRelatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
                 .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
