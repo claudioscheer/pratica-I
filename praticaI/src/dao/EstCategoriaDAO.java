@@ -48,9 +48,9 @@ public class EstCategoriaDAO {
     }
 
     public List<EstCategoria> getAll() {
-        Session session = HibernateUtil.getSessionFactory().openSession();      
+        Session session = HibernateUtil.getSessionFactory().openSession();
         Query query = session.createQuery("from EstCategoria as c ");
-        List<EstCategoria> categorias = query.list();     
+        List<EstCategoria> categorias = query.list();
         session.close();
         return categorias;
     }
@@ -64,4 +64,12 @@ public class EstCategoriaDAO {
         return categoria;
     }
 
+    public List<EstCategoria> buscarCategoria(String descricao) {
+        String hql = "FROM EstCategoria WHERE lower(categoria_descricao) like lower(:categoria_descricao)";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery(hql);
+        query.setParameter("categoria_descricao", descricao + "%");
+        List<EstCategoria> cat = query.list();
+        return cat;
+    }
 }

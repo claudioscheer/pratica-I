@@ -70,5 +70,13 @@ public class EstMarcaDAO {
         session.close();
         return marca;
     }
-
+    
+    public List<EstMarca> buscarMarca(String descricao) {
+        String hql = "FROM EstMarca WHERE lower(marca_descricao) like lower(:marca_descricao)";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery(hql);
+        query.setParameter("marca_descricao", descricao + "%");        
+        List<EstMarca> marcas = query.list();
+        return marcas;
+    }
 }

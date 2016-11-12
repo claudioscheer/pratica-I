@@ -7,7 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
-public class EstUnidadeMedidaDAO {    
+public class EstUnidadeMedidaDAO {
 
     public boolean Inserir(EstUnidadeMedida unMedida) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -42,21 +42,21 @@ public class EstUnidadeMedidaDAO {
         try {
             session.getTransaction().begin();
             EstUnidadeMedida unMedida = (EstUnidadeMedida) session.get(EstUnidadeMedida.class, codigo);
-            session.delete(unMedida);                             
+            session.delete(unMedida);
             return true;
         } catch (HibernateException e) {
             throw e;
         } finally {
             session.getTransaction().commit();
-            session.close();            
+            session.close();
         }
     }
 
     public List<EstUnidadeMedida> ListarTodas() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        try {          
+        try {
             Query query = session.createQuery("from EstUnidadeMedida as u ");
-            List<EstUnidadeMedida> unMedida = query.list();                     
+            List<EstUnidadeMedida> unMedida = query.list();
             return unMedida;
         } catch (HibernateException e) {
             throw e;
@@ -70,12 +70,21 @@ public class EstUnidadeMedidaDAO {
         try {
             session.getTransaction().begin();
             EstUnidadeMedida unMedida = (EstUnidadeMedida) session.get(EstUnidadeMedida.class, codigo);
-            session.getTransaction().commit();            
+            session.getTransaction().commit();
             return unMedida;
         } catch (HibernateException e) {
             throw e;
         } finally {
             session.close();
         }
+    }
+
+    public List<EstUnidadeMedida> buscarUnidadeMedida(String descricao) {
+        String hql = "FROM EstUnidadeMedida WHERE lower(unidade_medida_descricao) like lower(:unidade_medida_descricao)";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery(hql);
+        query.setParameter("unidade_medida_descricao", descricao + "%");
+        List<EstUnidadeMedida> unMedida = query.list();
+        return unMedida;
     }
 }
