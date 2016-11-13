@@ -32,5 +32,6 @@
         <mapping class="model.CarCapParcela" />
         <mapping class="model.PatDepreciacao" />
         <mapping class="model.CarcapOperacoesComerciais" />
+        <mapping class="model.Log" />
     </session-factory>
 </hibernate-configuration>
