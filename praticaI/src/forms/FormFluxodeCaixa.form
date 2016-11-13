@@ -163,7 +163,7 @@
                           <Component id="checkboxSaida" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="94" max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="webLabel5" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
@@ -340,7 +340,7 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel11">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Definir:"/>
+            <Property name="text" type="java.lang.String" value="Forma de visualiza&#xe7;&#xe3;o:"/>
           </Properties>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="btnFiltrar">
@@ -445,6 +445,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagens/reports-icon.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Gerar relat&#xf3;rio em PDF"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_GerarRelatorioActionPerformed"/>
@@ -455,6 +456,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagens/businesswoman.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Gerar relat&#xf3;rio em Excel"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="webButton6ActionPerformed"/>
@@ -465,6 +467,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagens/linhasDesmarcado.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Gr&#xe1;fio de Linhas"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="GrapLinhasStateChanged"/>
@@ -477,6 +480,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagens/barraDesmarcado.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Gr&#xe1;fico de Barras"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="grapBarrasStateChanged"/>
@@ -489,6 +493,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagens/pizzaDesmarcado.png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Gr&#xe1;fico de Pizza"/>
           </Properties>
           <Events>
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="grapPizzaStateChanged"/>
@@ -501,6 +506,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagens/shopping-bag (1).png"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Adicionar saldo incial"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>

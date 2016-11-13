@@ -366,7 +366,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             }
         });
 
-        webLabel11.setText("Definir:");
+        webLabel11.setText("Forma de visualização:");
 
         btnFiltrar.setText("Filtrar");
         btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
@@ -399,7 +399,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                         .addComponent(checkboxEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(checkboxSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(webBreadcrumb1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(webLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(webBreadcrumb1Layout.createSequentialGroup()
@@ -464,6 +464,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         webButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/head (1).png"))); // NOI18N
 
         btn_GerarRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/reports-icon.png"))); // NOI18N
+        btn_GerarRelatorio.setToolTipText("Gerar relatório em PDF");
         btn_GerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_GerarRelatorioActionPerformed(evt);
@@ -471,6 +472,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         });
 
         webButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/businesswoman.png"))); // NOI18N
+        webButton6.setToolTipText("Gerar relatório em Excel");
         webButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 webButton6ActionPerformed(evt);
@@ -478,6 +480,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         });
 
         GrapLinhas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/linhasDesmarcado.png"))); // NOI18N
+        GrapLinhas.setToolTipText("Gráfio de Linhas");
         GrapLinhas.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 GrapLinhasStateChanged(evt);
@@ -495,6 +498,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         });
 
         grapBarras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/barraDesmarcado.png"))); // NOI18N
+        grapBarras.setToolTipText("Gráfico de Barras");
         grapBarras.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 grapBarrasStateChanged(evt);
@@ -512,6 +516,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         });
 
         grapPizza.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pizzaDesmarcado.png"))); // NOI18N
+        grapPizza.setToolTipText("Gráfico de Pizza");
         grapPizza.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 grapPizzaStateChanged(evt);
@@ -529,6 +534,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         });
 
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/shopping-bag (1).png"))); // NOI18N
+        btnAdd.setToolTipText("Adicionar saldo incial");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
