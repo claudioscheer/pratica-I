@@ -1,5 +1,7 @@
 package model;
 
+import enumeraveis.EstadoBem;
+import enumeraveis.UtilizacaoBem;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
