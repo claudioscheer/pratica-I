@@ -1,9 +1,13 @@
 package model;
 // Generated 22/10/2016 10:09:26 by Hibernate Tools 4.3.1
 
+import enumeraveis.FormaPagamento;
+import enumeraveis.MeioRecebimentoPagamento;
 import enumeraveis.StatusConta;
 import enumeraveis.TipoConta;
 import java.util.Date;
+import java.util.Set;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -64,9 +68,14 @@ public class CarCapContas implements java.io.Serializable {
 
     private String descricao;
 
-    @OneToOne
+   
+    @ManyToOne
     private EstProduto produto;
+    
+    @ManyToOne
+    private CarcapOperacoesComerciais carcapOperacoesComerciais;
 
+        
     public EstProduto getProduto() {
         return produto;
     }
@@ -74,10 +83,17 @@ public class CarCapContas implements java.io.Serializable {
     public void setProduto(EstProduto produto) {
         this.produto = produto;
     }
+    
+    @Enumerated
+    private FormaPagamento forma_rece_pagamento;
 
-    private String forma_rece_pagamento;
 
-    private String meio_recebimento;
+    @Enumerated
+    private MeioRecebimentoPagamento meio_recebimento;
+
+    @Column(name = "forma_pagamento_receb", nullable = false)
+   // private String forma_rece_pagamento;
+
 
     private double quantidade_produto;
 
@@ -134,19 +150,19 @@ public class CarCapContas implements java.io.Serializable {
 //        this.produto = produto;
 //
 //    }
-    public String getForma_rece_pagamento() {
+    public FormaPagamento getForma_rece_pagamento() {
         return forma_rece_pagamento;
     }
 
-    public void setForma_rece_pagamento(String forma_rece_pagamento) {
+    public void setForma_rece_pagamento(FormaPagamento forma_rece_pagamento) {
         this.forma_rece_pagamento = forma_rece_pagamento;
     }
 
-    public String getMeio_recebimento() {
+    public MeioRecebimentoPagamento getMeio_recebimento() {
         return meio_recebimento;
     }
 
-    public void setMeio_recebimento(String meio_recebimento) {
+    public void setMeio_recebimento(MeioRecebimentoPagamento meio_recebimento) {
         this.meio_recebimento = meio_recebimento;
     }
 
@@ -185,14 +201,13 @@ public class CarCapContas implements java.io.Serializable {
     }
 
     public CarCapContas(int contaId, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, String produto, String descricao,
-            String meio_recebimento, double quantidade_produto, String forma_rece_pagamento) {
+            MeioRecebimentoPagamento meio_recebimento, double quantidade_produto, FormaPagamento forma_rece_pagamento) {
         this.contaId = contaId;
         this.contaValorTotal = contaValorTotal;
         this.contaDataEmissao = contaDataEmissao;
         this.contaNumParcelas = contaNumParcelas;
         this.contaValorPago = contaValorPago;
         this.contaTipo = contaTipo;
-
         this.descricao = descricao;
         this.meio_recebimento = meio_recebimento;
         this.quantidade_produto = quantidade_produto;
@@ -200,7 +215,7 @@ public class CarCapContas implements java.io.Serializable {
     }
 
     public CarCapContas(int contaId, StatusConta contaStatus, CarEstTipoOperacao carEstTipoOperacao, CarPessoa carPessoa, FlxcxOperacoes flxcxOperacoes, PatNotaFiscal patNotaFiscal, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, String produto, String descricao,
-            String meio_recebimento, double quantidade_produto, String forma_rece_pagamento) {
+            MeioRecebimentoPagamento meio_recebimento, double quantidade_produto, FormaPagamento forma_rece_pagamento) {
         this.contaId = contaId;
         this.contaStatus = contaStatus;
         this.carEstTipoOperacao = carEstTipoOperacao;
@@ -305,5 +320,16 @@ public class CarCapContas implements java.io.Serializable {
     public void setContaTipo(TipoConta contaTipo) {
         this.contaTipo = contaTipo;
     }
+
+
+
+    public CarcapOperacoesComerciais getCarcapOperacoesComerciais() {
+        return carcapOperacoesComerciais;
+    }
+
+    public void setCarcapOperacoesComerciais(CarcapOperacoesComerciais carcapOperacoesComerciais) {
+        this.carcapOperacoesComerciais = carcapOperacoesComerciais;
+    }
+
 
 }

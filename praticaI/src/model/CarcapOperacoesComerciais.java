@@ -50,6 +50,8 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
     
     private TipoConta tipoDeConta;
     
+    private List<CarCapContas> contas;
+    
     public CarcapOperacoesComerciais() {
     }
 
@@ -181,4 +183,14 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
         this.tipoDeConta = tipoDeConta;
     }
 
+    @OneToMany(mappedBy = "carcapOperacoesComerciais")
+    public List<CarCapContas> getContas() {
+        return contas;
+    }
+
+    public void setContas(List<CarCapContas> contas) {
+        this.contas = contas;
+    }
+     
+    
 }
