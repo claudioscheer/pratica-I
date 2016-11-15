@@ -19,7 +19,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="webPanel1" alignment="0" max="32767" attributes="0"/>
+          <Component id="webPanel1" alignment="0" pref="1359" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -44,7 +44,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="636" y="160" width="590" height="380"/>
+              <AbsoluteConstraints x="606" y="110" width="730" height="460"/>
             </Constraint>
           </Constraints>
 
@@ -67,7 +67,7 @@
         </Container>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Lan&#xe7;amento tipo:"/>
+            <Property name="text" type="java.lang.String" value="Tipo de Lan&#xe7;amento:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -116,9 +116,10 @@
         <Component class="com.alee.laf.combobox.WebComboBox" name="comb_meio_recebimento">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="Dinheiro/Cheque"/>
-                <StringItem index="1" value="Via Banco"/>
+              <StringArray count="3">
+                <StringItem index="0" value="Dinheiro"/>
+                <StringItem index="1" value="Cheque"/>
+                <StringItem index="2" value="Via Banco"/>
               </StringArray>
             </Property>
           </Properties>
@@ -134,17 +135,18 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1000" y="120" width="160" height="-1"/>
+              <AbsoluteConstraints x="1210" y="30" width="120" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="com.alee.laf.combobox.WebComboBox" name="Comb_forma_pagamento_recebimento">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="&#xc0; Vista"/>
-                <StringItem index="1" value="&#xc0; prazo"/>
+              <StringArray count="4">
+                <StringItem index="0" value="A Prazo"/>
+                <StringItem index="1" value="A Vista"/>
                 <StringItem index="2" value=" "/>
+                <StringItem index="3" value=" "/>
               </StringArray>
             </Property>
           </Properties>
@@ -183,11 +185,14 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="650" y="80" width="-1" height="43"/>
+              <AbsoluteConstraints x="610" y="60" width="-1" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_preco_uni">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_preco_uniActionPerformed"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="280" y="274" width="100" height="30"/>
@@ -207,11 +212,11 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel8">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Valor da parcela:"/>
+            <Property name="text" type="java.lang.String" value="Valor Recebido:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="440" y="322" width="-1" height="20"/>
+              <AbsoluteConstraints x="450" y="380" width="-1" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -247,7 +252,7 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel10">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Tipo de opera&#xe7;&#xe3;o:"/>
+            <Property name="text" type="java.lang.String" value="Tipo de Opera&#xe7;&#xe3;o:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -282,20 +287,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="450" y="510" width="120" height="30"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="com.alee.laf.button.WebButton" name="botao_excluir">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="33" green="ff" red="33" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Excluir"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="40" y="510" width="120" height="33"/>
+              <AbsoluteConstraints x="10" y="530" width="120" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -311,13 +303,13 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="170" y="510" width="130" height="33"/>
+              <AbsoluteConstraints x="450" y="530" width="130" height="33"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel11">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Forma de pagamento/Recebimento:"/>
+            <Property name="text" type="java.lang.String" value="Forma de Pagamento/Recebimento:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -347,11 +339,11 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel13">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Data lan&#xe7;amento:"/>
+            <Property name="text" type="java.lang.String" value="Data Lan&#xe7;amento:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="134" width="-1" height="22"/>
+              <AbsoluteConstraints x="20" y="140" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -361,7 +353,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="30" y="324" width="-1" height="22"/>
+              <AbsoluteConstraints x="20" y="320" width="-1" height="22"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -374,23 +366,26 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="650" y="120" width="-1" height="-1"/>
+              <AbsoluteConstraints x="610" y="80" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="com.alee.laf.checkbox.WebCheckBox" name="checkboxEntrada3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pago"/>
+            <Property name="text" type="java.lang.String" value="Estorno"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxEntrada3ActionPerformed"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="730" y="120" width="-1" height="-1"/>
+              <AbsoluteConstraints x="830" y="80" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel15">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Valor total:"/>
+            <Property name="text" type="java.lang.String" value="Valor Total:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -404,7 +399,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="270" y="404" width="160" height="30"/>
+              <AbsoluteConstraints x="280" y="400" width="150" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -414,7 +409,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="800" y="90" width="-1" height="22"/>
+              <AbsoluteConstraints x="1050" y="10" width="-1" height="22"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -424,7 +419,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="640" y="30" width="380" height="30"/>
+              <AbsoluteConstraints x="610" y="30" width="430" height="30"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -434,18 +429,19 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="640" y="10" width="-1" height="22"/>
+              <AbsoluteConstraints x="610" y="10" width="-1" height="22"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="com.alee.laf.combobox.WebComboBox" name="comb_status">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Fechada"/>
+              <StringArray count="5">
+                <StringItem index="0" value="Fehada"/>
                 <StringItem index="1" value="Pendente"/>
                 <StringItem index="2" value="Pendente parcial"/>
-                <StringItem index="3" value=" "/>
+                <StringItem index="3" value="Estorno"/>
+                <StringItem index="4" value=" "/>
               </StringArray>
             </Property>
           </Properties>
@@ -474,7 +470,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="800" y="120" width="160" height="-1"/>
+              <AbsoluteConstraints x="1050" y="30" width="120" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -484,7 +480,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="1000" y="90" width="-1" height="22"/>
+              <AbsoluteConstraints x="1210" y="10" width="-1" height="22"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -497,7 +493,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="310" y="510" width="130" height="33"/>
+              <AbsoluteConstraints x="160" y="530" width="130" height="33"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -520,6 +516,7 @@
         </Component>
         <Component class="com.alee.extended.date.WebDateField" name="txt_data_lan&#xe7;amento1">
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txt_data_lan&#xe7;amento1MouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_data_lan&#xe7;amento1ActionPerformed"/>
           </Events>
           <Constraints>
@@ -530,11 +527,11 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel20">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Data Vencimento:"/>
+            <Property name="text" type="java.lang.String" value="Data 1&#xb0; Vencimento:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="270" y="384" width="-1" height="20"/>
+              <AbsoluteConstraints x="280" y="380" width="-1" height="20"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -545,13 +542,13 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="440" y="344" width="140" height="31"/>
+              <AbsoluteConstraints x="440" y="340" width="140" height="31"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel21">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Valor unit&#xe1;rio:"/>
+            <Property name="text" type="java.lang.String" value="Valor Unit&#xe1;rio:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -579,14 +576,74 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="ff" red="33" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Pagar"/>
+            <Property name="text" type="java.lang.String" value="Receber"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_abrir_relatorios1ActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="450" y="460" width="120" height="33"/>
+              <AbsoluteConstraints x="310" y="530" width="120" height="33"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txt_Valor_pago">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txt_Valor_pagoMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_Valor_pagoActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="440" y="400" width="140" height="31"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="com.alee.laf.label.WebLabel" name="webLabel22">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Valor da Parcela:"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="440" y="320" width="-1" height="20"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="com.alee.laf.checkbox.WebCheckBox" name="checkboxEntrada4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Fechada"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="910" y="80" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="com.alee.laf.checkbox.WebCheckBox" name="checkboxEntrada5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Parcialmente Fechada"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxEntrada5ActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="690" y="80" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="com.alee.laf.button.WebButton" name="botao_abrir_relatorios2">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="33" green="ff" red="33" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Filtrar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_abrir_relatorios2ActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="1240" y="60" width="90" height="33"/>
             </Constraint>
           </Constraints>
         </Component>
