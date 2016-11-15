@@ -2,7 +2,9 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    <Component class="javax.swing.ButtonGroup" name="btnGroupTipo">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="btnGroupLogin">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -69,7 +71,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtComplemento" min="-2" max="-2" attributes="0"/>
@@ -85,7 +87,6 @@
                           <Component id="txtCpfCnpj" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="fieldCpfCnpj" alignment="0" min="-2" pref="228" max="-2" attributes="0"/>
                           <Component id="txtCadastrar" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="fieldNome" alignment="0" min="-2" pref="550" max="-2" attributes="0"/>
                           <Component id="txtNome" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="txtTipo" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -116,9 +117,23 @@
                                   <Component id="fieldCEP" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="fieldEndereco" min="-2" pref="400" max="-2" attributes="0"/>
+                          <Component id="fieldEndereco" max="32767" attributes="0"/>
+                          <Component id="fieldNome" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="211" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtSenha" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtLogin" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="radiobtnAdmin" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="radiobtnUser" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="fieldUser" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Component id="txtNivel" min="-2" max="-2" attributes="0"/>
+                          <Component id="fieldSenha" min="-2" pref="159" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="136" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -128,27 +143,44 @@
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="txtCadastrar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="txtTipo" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNivel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="radiobtnPF" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="radiobtnPJ" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="radiobtnAdmin" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="radiobtnUser" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txtNome" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="fieldNome" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="fieldNome" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="fieldUser" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txtCpfCnpj" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="fieldCpfCnpj" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtCpfCnpj" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="fieldCpfCnpj" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="fieldSenha" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txtFone" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="fieldFone" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txtEmail" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="fieldEmail" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txtEndereco" min="-2" max="-2" attributes="0"/>
@@ -183,7 +215,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace pref="104" max="32767" attributes="0"/>
+                      <EmptySpace pref="94" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -211,7 +243,7 @@
             <Component class="javax.swing.JRadioButton" name="radiobtnPF">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup1"/>
+                  <ComponentRef name="btnGroupTipo"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Pessoa F&#xed;sica"/>
               </Properties>
@@ -222,7 +254,7 @@
             <Component class="javax.swing.JRadioButton" name="radiobtnPJ">
               <Properties>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="buttonGroup1"/>
+                  <ComponentRef name="btnGroupTipo"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Pessoa Jur&#xed;dica"/>
               </Properties>
@@ -328,6 +360,55 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="txtLogin">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Login:"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="fieldUser">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="txtSenha">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Senha:"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JPasswordField" name="fieldSenha">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="radiobtnAdmin">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btnGroupLogin"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Administrador"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radiobtnAdminActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="radiobtnUser">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btnGroupLogin"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radiobtnUserActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="txtNivel">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="N&#xed;vel de acesso:"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

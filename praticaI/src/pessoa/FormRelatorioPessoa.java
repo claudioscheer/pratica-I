@@ -229,7 +229,7 @@ public class FormRelatorioPessoa extends JFrameBusca {
         Map parametros = new HashMap();
         try {
             JasperPrint jpr = JasperFillManager
-                    .fillReport("src/relatorios/listapessoas.jasper",
+                    .fillReport("src/relatorios/pessoa/listapessoas.jasper",
                             parametros,
                             jrs);
             JasperViewer.viewReport(jpr, false);

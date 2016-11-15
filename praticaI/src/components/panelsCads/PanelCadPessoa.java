@@ -5,6 +5,7 @@ import components.Validador;
 import dao.PessoaDAO;
 import java.awt.event.ActionListener;
 import model.CarPessoa;
+import model.TipoUsuario;
 
 public class PanelCadPessoa extends WebPanel {
 
@@ -58,6 +59,14 @@ public class PanelCadPessoa extends WebPanel {
         pessoa.setPessoaCEP(Integer.parseInt(fieldCEP.getText()));
         pessoa.setPessoaCidade(fieldCidade.getText());
         pessoa.setPessoaUF((String) comboboxUF.getSelectedItem());
+        if (radiobtnAdmin.isSelected()) {
+            pessoa.setPessoaLevel(TipoUsuario.ADMIN); }
+        else {
+            if (radiobtnUser.isSelected()) {
+                pessoa.setPessoaLevel(TipoUsuario.USER); }
+        }
+        pessoa.setPessoaLogin(fieldUser.getText());
+        pessoa.setPessoaSenha(fieldSenha.getText());
         return this.pessoa;
     }
 
@@ -117,11 +126,28 @@ public class PanelCadPessoa extends WebPanel {
         return true;
     }
     
+    private void ativaCampos() {
+        if (radiobtnAdmin.isSelected()) {
+            fieldUser.setEnabled(true);
+            fieldUser.requestFocus();
+            fieldSenha.setEnabled(true);
+            txtLogin.setEnabled(true);
+            txtSenha.setEnabled(true);
+        } else if (radiobtnUser.isSelected()) {
+            fieldUser.setEnabled(true);
+            fieldUser.requestFocus();
+            fieldSenha.setEnabled(true);
+            txtLogin.setEnabled(true);
+            txtSenha.setEnabled(true);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        btnGroupTipo = new javax.swing.ButtonGroup();
+        btnGroupLogin = new javax.swing.ButtonGroup();
         scrollCadastro = new javax.swing.JScrollPane();
         panelItens = new javax.swing.JPanel();
         fieldNome = new javax.swing.JTextField();
@@ -148,6 +174,13 @@ public class PanelCadPessoa extends WebPanel {
         txtCEP = new javax.swing.JLabel();
         fieldCEP = new javax.swing.JTextField();
         comboboxUF = new javax.swing.JComboBox<>();
+        txtLogin = new javax.swing.JLabel();
+        fieldUser = new javax.swing.JTextField();
+        txtSenha = new javax.swing.JLabel();
+        fieldSenha = new javax.swing.JPasswordField();
+        radiobtnAdmin = new javax.swing.JRadioButton();
+        radiobtnUser = new javax.swing.JRadioButton();
+        txtNivel = new javax.swing.JLabel();
         panelOpcoes = new javax.swing.JPanel();
         btnSalvar = new com.alee.laf.button.WebButton();
         btnCancelar = new com.alee.laf.button.WebButton();
@@ -168,7 +201,7 @@ public class PanelCadPessoa extends WebPanel {
 
         txtTipo.setText("Tipo:");
 
-        buttonGroup1.add(radiobtnPF);
+        btnGroupTipo.add(radiobtnPF);
         radiobtnPF.setText("Pessoa Física");
         radiobtnPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +209,7 @@ public class PanelCadPessoa extends WebPanel {
             }
         });
 
-        buttonGroup1.add(radiobtnPJ);
+        btnGroupTipo.add(radiobtnPJ);
         radiobtnPJ.setText("Pessoa Jurídica");
         radiobtnPJ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,13 +238,41 @@ public class PanelCadPessoa extends WebPanel {
 
         comboboxUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
 
+        txtLogin.setText("Login:");
+        txtLogin.setEnabled(false);
+
+        fieldUser.setEnabled(false);
+
+        txtSenha.setText("Senha:");
+        txtSenha.setEnabled(false);
+
+        fieldSenha.setEnabled(false);
+
+        btnGroupLogin.add(radiobtnAdmin);
+        radiobtnAdmin.setText("Administrador");
+        radiobtnAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radiobtnAdminActionPerformed(evt);
+            }
+        });
+
+        btnGroupLogin.add(radiobtnUser);
+        radiobtnUser.setText("Usuário");
+        radiobtnUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radiobtnUserActionPerformed(evt);
+            }
+        });
+
+        txtNivel.setText("Nível de acesso:");
+
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
         panelItensLayout.setHorizontalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelItensLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelItensLayout.createSequentialGroup()
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtComplemento)
@@ -224,7 +285,6 @@ public class PanelCadPessoa extends WebPanel {
                     .addComponent(txtCpfCnpj)
                     .addComponent(fieldCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCadastrar)
-                    .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNome)
                     .addComponent(txtTipo)
                     .addGroup(panelItensLayout.createSequentialGroup()
@@ -249,8 +309,20 @@ public class PanelCadPessoa extends WebPanel {
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCEP)
                             .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(fieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(211, Short.MAX_VALUE))
+                    .addComponent(fieldEndereco)
+                    .addComponent(fieldNome))
+                .addGap(45, 45, 45)
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSenha)
+                    .addComponent(txtLogin)
+                    .addGroup(panelItensLayout.createSequentialGroup()
+                        .addComponent(radiobtnAdmin)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(radiobtnUser))
+                    .addComponent(fieldUser, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNivel)
+                    .addComponent(fieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         panelItensLayout.setVerticalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,26 +330,38 @@ public class PanelCadPessoa extends WebPanel {
                 .addGap(24, 24, 24)
                 .addComponent(txtCadastrar)
                 .addGap(28, 28, 28)
-                .addComponent(txtTipo)
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTipo)
+                    .addComponent(txtNivel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radiobtnPF)
-                    .addComponent(radiobtnPJ))
+                    .addComponent(radiobtnPJ)
+                    .addComponent(radiobtnAdmin)
+                    .addComponent(radiobtnUser))
                 .addGap(18, 18, 18)
-                .addComponent(txtNome)
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNome)
+                    .addComponent(txtLogin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(txtCpfCnpj)
-                .addGap(18, 18, 18)
-                .addComponent(fieldCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCpfCnpj)
+                    .addComponent(txtSenha))
+                .addGap(21, 21, 21)
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(txtFone)
                 .addGap(18, 18, 18)
                 .addComponent(fieldFone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtEmail)
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addComponent(fieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtEndereco)
@@ -305,7 +389,7 @@ public class PanelCadPessoa extends WebPanel {
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(comboboxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         scrollCadastro.setViewportView(panelItens);
@@ -354,17 +438,28 @@ public class PanelCadPessoa extends WebPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void radiobtnPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiobtnPFActionPerformed
-        this.validador.isValid();        // TODO add your handling code here:
+        this.validador.isValid();
+        fieldNome.requestFocus();
     }//GEN-LAST:event_radiobtnPFActionPerformed
 
     private void radiobtnPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiobtnPJActionPerformed
-        this.validador.isValid();        // TODO add your handling code here:
+        this.validador.isValid();
+        fieldNome.requestFocus();
     }//GEN-LAST:event_radiobtnPJActionPerformed
+
+    private void radiobtnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiobtnAdminActionPerformed
+        ativaCampos();
+    }//GEN-LAST:event_radiobtnAdminActionPerformed
+
+    private void radiobtnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiobtnUserActionPerformed
+        ativaCampos();
+    }//GEN-LAST:event_radiobtnUserActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.button.WebButton btnCancelar;
+    private javax.swing.ButtonGroup btnGroupLogin;
+    private javax.swing.ButtonGroup btnGroupTipo;
     private com.alee.laf.button.WebButton btnSalvar;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> comboboxUF;
     private javax.swing.JTextField fieldBairro;
     private javax.swing.JTextField fieldCEP;
@@ -375,10 +470,14 @@ public class PanelCadPessoa extends WebPanel {
     private javax.swing.JTextField fieldEndereco;
     private javax.swing.JTextField fieldFone;
     private javax.swing.JTextField fieldNome;
+    private javax.swing.JPasswordField fieldSenha;
+    private javax.swing.JTextField fieldUser;
     private javax.swing.JPanel panelItens;
     private javax.swing.JPanel panelOpcoes;
+    private javax.swing.JRadioButton radiobtnAdmin;
     private javax.swing.JRadioButton radiobtnPF;
     private javax.swing.JRadioButton radiobtnPJ;
+    private javax.swing.JRadioButton radiobtnUser;
     private javax.swing.JScrollPane scrollCadastro;
     private javax.swing.JLabel txtBairro;
     private javax.swing.JLabel txtCEP;
@@ -389,8 +488,12 @@ public class PanelCadPessoa extends WebPanel {
     private javax.swing.JLabel txtEmail;
     private javax.swing.JLabel txtEndereco;
     private javax.swing.JLabel txtFone;
+    private javax.swing.JLabel txtLogin;
+    private javax.swing.JLabel txtNivel;
     private javax.swing.JLabel txtNome;
+    private javax.swing.JLabel txtSenha;
     private javax.swing.JLabel txtTipo;
     private javax.swing.JLabel txtUF;
     // End of variables declaration//GEN-END:variables
+
 }
