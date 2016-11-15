@@ -126,7 +126,7 @@ public class CarCapContasDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
 
-        Query query = session.createQuery("from CarCapContas as a where conta_id =:codigo ");
+        Query query = session.createQuery("from CarCapContas as a where contaID =:codigo ");
 
         query.setParameter("codigo", id);
 
