@@ -323,6 +323,10 @@ public class CarCapContas implements java.io.Serializable {
 
 
 
+//    public void setCarCapParcelas(Set<CarCapParcela> carCapParcelas) {
+//        this.carCapParcelas = carCapParcelas;
+//    }
+
     public CarcapOperacoesComerciais getCarcapOperacoesComerciais() {
         return carcapOperacoesComerciais;
     }
@@ -330,6 +334,19 @@ public class CarCapContas implements java.io.Serializable {
     public void setCarcapOperacoesComerciais(CarcapOperacoesComerciais carcapOperacoesComerciais) {
         this.carcapOperacoesComerciais = carcapOperacoesComerciais;
     }
+
+   
+
+    
+//    public Set<CarCapParcela> getCarCapParcelas() {
+//        return this.carCapParcelas;
+//    }
+//
+//    public void setCarCapParcelas(Set<CarCapParcela> carCapParcelas) {
+//        this.carCapParcelas = carCapParcelas;
+//    }
+//
+//   
 
 
 }
