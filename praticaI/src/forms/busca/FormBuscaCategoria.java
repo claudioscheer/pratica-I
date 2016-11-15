@@ -39,9 +39,8 @@ public class FormBuscaCategoria extends JFrameBusca {
 
         @Override
         protected Void doInBackground() throws Exception {
-
             DefaultTableModel model = (DefaultTableModel) tabelaCategoria.getModel();
-
+            Utils.clearTableModel(model);
             if (!apenasComDepreciacoes) {
                 categorias = new EstCategoriaDAO().getAll();
             } else {

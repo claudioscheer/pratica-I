@@ -27,6 +27,7 @@ import javax.persistence.TemporalType;
 public class PatNotaFiscal implements java.io.Serializable {
 
     private int notaCodigo;
+    private String notaDescricao;
     private CarPessoa carPessoa;
     private double notaValor;
     private Date notaDataEmissao;
@@ -44,6 +45,15 @@ public class PatNotaFiscal implements java.io.Serializable {
 
     public void setNotaCodigo(int notaCodigo) {
         this.notaCodigo = notaCodigo;
+    }
+
+    @NotNull
+    public String getNotaDescricao() {
+        return notaDescricao;
+    }
+
+    public void setNotaDescricao(String notaDescricao) {
+        this.notaDescricao = notaDescricao;
     }
 
     @NotNull

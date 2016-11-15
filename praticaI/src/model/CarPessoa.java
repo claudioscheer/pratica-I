@@ -29,16 +29,10 @@ public class CarPessoa implements java.io.Serializable {
     private String pessoaCidade;
     private String pessoaUF;
     private int pessoaCEP;
-<<<<<<< .mine
     private TipoUsuario pessoaLevel;
     private String pessoaLogin;
     private String pessoaSenha;
-    
-||||||| .r253
-    
-=======
 
->>>>>>> .r282
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nome")
     public int getPessoaId() {
@@ -153,7 +147,6 @@ public class CarPessoa implements java.io.Serializable {
     public void setCarcapOperacoesComerciais(List<CarcapOperacoesComerciais> carcapOperacoesComerciais) {
         this.carcapOperacoesComerciais = carcapOperacoesComerciais;
     }
-<<<<<<< .mine
 
     public TipoUsuario getPessoaLevel() {
         return pessoaLevel;
@@ -178,10 +171,5 @@ public class CarPessoa implements java.io.Serializable {
     public void setPessoaSenha(String pessoaSenha) {
         this.pessoaSenha = pessoaSenha;
     }
-    
-}||||||| .r253
-    
-}=======
 
 }
->>>>>>> .r282

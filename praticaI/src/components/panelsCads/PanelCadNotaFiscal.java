@@ -7,26 +7,19 @@ import forms.FormPrincipal;
 import forms.busca.FormBuscaItemNota;
 import forms.busca.FormBuscaNotaFiscal;
 import forms.busca.FormBuscaPessoa;
-import forms.busca.FormBuscaTipoBaixa;
 import forms.patrimonio.FormAddAtivoNotaFiscal;
 import java.awt.Frame;
 import java.awt.Point;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
-import javax.swing.text.MaskFormatter;
 import model.CarPessoa;
 import model.PatAtivoImobilizado;
 import model.PatItemNota;
@@ -94,8 +87,9 @@ public class PanelCadNotaFiscal extends WebPanel {
 
         this.validador = new Validador(Validador.TipoValidator.ICONE);
         this.validador.addObrigatorioValidator(txtChaveAcesso);
+        this.validador.addObrigatorioValidator(this.txtDescricao);
         this.validador.addApenasNumeroValidator(txtValor);
-//        this.validador.addObrigatorioValidator(txtFornecedor);
+        this.validador.addObrigatorioValidator(txtFornecedor);
         this.validador.addObrigatorioValidator(txtDataEmissao);
         this.validador.addObrigatorioValidator(txtDataEntrada);
     }
@@ -128,6 +122,7 @@ public class PanelCadNotaFiscal extends WebPanel {
     }
 
     private void setDadosForm() {
+        this.txtDescricao.setText(this.notaFiscal.getNotaDescricao());
         this.txtChaveAcesso.setText(this.notaFiscal.getNotaChaveAcesso());
         this.txtValor.setValue(this.notaFiscal.getNotaValor());
         this.txtFornecedor.setText(this.notaFiscal.getCarPessoa().getPessoaId() + " - " + this.notaFiscal.getCarPessoa().getPessoaNome());
@@ -150,7 +145,7 @@ public class PanelCadNotaFiscal extends WebPanel {
         this.notaFiscal.setNotaDataEmissao(this.txtDataEmissao.getDate());
         this.notaFiscal.setNotaDataEntrada(this.txtDataEntrada.getDate());
         this.notaFiscal.setCarPessoa((CarPessoa) this.txtFornecedor.getValue());
-
+        this.notaFiscal.setNotaDescricao(this.txtDescricao.getText());
         this.notaFiscal.setNotaValor(this.txtValor.getValue());
         this.notaFiscal.setNotaAtiva(true);
 
@@ -185,6 +180,8 @@ public class PanelCadNotaFiscal extends WebPanel {
         tabelaProdutos = new com.alee.laf.table.WebTable();
         txtValor = new components.TextFieldValorMonetario();
         txtChaveAcesso = new com.alee.laf.text.WebTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtDescricao = new com.alee.laf.text.WebTextField();
         panelOpcoes = new javax.swing.JPanel();
         btnSalvar = new com.alee.laf.button.WebButton();
         btnCancelar = new com.alee.laf.button.WebButton();
@@ -256,6 +253,8 @@ public class PanelCadNotaFiscal extends WebPanel {
         });
         jScrollPane1.setViewportView(tabelaProdutos);
 
+        jLabel7.setText("Descrição");
+
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
         panelItensLayout.setHorizontalGroup(
@@ -271,19 +270,6 @@ public class PanelCadNotaFiscal extends WebPanel {
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelItensLayout.createSequentialGroup()
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(panelItensLayout.createSequentialGroup()
-                                .addComponent(txtChaveAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59)
-                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(48, 48, 48)
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
                     .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,13 +280,33 @@ public class PanelCadNotaFiscal extends WebPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnRemoverProduto)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnAdicionarProduto)))))
+                                .addComponent(btnAdicionarProduto))))
+                    .addComponent(jLabel7)
+                    .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtDescricao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelItensLayout.createSequentialGroup()
+                            .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addGroup(panelItensLayout.createSequentialGroup()
+                                    .addComponent(txtChaveAcesso, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(59, 59, 59)
+                                    .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel5)
+                                        .addComponent(txtDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGap(48, 48, 48)
+                            .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtDataEmissao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4)))))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         panelItensLayout.setVerticalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelItensLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel5)
@@ -329,7 +335,7 @@ public class PanelCadNotaFiscal extends WebPanel {
                     .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAdicionarProduto)
                         .addComponent(btnRemoverProduto)))
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         scrollCadastro.setViewportView(panelItens);
@@ -483,6 +489,7 @@ public class PanelCadNotaFiscal extends WebPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelItens;
     private javax.swing.JPanel panelOpcoes;
@@ -491,6 +498,7 @@ public class PanelCadNotaFiscal extends WebPanel {
     private com.alee.laf.text.WebTextField txtChaveAcesso;
     private com.alee.extended.date.WebDateField txtDataEmissao;
     private com.alee.extended.date.WebDateField txtDataEntrada;
+    private com.alee.laf.text.WebTextField txtDescricao;
     private components.TextFieldFK txtFornecedor;
     private components.TextFieldValorMonetario txtValor;
     // End of variables declaration//GEN-END:variables

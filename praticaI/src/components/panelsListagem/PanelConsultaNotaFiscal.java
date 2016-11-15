@@ -26,11 +26,11 @@ public class PanelConsultaNotaFiscal extends WebPanel {
         this.tabelaNotasFiscais.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Chave acesso", "Data emissão", "Data entrada", "Fornecedor", "Valor"
+                    "Chave acesso", "Descrição", "Data emissão", "Data entrada", "Fornecedor", "Valor"
                 }
         ) {
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             @Override
@@ -132,12 +132,13 @@ public class PanelConsultaNotaFiscal extends WebPanel {
     }
 
     private Object[] notaToArray(PatNotaFiscal nota) {
-        Object[] o = new Object[5];
+        Object[] o = new Object[6];
         o[0] = nota.getNotaChaveAcesso();
-        o[1] = Utils.formatData(nota.getNotaDataEmissao());
-        o[2] = Utils.formatData(nota.getNotaDataEntrada());
-        o[3] = nota.getCarPessoa().getPessoaNome();
-        o[4] = nota.getNotaValor();
+        o[1] = nota.getNotaDescricao();
+        o[2] = Utils.formatData(nota.getNotaDataEmissao());
+        o[3] = Utils.formatData(nota.getNotaDataEntrada());
+        o[4] = nota.getCarPessoa().getPessoaNome();
+        o[5] = nota.getNotaValor();
         return o;
     }
 
