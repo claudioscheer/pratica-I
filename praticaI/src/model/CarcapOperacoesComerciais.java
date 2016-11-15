@@ -119,7 +119,7 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
     
     
   
-    @OneToOne(mappedBy = "carcapOperacoesComerciais")
+    @ManyToOne
     public EstProduto getProdutoId() {
         return produto;
     }

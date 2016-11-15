@@ -30,8 +30,6 @@ public class EstProduto implements java.io.Serializable {
     private Set<EstSaldo> saldos = new HashSet(0);
     private Set<PatItemNota> patItemNotas = new HashSet(0);
     private Set<EstMovimentacao> estMovimentacaos = new HashSet(0);
-    private CarcapOperacoesComerciais carcapOperacoesComerciais;
-    private CarCapContas carCapContas;
 
     public EstProduto() {
     }
@@ -145,23 +143,23 @@ public class EstProduto implements java.io.Serializable {
     }
 
    
-    @OneToOne
-    public CarcapOperacoesComerciais getCarcapOperacoesComerciais() {
-        return carcapOperacoesComerciais;
-    }
-
-    public void setCarcapOperacoesComerciais(CarcapOperacoesComerciais carcapOperacoesComerciais) {
-        this.carcapOperacoesComerciais = carcapOperacoesComerciais;
-    }
-
-
-    @OneToOne(mappedBy = "produto")
-    public CarCapContas getCarCapContas() {
-        return carCapContas;
-    }
-
-    public void setCarCapContas(CarCapContas carCapContas) {
-        this.carCapContas = carCapContas;
-    }
+//    @OneToMany
+//    public CarcapOperacoesComerciais getCarcapOperacoesComerciais() {
+//        return carcapOperacoesComerciais;
+//    }
+//
+//    public void setCarcapOperacoesComerciais(CarcapOperacoesComerciais carcapOperacoesComerciais) {
+//        this.carcapOperacoesComerciais = carcapOperacoesComerciais;
+//    }
+//
+//
+//    @OneToOne(mappedBy = "produto")
+//    public CarCapContas getCarCapContas() {
+//        return carCapContas;
+//    }
+//
+//    public void setCarCapContas(CarCapContas carCapContas) {
+//        this.carCapContas = carCapContas;
+//    }
 
 }

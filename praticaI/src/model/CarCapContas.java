@@ -33,6 +33,8 @@ public class CarCapContas implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta")
     private int contaId;
 
+    private double valorRecebido;
+    
     @Enumerated
     private StatusConta contaStatus;
 
@@ -75,7 +77,7 @@ public class CarCapContas implements java.io.Serializable {
     @ManyToOne
     private CarcapOperacoesComerciais carcapOperacoesComerciais;
 
-        
+     @ManyToOne   
     public EstProduto getProduto() {
         return produto;
     }
@@ -199,9 +201,10 @@ public class CarCapContas implements java.io.Serializable {
 
     public CarCapContas() {
     }
+    
 
     public CarCapContas(int contaId, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, String produto, String descricao,
-            MeioRecebimentoPagamento meio_recebimento, double quantidade_produto, FormaPagamento forma_rece_pagamento) {
+            MeioRecebimentoPagamento meio_recebimento, double quantidade_produto, FormaPagamento forma_rece_pagamento,double valorRecebido) {
         this.contaId = contaId;
         this.contaValorTotal = contaValorTotal;
         this.contaDataEmissao = contaDataEmissao;
@@ -212,10 +215,11 @@ public class CarCapContas implements java.io.Serializable {
         this.meio_recebimento = meio_recebimento;
         this.quantidade_produto = quantidade_produto;
         this.forma_rece_pagamento = forma_rece_pagamento;
+        this.valorRecebido = valorRecebido;
     }
 
     public CarCapContas(int contaId, StatusConta contaStatus, CarEstTipoOperacao carEstTipoOperacao, CarPessoa carPessoa, FlxcxOperacoes flxcxOperacoes, PatNotaFiscal patNotaFiscal, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, String produto, String descricao,
-            MeioRecebimentoPagamento meio_recebimento, double quantidade_produto, FormaPagamento forma_rece_pagamento) {
+            MeioRecebimentoPagamento meio_recebimento, double quantidade_produto, FormaPagamento forma_rece_pagamento,double valo) {
         this.contaId = contaId;
         this.contaStatus = contaStatus;
         this.carEstTipoOperacao = carEstTipoOperacao;
@@ -231,6 +235,7 @@ public class CarCapContas implements java.io.Serializable {
         this.meio_recebimento = meio_recebimento;
         this.quantidade_produto = quantidade_produto;
         this.forma_rece_pagamento = forma_rece_pagamento;
+        this.valorRecebido = valo;
     }
 
     public int getContaId() {
@@ -347,6 +352,14 @@ public class CarCapContas implements java.io.Serializable {
 //    }
 //
 //   
+
+    public double getValorRecebido() {
+        return valorRecebido;
+    }
+
+    public void setValorRecebido(double valorRecebido) {
+        this.valorRecebido = valorRecebido;
+    }
 
 
 }
