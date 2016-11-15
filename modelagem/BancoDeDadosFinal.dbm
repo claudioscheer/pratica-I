@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.8.2" last-position="64,0" last-zoom="0.7"
+	 default-schema="public" default-owner="postgres">
+<database name="BancoPratica" encoding="UTF8" lc-collate="Portuguese_Brazil" lc-ctype="Portuguese_Brazil">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="carcapcontas">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1480" y="503"/>
+	<column name="contaid" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="acrescimo" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="contadataemissao">
+		<type name="date"/>
+	</column>
+	<column name="contanumparcelas" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="contastatus">
+		<type name="integer"/>
+	</column>
+	<column name="contatipo">
+		<type name="integer"/>
+	</column>
+	<column name="contavalorpago" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="contavalortotal" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="descricao">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="forma_rece_pagamento">
+		<type name="integer"/>
+	</column>
+	<column name="meio_recebimento">
+		<type name="integer"/>
+	</column>
+	<column name="forma_pagamento_receb" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="caresttipooperacao_tpopid">
+		<type name="integer"/>
+	</column>
+	<column name="carpessoa_pessoaid">
+		<type name="integer"/>
+	</column>
+	<column name="carcapoperacoescomerciais_operacoesid">
+		<type name="integer"/>
+	</column>
+	<column name="flxcxoperacoes_opcodigo">
+		<type name="integer"/>
+	</column>
+	<column name="patnotafiscal_notacodigo">
+		<type name="integer"/>
+	</column>
+	<column name="produto_produtoid">
+		<type name="integer"/>
+	</column>
+	<constraint name="carcapcontas_pkey" type="pk-constr" table="public.carcapcontas">
+		<columns names="contaid" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="caresttipooperacao">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1880" y="1260"/>
+	<column name="tpopid" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="tpopdescricao">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="tpopnome">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="tpoptipo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="caresttipooperacao_pkey" type="pk-constr" table="public.caresttipooperacao">
+		<columns names="tpopid" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="carpessoa">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2200" y="980"/>
+	<column name="pessoaid" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="pessoabairro">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="pessoacep" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="pessoacidade">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="pessoacnpjcpf">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="pessoacomplemento">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="pessoacpfcnpj">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="pessoaemail">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="pessoaendereco">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="pessoafone">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="pessoanome">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="pessoatipo">
+		<type name="integer"/>
+	</column>
+	<column name="pessoauf">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="carpessoa_pkey" type="pk-constr" table="public.carpessoa">
+		<columns names="pessoaid" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="carcapoperacoescomerciais">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1360" y="63"/>
+	<column name="operacoesid" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="datlancamento">
+		<type name="date"/>
+	</column>
+	<column name="descricao">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="movimento">
+		<type name="integer"/>
+	</column>
+	<column name="numeroparcela" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="quantidade" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="tipodeconta">
+		<type name="integer"/>
+	</column>
+	<column name="operacaonota_notacodigo">
+		<type name="integer"/>
+	</column>
+	<column name="pessoa_pessoaid">
+		<type name="integer"/>
+	</column>
+	<constraint name="carcapoperacoescomerciais_pkey" type="pk-constr" table="public.carcapoperacoescomerciais">
+		<columns names="operacoesid" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="estcategoria">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="740" y="583"/>
+	<column name="categoriaid" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="categoriadescricao">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="estcategoria_pkey" type="pk-constr" table="public.estcategoria">
+		<columns names="categoriaid" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="estmarca">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="220" y="303"/>
+	<column name="marcaid" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="marcadescricao">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="estmarca_pkey" type="pk-constr" table="public.estmarca">
+		<columns names="marcaid" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="estmovimentacao">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="800" y="780"/>
+	<column name="movid" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="movdata">
+		<type name="date"/>
+	</column>
+	<column name="movquantidade" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="movtotal" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="movvlrunit" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="caresttipooperacao_tpopid">
+		<type name="integer"/>
+	</column>
+	<column name="estproduto_produtoid">
+		<type name="integer"/>
+	</column>
+	<constraint name="estmovimentacao_pkey" type="pk-constr" table="public.estmovimentacao">
+		<columns names="movid" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="estproduto">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="660" y="246"/>
+	<column name="produtoid" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="produtodescricao">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="produtoreferencia">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="produtostatus" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="carcapoperacoescomerciais_operacoesid">
+		<type name="integer"/>
+	</column>
+	<column name="estcategoria_categoriaid">
+		<type name="integer"/>
+	</column>
+	<column name="estmarca_marcaid">
+		<type name="integer"/>
+	</column>
+	<column name="estunidademedida_unidademedidaid">
+		<type name="integer"/>
+	</column>
+	<constraint name="estproduto_pkey" type="pk-constr" table="public.estproduto">
+		<columns names="produtoid" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="estsaldo">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="620" y="26"/>
+	<column name="saldo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="datavalidade">
+		<type name="date"/>
+	</column>
+	<column name="lote" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="estproduto_produtoid">
+		<type name="integer"/>
+	</column>
+	<constraint name="estsaldo_pkey" type="pk-constr" table="public.estsaldo">
+		<columns names="saldo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="estunidademedida">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="140" y="103"/>
+	<column name="unidademedidaid" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="unidademedidadescricao">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="estunidademedida_pkey" type="pk-constr" table="public.estunidademedida">
+		<columns names="unidademedidaid" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="flxcxespecificacoes">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2220" y="340"/>
+	<column name="espcodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="espcodigopai">
+		<type name="integer"/>
+	</column>
+	<column name="espdescricao">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="flxcxespecificacoes_pkey" type="pk-constr" table="public.flxcxespecificacoes">
+		<columns names="espcodigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="flxcxfluxocaixa">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2340" y="780"/>
+	<column name="fluxcodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="fluxdata">
+		<type name="date"/>
+	</column>
+	<column name="fluxitem">
+		<type name="integer"/>
+	</column>
+	<column name="fluxqtdcolaboradores">
+		<type name="integer"/>
+	</column>
+	<column name="carpessoa_pessoaid">
+		<type name="integer"/>
+	</column>
+	<constraint name="flxcxfluxocaixa_pkey" type="pk-constr" table="public.flxcxfluxocaixa">
+		<columns names="fluxcodigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="flxcxfluxocaixafechamento">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2260" y="620"/>
+	<column name="fechcodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="anoequivalente" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="fechdata">
+		<type name="date"/>
+	</column>
+	<column name="fechsaldodisponivel" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="fechsaldomes" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="mesequivalente" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="flxcxfluxocaixafechamento_pkey" type="pk-constr" table="public.flxcxfluxocaixafechamento">
+		<columns names="fechcodigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="flxcxoperacoes">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="2120" y="460"/>
+	<column name="opcodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="opdescricao">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="flxcxespecificacoes_espcodigo">
+		<type name="integer"/>
+	</column>
+	<constraint name="flxcxoperacoes_pkey" type="pk-constr" table="public.flxcxoperacoes">
+		<columns names="opcodigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="log">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1840" y="23"/>
+	<column name="logcodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="logdata">
+		<type name="date"/>
+	</column>
+	<column name="logdescricao">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="logobjeto">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="logtipo">
+		<type name="integer"/>
+	</column>
+	<constraint name="log_pkey" type="pk-constr" table="public.log">
+		<columns names="logcodigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="patativoimobilizado">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="200" y="543"/>
+	<column name="ativocodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="ativo" not-null="true">
+		<type name="boolean"/>
+	</column>
+	<column name="ativodepreciavel" not-null="true">
+		<type name="boolean"/>
+	</column>
+	<column name="ativodescricao" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="ativoestadobem" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="ativotaxavalorresidual" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="ativoutilizacao" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="ativovaloratual" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="ativovalororiginal" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="ativovalorresidual" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="estcategoria_categoriaid" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="estmarca_marcaid" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="patitemnota_itemnotacodigo">
+		<type name="integer"/>
+	</column>
+	<constraint name="patativoimobilizado_pkey" type="pk-constr" table="public.patativoimobilizado">
+		<columns names="ativocodigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="patbaixa">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="180" y="823"/>
+	<column name="baixacodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="baixadatabaixa" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="patativoimobilizado_ativocodigo">
+		<type name="integer"/>
+	</column>
+	<column name="pattipobaixa_tipobaixacodigo">
+		<type name="integer"/>
+	</column>
+	<constraint name="patbaixa_pkey" type="pk-constr" table="public.patbaixa">
+		<columns names="baixacodigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="patdepreciacao">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1820" y="160"/>
+	<column name="depreciacaocodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="depreciacaotaxaanual" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="depreciacaotaxadiaria" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="depreciacaotaxamensal" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="depreciacaovidautil" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="estcategoria_categoriaid">
+		<type name="integer"/>
+	</column>
+	<constraint name="patdepreciacao_pkey" type="pk-constr" table="public.patdepreciacao">
+		<columns names="depreciacaocodigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="pathistoricodepreciacao">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="160" y="1083"/>
+	<column name="historicodepreciacaocodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="historicodepreciacaoano" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="historicodepreciacaodia" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="historicodepreciacaomes" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="historicodepreciacaovalor" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="patativoimobilizado_ativocodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="pathistoricodepreciacao_pkey" type="pk-constr" table="public.pathistoricodepreciacao">
+		<columns names="historicodepreciacaocodigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="patitemnota">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="720" y="1109"/>
+	<column name="itemnotacodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="itemnotaordem" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="itemnotaquantidade" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="itemnotavalortotal" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="itemnotavalorunitario" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="itemnotacontrolavel" not-null="true">
+		<type name="boolean"/>
+	</column>
+	<column name="estproduto_produtoid" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="patnotafiscal_notacodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="patitemnota_pkey" type="pk-constr" table="public.patitemnota">
+		<columns names="itemnotacodigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="patnotafiscal">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1200" y="1169"/>
+	<column name="notacodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="notaativa" not-null="true">
+		<type name="boolean"/>
+	</column>
+	<column name="notachaveacesso" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="notadataemissao" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="notadataentrada" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="notavalor" not-null="true">
+		<type name="double precision"/>
+	</column>
+	<column name="carpessoa_pessoaid" not-null="true">
+		<type name="integer"/>
+	</column>
+	<constraint name="patnotafiscal_pkey" type="pk-constr" table="public.patnotafiscal">
+		<columns names="notacodigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="pattipobaixa">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="340" y="1329"/>
+	<column name="tipobaixacodigo" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="tipobaixadescricao" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="pattipobaixa_pkey" type="pk-constr" table="public.pattipobaixa">
+		<columns names="tipobaixacodigo" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="seq_fechcodigo"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_fluxcodigo"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_ativo_imobilizado"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_baixa"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_categoria"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_conta"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_depreciacao"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_historico_depreciacao"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_item_nota"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_log"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_marca"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_nome"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_nota_fiscal"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_opcodigo"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_opcomercias"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_produto"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_tipooperacao"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_tipo_baixa"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<sequence name="seq_unidademedida"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="public"/>
+	<role name="postgres"/>
+</sequence>
+
+<constraint name="fk_1xea7t5ps9ix80f8b2g5ye60e" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.caresttipooperacao" table="public.carcapcontas">
+	<columns names="caresttipooperacao_tpopid" ref-type="src-columns"/>
+	<columns names="tpopid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_qwejkph71q7vpctb5yvu9b80f" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.carpessoa" table="public.carcapcontas">
+	<columns names="carpessoa_pessoaid" ref-type="src-columns"/>
+	<columns names="pessoaid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_5tko0h5w0sw6phil30kaax5qw" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.carcapoperacoescomerciais" table="public.carcapcontas">
+	<columns names="carcapoperacoescomerciais_operacoesid" ref-type="src-columns"/>
+	<columns names="operacoesid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_7dd2hiiw9i6qmbhw4xsovytnb" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.flxcxoperacoes" table="public.carcapcontas">
+	<columns names="flxcxoperacoes_opcodigo" ref-type="src-columns"/>
+	<columns names="opcodigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_a9rbw5a7kva9sdhjk4hq1ur1o" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.patnotafiscal" table="public.carcapcontas">
+	<columns names="patnotafiscal_notacodigo" ref-type="src-columns"/>
+	<columns names="notacodigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_spf5ob154l3ss88pg3o1hkdx3" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estproduto" table="public.carcapcontas">
+	<columns names="produto_produtoid" ref-type="src-columns"/>
+	<columns names="produtoid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_o74phx89oiqpvlfttw0scik89" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.patnotafiscal" table="public.carcapoperacoescomerciais">
+	<columns names="operacaonota_notacodigo" ref-type="src-columns"/>
+	<columns names="notacodigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_4hhuil7toyi54ph80gf2jg3a4" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.carpessoa" table="public.carcapoperacoescomerciais">
+	<columns names="pessoa_pessoaid" ref-type="src-columns"/>
+	<columns names="pessoaid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_ouiqi594bdsje6wq86g73p7r9" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.caresttipooperacao" table="public.estmovimentacao">
+	<columns names="caresttipooperacao_tpopid" ref-type="src-columns"/>
+	<columns names="tpopid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_td1u5qdm3ncxg504ixi53vqvg" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estproduto" table="public.estmovimentacao">
+	<columns names="estproduto_produtoid" ref-type="src-columns"/>
+	<columns names="produtoid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_3smvqgobcrbhj8gi4px5xahrw" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.carcapoperacoescomerciais" table="public.estproduto">
+	<columns names="carcapoperacoescomerciais_operacoesid" ref-type="src-columns"/>
+	<columns names="operacoesid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_ks0m6ht35vib57sm259kasnoj" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estcategoria" table="public.estproduto">
+	<columns names="estcategoria_categoriaid" ref-type="src-columns"/>
+	<columns names="categoriaid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_ex1egbb2se01hhrxmylmxvj7g" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estmarca" table="public.estproduto">
+	<columns names="estmarca_marcaid" ref-type="src-columns"/>
+	<columns names="marcaid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_p64nk300sog6nlid8x5vcoxdi" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estunidademedida" table="public.estproduto">
+	<columns names="estunidademedida_unidademedidaid" ref-type="src-columns"/>
+	<columns names="unidademedidaid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_li7m6hkwb4bmh3a0ksw7eu1xp" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estproduto" table="public.estsaldo">
+	<columns names="estproduto_produtoid" ref-type="src-columns"/>
+	<columns names="produtoid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_mj0fjjl05t4okn9ucsc5p6vmi" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.carpessoa" table="public.flxcxfluxocaixa">
+	<columns names="carpessoa_pessoaid" ref-type="src-columns"/>
+	<columns names="pessoaid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_ov95snwp6qs7he20w6sxm0r5w" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.flxcxespecificacoes" table="public.flxcxoperacoes">
+	<columns names="flxcxespecificacoes_espcodigo" ref-type="src-columns"/>
+	<columns names="espcodigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_3i1xi3vvcct7i2sh1fs0dihgq" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estcategoria" table="public.patativoimobilizado">
+	<columns names="estcategoria_categoriaid" ref-type="src-columns"/>
+	<columns names="categoriaid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_kttsp6jkuai6a4a5yldtsiohu" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estmarca" table="public.patativoimobilizado">
+	<columns names="estmarca_marcaid" ref-type="src-columns"/>
+	<columns names="marcaid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_49ot7rpfuty9gn9qwvj9tt0ck" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.patitemnota" table="public.patativoimobilizado">
+	<columns names="patitemnota_itemnotacodigo" ref-type="src-columns"/>
+	<columns names="itemnotacodigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_c9p4un82ry3k9psan7ulreqsj" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.patativoimobilizado" table="public.patbaixa">
+	<columns names="patativoimobilizado_ativocodigo" ref-type="src-columns"/>
+	<columns names="ativocodigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_7lq6ay1l9vfvaj87hiyt9nrfk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.pattipobaixa" table="public.patbaixa">
+	<columns names="pattipobaixa_tipobaixacodigo" ref-type="src-columns"/>
+	<columns names="tipobaixacodigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_omwulrihomeus8e4g2loul3l4" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estcategoria" table="public.patdepreciacao">
+	<columns names="estcategoria_categoriaid" ref-type="src-columns"/>
+	<columns names="categoriaid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_smqx244jhr185t8yf0wnc6j21" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.patativoimobilizado" table="public.pathistoricodepreciacao">
+	<columns names="patativoimobilizado_ativocodigo" ref-type="src-columns"/>
+	<columns names="ativocodigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_byf8fhu2bjgumilrwd67ouw1c" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.estproduto" table="public.patitemnota">
+	<columns names="estproduto_produtoid" ref-type="src-columns"/>
+	<columns names="produtoid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_lunnp91u5pqroggbmgjxsxvl7" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.patnotafiscal" table="public.patitemnota">
+	<columns names="patnotafiscal_notacodigo" ref-type="src-columns"/>
+	<columns names="notacodigo" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk_3vh6y9x2owh4tyg91gu3umkyg" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.carpessoa" table="public.patnotafiscal">
+	<columns names="carpessoa_pessoaid" ref-type="src-columns"/>
+	<columns names="pessoaid" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_carcapcontas_caresttipooperacao" type="relfk"
+	 custom-color="#83af1f"
+	 src-table="public.carcapcontas"
+	 dst-table="public.caresttipooperacao"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_carcapcontas_carpessoa" type="relfk"
+	 custom-color="#5aa578"
+	 src-table="public.carcapcontas"
+	 dst-table="public.carpessoa"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_carcapcontas_carcapoperacoescomerciais" type="relfk"
+	 custom-color="#4b3e56"
+	 src-table="public.carcapcontas"
+	 dst-table="public.carcapoperacoescomerciais"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_carcapcontas_flxcxoperacoes" type="relfk"
+	 custom-color="#9ac721"
+	 src-table="public.carcapcontas"
+	 dst-table="public.flxcxoperacoes"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_carcapcontas_patnotafiscal" type="relfk"
+	 custom-color="#249b49"
+	 src-table="public.carcapcontas"
+	 dst-table="public.patnotafiscal"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_carcapcontas_estproduto" type="relfk"
+	 custom-color="#942665"
+	 src-table="public.carcapcontas"
+	 dst-table="public.estproduto"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_carcapoperacoescomerciais_patnotafiscal" type="relfk"
+	 custom-color="#abb258"
+	 src-table="public.carcapoperacoescomerciais"
+	 dst-table="public.patnotafiscal"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_carcapoperacoescomerciais_carpessoa" type="relfk"
+	 custom-color="#94e1e5"
+	 src-table="public.carcapoperacoescomerciais"
+	 dst-table="public.carpessoa"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_estmovimentacao_caresttipooperacao" type="relfk"
+	 custom-color="#a239f5"
+	 src-table="public.estmovimentacao"
+	 dst-table="public.caresttipooperacao"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_estmovimentacao_estproduto" type="relfk"
+	 custom-color="#4e132e"
+	 src-table="public.estmovimentacao"
+	 dst-table="public.estproduto"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_estproduto_carcapoperacoescomerciais" type="relfk"
+	 custom-color="#081cb1"
+	 src-table="public.estproduto"
+	 dst-table="public.carcapoperacoescomerciais"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_estproduto_estcategoria" type="relfk"
+	 custom-color="#87ec86"
+	 src-table="public.estproduto"
+	 dst-table="public.estcategoria"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_estproduto_estmarca" type="relfk"
+	 custom-color="#63e1f3"
+	 src-table="public.estproduto"
+	 dst-table="public.estmarca"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_estproduto_estunidademedida" type="relfk"
+	 custom-color="#e41bea"
+	 src-table="public.estproduto"
+	 dst-table="public.estunidademedida"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_estsaldo_estproduto" type="relfk"
+	 custom-color="#36beed"
+	 src-table="public.estsaldo"
+	 dst-table="public.estproduto"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_flxcxfluxocaixa_carpessoa" type="relfk"
+	 custom-color="#871fa4"
+	 src-table="public.flxcxfluxocaixa"
+	 dst-table="public.carpessoa"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_flxcxoperacoes_flxcxespecificacoes" type="relfk"
+	 custom-color="#484368"
+	 src-table="public.flxcxoperacoes"
+	 dst-table="public.flxcxespecificacoes"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_patativoimobilizado_estcategoria" type="relfk"
+	 custom-color="#ce5d86"
+	 src-table="public.patativoimobilizado"
+	 dst-table="public.estcategoria"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_patativoimobilizado_estmarca" type="relfk"
+	 custom-color="#132c5f"
+	 src-table="public.patativoimobilizado"
+	 dst-table="public.estmarca"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_patativoimobilizado_patitemnota" type="relfk"
+	 custom-color="#3aff7d"
+	 src-table="public.patativoimobilizado"
+	 dst-table="public.patitemnota"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_patbaixa_patativoimobilizado" type="relfk"
+	 custom-color="#5cce88"
+	 src-table="public.patbaixa"
+	 dst-table="public.patativoimobilizado"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_patbaixa_pattipobaixa" type="relfk"
+	 custom-color="#264253"
+	 src-table="public.patbaixa"
+	 dst-table="public.pattipobaixa"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_patdepreciacao_estcategoria" type="relfk"
+	 custom-color="#e55a24"
+	 src-table="public.patdepreciacao"
+	 dst-table="public.estcategoria"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_pathistoricodepreciacao_patativoimobilizado" type="relfk"
+	 custom-color="#044d5b"
+	 src-table="public.pathistoricodepreciacao"
+	 dst-table="public.patativoimobilizado"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_patitemnota_estproduto" type="relfk"
+	 custom-color="#713b0a"
+	 src-table="public.patitemnota"
+	 dst-table="public.estproduto"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_patitemnota_patnotafiscal" type="relfk"
+	 custom-color="#6217d0"
+	 src-table="public.patitemnota"
+	 dst-table="public.patnotafiscal"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_patnotafiscal_carpessoa" type="relfk"
+	 custom-color="#aa9ef1"
+	 src-table="public.patnotafiscal"
+	 dst-table="public.carpessoa"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>
