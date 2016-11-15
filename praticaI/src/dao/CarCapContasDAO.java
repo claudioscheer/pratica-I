@@ -120,6 +120,23 @@ public class CarCapContasDAO {
         return contas;
 
     }
+    
+        public CarCapContas BuscarContasId(int id) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+
+        Query query = session.createQuery("from CarCapContas as a where conta_id =:codigo ");
+
+        query.setParameter("codigo", id);
+
+        CarCapContas contas = (CarCapContas) query.uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+        
+        return contas;
+
+    }
 
     public double SomarContas(TipoConta tipo, Date dataInicial, Date dataFinal) {
 

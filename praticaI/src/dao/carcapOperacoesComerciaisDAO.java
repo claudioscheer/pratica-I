@@ -95,6 +95,27 @@ public class carcapOperacoesComerciaisDAO {
         return contas;
 
     }
+    
+    public CarcapOperacoesComerciais BuscarId(int id){
+        
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+
+        Query query = session.createQuery("from car_cap_contas as a where operacoesid =:id");
+        query.setParameter("id", id);
+
+
+        CarcapOperacoesComerciais contas = (CarcapOperacoesComerciais) query.list();
+        session.getTransaction().commit();
+        session.close();
+        return contas;
+        
+        
+    }
+
+    
+    
 
 //    public double SomarContas(TipoConta tipo, Date dataInicial, Date dataFinal) {
 //
