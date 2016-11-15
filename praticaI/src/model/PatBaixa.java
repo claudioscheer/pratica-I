@@ -1,14 +1,12 @@
 package model;
 // Generated 22/10/2016 10:09:26 by Hibernate Tools 4.3.1
 
+import com.sun.istack.internal.NotNull;
 import java.util.Date;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -28,7 +26,7 @@ public class PatBaixa implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_baixa")
-    @Column(nullable = false)
+    @NotNull
     public int getBaixaCodigo() {
         return this.baixaCodigo;
     }
@@ -37,7 +35,7 @@ public class PatBaixa implements java.io.Serializable {
         this.baixaCodigo = baixaCodigo;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     public PatAtivoImobilizado getPatAtivoImobilizado() {
         return this.patAtivoImobilizado;
     }
@@ -46,7 +44,7 @@ public class PatBaixa implements java.io.Serializable {
         this.patAtivoImobilizado = patAtivoImobilizado;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     public PatTipoBaixa getPatTipoBaixa() {
         return this.patTipoBaixa;
     }
@@ -56,7 +54,7 @@ public class PatBaixa implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
+    @NotNull
     public Date getBaixaDataBaixa() {
         return this.baixaDataBaixa;
     }

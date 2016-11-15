@@ -81,6 +81,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.validador.addMenorQueValidator(this.txtTaxaValorResidual, 100.00);
 
         FormBuscaCategoria formCategoria = new FormBuscaCategoria();
+        formCategoria.setApenasComDepreciacoes(true);
         formCategoria.setFrameBloquear(FormPrincipal.getInstance());
         this.txtCategoria.setFrame(formCategoria);
 
@@ -133,10 +134,10 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.ativoImobilizado.setAtivoEstadoBem(EstadoBem.values()[this.comboEstadoBem.getSelectedIndex()]);
         this.ativoImobilizado.setAtivoUtilizacao(UtilizacaoBem.values()[this.comboUtilizacaoBem.getSelectedIndex()]);
 
-        if (!this.editando){
+        if (!this.editando) {
             this.ativoImobilizado.setAtivoValorAtual(this.ativoImobilizado.getAtivoValorOriginal());
         }
-        
+
         if (this.notaFiscal != null) {
             this.ativoImobilizado.setPatItemNota(this.notaFiscal.getPatItemNotas().get(this.comboItemNota.getSelectedIndex()));
         }

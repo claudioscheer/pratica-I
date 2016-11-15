@@ -48,6 +48,8 @@ public class PatNotaFiscalDAO {
             session.getTransaction().commit();
         } catch (Exception e) {
             ok = false;
+        } finally {
+            session.close();
         }
         return ok;
     }
@@ -69,7 +71,7 @@ public class PatNotaFiscalDAO {
     }
 
     public List<PatNotaFiscal> getAll(int paginaBuscar, int indexfiltro, String filtro) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         String where = "";
         if (!filtro.isEmpty()) {
@@ -97,14 +99,16 @@ public class PatNotaFiscalDAO {
         query.setFirstResult(paginaBuscar * utils.Utils.MaxResultQuery);
         List<PatNotaFiscal> ativos = query.list();
         session.getTransaction().commit();
+        session.close();
         return ativos;
     }
 
     public PatNotaFiscal get(int nota) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         PatNotaFiscal notaFiscal = (PatNotaFiscal) session.get(PatNotaFiscal.class, nota);
         session.getTransaction().commit();
+        session.close();
         return notaFiscal;
     }
 

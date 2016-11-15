@@ -1,5 +1,6 @@
 package model;
 
+import com.sun.istack.internal.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +25,6 @@ import javax.persistence.TemporalType;
 @SequenceGenerator(name = "seq_nota_fiscal", sequenceName = "seq_nota_fiscal", allocationSize = 1)
 @Table(schema = "public")
 public class PatNotaFiscal implements java.io.Serializable {
-    private CarcapOperacoesComerciais carcapOperacoesComerciais;
 
     private int notaCodigo;
     private CarPessoa carPessoa;
@@ -32,12 +32,12 @@ public class PatNotaFiscal implements java.io.Serializable {
     private Date notaDataEmissao;
     private String notaChaveAcesso;
     private Date notaDataEntrada;
-    private List<PatItemNota> patItemNotas;
     private boolean notaAtiva;
+    private List<PatItemNota> patItemNotas;
 
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_fiscal")
-    @Column(nullable = false)
     public int getNotaCodigo() {
         return this.notaCodigo;
     }
@@ -46,8 +46,8 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.notaCodigo = notaCodigo;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @NotNull
+    @ManyToOne
     public CarPessoa getCarPessoa() {
         return this.carPessoa;
     }
@@ -56,7 +56,7 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.carPessoa = carPessoa;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public double getNotaValor() {
         return this.notaValor;
     }
@@ -65,8 +65,8 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.notaValor = notaValor;
     }
 
+    @NotNull
     @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
     public Date getNotaDataEmissao() {
         return this.notaDataEmissao;
     }
@@ -75,7 +75,7 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.notaDataEmissao = notaDataEmissao;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public String getNotaChaveAcesso() {
         return this.notaChaveAcesso;
     }
@@ -84,8 +84,8 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.notaChaveAcesso = notaChaveAcesso;
     }
 
+    @NotNull
     @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
     public Date getNotaDataEntrada() {
         return this.notaDataEntrada;
     }
@@ -94,7 +94,7 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.notaDataEntrada = notaDataEntrada;
     }
 
-    @OneToMany(mappedBy = "patNotaFiscal", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patNotaFiscal", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @OrderBy("itemNotaOrdem ASC")
     public List<PatItemNota> getPatItemNotas() {
         if (this.patItemNotas == null) {
@@ -128,14 +128,5 @@ public class PatNotaFiscal implements java.io.Serializable {
 
     public void removeItemNota(int index) {
         this.getPatItemNotas().remove(index);
-    }
-
-    @OneToOne(mappedBy = "operacaoNota")
-    public CarcapOperacoesComerciais getCarcapOperacoesComerciais() {
-        return carcapOperacoesComerciais;
-    }
-
-    public void setCarcapOperacoesComerciais(CarcapOperacoesComerciais carcapOperacoesComerciais) {
-        this.carcapOperacoesComerciais = carcapOperacoesComerciais;
     }
 }

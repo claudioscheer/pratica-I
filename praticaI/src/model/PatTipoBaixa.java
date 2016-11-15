@@ -1,5 +1,6 @@
 package model;
 
+import com.sun.istack.internal.NotNull;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +19,7 @@ public class PatTipoBaixa implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tipo_baixa")
-    @Column(nullable = false)
+    @NotNull
     public int getTipoBaixaCodigo() {
         return this.tipoBaixaCodigo;
     }
@@ -27,7 +28,7 @@ public class PatTipoBaixa implements java.io.Serializable {
         this.tipoBaixaCodigo = tipoBaixaCodigo;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public String getTipoBaixaDescricao() {
         return this.tipoBaixaDescricao;
     }

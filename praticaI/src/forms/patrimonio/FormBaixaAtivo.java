@@ -68,7 +68,7 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
 
         panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnSalvar.setText("Salvar");
+        btnSalvar.setText("Baixar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);

@@ -18,7 +18,6 @@ public class PatBaixaDAO {
             session.update(baixa.getPatAtivoImobilizado());
             session.save(baixa);
             session.getTransaction().commit();
-            session.close();
         } catch (HibernateException e) {
             ok = false;
         } finally {

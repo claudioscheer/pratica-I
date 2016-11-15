@@ -3,7 +3,10 @@ package forms.busca;
 import components.JFrameBusca;
 import components.TextFieldFK;
 import dao.EstCategoriaDAO;
+import dao.PatDepreciacaoDAO;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import model.EstCategoria;
@@ -15,10 +18,16 @@ public class FormBuscaCategoria extends JFrameBusca {
     private LoadCategorias loadCategorias;
     private List<EstCategoria> categorias;
 
+    private boolean apenasComDepreciacoes;
+
     public FormBuscaCategoria() {
         initComponents();
         this.buscarCategorias();
         this.setLocationRelativeTo(null);
+    }
+
+    public void setApenasComDepreciacoes(boolean apenasComDepreciacoes) {
+        this.apenasComDepreciacoes = apenasComDepreciacoes;
     }
 
     public void buscarCategorias() {
@@ -28,11 +37,16 @@ public class FormBuscaCategoria extends JFrameBusca {
 
     public class LoadCategorias extends SwingWorker<Void, Void> {
 
+        @Override
         protected Void doInBackground() throws Exception {
 
             DefaultTableModel model = (DefaultTableModel) tabelaCategoria.getModel();
 
-            categorias = new EstCategoriaDAO().getAll();
+            if (!apenasComDepreciacoes) {
+                categorias = new EstCategoriaDAO().getAll();
+            } else {
+                categorias = new PatDepreciacaoDAO().getAll().stream().map(PatDepreciacao::getEstCategoria).collect(Collectors.toList());
+            }
             for (EstCategoria categoria : categorias) {
                 Object[] o = new Object[2];
                 o[0] = categoria.getCategoriaId();
@@ -43,6 +57,7 @@ public class FormBuscaCategoria extends JFrameBusca {
             return null;
         }
 
+        @Override
         public void done() {
 
         }

@@ -1,8 +1,7 @@
 package model;
 
-import javax.persistence.Column;
+import com.sun.istack.internal.NotNull;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,7 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @SequenceGenerator(name = "seq_item_nota", sequenceName = "seq_item_nota", allocationSize = 1)
@@ -27,8 +25,8 @@ public class PatItemNota implements java.io.Serializable {
     private int itemNotaOrdem;
 
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_item_nota")
-    @Column(nullable = false)
     public int getItemNotaCodigo() {
         return this.itemNotaCodigo;
     }
@@ -37,8 +35,8 @@ public class PatItemNota implements java.io.Serializable {
         this.itemNotaCodigo = itemNotaCodigo;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @ManyToOne
+    @NotNull
     public EstProduto getEstProduto() {
         return this.estProduto;
     }
@@ -47,8 +45,8 @@ public class PatItemNota implements java.io.Serializable {
         this.estProduto = estProduto;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @ManyToOne
+    @NotNull
     public PatNotaFiscal getPatNotaFiscal() {
         return this.patNotaFiscal;
     }
@@ -57,7 +55,7 @@ public class PatItemNota implements java.io.Serializable {
         this.patNotaFiscal = patNotaFiscal;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public int getItemNotaQuantidade() {
         return this.itemNotaQuantidade;
     }
@@ -66,7 +64,7 @@ public class PatItemNota implements java.io.Serializable {
         this.itemNotaQuantidade = itemNotaQuantidade;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public double getItemNotaValorUnitario() {
         return this.itemNotaValorUnitario;
     }
@@ -75,7 +73,7 @@ public class PatItemNota implements java.io.Serializable {
         this.itemNotaValorUnitario = itemNotaValorUnitario;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public double getItemNotaValorTotal() {
         return this.itemNotaValorTotal;
     }
@@ -84,7 +82,7 @@ public class PatItemNota implements java.io.Serializable {
         this.itemNotaValorTotal = itemNotaValorTotal;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public boolean isItemNotacontrolavel() {
         return itemNotacontrolavel;
     }
@@ -93,7 +91,7 @@ public class PatItemNota implements java.io.Serializable {
         this.itemNotacontrolavel = itemNotacontrolavel;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public int getItemNotaOrdem() {
         return itemNotaOrdem;
     }

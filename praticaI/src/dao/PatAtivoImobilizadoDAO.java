@@ -9,35 +9,53 @@ import utils.HibernateUtil;
 public class PatAtivoImobilizadoDAO {
 
     public Boolean update(PatAtivoImobilizado ativoImobilizado) {
+        boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
-        session.update(ativoImobilizado);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            session.getTransaction().begin();
+            session.update(ativoImobilizado);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            ok = false;
+        } finally {
+            session.close();
+        }
+        return ok;
     }
 
     public Boolean insert(PatAtivoImobilizado ativoImobilizado) {
+        boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
-        session.save(ativoImobilizado);
-        session.getTransaction().commit();
-        session.close();
-        return true;
+        try {
+            session.getTransaction().begin();
+            session.save(ativoImobilizado);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            ok = false;
+        } finally {
+            session.close();
+        }
+        return ok;
     }
 
     public Boolean delete(PatAtivoImobilizado ativoImobilizado) {
+        boolean ok = true;
         ativoImobilizado.setAtivo(false);
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
-        session.update(ativoImobilizado);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.getTransaction().begin();
+            session.update(ativoImobilizado);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            ok = false;
+        } finally {
+            session.close();
+        }
         return true;
     }
 
     public List<PatAtivoImobilizado> getAll(int paginaBuscar, int indexfiltro, String filtro) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         String where = "";
         if (!filtro.isEmpty()) {
@@ -65,32 +83,36 @@ public class PatAtivoImobilizadoDAO {
         query.setMaxResults(utils.Utils.MaxResultQuery);
         List<PatAtivoImobilizado> ativos = query.list();
         session.getTransaction().commit();
+        session.close();
         return ativos;
     }
 
     public PatAtivoImobilizado get(int ativo) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         PatAtivoImobilizado ativoImobilizado = (PatAtivoImobilizado) session.get(PatAtivoImobilizado.class, ativo);
         session.getTransaction().commit();
+        session.close();
         return ativoImobilizado;
     }
 
     public List<PatAtivoImobilizado> getParaRelatorio() {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("from PatAtivoImobilizado a left join fetch a.patItemNota where a.ativo = true ");
         List<PatAtivoImobilizado> ativos = query.list();
         session.getTransaction().commit();
+        session.close();
         return ativos;
     }
 
     public List<PatAtivoImobilizado> getAtivosParaDepreciar() {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("from PatAtivoImobilizado a where a.ativo = true and a.ativoDepreciavel = true ");
         List<PatAtivoImobilizado> ativos = query.list();
         session.getTransaction().commit();
+        session.close();
         return ativos;
     }
 

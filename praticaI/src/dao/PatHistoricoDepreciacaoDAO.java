@@ -28,17 +28,18 @@ public class PatHistoricoDepreciacaoDAO {
     }
 
     public List<PatHistoricoDepreciacao> getAll(PatAtivoImobilizado ativo) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("FROM PatHistoricoDepreciacao hd WHERE hd.ativoImobilizado.ativoImobilizado = :ativoImobilizado");
         query.setParameter("ativoImobilizado", ativo.getAtivoCodigo());
         List<PatHistoricoDepreciacao> marcas = query.list();
         session.getTransaction().commit();
+        session.close();
         return marcas;
     }
 
     public PatHistoricoDepreciacao getUltimaDepreciacao() {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("FROM PatHistoricoDepreciacao hd ORDER BY hd.historicoDepreciacaoCodigo DESC");
         query.setMaxResults(1);
@@ -55,7 +56,7 @@ public class PatHistoricoDepreciacaoDAO {
         Calendar c = Calendar.getInstance();
         c.setTime(dia);
 
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("FROM PatHistoricoDepreciacao hd "
                 + "WHERE hd.patAtivoImobilizado = :ativo AND hd.historicoDepreciacaoMes = :mes "
@@ -66,6 +67,7 @@ public class PatHistoricoDepreciacaoDAO {
         query.setMaxResults(1);
         List<PatHistoricoDepreciacao> historico = query.list();
         session.getTransaction().commit();
+        session.close();
         if (historico.size() > 0) {
             return historico.get(0);
         }

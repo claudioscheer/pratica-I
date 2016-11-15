@@ -1,16 +1,12 @@
 package model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
+import com.sun.istack.internal.NotNull;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -28,7 +24,7 @@ public class PatDepreciacao implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_depreciacao")
-    @Column(nullable = false)
+    @NotNull
     public int getDepreciacaoCodigo() {
         return this.depreciacaoCodigo;
     }
@@ -37,7 +33,7 @@ public class PatDepreciacao implements java.io.Serializable {
         this.depreciacaoCodigo = depreciacaoCodigo;
     }
 
-    @OneToOne
+    @OneToOne(optional = true, fetch = FetchType.EAGER)
     public EstCategoria getEstCategoria() {
         return this.estCategoria;
     }
@@ -46,7 +42,7 @@ public class PatDepreciacao implements java.io.Serializable {
         this.estCategoria = estCategoria;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public double getDepreciacaoTaxaAnual() {
         return this.depreciacaoTaxaAnual;
     }
@@ -58,7 +54,7 @@ public class PatDepreciacao implements java.io.Serializable {
         this.setDepreciacaoTaxaDiaria(Double.valueOf(utils.Utils.removerCaracteresDoubleString(utils.Utils.format(this.depreciacaoTaxaMensal / 30))));
     }
 
-    @Column(nullable = false)
+    @NotNull
     public int getDepreciacaoVidaUtil() {
         return this.depreciacaoVidaUtil;
     }
@@ -67,7 +63,7 @@ public class PatDepreciacao implements java.io.Serializable {
         this.depreciacaoVidaUtil =  depreciacaoVidaUtil;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public double getDepreciacaoTaxaMensal() {
         return this.depreciacaoTaxaMensal;
     }
@@ -76,7 +72,7 @@ public class PatDepreciacao implements java.io.Serializable {
         this.depreciacaoTaxaMensal = depreciacaoTaxaMensal;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public double getDepreciacaoTaxaDiaria() {
         return depreciacaoTaxaDiaria;
     }

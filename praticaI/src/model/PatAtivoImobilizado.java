@@ -1,12 +1,11 @@
 package model;
 
+import com.sun.istack.internal.NotNull;
 import enumeraveis.EstadoBem;
 import enumeraveis.UtilizacaoBem;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +37,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_ativo_imobilizado")
-    @Column(nullable = false)
+    @NotNull
     public int getAtivoCodigo() {
         return this.ativoCodigo;
     }
@@ -47,8 +46,8 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoCodigo = ativoCodigo;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @ManyToOne
+    @NotNull
     public EstCategoria getEstCategoria() {
         return this.estCategoria;
     }
@@ -57,8 +56,8 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.estCategoria = estCategoria;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @ManyToOne
+    @NotNull
     public EstMarca getEstMarca() {
         return this.estMarca;
     }
@@ -67,7 +66,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.estMarca = estMarca;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public String getAtivoDescricao() {
         return this.ativoDescricao;
     }
@@ -76,7 +75,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoDescricao = ativoDescricao;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public double getAtivoValorOriginal() {
         return this.ativoValorOriginal;
     }
@@ -85,7 +84,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoValorOriginal = ativoValorOriginal;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public double getAtivoValorAtual() {
         return this.ativoValorAtual;
     }
@@ -94,7 +93,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoValorAtual = ativoValorAtual;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public double getAtivoTaxaValorResidual() {
         return this.ativoTaxaValorResidual;
     }
@@ -103,7 +102,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoTaxaValorResidual = ativoTaxaValorResidual;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public double getAtivoValorResidual() {
         return this.ativoValorResidual;
     }
@@ -112,7 +111,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoValorResidual = ativoValorResidual;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public EstadoBem getAtivoEstadoBem() {
         return this.ativoEstadoBem;
     }
@@ -121,7 +120,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoEstadoBem = ativoEstadoBem;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public UtilizacaoBem getAtivoUtilizacao() {
         return this.ativoUtilizacao;
     }
@@ -130,7 +129,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoUtilizacao = ativoUtilizacao;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patAtivoImobilizado")
+    @OneToMany(mappedBy = "patAtivoImobilizado")
     public List<PatHistoricoDepreciacao> getPatHistoricoDepreciacaos() {
         if (this.patHistoricoDepreciacaos == null) {
             this.patHistoricoDepreciacaos = new ArrayList<>();
@@ -142,7 +141,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.patHistoricoDepreciacaos = patHistoricoDepreciacaos;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     public PatItemNota getPatItemNota() {
         return patItemNota;
     }
@@ -151,7 +150,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.patItemNota = patItemNota;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public boolean isAtivoDepreciavel() {
         return ativoDepreciavel;
     }
@@ -160,7 +159,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoDepreciavel = ativoDepreciavel;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public boolean isAtivo() {
         return ativo;
     }

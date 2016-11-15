@@ -75,11 +75,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         });
     }
 
-    private PanelConsultaAtivoImobilizado getThis() {
-        return this;
-    }
-
     public void resetBusca() {
+        Utils.clearTableModel((DefaultTableModel) this.tabelaAtivosImobilizados.getModel());
         this.paginaBuscar = 0;
         this.ativosImobilizados.clear();
         new LoadAtivosImobilizados().execute();

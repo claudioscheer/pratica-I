@@ -1,13 +1,11 @@
 package model;
 
+import com.sun.istack.internal.NotNull;
 import java.util.Date;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -28,7 +26,7 @@ public class PatHistoricoDepreciacao implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_historico_depreciacao")
-    @Column(nullable = false)
+    @NotNull
     public int getHistoricoDepreciacaoCodigo() {
         return this.historicoDepreciacaoCodigo;
     }
@@ -37,8 +35,8 @@ public class PatHistoricoDepreciacao implements java.io.Serializable {
         this.historicoDepreciacaoCodigo = historicoDepreciacaoCodigo;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @ManyToOne
+    @NotNull
     public PatAtivoImobilizado getPatAtivoImobilizado() {
         return this.patAtivoImobilizado;
     }
@@ -48,7 +46,7 @@ public class PatHistoricoDepreciacao implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
+    @NotNull
     public Date getHistoricoDepreciacaoDia() {
         return this.historicoDepreciacaoDia;
     }
@@ -57,7 +55,7 @@ public class PatHistoricoDepreciacao implements java.io.Serializable {
         this.historicoDepreciacaoDia = historicoDepreciacaoDia;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public int getHistoricoDepreciacaoMes() {
         return this.historicoDepreciacaoMes;
     }
@@ -66,7 +64,7 @@ public class PatHistoricoDepreciacao implements java.io.Serializable {
         this.historicoDepreciacaoMes = historicoDepreciacaoMes;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public int getHistoricoDepreciacaoAno() {
         return this.historicoDepreciacaoAno;
     }
@@ -75,7 +73,7 @@ public class PatHistoricoDepreciacao implements java.io.Serializable {
         this.historicoDepreciacaoAno = historicoDepreciacaoAno;
     }
 
-    @Column(nullable = false)
+    @NotNull
     public double getHistoricoDepreciacaoValor() {
         return this.historicoDepreciacaoValor;
     }
