@@ -1,5 +1,6 @@
 package forms.patrimonio;
 
+import components.panelsListagem.PanelConsultaAtivoImobilizado;
 import components.panelsListagem.PanelDepreciar;
 import forms.FormPessoa;
 import forms.FormPrincipal;
@@ -11,8 +12,13 @@ import javax.swing.JFrame;
 
 public class FormDepreciar extends JFrame {
 
-    public FormDepreciar() {
+    private final PanelConsultaAtivoImobilizado panelConsultaAtivoImobilizado;
+
+    public FormDepreciar(PanelConsultaAtivoImobilizado panelConsultaAtivoImobilizado) {
+        this.panelConsultaAtivoImobilizado = panelConsultaAtivoImobilizado;
         this.initComponents();
+
+
         this.setLocationRelativeTo(null);
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -26,7 +32,7 @@ public class FormDepreciar extends JFrame {
         this.setBounds(10, 10, Utils.wPadrao, Utils.hPadrao);
         this.setMinimumSize(new Dimension(Utils.wPadrao, Utils.hPadrao));
 
-        this.panelGerarDepreciacao = PanelDepreciar.getInstance();
+        this.panelGerarDepreciacao = PanelDepreciar.getInstance(this.panelConsultaAtivoImobilizado);
 
         this.panelGerarDepreciacao.setEvents((e) -> {
             this.gerarDepreciacao();

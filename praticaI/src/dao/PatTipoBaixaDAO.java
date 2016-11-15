@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.PatTipoBaixa;
 import org.hibernate.HibernateException;
@@ -54,6 +55,7 @@ public class PatTipoBaixaDAO {
 
     public List<PatTipoBaixa> getAll(int paginaBuscar, int indexfiltro, String filtro) {
         Session session = HibernateUtil.getSessionFactory().openSession();
+        List<PatTipoBaixa> tipOperacao = new ArrayList<>();
         try {
             session.getTransaction().begin();
             String where = "";
@@ -80,14 +82,14 @@ public class PatTipoBaixaDAO {
                         break;
                 }
             }
-            List<PatTipoBaixa> tipOperacao = query.list();
+            tipOperacao = query.list();
             session.getTransaction().commit();
-            return tipOperacao;
         } catch (HibernateException e) {
             throw e;
         } finally {
             session.close();
         }
+        return tipOperacao;
     }
 
     public PatTipoBaixa get(int codigo) {

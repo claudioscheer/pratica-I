@@ -21,8 +21,8 @@ public class PanelConsultaNotaFiscal extends WebPanel {
 
     public PanelConsultaNotaFiscal() {
         initComponents();
-        this.notasFiscais = new ArrayList<>();
 
+        this.tabelaNotasFiscais.setSortable(true);
         this.tabelaNotasFiscais.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -38,8 +38,8 @@ public class PanelConsultaNotaFiscal extends WebPanel {
                 return canEdit[columnIndex];
             }
         });
-        this.tabelaNotasFiscais.setSortable(true);
         this.tabelaNotasFiscais.setLoadMore(x -> new LoadNotasFiscais().execute());
+        this.notasFiscais = new ArrayList<>();
 
         new LoadNotasFiscais().execute();
 
@@ -83,8 +83,11 @@ public class PanelConsultaNotaFiscal extends WebPanel {
 
         @Override
         protected Void doInBackground() throws Exception {
-            notasFiscais.addAll(new PatNotaFiscalDAO().getAll(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
-            atualizarTabela(true);
+            List<PatNotaFiscal> notas = new PatNotaFiscalDAO().getAll(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText());
+            if (notas.size() > 0) {
+                notasFiscais.addAll(notas);
+                atualizarTabela(true);
+            }
             return null;
         }
 

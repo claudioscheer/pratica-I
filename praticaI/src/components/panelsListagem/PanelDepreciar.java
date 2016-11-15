@@ -21,19 +21,20 @@ public class PanelDepreciar extends WebPanel {
     private static PanelDepreciar panelGerarDepreciacao;
 
     private PatHistoricoDepreciacao ultimaDepreciacao;
+    private PanelConsultaAtivoImobilizado panelConsultaAtivoImobilizado;
     private boolean jaDepreciadoMesAtual;
 
     private boolean depreciando;
 
     private int ativosSize;
     private int valueProgress;
-    
+
     private DefaultListModel model;
 
-    public PanelDepreciar() {
+    public PanelDepreciar(PanelConsultaAtivoImobilizado panelConsultaAtivoImobilizado) {
         this.model = new DefaultListModel();
+        this.panelConsultaAtivoImobilizado = panelConsultaAtivoImobilizado;
         this.initComponents();
-        
 
         this.txtMesDepreciar.setDateFormat(new SimpleDateFormat("MM/yyyy"));
         this.txtMesDepreciar.setDate(new Date());
@@ -41,9 +42,9 @@ public class PanelDepreciar extends WebPanel {
         new LoadDados().execute();
     }
 
-    public static PanelDepreciar getInstance() {
+    public static PanelDepreciar getInstance(PanelConsultaAtivoImobilizado panelConsultaAtivoImobilizado) {
         if (panelGerarDepreciacao == null) {
-            panelGerarDepreciacao = new PanelDepreciar();
+            panelGerarDepreciacao = new PanelDepreciar(panelConsultaAtivoImobilizado);
         }
 
         return panelGerarDepreciacao;
@@ -103,6 +104,7 @@ public class PanelDepreciar extends WebPanel {
         @Override
         public void done() {
             depreciando = false;
+            panelConsultaAtivoImobilizado.resetBusca();
             fecharPanel();
             Utils.notificacao("Depreciação finalizada!", Utils.TipoNotificacao.ok, 0);
         }

@@ -6,6 +6,7 @@ import components.TextFieldFK;
 import components.panelsCads.PanelCadTipoBaixa;
 import dao.PatNotaFiscalDAO;
 import dao.PatTipoBaixaDAO;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import javax.swing.SwingWorker;
@@ -25,6 +26,9 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
     public FormBuscaTipoBaixa() {
         initComponents();
 
+        this.tiposBaixa = new ArrayList<>();
+
+        this.tabelaTipoBaixa.setSortable(true);
         this.tabelaTipoBaixa.setModel(new DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -40,11 +44,8 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
                 return canEdit[columnIndex];
             }
         });
-        this.tabelaTipoBaixa.setSortable(true);
         this.tabelaTipoBaixa.setLoadMore(x -> new LoadTipoBaixa().execute());
         this.paginaBuscar = 0;
-
-        this.setLocationRelativeTo(null);
 
         new LoadTipoBaixa().execute();
 
@@ -63,6 +64,7 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
         this.txtBuscar.setEventChangeComboBox(al -> {
             this.verificaPlaceholderText();
         });
+        this.setLocationRelativeTo(null);
 
     }
 

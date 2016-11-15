@@ -1,28 +1,25 @@
 package forms.patrimonio;
 
 import components.Validador;
+import components.panelsListagem.PanelConsultaAtivoImobilizado;
 import dao.PatBaixaDAO;
 import forms.FormPrincipal;
 import forms.busca.FormBuscaTipoBaixa;
+import java.util.Calendar;
 import model.PatAtivoImobilizado;
 import model.PatBaixa;
 import model.PatTipoBaixa;
 import utils.Utils;
 
-/**
- *
- * @author Larissa Guder <lariguder10@gmail.com>
- */
 public class FormBaixaAtivo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FormBaixaAtivo
-     */
     public Validador validador;
     private PatAtivoImobilizado ativoImobilizado;
 
     private PatBaixa baixaAtivo;
     private PatTipoBaixa tipoBaixa;
+
+    private PanelConsultaAtivoImobilizado panelConsultaAtivoImobilizado;
 
     public FormBaixaAtivo() {
         initComponents();
@@ -33,12 +30,12 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
         txtMotivo.setFrame(tipoBaixa);
 
         this.txtDataAtivo.setDateFormat(utils.Utils.formatoDataPadrao);
-
+        this.txtDataAtivo.setDate(Calendar.getInstance().getTime());
     }
 
-    public void setAtivoImobilizado(PatAtivoImobilizado ativoImobilizado) {
+    public void setAtivoImobilizado(PatAtivoImobilizado ativoImobilizado, PanelConsultaAtivoImobilizado panelConsultaAtivoImobilizado) {
         this.ativoImobilizado = ativoImobilizado;
-
+        this.panelConsultaAtivoImobilizado = panelConsultaAtivoImobilizado;
     }
 
     @SuppressWarnings("unchecked")
@@ -184,8 +181,9 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
         new PatBaixaDAO().insert(baixa);
 
         Utils.notificacao("Baixa realizada", Utils.TipoNotificacao.ok, 0);
+        this.panelConsultaAtivoImobilizado.resetBusca();
         this.dispose();
-        
+
         FormPrincipal.getInstance().setEnabled(true);
     }//GEN-LAST:event_btnSalvarActionPerformed
 

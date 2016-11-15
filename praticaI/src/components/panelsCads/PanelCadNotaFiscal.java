@@ -149,10 +149,7 @@ public class PanelCadNotaFiscal extends WebPanel {
         this.notaFiscal.setNotaChaveAcesso(this.txtChaveAcesso.getText());
         this.notaFiscal.setNotaDataEmissao(this.txtDataEmissao.getDate());
         this.notaFiscal.setNotaDataEntrada(this.txtDataEntrada.getDate());
-
-        CarPessoa fornecedor = new CarPessoa();
-        fornecedor.setPessoaId(1);
-        this.notaFiscal.setCarPessoa(fornecedor);
+        this.notaFiscal.setCarPessoa((CarPessoa) this.txtFornecedor.getValue());
 
         this.notaFiscal.setNotaValor(this.txtValor.getValue());
         this.notaFiscal.setNotaAtiva(true);

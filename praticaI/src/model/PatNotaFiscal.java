@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @SequenceGenerator(name = "seq_nota_fiscal", sequenceName = "seq_nota_fiscal", allocationSize = 1)
-@Table(name = "pat_nota_fiscal", schema = "public")
+@Table(schema = "public")
 public class PatNotaFiscal implements java.io.Serializable {
     private CarcapOperacoesComerciais carcapOperacoesComerciais;
 
@@ -37,7 +37,7 @@ public class PatNotaFiscal implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_fiscal")
-    @Column(name = "nota_codigo", nullable = false)
+    @Column(nullable = false)
     public int getNotaCodigo() {
         return this.notaCodigo;
     }
@@ -47,7 +47,7 @@ public class PatNotaFiscal implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pessoa", nullable = false)
+    @JoinColumn(nullable = false)
     public CarPessoa getCarPessoa() {
         return this.carPessoa;
     }
@@ -56,7 +56,7 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.carPessoa = carPessoa;
     }
 
-    @Column(name = "nota_valor", nullable = false)
+    @Column(nullable = false)
     public double getNotaValor() {
         return this.notaValor;
     }
@@ -66,7 +66,7 @@ public class PatNotaFiscal implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "nota_data_emissao", nullable = false)
+    @Column(nullable = false)
     public Date getNotaDataEmissao() {
         return this.notaDataEmissao;
     }
@@ -75,7 +75,7 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.notaDataEmissao = notaDataEmissao;
     }
 
-    @Column(name = "nota_chave_acesso", nullable = false)
+    @Column(nullable = false)
     public String getNotaChaveAcesso() {
         return this.notaChaveAcesso;
     }
@@ -85,7 +85,7 @@ public class PatNotaFiscal implements java.io.Serializable {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "nota_data_entrada", nullable = false)
+    @Column(nullable = false)
     public Date getNotaDataEntrada() {
         return this.notaDataEntrada;
     }

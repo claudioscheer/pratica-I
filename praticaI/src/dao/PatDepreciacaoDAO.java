@@ -97,7 +97,7 @@ public class PatDepreciacaoDAO {
 
         PatDepreciacao depreciacao = ativo.getEstCategoria().getDepreciacao();
         if (depreciacao == null) {
-            return "A categoria " + ativo.getEstCategoria().getCategoriaDescricao() + " não possuí depreciação relacionada!";
+            return "A categoria " + ativo.getEstCategoria().getCategoriaDescricao() + " não possui depreciação relacionada!";
         }
         double valororiginal = ativo.getAtivoValorOriginal();
         double valordepreciar = valororiginal * (depreciacao.getDepreciacaoTaxaMensal() / 100);

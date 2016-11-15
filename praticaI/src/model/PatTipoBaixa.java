@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @SequenceGenerator(name = "seq_tipo_baixa", sequenceName = "seq_tipo_baixa", allocationSize = 1)
-@Table(name = "pat_tipo_baixa", schema = "public")
+@Table(schema = "public")
 public class PatTipoBaixa implements java.io.Serializable {
 
     private int tipoBaixaCodigo;
@@ -18,7 +18,7 @@ public class PatTipoBaixa implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tipo_baixa")
-    @Column(name = "tipo_baixa_codigo", nullable = false)
+    @Column(nullable = false)
     public int getTipoBaixaCodigo() {
         return this.tipoBaixaCodigo;
     }
@@ -27,7 +27,7 @@ public class PatTipoBaixa implements java.io.Serializable {
         this.tipoBaixaCodigo = tipoBaixaCodigo;
     }
 
-    @Column(name = "tipo_baixa_descricao", nullable = false)
+    @Column(nullable = false)
     public String getTipoBaixaDescricao() {
         return this.tipoBaixaDescricao;
     }

@@ -58,8 +58,8 @@ public class PatAtivoImobilizadoDAO {
                     break;
             }
         }
-        query.setMaxResults(utils.Utils.MaxResultQuery);
         query.setFirstResult(paginaBuscar * utils.Utils.MaxResultQuery);
+        query.setMaxResults(utils.Utils.MaxResultQuery);
         List<PatAtivoImobilizado> ativos = query.list();
         session.getTransaction().commit();
         return ativos;

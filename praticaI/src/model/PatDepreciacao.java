@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @SequenceGenerator(name = "seq_depreciacao", sequenceName = "seq_depreciacao", allocationSize = 1)
-@Table(name = "pat_depreciacao", schema = "public")
+@Table(schema = "public")
 public class PatDepreciacao implements java.io.Serializable {
 
     private int depreciacaoCodigo;
@@ -28,7 +28,7 @@ public class PatDepreciacao implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_depreciacao")
-    @Column(name = "depreciacao_codigo", nullable = false)
+    @Column(nullable = false)
     public int getDepreciacaoCodigo() {
         return this.depreciacaoCodigo;
     }
@@ -38,7 +38,6 @@ public class PatDepreciacao implements java.io.Serializable {
     }
 
     @OneToOne
-    @JoinColumn(name = "depreciacao_categoria")
     public EstCategoria getEstCategoria() {
         return this.estCategoria;
     }
@@ -47,7 +46,7 @@ public class PatDepreciacao implements java.io.Serializable {
         this.estCategoria = estCategoria;
     }
 
-    @Column(name = "depreciacao_taxa_anual", nullable = false)
+    @Column(nullable = false)
     public double getDepreciacaoTaxaAnual() {
         return this.depreciacaoTaxaAnual;
     }
@@ -59,7 +58,7 @@ public class PatDepreciacao implements java.io.Serializable {
         this.setDepreciacaoTaxaDiaria(Double.valueOf(utils.Utils.removerCaracteresDoubleString(utils.Utils.format(this.depreciacaoTaxaMensal / 30))));
     }
 
-    @Column(name = "depreciacao_vida_util", nullable = false)
+    @Column(nullable = false)
     public int getDepreciacaoVidaUtil() {
         return this.depreciacaoVidaUtil;
     }
@@ -68,7 +67,7 @@ public class PatDepreciacao implements java.io.Serializable {
         this.depreciacaoVidaUtil = depreciacaoVidaUtil;
     }
 
-    @Column(name = "depreciacao_taxa_mensal", nullable = false)
+    @Column(nullable = false)
     public double getDepreciacaoTaxaMensal() {
         return this.depreciacaoTaxaMensal;
     }
@@ -77,7 +76,7 @@ public class PatDepreciacao implements java.io.Serializable {
         this.depreciacaoTaxaMensal = depreciacaoTaxaMensal;
     }
 
-    @Column(name = "depreciacao_taxa_diaria", nullable = false)
+    @Column(nullable = false)
     public double getDepreciacaoTaxaDiaria() {
         return depreciacaoTaxaDiaria;
     }

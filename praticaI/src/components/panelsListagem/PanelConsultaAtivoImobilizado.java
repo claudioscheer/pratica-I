@@ -37,6 +37,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
     public PanelConsultaAtivoImobilizado() {
         initComponents();
 
+        this.ativosImobilizados = new ArrayList<>();
         this.tabelaAtivosImobilizados.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
@@ -54,16 +55,13 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         });
         this.tabelaAtivosImobilizados.setSortable(true);
         this.tabelaAtivosImobilizados.setLoadMore(x -> new LoadAtivosImobilizados().execute());
-        this.ativosImobilizados = new ArrayList<>();
 
         this.createOpcoesButton();
 
         new LoadAtivosImobilizados().execute();
 
         this.txtBuscar.setEventBuscar((e) -> {
-            this.paginaBuscar = 0;
-            this.ativosImobilizados.clear();
-            new LoadAtivosImobilizados().execute();
+            this.resetBusca();
         });
 
         this.txtBuscar.addOpcoesBuscar(new String[]{
@@ -75,6 +73,16 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         this.txtBuscar.setEventChangeComboBox(al -> {
             this.verificaPlaceholderText();
         });
+    }
+
+    private PanelConsultaAtivoImobilizado getThis() {
+        return this;
+    }
+
+    public void resetBusca() {
+        this.paginaBuscar = 0;
+        this.ativosImobilizados.clear();
+        new LoadAtivosImobilizados().execute();
     }
 
     private void createOpcoesButton() {
@@ -119,7 +127,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
                 return;
             }
             FormBaixaAtivo form = new FormBaixaAtivo();
-            form.setAtivoImobilizado(this.ativosImobilizados.get(linhaselecionada));
+            form.setAtivoImobilizado(this.ativosImobilizados.get(linhaselecionada), this);
             form.setVisible(true);
             FormPrincipal.getInstance().setEnabled(false);
         });
@@ -130,7 +138,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         WebPopupMenu popupMenuManutencao = new WebPopupMenu();
         WebMenuItem menuDepreciar = new WebMenuItem("Depreciar ativos", Hotkey.NUMBER_1);
         menuDepreciar.addActionListener((e) -> {
-            FormDepreciar depreciacoes = new FormDepreciar();
+            //PanelConsultaAtivoImobilizado a = this;
+            FormDepreciar depreciacoes = new FormDepreciar(this);
             depreciacoes.setVisible(true);
             FormPrincipal.getInstance().setEnabled(false);
         });
@@ -170,8 +179,11 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
 
         @Override
         protected Void doInBackground() throws Exception {
-            ativosImobilizados.addAll(new PatAtivoImobilizadoDAO().getAll(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
-            atualizarTabela(true);
+            List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().getAll(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText());
+            if (ativos.size() > 0) {
+                ativosImobilizados.addAll(ativos);
+                atualizarTabela();
+            }
             return null;
         }
 
@@ -211,12 +223,9 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         this.tabelaAtivosImobilizados.setModel(model);
     }
 
-    private void atualizarTabela(boolean limpar) {
+    private void atualizarTabela() {
         DefaultTableModel model = (DefaultTableModel) this.tabelaAtivosImobilizados.getModel();
-
-        if (limpar) {
-            Utils.clearTableModel(model);
-        }
+        Utils.clearTableModel(model);
 
         this.ativosImobilizados.forEach(x -> {
             model.addRow(ativoToArray(x));
