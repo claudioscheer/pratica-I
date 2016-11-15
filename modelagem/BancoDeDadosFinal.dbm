@@ -3,20 +3,20 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.2" last-position="64,0" last-zoom="0.7"
+<dbmodel pgmodeler-ver="0.8.2" last-position="0,0" last-zoom="0.7"
 	 default-schema="public" default-owner="postgres">
 <database name="BancoPratica" encoding="UTF8" lc-collate="Portuguese_Brazil" lc-ctype="Portuguese_Brazil">
 	<role name="postgres"/>
 	<tablespace name="pg_default"/>
 </database>
 
-<schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+<schema name="public" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
 <table name="carcapcontas">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1480" y="503"/>
+	<position x="1480" y="500"/>
 	<column name="contaid" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -79,7 +79,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="caresttipooperacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1880" y="1260"/>
+	<position x="1760" y="1220"/>
 	<column name="tpopid" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -100,7 +100,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="carpessoa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2200" y="980"/>
+	<position x="1580" y="860"/>
 	<column name="pessoaid" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -148,7 +148,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="carcapoperacoescomerciais">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1360" y="63"/>
+	<position x="1360" y="60"/>
 	<column name="operacoesid" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -184,7 +184,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="estcategoria">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="740" y="583"/>
+	<position x="800" y="580"/>
 	<column name="categoriaid" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -199,7 +199,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="estmarca">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="220" y="303"/>
+	<position x="160" y="280"/>
 	<column name="marcaid" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -244,7 +244,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="estproduto">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="660" y="246"/>
+	<position x="660" y="240"/>
 	<column name="produtoid" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -277,7 +277,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="estsaldo">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="620" y="26"/>
+	<position x="620" y="20"/>
 	<column name="saldo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -298,7 +298,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="estunidademedida">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="140" y="103"/>
+	<position x="200" y="120"/>
 	<column name="unidademedidaid" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -313,7 +313,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcxespecificacoes">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2220" y="340"/>
+	<position x="2120" y="380"/>
 	<column name="espcodigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -328,34 +328,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="flxcxfluxocaixa">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="2340" y="780"/>
-	<column name="fluxcodigo" not-null="true">
-		<type name="integer"/>
-	</column>
-	<column name="fluxdata">
-		<type name="date"/>
-	</column>
-	<column name="fluxitem">
-		<type name="integer"/>
-	</column>
-	<column name="fluxqtdcolaboradores">
-		<type name="integer"/>
-	</column>
-	<column name="carpessoa_pessoaid">
-		<type name="integer"/>
-	</column>
-	<constraint name="flxcxfluxocaixa_pkey" type="pk-constr" table="public.flxcxfluxocaixa">
-		<columns names="fluxcodigo" ref-type="src-columns"/>
-	</constraint>
-</table>
-
 <table name="flxcxfluxocaixafechamento">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2260" y="620"/>
+	<position x="2140" y="800"/>
 	<column name="fechcodigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -382,7 +358,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="flxcxoperacoes">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="2120" y="460"/>
+	<position x="2100" y="600"/>
 	<column name="opcodigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -400,7 +376,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="log">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1840" y="23"/>
+	<position x="1840" y="20"/>
 	<column name="logcodigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -424,7 +400,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="patativoimobilizado">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="200" y="543"/>
+	<position x="200" y="540"/>
 	<column name="ativocodigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -472,7 +448,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="patbaixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="180" y="823"/>
+	<position x="180" y="820"/>
 	<column name="baixacodigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -520,7 +496,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pathistoricodepreciacao">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="160" y="1083"/>
+	<position x="180" y="1200"/>
 	<column name="historicodepreciacaocodigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -547,7 +523,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="patitemnota">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="720" y="1109"/>
+	<position x="760" y="1020"/>
 	<column name="itemnotacodigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -580,7 +556,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="patnotafiscal">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1200" y="1169"/>
+	<position x="1200" y="1160"/>
 	<column name="notacodigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -610,7 +586,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="pattipobaixa">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="340" y="1329"/>
+	<position x="160" y="1080"/>
 	<column name="tipobaixacodigo" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -864,12 +840,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="produtoid" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="fk_mj0fjjl05t4okn9ucsc5p6vmi" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.carpessoa" table="public.flxcxfluxocaixa">
-	<columns names="carpessoa_pessoaid" ref-type="src-columns"/>
-	<columns names="pessoaid" ref-type="dst-columns"/>
-</constraint>
-
 <constraint name="fk_ov95snwp6qs7he20w6sxm0r5w" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.flxcxespecificacoes" table="public.flxcxoperacoes">
 	<columns names="flxcxespecificacoes_espcodigo" ref-type="src-columns"/>
@@ -1024,12 +994,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 custom-color="#36beed"
 	 src-table="public.estsaldo"
 	 dst-table="public.estproduto"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="rel_flxcxfluxocaixa_carpessoa" type="relfk"
-	 custom-color="#871fa4"
-	 src-table="public.flxcxfluxocaixa"
-	 dst-table="public.carpessoa"
 	 src-required="false" dst-required="false"/>
 
 <relationship name="rel_flxcxoperacoes_flxcxespecificacoes" type="relfk"
