@@ -10,11 +10,11 @@ import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import model.EstCategoria;
 import model.EstMarca;
-import model.EstadoBem;
+import enumeraveis.EstadoBem;
 import model.PatAtivoImobilizado;
 import model.PatItemNota;
 import model.PatNotaFiscal;
-import model.UtilizacaoBem;
+import enumeraveis.UtilizacaoBem;
 
 public class PanelCadAtivoImobilizado extends WebPanel {
 

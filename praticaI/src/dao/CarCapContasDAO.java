@@ -53,7 +53,7 @@ public class CarCapContasDAO {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from CarCapContas as a where conta_data_emissao BETWEEN :datainicial and :datafinal");
+        Query query = session.createQuery("from CarCapContas as a where contadataemissao BETWEEN :datainicial and :datafinal");
         query.setParameter("datainicial", dataInicial);
         query.setParameter("datafinal", dataFinal);
         List<CarCapContas> contas = query.list();
@@ -68,7 +68,7 @@ public class CarCapContasDAO {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from CarCapContas as a where conta_data_emissao BETWEEN :datainicial and :datafinal");
+        Query query = session.createQuery("from CarCapContas as a where contadataemissao BETWEEN :datainicial and :datafinal");
         query.setParameter("datainicial", dataInicial);
         query.setParameter("datafinal", dataFinal);
         
@@ -89,7 +89,7 @@ public class CarCapContasDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
 
-        Query query = session.createQuery("from CarCapContas as a where conta_data_emissao BETWEEN :datainicial and :datafinal and contatipo= :tipo");
+        Query query = session.createQuery("from CarCapContas as a where contadataemissao BETWEEN :datainicial and :datafinal and contatipo= :tipo");
         query.setParameter("datainicial", dataInicial);
         query.setParameter("datafinal", dataFinal);
 

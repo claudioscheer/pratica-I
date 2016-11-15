@@ -1,4 +1,4 @@
-package model;
+package enumeraveis;
 
 public enum UtilizacaoBem {
 
