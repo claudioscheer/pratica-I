@@ -749,18 +749,17 @@ public class FormContaReceber extends WebInternalFrame {
                 conta02.setCapContaStatus(StatusConta.Fechada);
             } else if (comb_status.getSelectedIndex() == 1) {
 
-<<<<<<< .mine
+
                 conta02.setCapContaStatus(StatusConta.Pendente);
             } else {
                 conta02.setCapContaStatus(StatusConta.PendenteParcial);
 
-||||||| .r241
+
             //pegar data lançamento
            
 
-=======
             //pegar data lançamento
->>>>>>> .r271
+
             }
 
             double valorParcela = Double.parseDouble(txt_Valor_parcela.getText());
@@ -789,13 +788,10 @@ public class FormContaReceber extends WebInternalFrame {
             //pegar nota
 
 //                conta02.setPatNotaFiscal(chave);
-<<<<<<< .mine
+
             conta02.setForma_rece_pagamento(FormaPagamento.values()[Comb_forma_pagamento_recebimento.getSelectedIndex()]);
 
-||||||| .r241
 
-=======
->>>>>>> .r271
           // conta02.setForma_rece_pagamento(FormaPagamento.prazo);
             // Utils.notificacao("Valor: " + p, Utils.TipoNotificacao.ok, 0);
             // conta02.setTipoOperacaoDescricao("iuaszzzdj");
@@ -820,26 +816,21 @@ public class FormContaReceber extends WebInternalFrame {
             
         }
 
-<<<<<<< .mine
-        zeraCampos();
-||||||| .r241
+
                 conta02.setContaTipo(tipoConta);
 
                 new CarCapContasDAO().insert(conta02);
 
                 Preenche_tabela();
-            }
+            
 
-
-=======
                 conta02.setContaTipo(tipoConta);
 
                 new CarCapContasDAO().insert(conta02);
 
                 Preenche_tabela();
-            }
+            
 
->>>>>>> .r271
     }//GEN-LAST:event_botao_salvarActionPerformed
     
     private void txt_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_notasActionPerformed
@@ -1024,7 +1015,7 @@ public class FormContaReceber extends WebInternalFrame {
         
         txt_Valor_Total.setText(String.valueOf(pagarValor.getContaValorTotal()));
         
-        txt_Valor_parcela.setText(String.valueOf(pagarValor.getCarCapParcelas()));
+       // txt_Valor_parcela.setText(String.valueOf(pagarValor.getCarCapParcelas()));
         
         
         
