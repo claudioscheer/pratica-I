@@ -15,57 +15,65 @@ import utils.HibernateUtil;
 public class PatDepreciacaoDAO {
 
     public boolean insert(PatDepreciacao depreciacao) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        boolean ok = true;
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             session.save(depreciacao);
             session.getTransaction().commit();
-            return true;
         } catch (HibernateException e) {
-            throw e;
+            ok = false;
         } finally {
+            session.close();
         }
+        return ok;
     }
 
     public boolean update(PatDepreciacao depreciacao) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        boolean ok = true;
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             session.update(depreciacao);
             session.getTransaction().commit();
-            return true;
         } catch (HibernateException e) {
-            throw e;
+            ok = false;
         } finally {
+            session.close();
         }
+        return ok;
     }
 
     public boolean delete(PatDepreciacao depreciacao) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        boolean ok = true;
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             session.delete(depreciacao);
             session.getTransaction().commit();
             return true;
         } catch (HibernateException e) {
-            throw e;
+            ok = false;
         } finally {
+            session.close();
         }
+        return ok;
     }
 
     public List<PatDepreciacao> getAll() {
+        List<PatDepreciacao> depreciacao = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             Query query = session.createQuery("from PatDepreciacao as t ");
-            List<PatDepreciacao> depreciacao = query.list();
+            depreciacao = query.list();
             session.getTransaction().commit();
-            return depreciacao;
         } catch (HibernateException e) {
             throw e;
         } finally {
             session.close();
         }
+        return depreciacao;
     }
 
     public PatDepreciacao get(int codigo) {
@@ -103,7 +111,7 @@ public class PatDepreciacaoDAO {
         double valordepreciar = valororiginal * (depreciacao.getDepreciacaoTaxaMensal() / 100);
 
         historico.setHistoricoDepreciacaoValor(valordepreciar);
-        historico.setHistoricoDepreciacaoDia(new Date());
+        historico.setHistoricoDepreciacaoDia(Calendar.getInstance().getTime());
         ativo.setAtivoValorAtual(ativo.getAtivoValorAtual() - valordepreciar);
         historico.setPatAtivoImobilizado(ativo);
 

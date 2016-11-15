@@ -11,46 +11,48 @@ import utils.HibernateUtil;
 public class PatTipoBaixaDAO {
 
     public boolean insert(PatTipoBaixa tipoBaixa) {
+        boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             session.save(tipoBaixa);
             session.getTransaction().commit();
-            return true;
         } catch (HibernateException e) {
-            throw e;
+            ok = false;
         } finally {
             session.close();
         }
+        return ok;
     }
 
     public boolean update(PatTipoBaixa tipoBaixa) {
+        boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             session.update(tipoBaixa);
             session.getTransaction().commit();
-            return true;
         } catch (HibernateException e) {
-            throw e;
+            ok = false;
         } finally {
             session.close();
         }
+        return ok;
     }
 
     public boolean delete(PatTipoBaixa tipoBaixa) {
+        boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             session.delete(tipoBaixa);
             session.getTransaction().commit();
-            session.close();
-            return true;
         } catch (HibernateException e) {
-            throw e;
+            ok = false;
         } finally {
             session.close();
         }
+        return ok;
     }
 
     public List<PatTipoBaixa> getAll(int paginaBuscar, int indexfiltro, String filtro) {

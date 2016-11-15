@@ -18,11 +18,11 @@ public class FormDepreciar extends JFrame {
         this.panelConsultaAtivoImobilizado = panelConsultaAtivoImobilizado;
         this.initComponents();
 
-
         this.setLocationRelativeTo(null);
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent we) {
+                panelGerarDepreciacao.fecharPanel();
                 FormPrincipal.getInstance().setEnabled(true);
             }
         });

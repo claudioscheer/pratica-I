@@ -10,43 +10,50 @@ import utils.HibernateUtil;
 public class PatBaixaDAO {
 
     public boolean insert(PatBaixa baixa) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        boolean ok = true;
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             baixa.getPatAtivoImobilizado().setAtivo(false);
             session.update(baixa.getPatAtivoImobilizado());
             session.save(baixa);
             session.getTransaction().commit();
-            return true;
+            session.close();
         } catch (HibernateException e) {
-            throw e;
+            ok = false;
+        } finally {
+            session.close();
         }
+        return ok;
     }
 
     public boolean update(PatBaixa baixa) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        boolean ok = true;
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             session.update(baixa);
             session.getTransaction().commit();
-            return true;
         } catch (HibernateException e) {
-            throw e;
+            ok = false;
+        } finally {
+            session.close();
         }
+        return ok;
     }
 
     public boolean delete(PatBaixa baixa) {
+        boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.delete(baixa);
             session.getTransaction().commit();
-            session.close();
-            return true;
         } catch (HibernateException e) {
-            throw e;
+            ok = false;
         } finally {
             session.close();
         }
+        return ok;
     }
 
     public List<PatBaixa> getAll() {

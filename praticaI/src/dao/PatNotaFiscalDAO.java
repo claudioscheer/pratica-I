@@ -5,57 +5,67 @@ import model.PatNotaFiscal;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import utils.HibernateUtil;
 
 public class PatNotaFiscalDAO {
 
     public Boolean update(PatNotaFiscal notaFiscal) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
+        boolean ok = true;
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             session.update(notaFiscal);
             session.getTransaction().commit();
         } catch (Exception e) {
-            return false;
+            ok = false;
+        } finally {
+            session.close();
         }
-        return true;
+        return ok;
     }
 
     public Boolean insert(PatNotaFiscal notaFiscal) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
+        boolean ok = true;
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             session.save(notaFiscal);
             session.getTransaction().commit();
         } catch (Exception e) {
-            return false;
+            ok = false;
+        } finally {
+            session.close();
         }
-        return true;
+        return ok;
     }
 
     public Boolean delete(PatNotaFiscal notaFiscal) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
+        boolean ok = true;
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             session.delete(notaFiscal);
             session.getTransaction().commit();
         } catch (Exception e) {
-            utils.Utils.log(e);
-            return false;
+            ok = false;
         }
-        return true;
+        return ok;
     }
 
     public Boolean inativaNotaFiscal(PatNotaFiscal notaFiscal) {
+        boolean ok = true;
         notaFiscal.setNotaAtiva(false);
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.NOTA_FISCAL);
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
             session.update(notaFiscal);
             session.getTransaction().commit();
         } catch (Exception e) {
-            return false;
+            ok = false;
+        } finally {
+            session.close();
         }
-        return true;
+        return ok;
     }
 
     public List<PatNotaFiscal> getAll(int paginaBuscar, int indexfiltro, String filtro) {

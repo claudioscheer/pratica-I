@@ -9,27 +9,30 @@ import utils.HibernateUtil;
 public class PatAtivoImobilizadoDAO {
 
     public Boolean update(PatAtivoImobilizado ativoImobilizado) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.update(ativoImobilizado);
         session.getTransaction().commit();
+        session.close();
         return true;
     }
 
     public Boolean insert(PatAtivoImobilizado ativoImobilizado) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.save(ativoImobilizado);
         session.getTransaction().commit();
+        session.close();
         return true;
     }
 
     public Boolean delete(PatAtivoImobilizado ativoImobilizado) {
         ativoImobilizado.setAtivo(false);
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
+        Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.update(ativoImobilizado);
         session.getTransaction().commit();
+        session.close();
         return true;
     }
 

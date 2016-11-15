@@ -12,12 +12,19 @@ import utils.HibernateUtil;
 public class PatHistoricoDepreciacaoDAO {
 
     public Boolean insert(PatHistoricoDepreciacao historicoDepreciacao) {
-        Session session = SessaoUnica.getSession(SessaoUnica.Tela.ATIVO_IMOBILIZADO);
-        session.getTransaction().begin();
-        session.update(historicoDepreciacao.getPatAtivoImobilizado());
-        session.save(historicoDepreciacao);
-        session.getTransaction().commit();
-        return true;
+        boolean ok = true;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.getTransaction().begin();
+            session.update(historicoDepreciacao.getPatAtivoImobilizado());
+            session.save(historicoDepreciacao);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            ok = false;
+        } finally {
+            session.close();
+        }
+        return ok;
     }
 
     public List<PatHistoricoDepreciacao> getAll(PatAtivoImobilizado ativo) {
