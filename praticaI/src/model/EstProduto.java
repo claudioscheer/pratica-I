@@ -27,7 +27,7 @@ public class EstProduto implements java.io.Serializable {
     private String produtoReferencia;
     private String produtoDescricao;
     private int produtoStatus;
-    private Set<Saldo> saldos = new HashSet(0);
+    private Set<EstSaldo> saldos = new HashSet(0);
     private Set<PatItemNota> patItemNotas = new HashSet(0);
     private Set<EstMovimentacao> estMovimentacaos = new HashSet(0);
     private CarcapOperacoesComerciais carcapOperacoesComerciais;
@@ -43,7 +43,7 @@ public class EstProduto implements java.io.Serializable {
         this.produtoStatus = produtoStatus;
     }
 
-    public EstProduto(int produtoId, EstCategoria estCategoria, EstMarca estMarca, EstUnidadeMedida estUnidadeMedida, String produtoReferencia, String produtoDescricao, int produtoStatus, Set<Saldo> saldos, Set<PatItemNota> patItemNotas, Set<EstMovimentacao> estMovimentacaos) {
+    public EstProduto(int produtoId, EstCategoria estCategoria, EstMarca estMarca, EstUnidadeMedida estUnidadeMedida, String produtoReferencia, String produtoDescricao, int produtoStatus, Set<EstSaldo> saldos, Set<PatItemNota> patItemNotas, Set<EstMovimentacao> estMovimentacaos) {
         this.produtoId = produtoId;
         this.estCategoria = estCategoria;
         this.estMarca = estMarca;
@@ -118,11 +118,11 @@ public class EstProduto implements java.io.Serializable {
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "estProduto")
-    public Set<Saldo> getSaldos() {
+    public Set<EstSaldo> getSaldos() {
         return this.saldos;
     }
 
-    public void setSaldos(Set<Saldo> saldos) {
+    public void setSaldos(Set<EstSaldo> saldos) {
         this.saldos = saldos;
     }
 

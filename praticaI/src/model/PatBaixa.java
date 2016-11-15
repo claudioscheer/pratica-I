@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @SequenceGenerator(name = "seq_baixa", sequenceName = "seq_baixa", allocationSize = 1)
-@Table(name = "pat_baixa", schema = "public")
+@Table(schema = "public")
 public class PatBaixa implements java.io.Serializable {
     
     

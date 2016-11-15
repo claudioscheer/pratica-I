@@ -4,7 +4,7 @@
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/pratica</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/BancoPratica</property>
         <property name="hibernate.connection.username">postgres</property>
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
@@ -22,7 +22,7 @@
         <mapping class="model.PatTipoBaixa" />
         <mapping class="model.FlxcxFluxoCaixaFechamento" />
         <mapping class="model.EstMarca" />
-        <mapping class="model.Saldo" />
+        <mapping class="model.EstSaldo" />
         <mapping class="model.CarCapContas"/>
         <mapping class="model.FlxcxEspecificacoes"/>
         <mapping class="model.PatAtivoImobilizado" />
