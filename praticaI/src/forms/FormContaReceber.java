@@ -23,12 +23,15 @@ import enumeraveis.TipoMovimento;
 import components.TextFieldFK;
 import dao.CarPessoaDAO;
 import dao.PatNotaFiscalDAO;
+import enumeraveis.FormaPagamento;
+import enumeraveis.MeioRecebimentoPagamento;
 import enumeraveis.StatusConta;
 
 import forms.busca.FormBuscaProduto;
 import java.awt.event.ActionEvent;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -60,7 +63,29 @@ public class FormContaReceber extends WebInternalFrame {
         carregarTudo();
     }
 
+    public int RetornarLinhaSelecionada(int posicao) {
+
+        int valor = Integer.parseInt(txt_tabela.getValueAt(txt_tabela.getSelectedRow(), posicao).toString());
+
+        return valor;
+
+    }
+
+//    public boolean pagarConta(int id) {
+//
+//        carcapOperacoesComerciaisDAO pagar = new carcapOperacoesComerciaisDAO();
+//
+//        CarcapOperacoesComerciais conta = new CarcapOperacoesComerciais();
+//
+//        CarCapContas parcelas = new CarCapContas();
+//
+//        conta.setOperacoesID(id);
+//
+//        return false;
+//
+//    }
     private void carregarTudo() {
+        
         FormBuscaProduto buscaProduto = new FormBuscaProduto();
 
         buscaProduto.setFrameBloquear(FormPrincipal.getInstance());
@@ -109,6 +134,28 @@ public class FormContaReceber extends WebInternalFrame {
 //
 //    }
     //****METODOS DE USO
+    public void zeraCampos() {
+        
+        txt_busca_cliente_fornecedor.setText(null);
+
+        txt_busca_produto.setText(null);
+
+        txt_busca_nota.setText(null);
+
+        txtQuantidade.setText(null);
+
+        txt_descricao.setText(null);
+
+        comb_parcelas.setValue(1);
+
+        txt_Valor_Total.setText(null);
+
+        txt_Valor_parcela.setText(null);
+
+        txt_data_lançamento.setDate(null);
+
+    }
+
     public void preenche_Combo() {
 
         FlxcxOperacoesDAO Flx = new FlxcxOperacoesDAO();
@@ -131,28 +178,24 @@ public class FormContaReceber extends WebInternalFrame {
 
         DefaultTableModel tabelamodelo = new DefaultTableModel();
 
-        tabelamodelo.addColumn("Data");
+        tabelamodelo.addColumn("ID");
+        tabelamodelo.addColumn("Lançamento");
+        tabelamodelo.addColumn("Parcelas");
+        tabelamodelo.addColumn("D. Vencimento");
         tabelamodelo.addColumn("Produto");
         tabelamodelo.addColumn("Quantidade");
         tabelamodelo.addColumn("Status");
-        tabelamodelo.addColumn("Valor da parcela");
-
+        tabelamodelo.addColumn("V. Parcela");
+        
+        
         for (CarCapContas j : conta) {
 
             tabelamodelo.addRow(new Object[]{
-                j.getContaDataEmissao(), j.getProduto().getProdutoDescricao(), j.getQuantidade_produto(), j.getCapContaStatus(), j.getContaValorPago()});
+               j.getContaId(), j.getCarcapOperacoesComerciais().getOperacoesID(),j.getContaNumParcelas(), j.getContaDataEmissao(), j.getProduto().getProdutoDescricao(), j.getQuantidade_produto(), j.getCapContaStatus(), j.getContaValorPago()});
 
         }
 
         txt_tabela.setModel(tabelamodelo);
-
-    }
-
-    public void cadastro_parcela(int parcela) {
-
-        for (int i = 1; i <= parcela; i++) {
-
-        }
 
     }
 
@@ -183,7 +226,6 @@ public class FormContaReceber extends WebInternalFrame {
         webLabel10 = new com.alee.laf.label.WebLabel();
         Comb_tip_operacao = new com.alee.laf.combobox.WebComboBox();
         botao_abrir_relatorios = new com.alee.laf.button.WebButton();
-        botao_excluir = new com.alee.laf.button.WebButton();
         botao_salvar = new com.alee.laf.button.WebButton();
         webLabel11 = new com.alee.laf.label.WebLabel();
         webLabel12 = new com.alee.laf.label.WebLabel();
@@ -210,6 +252,11 @@ public class FormContaReceber extends WebInternalFrame {
         webLabel21 = new com.alee.laf.label.WebLabel();
         comb_parcelas = new com.alee.laf.spinner.WebSpinner();
         botao_abrir_relatorios1 = new com.alee.laf.button.WebButton();
+        txt_Valor_pago = new javax.swing.JTextField();
+        webLabel22 = new com.alee.laf.label.WebLabel();
+        checkboxEntrada4 = new com.alee.laf.checkbox.WebCheckBox();
+        checkboxEntrada5 = new com.alee.laf.checkbox.WebCheckBox();
+        botao_abrir_relatorios2 = new com.alee.laf.button.WebButton();
 
         webPanel1.setEnabled(false);
         webPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -273,9 +320,9 @@ public class FormContaReceber extends WebInternalFrame {
         ));
         jScrollPane2.setViewportView(txt_tabela);
 
-        webPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(636, 160, 590, 380));
+        webPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(606, 110, 730, 460));
 
-        webLabel1.setText("Lançamento tipo:");
+        webLabel1.setText("Tipo de Lançamento:");
         webPanel1.add(webLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 10, -1, -1));
 
         webLabel2.setText("Quantidade:");
@@ -292,7 +339,7 @@ public class FormContaReceber extends WebInternalFrame {
         });
         webPanel1.add(combo_tip_lancamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 30, 157, 30));
 
-        comb_meio_recebimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dinheiro/Cheque", "Via Banco" }));
+        comb_meio_recebimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dinheiro", "Cheque", "Via Banco" }));
         webPanel1.add(comb_meio_recebimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 344, 210, 32));
 
         webDateField1.addActionListener(new java.awt.event.ActionListener() {
@@ -300,9 +347,9 @@ public class FormContaReceber extends WebInternalFrame {
                 webDateField1ActionPerformed(evt);
             }
         });
-        webPanel1.add(webDateField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 120, 160, -1));
+        webPanel1.add(webDateField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 30, 120, -1));
 
-        Comb_forma_pagamento_recebimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "À Vista", "À prazo", " " }));
+        Comb_forma_pagamento_recebimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A Prazo", "A Vista", " ", " " }));
         Comb_forma_pagamento_recebimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Comb_forma_pagamento_recebimentoActionPerformed(evt);
@@ -321,7 +368,13 @@ public class FormContaReceber extends WebInternalFrame {
         webPanel1.add(txtQuantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 154, 100, 30));
 
         webLabel7.setText("Status:");
-        webPanel1.add(webLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, -1, 43));
+        webPanel1.add(webLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, -1, 20));
+
+        txt_preco_uni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_preco_uniActionPerformed(evt);
+            }
+        });
         webPanel1.add(txt_preco_uni, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 274, 100, 30));
 
         txt_Valor_Total.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -336,8 +389,8 @@ public class FormContaReceber extends WebInternalFrame {
         });
         webPanel1.add(txt_Valor_Total, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 344, 100, 30));
 
-        webLabel8.setText("Valor da parcela:");
-        webPanel1.add(webLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 322, -1, 20));
+        webLabel8.setText("Valor Recebido:");
+        webPanel1.add(webLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 380, -1, 20));
 
         txt_busca_nota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -352,7 +405,7 @@ public class FormContaReceber extends WebInternalFrame {
         webLabel9.setText("Produto:");
         webPanel1.add(webLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 78, -1, 22));
 
-        webLabel10.setText("Tipo de operação:");
+        webLabel10.setText("Tipo de Operação:");
         webPanel1.add(webLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 78, -1, -1));
 
         Comb_tip_operacao.addActionListener(new java.awt.event.ActionListener() {
@@ -369,11 +422,7 @@ public class FormContaReceber extends WebInternalFrame {
                 botao_abrir_relatoriosActionPerformed(evt);
             }
         });
-        webPanel1.add(botao_abrir_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 510, 120, 30));
-
-        botao_excluir.setBackground(new java.awt.Color(51, 255, 51));
-        botao_excluir.setText("Excluir");
-        webPanel1.add(botao_excluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 510, 120, 33));
+        webPanel1.add(botao_abrir_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 120, 30));
 
         botao_salvar.setBackground(new java.awt.Color(51, 255, 51));
         botao_salvar.setText("Salvar");
@@ -382,9 +431,9 @@ public class FormContaReceber extends WebInternalFrame {
                 botao_salvarActionPerformed(evt);
             }
         });
-        webPanel1.add(botao_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 510, 130, 33));
+        webPanel1.add(botao_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 530, 130, 33));
 
-        webLabel11.setText("Forma de pagamento/Recebimento:");
+        webLabel11.setText("Forma de Pagamento/Recebimento:");
         webPanel1.add(webLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 254, -1, 22));
 
         webLabel12.setText("Descrição:");
@@ -397,11 +446,11 @@ public class FormContaReceber extends WebInternalFrame {
         });
         webPanel1.add(txt_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 204, 560, 26));
 
-        webLabel13.setText("Data lançamento:");
-        webPanel1.add(webLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 134, -1, 22));
+        webLabel13.setText("Data Lançamento:");
+        webPanel1.add(webLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
 
         webLabel14.setText("Meio de pagamento/Recebimento:");
-        webPanel1.add(webLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 324, -1, 22));
+        webPanel1.add(webLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, 22));
 
         checkboxEntrada.setText("Pendente");
         checkboxEntrada.addActionListener(new java.awt.event.ActionListener() {
@@ -409,12 +458,17 @@ public class FormContaReceber extends WebInternalFrame {
                 checkboxEntradaActionPerformed(evt);
             }
         });
-        webPanel1.add(checkboxEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 120, -1, -1));
+        webPanel1.add(checkboxEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, -1, -1));
 
-        checkboxEntrada3.setText("Pago");
-        webPanel1.add(checkboxEntrada3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 120, -1, -1));
+        checkboxEntrada3.setText("Estorno");
+        checkboxEntrada3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxEntrada3ActionPerformed(evt);
+            }
+        });
+        webPanel1.add(checkboxEntrada3, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 80, -1, -1));
 
-        webLabel15.setText("Valor total:");
+        webLabel15.setText("Valor Total:");
         webPanel1.add(webLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 324, -1, 23));
 
         txt_data_lançamento.addActionListener(new java.awt.event.ActionListener() {
@@ -422,22 +476,22 @@ public class FormContaReceber extends WebInternalFrame {
                 txt_data_lançamentoActionPerformed(evt);
             }
         });
-        webPanel1.add(txt_data_lançamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 404, 160, 30));
+        webPanel1.add(txt_data_lançamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 400, 150, 30));
 
         webLabel16.setText("Data Inicial:");
-        webPanel1.add(webLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 90, -1, 22));
+        webPanel1.add(webLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 10, -1, 22));
 
         txt_pess_cad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_pess_cadActionPerformed(evt);
             }
         });
-        webPanel1.add(txt_pess_cad, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, 380, 30));
+        webPanel1.add(txt_pess_cad, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 30, 430, 30));
 
         webLabel17.setText("Cliente/Fornecedor:");
-        webPanel1.add(webLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, -1, 22));
+        webPanel1.add(webLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, 22));
 
-        comb_status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fechada", "Pendente", "Pendente parcial", " " }));
+        comb_status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fehada", "Pendente", "Pendente parcial", "Estorno", " " }));
         comb_status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comb_statusActionPerformed(evt);
@@ -453,14 +507,14 @@ public class FormContaReceber extends WebInternalFrame {
                 webDateField3ActionPerformed(evt);
             }
         });
-        webPanel1.add(webDateField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 120, 160, -1));
+        webPanel1.add(webDateField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 30, 120, -1));
 
         webLabel19.setText("Data Final:");
-        webPanel1.add(webLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 90, -1, 22));
+        webPanel1.add(webLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 10, -1, 22));
 
         botao_alterar.setBackground(new java.awt.Color(51, 255, 51));
         botao_alterar.setText("Alterar");
-        webPanel1.add(botao_alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 510, 130, 33));
+        webPanel1.add(botao_alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 530, 130, 33));
 
         txt_busca_cliente_fornecedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -470,6 +524,11 @@ public class FormContaReceber extends WebInternalFrame {
         webPanel1.add(txt_busca_cliente_fornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 390, 30));
         webPanel1.add(txt_busca_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 98, 390, 30));
 
+        txt_data_lançamento1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt_data_lançamento1MouseClicked(evt);
+            }
+        });
         txt_data_lançamento1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_data_lançamento1ActionPerformed(evt);
@@ -477,8 +536,8 @@ public class FormContaReceber extends WebInternalFrame {
         });
         webPanel1.add(txt_data_lançamento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 154, 160, 30));
 
-        webLabel20.setText("Data Vencimento:");
-        webPanel1.add(webLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 384, -1, 20));
+        webLabel20.setText("Data 1° Vencimento:");
+        webPanel1.add(webLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, -1, 20));
 
         txt_Valor_parcela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -490,9 +549,9 @@ public class FormContaReceber extends WebInternalFrame {
                 txt_Valor_parcelaActionPerformed(evt);
             }
         });
-        webPanel1.add(txt_Valor_parcela, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 344, 140, 31));
+        webPanel1.add(txt_Valor_parcela, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, 140, 31));
 
-        webLabel21.setText("Valor unitário:");
+        webLabel21.setText("Valor Unitário:");
         webPanel1.add(webLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 254, -1, 20));
 
         comb_parcelas.setModel(new javax.swing.SpinnerNumberModel(1, 1, 50, 1));
@@ -504,19 +563,54 @@ public class FormContaReceber extends WebInternalFrame {
         webPanel1.add(comb_parcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 274, 150, 32));
 
         botao_abrir_relatorios1.setBackground(new java.awt.Color(51, 255, 51));
-        botao_abrir_relatorios1.setText("Pagar");
+        botao_abrir_relatorios1.setText("Receber");
         botao_abrir_relatorios1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botao_abrir_relatorios1ActionPerformed(evt);
             }
         });
-        webPanel1.add(botao_abrir_relatorios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 460, 120, 33));
+        webPanel1.add(botao_abrir_relatorios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 530, 120, 33));
+
+        txt_Valor_pago.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt_Valor_pagoMouseClicked(evt);
+            }
+        });
+        txt_Valor_pago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_Valor_pagoActionPerformed(evt);
+            }
+        });
+        webPanel1.add(txt_Valor_pago, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, 140, 31));
+
+        webLabel22.setText("Valor da Parcela:");
+        webPanel1.add(webLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 320, -1, 20));
+
+        checkboxEntrada4.setText("Fechada");
+        webPanel1.add(checkboxEntrada4, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 80, -1, -1));
+
+        checkboxEntrada5.setText("Parcialmente Fechada");
+        checkboxEntrada5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxEntrada5ActionPerformed(evt);
+            }
+        });
+        webPanel1.add(checkboxEntrada5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 80, -1, -1));
+
+        botao_abrir_relatorios2.setBackground(new java.awt.Color(51, 255, 51));
+        botao_abrir_relatorios2.setText("Filtrar");
+        botao_abrir_relatorios2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_abrir_relatorios2ActionPerformed(evt);
+            }
+        });
+        webPanel1.add(botao_abrir_relatorios2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 60, 90, 33));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(webPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(webPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1359, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -533,8 +627,7 @@ public class FormContaReceber extends WebInternalFrame {
     private void Comb_tip_operacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Comb_tip_operacaoActionPerformed
 
         String b = (String) Comb_tip_operacao.getSelectedItem();
-
-
+        
     }//GEN-LAST:event_Comb_tip_operacaoActionPerformed
 
     private void txtQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeActionPerformed
@@ -547,8 +640,6 @@ public class FormContaReceber extends WebInternalFrame {
     }//GEN-LAST:event_txt_descricaoActionPerformed
 
     private void botao_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_salvarActionPerformed
-
-        boolean contareceber = true;
 
         CarCapContas conta02 = new CarCapContas();
 
@@ -570,8 +661,7 @@ public class FormContaReceber extends WebInternalFrame {
         }
         conta.setTipoDeConta(tipoConta);
 
-        Utils.notificacao("Valor: " + String.valueOf(conta.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
-
+//        Utils.notificacao("Valor: " + String.valueOf(conta.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
         String[] txt = txt_busca_produto.getText().split("-");
 
         int codigo = Integer.parseInt(txt[0]);
@@ -583,7 +673,11 @@ public class FormContaReceber extends WebInternalFrame {
         conta.setProdutoId(produto);
 
         //pegar data lançamento
-        conta.setDatLancamento(txt_data_lançamento1.getDate());
+//       
+        //Calendar da = Calendar.getInstance();
+        Date d = txt_data_lançamento1.getDate();
+
+        conta.setDatLancamento(d);
 
         //pegar descrição
         conta.setDescricao(txt_descricao.getText());
@@ -612,8 +706,7 @@ public class FormContaReceber extends WebInternalFrame {
         conta.setOperacaoNota(chave);
 
         //movimento
-        conta.setMovimento(TipoMovimento.venda);
-
+        // conta.setMovimento(TipoMovimento.venda);
         //quantiade
         String j = txtQuantidade.getText();
 
@@ -625,73 +718,111 @@ public class FormContaReceber extends WebInternalFrame {
 
         for (int i = 0; i < numParcela; i++) {
 
-            // incrementar data
-            Date d = txt_data_lançamento1.getDate();
+//             incrementar data
+            Date data = txt_data_lançamento.getDate();
+            
+          
+            
+        
+          data.setDate(data.getDate()+30);
+          
+          conta02.setContaDataEmissao(data);
+          
+//          String formato = "dd/MM/yyyy";
+//          
+//          SimpleDateFormat formatarData = new SimpleDateFormat(formato);
+          
+          
+          
+          
+          
+            //conta02.setPessoaNome(txt_busca_cliente_fornecedor.getText());
 
-            conta02.setContaDataEmissao(d);
+          
+          
+            double valorTotal = Double.parseDouble(txt_Valor_Total.getText());
 
-            Calendar da = Calendar.getInstance();
-            da.setTime(d);
+             conta02.setContaValorTotal(valorTotal);
+            
+            if (comb_status.getSelectedIndex() == 0) {
 
-            //da.set(Calendar.DAY_OF_MONTH, da.get(Calendar.DAY_OF_MONTH) + 10);
-            da.set(Calendar.MONTH, da.get(Calendar.MONTH) + 1);
-// da.set(Calendar.YEAR, da.get(Calendar.YEAR) + 1);
+                conta02.setCapContaStatus(StatusConta.Fechada);
+            } else if (comb_status.getSelectedIndex() == 1) {
 
+<<<<<<< .mine
+                conta02.setCapContaStatus(StatusConta.Pendente);
+            } else {
+                conta02.setCapContaStatus(StatusConta.PendenteParcial);
+
+||||||| .r241
             //pegar data lançamento
-            if (contareceber) {
+           
 
-                conta02.setPessoaNome(txt_busca_cliente_fornecedor.getText());
+=======
+            //pegar data lançamento
+>>>>>>> .r271
+            }
 
-                double valorTotal = Double.parseDouble(txt_Valor_Total.getText());
+            double valorParcela = Double.parseDouble(txt_Valor_parcela.getText());
 
-                if (comb_status.getSelectedIndex() == 0) {
+            conta02.setContaValorPago(valorParcela);
 
-                    conta02.setCapContaStatus(StatusConta.Fechada);
-                } else if (comb_status.getSelectedIndex() == 1) {
+            // pega o produto
+            conta02.setProduto(produto);
 
-                    conta02.setCapContaStatus(StatusConta.Pendente);
-                } else {
-                    conta02.setCapContaStatus(StatusConta.PendenteParcial);
+            //conta02.setContaDataEmissao(txt_data_lançamento1.getDate());
 
-                }
+            conta02.setDescricao(txt_descricao.getText());
+            
+            int cont = 0;
+                cont = i+1;
 
-                conta02.setContaValorTotal(valorTotal);
+            conta02.setContaNumParcelas(cont);
 
-                double valorParcela = Double.parseDouble(txt_Valor_parcela.getText());
+            String[] pesso = txt_busca_cliente_fornecedor.getText().split("-");
+            String nome = (txt[0]);
 
-                conta02.setContaValorPago(valorParcela);
+            conta02.setPessoaNome(nome);
+           
 
-                // pega o produto
-                conta02.setProduto(produto);
-
-                conta02.setContaDataEmissao(txt_data_lançamento1.getDate());
-
-                conta02.setDescricao(txt_descricao.getText());
-
-                conta02.setContaNumParcelas(numParcela);
-
-                String[] pesso = txt_busca_cliente_fornecedor.getText().split("-");
-                String nome = (txt[0]);
-
-                conta02.setPessoaNome(nome);
-
-                conta02.setQuantidade_produto(b);
-                //pegar nota
+            conta02.setQuantidade_produto(b);
+            //pegar nota
 
 //                conta02.setPatNotaFiscal(chave);
-                conta02.setTipoOperacaoDescricao("iuaszzzdj");
+<<<<<<< .mine
+            conta02.setForma_rece_pagamento(FormaPagamento.values()[Comb_forma_pagamento_recebimento.getSelectedIndex()]);
 
-                Object forma = Comb_forma_pagamento_recebimento.getSelectedItem();
+||||||| .r241
 
-                String n = forma.toString();
+=======
+>>>>>>> .r271
+          // conta02.setForma_rece_pagamento(FormaPagamento.prazo);
+            // Utils.notificacao("Valor: " + p, Utils.TipoNotificacao.ok, 0);
+            // conta02.setTipoOperacaoDescricao("iuaszzzdj");
+            //Object forma = Comb_forma_pagamento_recebimento.getSelectedItem();
+            //Object meio = comb_meio_recebimento.getSelectedItem();
+            conta02.setMeio_recebimento(MeioRecebimentoPagamento.values()[comb_meio_recebimento.getSelectedIndex()]);
 
-                conta02.setForma_rece_pagamento(n);
+            conta02.setContaTipo(tipoConta);
 
-                Object meio = comb_meio_recebimento.getSelectedItem();
+            conta02.setCarcapOperacoesComerciais(conta);
+            
+       
+            
+            
+            
 
-                String x = meio.toString();
-                conta02.setMeio_recebimento(x);
+            new CarCapContasDAO().insert(conta02);
 
+            
+
+            Preenche_tabela();
+            
+        }
+
+<<<<<<< .mine
+        zeraCampos();
+||||||| .r241
                 conta02.setContaTipo(tipoConta);
 
                 new CarCapContasDAO().insert(conta02);
@@ -699,29 +830,41 @@ public class FormContaReceber extends WebInternalFrame {
                 Preenche_tabela();
             }
 
+
+=======
+                conta02.setContaTipo(tipoConta);
+
+                new CarCapContasDAO().insert(conta02);
+
+                Preenche_tabela();
+            }
+
+>>>>>>> .r271
     }//GEN-LAST:event_botao_salvarActionPerformed
-    }
+    
     private void txt_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_notasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_notasActionPerformed
 
     private void txt_pess_cad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pess_cad1ActionPerformed
-        String a = (String) Comb_forma_pagamento_recebimento.getSelectedItem();
+
     }//GEN-LAST:event_txt_pess_cad1ActionPerformed
 
     private void txt_data_lançamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_data_lançamentoActionPerformed
-        // TODO add your handling code here:
+
+
     }//GEN-LAST:event_txt_data_lançamentoActionPerformed
 
     private void txt_pess_cadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pess_cadActionPerformed
-        // TODO add your handling code here:
+
+
     }//GEN-LAST:event_txt_pess_cadActionPerformed
 
     private void Comb_forma_pagamento_recebimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Comb_forma_pagamento_recebimentoActionPerformed
 
         String b = (String) Comb_forma_pagamento_recebimento.getSelectedItem();
 
-        if (b.equals("À Vista")) {
+        if (b.equals("A Vista")) {
 
             comb_parcelas.setEnabled(false);
         } else {
@@ -796,6 +939,24 @@ public class FormContaReceber extends WebInternalFrame {
 
     private void txt_Valor_parcelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_Valor_parcelaMouseClicked
 
+        String b = txtQuantidade.getText();
+
+        b = b.replace(",", "."); //Isso precisa ter pois se o cara digitar o numero com virgula vai dar pau no double
+
+        double q = FormataValor(Double.parseDouble(b));
+
+        String c = txt_preco_uni.getText();
+
+        c = c.replace(",", "."); //Isso precisa ter pois se o cara digitar o numero com virgula vai dar pau no double
+
+        double u = FormataValor(Double.parseDouble(c));
+
+        double soma = q * u;
+
+        String Soma = "" + soma;
+
+        txt_Valor_Total.setText(Soma);
+
         Object parcela = comb_parcelas.getValue();
 
         int numParcela = Integer.parseInt(parcela.toString());
@@ -815,7 +976,16 @@ public class FormContaReceber extends WebInternalFrame {
 
         } else {
 
-            txt_Valor_parcela.setEnabled(true);
+            txt_Valor_parcela.setText(Soma);
+            txt_Valor_parcela.setEnabled(false);
+
+        }
+
+        if (numParcela != 1 && Comb_forma_pagamento_recebimento.getSelectedIndex() == 1) {
+
+            JOptionPane.showMessageDialog(null, "Operação inválida, rever número de parcelas em relação ao"
+                    + "forma de recebimento *A VISTA*");
+            // Utils.notificacao("Operação inválida, rever número de parcelas " , Utils.TipoNotificacao.erro, 0);
         }
 
 
@@ -830,8 +1000,72 @@ public class FormContaReceber extends WebInternalFrame {
     }//GEN-LAST:event_comb_parcelasMouseClicked
 
     private void botao_abrir_relatorios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_abrir_relatorios1ActionPerformed
-        // TODO add your handling code here:
+
+        int codParcela = RetornarLinhaSelecionada(0);
+       
+        CarCapContasDAO dao = new CarCapContasDAO();
+        
+        CarCapContas pagarValor =  dao.BuscarContasId(codParcela);
+        
+        Double quantidade = pagarValor.getContaValorTotal()/pagarValor.getQuantidade_produto();
+        
+        
+        txt_preco_uni.setText(String.valueOf(quantidade));
+        
+        txt_data_lançamento1.setText(String.valueOf( pagarValor.getContaDataEmissao()));
+        
+        txt_busca_produto.setText(String.valueOf( pagarValor.getProduto()));
+        
+        txtQuantidade.setText(String.valueOf( pagarValor.getQuantidade_produto()));
+        
+        comb_status.setToolTip(String.valueOf(pagarValor.getContaStatus()));
+        
+        txt_descricao.setText(pagarValor.getDescricao());
+        
+        txt_Valor_Total.setText(String.valueOf(pagarValor.getContaValorTotal()));
+        
+        txt_Valor_parcela.setText(String.valueOf(pagarValor.getCarCapParcelas()));
+        
+        
+        
+       
+        //txtQuantidade.setText(pagarValor.getQuantidade_produto());
+        
+        
+        
+        
+         
+
+        
     }//GEN-LAST:event_botao_abrir_relatorios1ActionPerformed
+
+    private void txt_preco_uniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_preco_uniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_preco_uniActionPerformed
+
+    private void txt_data_lançamento1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_data_lançamento1MouseClicked
+        
+    }//GEN-LAST:event_txt_data_lançamento1MouseClicked
+
+    private void txt_Valor_pagoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_Valor_pagoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_Valor_pagoMouseClicked
+
+    private void txt_Valor_pagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_Valor_pagoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_Valor_pagoActionPerformed
+
+    private void checkboxEntrada3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxEntrada3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkboxEntrada3ActionPerformed
+
+    private void checkboxEntrada5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxEntrada5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkboxEntrada5ActionPerformed
+
+    private void botao_abrir_relatorios2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_abrir_relatorios2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botao_abrir_relatorios2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -902,11 +1136,13 @@ public class FormContaReceber extends WebInternalFrame {
     private com.alee.laf.combobox.WebComboBox Comb_tip_operacao;
     private com.alee.laf.button.WebButton botao_abrir_relatorios;
     private com.alee.laf.button.WebButton botao_abrir_relatorios1;
+    private com.alee.laf.button.WebButton botao_abrir_relatorios2;
     private com.alee.laf.button.WebButton botao_alterar;
-    private com.alee.laf.button.WebButton botao_excluir;
     private com.alee.laf.button.WebButton botao_salvar;
     private com.alee.laf.checkbox.WebCheckBox checkboxEntrada;
     private com.alee.laf.checkbox.WebCheckBox checkboxEntrada3;
+    private com.alee.laf.checkbox.WebCheckBox checkboxEntrada4;
+    private com.alee.laf.checkbox.WebCheckBox checkboxEntrada5;
     private com.alee.laf.combobox.WebComboBox comb_meio_recebimento;
     private com.alee.laf.spinner.WebSpinner comb_parcelas;
     private com.alee.laf.combobox.WebComboBox comb_status;
@@ -914,6 +1150,7 @@ public class FormContaReceber extends WebInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField txtQuantidade;
     private javax.swing.JTextField txt_Valor_Total;
+    private javax.swing.JTextField txt_Valor_pago;
     private javax.swing.JTextField txt_Valor_parcela;
     private components.TextFieldFK txt_busca_cliente_fornecedor;
     private components.TextFieldFK txt_busca_nota;
@@ -940,6 +1177,7 @@ public class FormContaReceber extends WebInternalFrame {
     private com.alee.laf.label.WebLabel webLabel2;
     private com.alee.laf.label.WebLabel webLabel20;
     private com.alee.laf.label.WebLabel webLabel21;
+    private com.alee.laf.label.WebLabel webLabel22;
     private com.alee.laf.label.WebLabel webLabel3;
     private com.alee.laf.label.WebLabel webLabel4;
     private com.alee.laf.label.WebLabel webLabel6;
