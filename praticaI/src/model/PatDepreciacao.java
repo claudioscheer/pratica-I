@@ -64,7 +64,7 @@ public class PatDepreciacao implements java.io.Serializable {
     }
 
     public void setDepreciacaoVidaUtil(int depreciacaoVidaUtil) {
-        this.depreciacaoVidaUtil = depreciacaoVidaUtil;
+        this.depreciacaoVidaUtil =  depreciacaoVidaUtil;
     }
 
     @Column(nullable = false)
