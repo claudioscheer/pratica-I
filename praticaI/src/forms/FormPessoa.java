@@ -93,9 +93,7 @@ public class FormPessoa extends WebInternalFrame {
     
     // evento para abrir tela de gerar relatórios
 private void telaRelatorio() {
-//        this.formBuscaPessoa = new FormRelatorioPessoa();
-//        this.formBuscaPessoa.setVisible(true);
-//        System.out.println("abre tela");
+       
     }
     
     //evento para cancelar o cadastro
@@ -144,8 +142,6 @@ private void telaRelatorio() {
     }
 
     private PanelConsultaPessoa panelConsultaPessoa;
-    private PanelCadPessoa panelCadastroPessoa;
-//    private FormRelatorioPessoa formBuscaPessoa;
-    
+    private PanelCadPessoa panelCadastroPessoa;    
             
 }
