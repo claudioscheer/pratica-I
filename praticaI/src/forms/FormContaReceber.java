@@ -439,7 +439,7 @@ public class FormContaReceber extends WebInternalFrame {
                 botao_salvarActionPerformed(evt);
             }
         });
-        webPanel1.add(botao_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 530, 130, 33));
+        webPanel1.add(botao_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 530, 130, 33));
 
         webLabel11.setText("Forma de Pagamento/Recebimento:");
         webPanel1.add(webLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 254, -1, 22));
@@ -499,7 +499,7 @@ public class FormContaReceber extends WebInternalFrame {
         webLabel17.setText("Cliente/Fornecedor:");
         webPanel1.add(webLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, -1, 22));
 
-        comb_status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Fehada", "Pendente", "Pendente parcial", "Estorno", " " }));
+        comb_status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pendente", "Fechada", "Vencida", "PendenteParcial", "Estorno" }));
         comb_status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comb_statusActionPerformed(evt);
@@ -807,6 +807,28 @@ public class FormContaReceber extends WebInternalFrame {
             
             conta02.setValorRecebido(valorecebido);
        
+            if(valorecebido < valorParcela) {
+                
+                conta02.setCapContaStatus(StatusConta.Pendente);
+                
+                Utils.notificacao("Lançamento Pendente " + String.valueOf(conta.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
+                
+                
+                
+                
+            }else if(valorecebido>valorParcela){
+
+                
+                                Utils.notificacao("VERIFICAR: recebimento maior que a parcela " + String.valueOf(conta.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
+
+                                conta02.setCapContaStatus(StatusConta.PendenteParcial);
+                                
+                
+            }
+            
+            
+            
+            
             
             
             
@@ -1027,7 +1049,7 @@ public class FormContaReceber extends WebInternalFrame {
         
         txtQuantidade.setText(String.valueOf( pagarValor.getQuantidade_produto()));
         
-        comb_status.setToolTip(String.valueOf(pagarValor.getContaStatus()));
+        comb_status.setFontName(pagarValor.getCapContaStatus().toString());
         
         txt_descricao.setText(pagarValor.getDescricao());
         
