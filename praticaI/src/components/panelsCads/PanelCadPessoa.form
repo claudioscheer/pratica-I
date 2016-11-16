@@ -389,6 +389,7 @@
                   <ComponentRef name="btnGroupLogin"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Administrador"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radiobtnAdminActionPerformed"/>
@@ -400,6 +401,7 @@
                   <ComponentRef name="btnGroupLogin"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radiobtnUserActionPerformed"/>
@@ -408,6 +410,7 @@
             <Component class="javax.swing.JLabel" name="txtNivel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="N&#xed;vel de acesso:"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>

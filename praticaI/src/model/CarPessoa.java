@@ -28,7 +28,7 @@ public class CarPessoa implements java.io.Serializable {
     private String pessoaBairro;
     private String pessoaCidade;
     private String pessoaUF;
-    private int pessoaCEP;
+    private String pessoaCEP;
     private TipoUsuario pessoaLevel;
     private String pessoaLogin;
     private String pessoaSenha;
@@ -123,11 +123,11 @@ public class CarPessoa implements java.io.Serializable {
         this.pessoaUF = pessoaUF;
     }
 
-    public int getPessoaCEP() {
+    public String getPessoaCEP() {
         return pessoaCEP;
     }
 
-    public void setPessoaCEP(int pessoaCEP) {
+    public void setPessoaCEP(String pessoaCEP) {
         this.pessoaCEP = pessoaCEP;
     }
 

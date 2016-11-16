@@ -93,7 +93,8 @@ public class FormPessoa extends WebInternalFrame {
     
     // evento para abrir tela de gerar relatórios
 private void telaRelatorio() {
-       
+       pessoa.FormRelatorioPessoa tela = new pessoa.FormRelatorioPessoa();
+       tela.setVisible(true);
     }
     
     //evento para cancelar o cadastro

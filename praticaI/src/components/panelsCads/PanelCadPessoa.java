@@ -56,7 +56,7 @@ public class PanelCadPessoa extends WebPanel {
         pessoa.setPessoaBairro(fieldBairro.getText());
         pessoa.setPessoaFone(fieldFone.getText());        
         pessoa.setPessoaEmail(fieldEmail.getText());
-        pessoa.setPessoaCEP(Integer.parseInt(fieldCEP.getText()));
+        pessoa.setPessoaCEP(fieldCEP.getText());
         pessoa.setPessoaCidade(fieldCidade.getText());
         pessoa.setPessoaUF((String) comboboxUF.getSelectedItem());
         if (radiobtnAdmin.isSelected()) {
@@ -86,7 +86,7 @@ public class PanelCadPessoa extends WebPanel {
         this.fieldBairro.setText(this.pessoa.getPessoaBairro());
         this.fieldCidade.setText(this.pessoa.getPessoaCidade());
         this.comboboxUF.setSelectedItem(this.pessoa.getPessoaUF());
-        this.fieldCEP.setText(String.valueOf(this.pessoa.getPessoaCEP()));
+        this.fieldCEP.setText(this.pessoa.getPessoaCEP());
         if (this.pessoa.getPessoaTipo() == 0) {
             radiobtnPF.setSelected(true);
         }
@@ -250,6 +250,7 @@ public class PanelCadPessoa extends WebPanel {
 
         btnGroupLogin.add(radiobtnAdmin);
         radiobtnAdmin.setText("Administrador");
+        radiobtnAdmin.setEnabled(false);
         radiobtnAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radiobtnAdminActionPerformed(evt);
@@ -258,6 +259,7 @@ public class PanelCadPessoa extends WebPanel {
 
         btnGroupLogin.add(radiobtnUser);
         radiobtnUser.setText("Usuário");
+        radiobtnUser.setEnabled(false);
         radiobtnUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radiobtnUserActionPerformed(evt);
@@ -265,6 +267,7 @@ public class PanelCadPessoa extends WebPanel {
         });
 
         txtNivel.setText("Nível de acesso:");
+        txtNivel.setEnabled(false);
 
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
@@ -439,11 +442,25 @@ public class PanelCadPessoa extends WebPanel {
 
     private void radiobtnPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiobtnPFActionPerformed
         this.validador.isValid();
+        txtNivel.setEnabled(true);
+        fieldUser.setEnabled(true);
+        fieldSenha.setEnabled(true);
+        txtLogin.setEnabled(true);
+        txtSenha.setEnabled(true);
+        radiobtnAdmin.setEnabled(true);
+        radiobtnUser.setEnabled(true);
         fieldNome.requestFocus();
     }//GEN-LAST:event_radiobtnPFActionPerformed
 
     private void radiobtnPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiobtnPJActionPerformed
         this.validador.isValid();
+        txtNivel.setEnabled(false);
+        fieldUser.setEnabled(false);
+        fieldSenha.setEnabled(false);
+        txtLogin.setEnabled(false);
+        txtSenha.setEnabled(false);
+        radiobtnAdmin.setEnabled(false);
+        radiobtnUser.setEnabled(false);
         fieldNome.requestFocus();
     }//GEN-LAST:event_radiobtnPJActionPerformed
 
