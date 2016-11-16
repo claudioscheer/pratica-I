@@ -42,7 +42,7 @@ public class EstCategoria implements java.io.Serializable {
         this.categoriaDescricao = categoriaDescricao;
     }
 
-    @OneToOne(mappedBy = "estCategoria", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "estCategoria", optional = true, fetch = FetchType.EAGER)
     public PatDepreciacao getDepreciacao() {
         return depreciacao;
     }
@@ -60,7 +60,7 @@ public class EstCategoria implements java.io.Serializable {
         this.estProdutos = estProdutos;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "estCategoria")
+    @OneToMany(mappedBy = "estCategoria")
     public Set<PatDepreciacao> getPatDepreciacaos() {
         return this.patDepreciacaos;
     }
@@ -69,7 +69,7 @@ public class EstCategoria implements java.io.Serializable {
         this.patDepreciacaos = patDepreciacaos;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "estCategoria")
+    @OneToMany(mappedBy = "estCategoria")
     public Set<PatAtivoImobilizado> getPatAtivoImobilizados() {
         return this.patAtivoImobilizados;
     }

@@ -700,7 +700,7 @@ public class FormContaReceber extends WebInternalFrame {
 
         PatNotaFiscalDAO Nota = new PatNotaFiscalDAO();
 
-        PatNotaFiscal chave = Nota.get(chaveNota);
+        PatNotaFiscal chave = Nota.buscarUm(chaveNota);
 
         conta.setOperacaoNota(chave);
 

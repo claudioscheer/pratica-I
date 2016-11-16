@@ -14,7 +14,7 @@ import utils.HibernateUtil;
 
 public class PatDepreciacaoDAO {
 
-    public boolean insert(PatDepreciacao depreciacao) {
+    public boolean inserir(PatDepreciacao depreciacao) {
         boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -29,7 +29,7 @@ public class PatDepreciacaoDAO {
         return ok;
     }
 
-    public boolean update(PatDepreciacao depreciacao) {
+    public boolean alterar(PatDepreciacao depreciacao) {
         boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -44,7 +44,7 @@ public class PatDepreciacaoDAO {
         return ok;
     }
 
-    public boolean delete(PatDepreciacao depreciacao) {
+    public boolean excluir(PatDepreciacao depreciacao) {
         boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -60,7 +60,7 @@ public class PatDepreciacaoDAO {
         return ok;
     }
 
-    public List<PatDepreciacao> getAll() {
+    public List<PatDepreciacao> buscarTodos() {
         List<PatDepreciacao> depreciacao = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -76,7 +76,7 @@ public class PatDepreciacaoDAO {
         return depreciacao;
     }
 
-    public PatDepreciacao get(int codigo) {
+    public PatDepreciacao buscarUm(int codigo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
@@ -91,7 +91,7 @@ public class PatDepreciacaoDAO {
     }
 
     public String depreciarAtivoImobilizado(PatAtivoImobilizado ativo, Date dia) {
-        PatHistoricoDepreciacao historico = new PatHistoricoDepreciacaoDAO().getDepreciacaoMes(ativo, dia);
+        PatHistoricoDepreciacao historico = new PatHistoricoDepreciacaoDAO().buscarDepreciacaoMes(ativo, dia);
         if (historico != null) {
             return "O ativo " + ativo.getAtivoDescricao() + " já foi depreciado!";
         }
@@ -115,7 +115,7 @@ public class PatDepreciacaoDAO {
         ativo.setAtivoValorAtual(ativo.getAtivoValorAtual() - valordepreciar);
         historico.setPatAtivoImobilizado(ativo);
 
-        new PatHistoricoDepreciacaoDAO().insert(historico);
+        new PatHistoricoDepreciacaoDAO().inserir(historico);
 
         return "Depreciação do ativo " + ativo.getAtivoDescricao() + " realizada!";
     }

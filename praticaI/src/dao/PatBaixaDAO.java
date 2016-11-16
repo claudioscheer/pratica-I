@@ -9,7 +9,7 @@ import utils.HibernateUtil;
 
 public class PatBaixaDAO {
 
-    public boolean insert(PatBaixa baixa) {
+    public boolean inserir(PatBaixa baixa) {
         boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -26,7 +26,7 @@ public class PatBaixaDAO {
         return ok;
     }
 
-    public boolean update(PatBaixa baixa) {
+    public boolean alterar(PatBaixa baixa) {
         boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -41,7 +41,7 @@ public class PatBaixaDAO {
         return ok;
     }
 
-    public boolean delete(PatBaixa baixa) {
+    public boolean excluir(PatBaixa baixa) {
         boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -55,7 +55,7 @@ public class PatBaixaDAO {
         return ok;
     }
 
-    public List<PatBaixa> getAll() {
+    public List<PatBaixa> buscarTodos() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();
@@ -70,7 +70,7 @@ public class PatBaixaDAO {
         }
     }
 
-    public PatBaixa get(int codigo) {
+    public PatBaixa buscarUm(int codigo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.getTransaction().begin();

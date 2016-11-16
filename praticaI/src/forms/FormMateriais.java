@@ -28,6 +28,7 @@ public class FormMateriais extends javax.swing.JFrame {
         initComponents();
         //abre o form para buscar uma categoria
         FormBuscaCategoria formCategoria = new FormBuscaCategoria();
+        formCategoria.buscarCategorias();
         formCategoria.setFrameBloquear(FormPrincipal.getInstance());
         this.edtCategoria.setFrame(formCategoria);
 

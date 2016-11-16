@@ -26,7 +26,7 @@ public class RelatoriosPatrimonio {
 
     public static void relatorioInventario() throws JRException {
 
-        List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().getParaRelatorio();
+        List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().buscarParaRelatorio();
         JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(ativos);
 
         Map parametros = new HashMap();

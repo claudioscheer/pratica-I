@@ -51,7 +51,7 @@ public class PanelConsultaDepreciacao extends WebPanel {
 
         protected Void doInBackground() throws Exception {
 //            scrollPanel.getVerticalScrollBar().removeAdjustmentListener(eventoScroll);
-            depreciacoes.addAll(new PatDepreciacaoDAO().getAll());
+            depreciacoes.addAll(new PatDepreciacaoDAO().buscarTodos());
             atualizarTabela(true);
             return null;
         }
@@ -79,7 +79,7 @@ public class PanelConsultaDepreciacao extends WebPanel {
     }
 
     public void addDepreciacao(PatDepreciacao ativo) {
-        ativo = new PatDepreciacaoDAO().get(ativo.getDepreciacaoCodigo());
+        ativo = new PatDepreciacaoDAO().buscarUm(ativo.getDepreciacaoCodigo());
         this.depreciacoes.add(0, ativo);
         DefaultTableModel model = (DefaultTableModel) this.tabelaDepreciacao.getModel();
         model.insertRow(0, depreciacaoToArray(ativo));

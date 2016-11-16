@@ -46,6 +46,7 @@ public class FormManutencaoMateriais extends javax.swing.JFrame {
 
         //abre o form para buscar uma categoria
         FormBuscaCategoria formCategoria = new FormBuscaCategoria();
+        formCategoria.buscarCategorias();
         formCategoria.setFrameBloquear(FormPrincipal.getInstance());
         this.txtCategoria.setFrame(formCategoria);
 
@@ -76,6 +77,7 @@ public class FormManutencaoMateriais extends javax.swing.JFrame {
 
         //abre o form para buscar uma categoria
         FormBuscaCategoria formCategoria = new FormBuscaCategoria();
+        formCategoria.buscarCategorias();
         formCategoria.setFrameBloquear(FormPrincipal.getInstance());
         this.txtCategoria.setFrame(formCategoria);
 

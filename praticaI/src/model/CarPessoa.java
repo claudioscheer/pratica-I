@@ -67,14 +67,6 @@ public class CarPessoa implements java.io.Serializable {
         this.pessoaEndereco = pessoaEndereco;
     }
 
-    public String getPessoaCnpjCpf() {
-        return this.pessoaCpfCnpj;
-    }
-
-    public void setPessoaCnpjCpf(String pessoaCnpjCpf) {
-        this.pessoaCpfCnpj = pessoaCnpjCpf;
-    }
-
     public String getPessoaCpfCnpj() {
         return pessoaCpfCnpj;
     }

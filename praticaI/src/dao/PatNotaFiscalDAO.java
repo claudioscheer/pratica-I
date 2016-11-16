@@ -9,7 +9,7 @@ import utils.HibernateUtil;
 
 public class PatNotaFiscalDAO {
 
-    public Boolean update(PatNotaFiscal notaFiscal) {
+    public Boolean alterar(PatNotaFiscal notaFiscal) {
         boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -24,7 +24,7 @@ public class PatNotaFiscalDAO {
         return ok;
     }
 
-    public Boolean insert(PatNotaFiscal notaFiscal) {
+    public Boolean inserir(PatNotaFiscal notaFiscal) {
         boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -39,7 +39,7 @@ public class PatNotaFiscalDAO {
         return ok;
     }
 
-    public Boolean delete(PatNotaFiscal notaFiscal) {
+    public Boolean excluir(PatNotaFiscal notaFiscal) {
         boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -70,7 +70,7 @@ public class PatNotaFiscalDAO {
         return ok;
     }
 
-    public List<PatNotaFiscal> getAll(int paginaBuscar, int indexfiltro, String filtro) {
+    public List<PatNotaFiscal> buscarTodos(int paginaBuscar, int indexfiltro, String filtro) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         String where = "";
@@ -103,7 +103,7 @@ public class PatNotaFiscalDAO {
         return ativos;
     }
 
-    public PatNotaFiscal get(int nota) {
+    public PatNotaFiscal buscarUm(int nota) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         PatNotaFiscal notaFiscal = (PatNotaFiscal) session.get(PatNotaFiscal.class, nota);

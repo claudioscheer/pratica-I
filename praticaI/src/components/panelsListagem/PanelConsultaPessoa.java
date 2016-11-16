@@ -109,7 +109,7 @@ public class PanelConsultaPessoa extends WebPanel implements ActionListener {
         Object[] o = new Object[8];
         o[0] = p.getPessoaId();
         o[1] = p.getPessoaNome();
-        o[2] = p.getPessoaCnpjCpf();
+        o[2] = p.getPessoaCpfCnpj();
         o[3] = p.getPessoaFone();
         o[4] = p.getPessoaEmail();
         o[5] = p.getPessoaEndereco();

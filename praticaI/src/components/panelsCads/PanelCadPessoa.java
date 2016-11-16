@@ -78,7 +78,7 @@ public class PanelCadPessoa extends WebPanel {
     
     private void setDadosForm() {
         this.fieldNome.setText(this.pessoa.getPessoaNome());
-        this.fieldCpfCnpj.setText(this.pessoa.getPessoaCnpjCpf());
+        this.fieldCpfCnpj.setText(this.pessoa.getPessoaCpfCnpj());
         this.fieldFone.setText(this.pessoa.getPessoaFone());
         this.fieldEmail.setText(this.pessoa.getPessoaEmail());
         this.fieldEndereco.setText(this.pessoa.getPessoaEndereco());

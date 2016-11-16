@@ -15,14 +15,12 @@ import utils.Utils;
 
 public class FormBuscaCategoria extends JFrameBusca {
 
-    private LoadCategorias loadCategorias;
     private List<EstCategoria> categorias;
 
     private boolean apenasComDepreciacoes;
 
     public FormBuscaCategoria() {
         initComponents();
-        this.buscarCategorias();
         this.setLocationRelativeTo(null);
     }
 
@@ -31,8 +29,7 @@ public class FormBuscaCategoria extends JFrameBusca {
     }
 
     public void buscarCategorias() {
-        this.loadCategorias = new LoadCategorias();
-        this.loadCategorias.execute();
+        new LoadCategorias().execute();
     }
 
     public class LoadCategorias extends SwingWorker<Void, Void> {
@@ -44,7 +41,7 @@ public class FormBuscaCategoria extends JFrameBusca {
             if (!apenasComDepreciacoes) {
                 categorias = new EstCategoriaDAO().getAll();
             } else {
-                categorias = new PatDepreciacaoDAO().getAll().stream().map(PatDepreciacao::getEstCategoria).collect(Collectors.toList());
+                categorias = new PatDepreciacaoDAO().buscarTodos().stream().map(PatDepreciacao::getEstCategoria).collect(Collectors.toList());
             }
             for (EstCategoria categoria : categorias) {
                 Object[] o = new Object[2];

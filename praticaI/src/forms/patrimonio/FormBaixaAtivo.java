@@ -178,7 +178,7 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
         baixa.setBaixaDataBaixa(this.txtDataAtivo.getDate());
         baixa.setPatTipoBaixa((PatTipoBaixa) this.txtMotivo.getValue());
         baixa.setPatAtivoImobilizado((PatAtivoImobilizado) this.ativoImobilizado);
-        new PatBaixaDAO().insert(baixa);
+        new PatBaixaDAO().inserir(baixa);
 
         Utils.notificacao("Baixa realizada", Utils.TipoNotificacao.ok, 0);
         this.panelConsultaAtivoImobilizado.resetBusca();

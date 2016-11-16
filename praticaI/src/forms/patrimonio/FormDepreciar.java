@@ -1,7 +1,6 @@
 package forms.patrimonio;
 
 import components.panelsListagem.PanelConsultaAtivoImobilizado;
-import components.panelsListagem.PanelDepreciar;
 import forms.FormPessoa;
 import forms.FormPrincipal;
 import utils.Utils;

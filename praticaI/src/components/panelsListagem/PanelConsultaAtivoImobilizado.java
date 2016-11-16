@@ -176,7 +176,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
 
         @Override
         protected Void doInBackground() throws Exception {
-            List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().getAll(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText());
+            List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().buscarTodos(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText());
             if (ativos.size() > 0) {
                 ativosImobilizados.addAll(ativos);
                 atualizarTabela();
@@ -206,7 +206,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
     }
 
     public void addAtivoImobilizado(PatAtivoImobilizado ativo) {
-        ativo = new PatAtivoImobilizadoDAO().get(ativo.getAtivoCodigo());
+        ativo = new PatAtivoImobilizadoDAO().buscarUm(ativo.getAtivoCodigo());
         this.ativosImobilizados.add(0, ativo);
         DefaultTableModel model = (DefaultTableModel) this.tabelaAtivosImobilizados.getModel();
         model.insertRow(0, ativoToArray(ativo));

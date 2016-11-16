@@ -11,7 +11,7 @@ import utils.HibernateUtil;
 
 public class PatHistoricoDepreciacaoDAO {
 
-    public Boolean insert(PatHistoricoDepreciacao historicoDepreciacao) {
+    public Boolean inserir(PatHistoricoDepreciacao historicoDepreciacao) {
         boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -27,7 +27,7 @@ public class PatHistoricoDepreciacaoDAO {
         return ok;
     }
 
-    public List<PatHistoricoDepreciacao> getAll(PatAtivoImobilizado ativo) {
+    public List<PatHistoricoDepreciacao> buscarTodos(PatAtivoImobilizado ativo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("FROM PatHistoricoDepreciacao hd WHERE hd.ativoImobilizado.ativoImobilizado = :ativoImobilizado");
@@ -38,7 +38,7 @@ public class PatHistoricoDepreciacaoDAO {
         return marcas;
     }
 
-    public PatHistoricoDepreciacao getUltimaDepreciacao() {
+    public PatHistoricoDepreciacao buscarUltimaDepreciacao() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("FROM PatHistoricoDepreciacao hd ORDER BY hd.historicoDepreciacaoCodigo DESC");
@@ -52,7 +52,7 @@ public class PatHistoricoDepreciacaoDAO {
         return null;
     }
 
-    public PatHistoricoDepreciacao getDepreciacaoMes(PatAtivoImobilizado ativo, Date dia) {
+    public PatHistoricoDepreciacao buscarDepreciacaoMes(PatAtivoImobilizado ativo, Date dia) {
         Calendar c = Calendar.getInstance();
         c.setTime(dia);
 

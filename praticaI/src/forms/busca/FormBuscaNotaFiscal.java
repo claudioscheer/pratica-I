@@ -74,7 +74,7 @@ public class FormBuscaNotaFiscal extends JFrameBusca {
 
         PatNotaFiscal notaFiscal = this.panelCadastroNotaFiscal.getNotaFiscal();
 
-        new PatNotaFiscalDAO().insert(notaFiscal);
+        new PatNotaFiscalDAO().inserir(notaFiscal);
 
         this.panelConsultaNotaFiscal.addNotaFiscal(notaFiscal);
 

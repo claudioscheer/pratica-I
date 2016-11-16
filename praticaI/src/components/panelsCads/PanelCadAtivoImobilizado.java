@@ -82,6 +82,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
 
         FormBuscaCategoria formCategoria = new FormBuscaCategoria();
         formCategoria.setApenasComDepreciacoes(true);
+        formCategoria.buscarCategorias();
         formCategoria.setFrameBloquear(FormPrincipal.getInstance());
         this.txtCategoria.setFrame(formCategoria);
 

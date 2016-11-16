@@ -8,7 +8,7 @@ import utils.HibernateUtil;
 
 public class PatAtivoImobilizadoDAO {
 
-    public Boolean update(PatAtivoImobilizado ativoImobilizado) {
+    public Boolean alterar(PatAtivoImobilizado ativoImobilizado) {
         boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -23,7 +23,7 @@ public class PatAtivoImobilizadoDAO {
         return ok;
     }
 
-    public Boolean insert(PatAtivoImobilizado ativoImobilizado) {
+    public Boolean inserir(PatAtivoImobilizado ativoImobilizado) {
         boolean ok = true;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -38,7 +38,7 @@ public class PatAtivoImobilizadoDAO {
         return ok;
     }
 
-    public Boolean delete(PatAtivoImobilizado ativoImobilizado) {
+    public Boolean excluir(PatAtivoImobilizado ativoImobilizado) {
         boolean ok = true;
         ativoImobilizado.setAtivo(false);
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -54,7 +54,7 @@ public class PatAtivoImobilizadoDAO {
         return true;
     }
 
-    public List<PatAtivoImobilizado> getAll(int paginaBuscar, int indexfiltro, String filtro) {
+    public List<PatAtivoImobilizado> buscarTodos(int paginaBuscar, int indexfiltro, String filtro) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         String where = "";
@@ -87,7 +87,7 @@ public class PatAtivoImobilizadoDAO {
         return ativos;
     }
 
-    public PatAtivoImobilizado get(int ativo) {
+    public PatAtivoImobilizado buscarUm(int ativo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         PatAtivoImobilizado ativoImobilizado = (PatAtivoImobilizado) session.get(PatAtivoImobilizado.class, ativo);
@@ -96,7 +96,7 @@ public class PatAtivoImobilizadoDAO {
         return ativoImobilizado;
     }
 
-    public List<PatAtivoImobilizado> getParaRelatorio() {
+    public List<PatAtivoImobilizado> buscarParaRelatorio() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("from PatAtivoImobilizado a left join fetch a.patItemNota where a.ativo = true ");
@@ -106,7 +106,7 @@ public class PatAtivoImobilizadoDAO {
         return ativos;
     }
 
-    public List<PatAtivoImobilizado> getAtivosParaDepreciar() {
+    public List<PatAtivoImobilizado> buscarAtivosParaDepreciar() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("from PatAtivoImobilizado a where a.ativo = true and a.ativoDepreciavel = true ");

@@ -86,7 +86,7 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
         protected Void doInBackground() throws Exception {
             DefaultTableModel model = (DefaultTableModel) tabelaTipoBaixa.getModel();
 
-            tiposBaixa.addAll(new PatTipoBaixaDAO().getAll(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
+            tiposBaixa.addAll(new PatTipoBaixaDAO().buscarTodos(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText()));
             Utils.clearTableModel((DefaultTableModel) tabelaTipoBaixa.getModel());
             tiposBaixa.forEach((tipoBaixa) -> {
                 model.addRow(impostoToArray(tipoBaixa));
@@ -289,7 +289,7 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
                 WebOptionPane.QUESTION_MESSAGE) == WebOptionPane.OK_OPTION) {
 
             PatTipoBaixa tipoBaixa = this.tiposBaixa.get(linhaselecionada);
-            new PatTipoBaixaDAO().delete(tipoBaixa);
+            new PatTipoBaixaDAO().excluir(tipoBaixa);
             this.removeImposto(linhaselecionada);
             Utils.notificacao("Tipo baixa removida!", Utils.TipoNotificacao.ok, 0);
         }
@@ -315,9 +315,9 @@ public class FormBuscaTipoBaixa extends JFrameBusca {
 
         PatTipoBaixa imposto = this.panelCadastro.getTipoBaixa();
         if (!this.panelCadastro.editando) {
-            new PatTipoBaixaDAO().insert(imposto);
+            new PatTipoBaixaDAO().inserir(imposto);
         } else {
-            new PatTipoBaixaDAO().update(imposto);
+            new PatTipoBaixaDAO().alterar(imposto);
             this.panelCadastro.editando = false;
             this.removeImposto(this.indexEditando);
             this.indexEditando = -1;

@@ -76,14 +76,14 @@ public class FormNotaFiscal extends WebInternalFrame {
         PatNotaFiscal notaFiscal = this.panelCadastroNotaFiscal.getNotaFiscal();
 
         if (!this.panelCadastroNotaFiscal.editando) {
-            new PatNotaFiscalDAO().insert(notaFiscal);
+            new PatNotaFiscalDAO().inserir(notaFiscal);
 
             this.panelCadastroNotaFiscal.getAtivos().forEach((key, value) -> {
-                new PatAtivoImobilizadoDAO().insert(value);
+                new PatAtivoImobilizadoDAO().inserir(value);
             });
 
         } else {
-            new PatNotaFiscalDAO().update(notaFiscal);
+            new PatNotaFiscalDAO().alterar(notaFiscal);
             this.panelCadastroNotaFiscal.editando = false;
             this.panelConsultaNotaFiscal.removeNotaFiscal(this.indexEditando);
             this.indexEditando = -1;
@@ -152,7 +152,7 @@ public class FormNotaFiscal extends WebInternalFrame {
 
             int index = this.panelConsultaNotaFiscal.getIndiceSelecionado();
 
-            if (new PatNotaFiscalDAO().delete(notaFiscal)) {
+            if (new PatNotaFiscalDAO().excluir(notaFiscal)) {
                 this.panelConsultaNotaFiscal.removeNotaFiscal(index);
                 Utils.notificacao("Nota fiscal removida!", Utils.TipoNotificacao.ok, 0);
             } else {

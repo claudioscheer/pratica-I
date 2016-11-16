@@ -72,7 +72,7 @@ public class PanelConsultaNotaFiscal extends WebPanel {
     }
 
     public void addNotaFiscal(PatNotaFiscal notaFiscal) {
-        notaFiscal = new PatNotaFiscalDAO().get(notaFiscal.getNotaCodigo());
+        notaFiscal = new PatNotaFiscalDAO().buscarUm(notaFiscal.getNotaCodigo());
         this.notasFiscais.add(0, notaFiscal);
         DefaultTableModel model = (DefaultTableModel) this.tabelaNotasFiscais.getModel();
         model.insertRow(0, notaToArray(notaFiscal));
@@ -83,7 +83,7 @@ public class PanelConsultaNotaFiscal extends WebPanel {
 
         @Override
         protected Void doInBackground() throws Exception {
-            List<PatNotaFiscal> notas = new PatNotaFiscalDAO().getAll(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText());
+            List<PatNotaFiscal> notas = new PatNotaFiscalDAO().buscarTodos(paginaBuscar++, txtBuscar.getFiltroSelecionado(), txtBuscar.getText());
             if (notas.size() > 0) {
                 notasFiscais.addAll(notas);
                 atualizarTabela(true);

@@ -48,6 +48,7 @@ public class PanelCadDepreciacoes extends WebPanel {
         this.validador.addMenorQueValidator(this.txtTaxaAnual, 100.00);
 
         FormBuscaCategoria formCategoria = new FormBuscaCategoria();
+        formCategoria.buscarCategorias();
         formCategoria.setFrameBloquear(FormPrincipal.getInstance());
         this.txtCategoria.setFrame(formCategoria);
         this.scrollCadastro.getVerticalScrollBar().setUnitIncrement(20);

@@ -64,9 +64,9 @@ public class FormControleDepreciacoes extends JFrame {
 
         PatDepreciacao depreciacao = this.panelCadastroDepreciacao.getDepreciacao();
         if (!this.panelCadastroDepreciacao.editando) {
-            new PatDepreciacaoDAO().insert(depreciacao);
+            new PatDepreciacaoDAO().inserir(depreciacao);
         } else {
-            new PatDepreciacaoDAO().update(depreciacao);
+            new PatDepreciacaoDAO().alterar(depreciacao);
             this.panelCadastroDepreciacao.editando = false;
             this.panelConsultaDepreciacao.removeDepreciacao(this.indexEditando);
             this.indexEditando = -1;
@@ -133,7 +133,7 @@ public class FormControleDepreciacoes extends JFrame {
 
             int index = this.panelConsultaDepreciacao.getIndiceSelecionado();
 
-            new PatDepreciacaoDAO().delete(depreciacao);
+            new PatDepreciacaoDAO().excluir(depreciacao);
             this.panelConsultaDepreciacao.removeDepreciacao(index);
             Utils.notificacao("Depreciação removida!", Utils.TipoNotificacao.ok, 0);
         }
