@@ -81,13 +81,12 @@ public class FormContaReceber extends WebInternalFrame {
 
         conta.setOperacoesID(id);
 
-       
-        
         return false;
 
     }
+
     private void carregarTudo() {
-        
+
         FormBuscaProduto buscaProduto = new FormBuscaProduto();
 
         buscaProduto.setFrameBloquear(FormPrincipal.getInstance());
@@ -137,7 +136,7 @@ public class FormContaReceber extends WebInternalFrame {
 //    }
     //****METODOS DE USO
     public void zeraCampos() {
-        
+
         txt_busca_cliente_fornecedor.setText(null);
 
         txt_busca_produto.setText(null);
@@ -188,14 +187,14 @@ public class FormContaReceber extends WebInternalFrame {
         tabelamodelo.addColumn("Quantidade");
         tabelamodelo.addColumn("Status");
         tabelamodelo.addColumn("V. Parcela");
-         tabelamodelo.addColumn("V. Pago");
-        
+        tabelamodelo.addColumn("V. Pago");
+
         for (CarCapContas j : conta) {
 
             tabelamodelo.addRow(new Object[]{
-               j.getContaId(), j.getCarcapOperacoesComerciais().getOperacoesID(),
+                j.getContaId(), j.getCarcapOperacoesComerciais().getOperacoesID(),
                 j.getContaNumParcelas(), j.getContaDataEmissao(), j.getProduto().getProdutoDescricao(),
-                j.getQuantidade_produto(), j.getCapContaStatus(), j.getContaValorPago(),j.getValorRecebido()});
+                j.getQuantidade_produto(), j.getCapContaStatus(), j.getContaValorPago(), j.getValorRecebido()});
 
         }
 
@@ -260,6 +259,7 @@ public class FormContaReceber extends WebInternalFrame {
         checkboxEntrada4 = new com.alee.laf.checkbox.WebCheckBox();
         checkboxEntrada5 = new com.alee.laf.checkbox.WebCheckBox();
         botao_abrir_relatorios2 = new com.alee.laf.button.WebButton();
+        botao_abrir_relatorios1 = new com.alee.laf.button.WebButton();
 
         webPanel1.setEnabled(false);
         webPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -385,6 +385,7 @@ public class FormContaReceber extends WebInternalFrame {
         });
         webPanel1.add(txt_preco_uni, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 274, 100, 30));
 
+        txt_Valor_Total.setEnabled(false);
         txt_Valor_Total.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_Valor_TotalMouseClicked(evt);
@@ -430,7 +431,7 @@ public class FormContaReceber extends WebInternalFrame {
                 botao_abrir_relatoriosActionPerformed(evt);
             }
         });
-        webPanel1.add(botao_abrir_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 530, 120, 30));
+        webPanel1.add(botao_abrir_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 530, 120, 30));
 
         botao_salvar.setBackground(new java.awt.Color(51, 255, 51));
         botao_salvar.setText("Salvar");
@@ -522,6 +523,11 @@ public class FormContaReceber extends WebInternalFrame {
 
         botao_alterar.setBackground(new java.awt.Color(51, 255, 51));
         botao_alterar.setText("Alterar");
+        botao_alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_alterarActionPerformed(evt);
+            }
+        });
         webPanel1.add(botao_alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 530, 130, 33));
 
         txt_busca_cliente_fornecedor.addActionListener(new java.awt.event.ActionListener() {
@@ -547,6 +553,7 @@ public class FormContaReceber extends WebInternalFrame {
         webLabel20.setText("Data 1° Vencimento:");
         webPanel1.add(webLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, -1, 20));
 
+        txt_Valor_parcela.setEnabled(false);
         txt_Valor_parcela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_Valor_parcelaMouseClicked(evt);
@@ -605,6 +612,15 @@ public class FormContaReceber extends WebInternalFrame {
         });
         webPanel1.add(botao_abrir_relatorios2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 60, 90, 33));
 
+        botao_abrir_relatorios1.setBackground(new java.awt.Color(51, 255, 51));
+        botao_abrir_relatorios1.setText("Zerar Campos");
+        botao_abrir_relatorios1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_abrir_relatorios1ActionPerformed(evt);
+            }
+        });
+        webPanel1.add(botao_abrir_relatorios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 120, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -626,7 +642,7 @@ public class FormContaReceber extends WebInternalFrame {
     private void Comb_tip_operacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Comb_tip_operacaoActionPerformed
 
         String b = (String) Comb_tip_operacao.getSelectedItem();
-        
+
     }//GEN-LAST:event_Comb_tip_operacaoActionPerformed
 
     private void txtQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeActionPerformed
@@ -719,46 +735,30 @@ public class FormContaReceber extends WebInternalFrame {
 
 //             incrementar data
             Date data = txt_data_lançamento.getDate();
-            
-          
-            
-        
-          data.setDate(data.getDate()+30);
-          
-          conta02.setContaDataEmissao(data);
-          
+
+            data.setDate(data.getDate() + 30);
+
+            conta02.setContaDataEmissao(data);
+
 //          String formato = "dd/MM/yyyy";
 //          
 //          SimpleDateFormat formatarData = new SimpleDateFormat(formato);
-          
-          
-          
-          
-          
             //conta02.setPessoaNome(txt_busca_cliente_fornecedor.getText());
-
-          
-          
             double valorTotal = Double.parseDouble(txt_Valor_Total.getText());
 
-             conta02.setContaValorTotal(valorTotal);
-            
+            conta02.setContaValorTotal(valorTotal);
+
             if (comb_status.getSelectedIndex() == 0) {
 
                 conta02.setCapContaStatus(StatusConta.Fechada);
             } else if (comb_status.getSelectedIndex() == 1) {
 
-
                 conta02.setCapContaStatus(StatusConta.Pendente);
             } else {
                 conta02.setCapContaStatus(StatusConta.PendenteParcial);
 
-
             //pegar data lançamento
-           
-
             //pegar data lançamento
-
             }
 
             double valorParcela = Double.parseDouble(txt_Valor_parcela.getText());
@@ -769,11 +769,10 @@ public class FormContaReceber extends WebInternalFrame {
             conta02.setProduto(produto);
 
             //conta02.setContaDataEmissao(txt_data_lançamento1.getDate());
-
             conta02.setDescricao(txt_descricao.getText());
-            
+
             int cont = 0;
-                cont = i+1;
+            cont = i + 1;
 
             conta02.setContaNumParcelas(cont);
 
@@ -781,17 +780,14 @@ public class FormContaReceber extends WebInternalFrame {
             String nome = (txt[0]);
 
             conta02.setPessoaNome(nome);
-           
 
             conta02.setQuantidade_produto(b);
             //pegar nota
 
 //                conta02.setPatNotaFiscal(chave);
-
             conta02.setForma_rece_pagamento(FormaPagamento.values()[Comb_forma_pagamento_recebimento.getSelectedIndex()]);
 
-
-          // conta02.setForma_rece_pagamento(FormaPagamento.prazo);
+            // conta02.setForma_rece_pagamento(FormaPagamento.prazo);
             // Utils.notificacao("Valor: " + p, Utils.TipoNotificacao.ok, 0);
             // conta02.setTipoOperacaoDescricao("iuaszzzdj");
             //Object forma = Comb_forma_pagamento_recebimento.getSelectedItem();
@@ -801,49 +797,34 @@ public class FormContaReceber extends WebInternalFrame {
             conta02.setContaTipo(tipoConta);
 
             conta02.setCarcapOperacoesComerciais(conta);
-            
+
             double valorecebido = Double.parseDouble(txt_Valor_recebido.getText());
-           
-            
+
             conta02.setValorRecebido(valorecebido);
-       
-            if(valorecebido < valorParcela) {
-                
+
+            if (valorecebido < valorParcela) {
+
                 conta02.setCapContaStatus(StatusConta.Pendente);
-                
+
                 Utils.notificacao("Lançamento Pendente " + String.valueOf(conta.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
-                
-                
-                
-                
-            }else if(valorecebido>valorParcela){
 
-                
-                                Utils.notificacao("VERIFICAR: recebimento maior que a parcela " + String.valueOf(conta.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
+            } else if (valorecebido > valorParcela) {
 
-                                conta02.setCapContaStatus(StatusConta.PendenteParcial);
-                                
-                
+                Utils.notificacao("VERIFICAR: recebimento maior que a parcela " + String.valueOf(conta.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
+
+                conta02.setCapContaStatus(StatusConta.PendenteParcial);
+
             }
-            
-            
-            
-            
-            
-            
-            
-            
 
             new CarCapContasDAO().insert(conta02);
 
-
-                Preenche_tabela();
+            Preenche_tabela();
         }
-        
+
         zeraCampos();
 
     }//GEN-LAST:event_botao_salvarActionPerformed
-    
+
     private void txt_notasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_notasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_notasActionPerformed
@@ -1006,7 +987,7 @@ public class FormContaReceber extends WebInternalFrame {
     }//GEN-LAST:event_txt_preco_uniActionPerformed
 
     private void txt_data_lançamento1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_data_lançamento1MouseClicked
-        
+
     }//GEN-LAST:event_txt_data_lançamento1MouseClicked
 
     private void txt_Valor_recebidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_Valor_recebidoMouseClicked
@@ -1030,97 +1011,167 @@ public class FormContaReceber extends WebInternalFrame {
     }//GEN-LAST:event_botao_abrir_relatorios2ActionPerformed
 
     private void txt_tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_tabelaMouseClicked
-       
-        
-          int codParcela = RetornarLinhaSelecionada(0);
-       
-        CarCapContasDAO dao = new CarCapContasDAO();
-        
-        CarCapContas pagarValor =  dao.BuscarContasId(codParcela);
-        
-        Double quantidade = pagarValor.getContaValorTotal()/pagarValor.getQuantidade_produto();
-        
-        
-        txt_preco_uni.setText(String.valueOf(quantidade));
-        
-        txt_data_lançamento.setText(String.valueOf( pagarValor.getContaDataEmissao()));
-        
-        txt_busca_produto.setText(String.valueOf( pagarValor.getProduto().getProdutoDescricao()));
-        
-        txtQuantidade.setText(String.valueOf( pagarValor.getQuantidade_produto()));
-        
-        comb_status.setFontName(pagarValor.getCapContaStatus().toString());
-        
-        txt_descricao.setText(pagarValor.getDescricao());
-        
-        txt_Valor_Total.setText(String.valueOf(pagarValor.getContaValorTotal()));
-        txt_Valor_parcela.setText(String.valueOf(pagarValor.getContaValorPago()));
-        
-        txt_Valor_recebido.setText(String.valueOf(pagarValor.getValorRecebido()));
-        
-        if(txt_Valor_parcela.getText().equals(txt_Valor_recebido.getText())){
 
+        int codParcela = RetornarLinhaSelecionada(0);
+
+        CarCapContasDAO dao = new CarCapContasDAO();
+
+        CarCapContas pagarValor = dao.BuscarContasId(codParcela);
+
+        Double quantidade = pagarValor.getContaValorTotal() / pagarValor.getQuantidade_produto();
+
+        txt_preco_uni.setText(String.valueOf(quantidade));
+        txt_preco_uni.setEnabled(false);
+
+        txt_data_lançamento.setText(String.valueOf(pagarValor.getContaDataEmissao()));
+        txt_data_lançamento.setEnabled(false);
+
+        txt_busca_produto.setText(String.valueOf(pagarValor.getProduto().getProdutoDescricao()));
+        txt_busca_produto.setEnabled(true);
+
+        txtQuantidade.setText(String.valueOf(pagarValor.getQuantidade_produto()));
+        txtQuantidade.setEnabled(true);
+        
+        comb_parcelas.setValue(pagarValor.getContaNumParcelas());
+
+        comb_status.setSelectedIndex(pagarValor.getCapContaStatus().ordinal());
+
+        txt_descricao.setText(pagarValor.getDescricao());
+
+        txt_Valor_Total.setText(String.valueOf(pagarValor.getContaValorTotal()));
+        txt_Valor_Total.setEnabled(true);
+
+        txt_Valor_parcela.setText(String.valueOf(pagarValor.getContaValorPago()));
+        txt_Valor_parcela.setEnabled(true);
+
+        txt_Valor_recebido.setText(String.valueOf(pagarValor.getValorRecebido()));
+
+        if (txt_Valor_parcela.getText().equals(txt_Valor_recebido.getText())) {
+
+            JOptionPane.showMessageDialog(null, "Esta Parcela parece estar quitada :D");
+
+        }
+
+
+    }//GEN-LAST:event_txt_tabelaMouseClicked
+
+    private void botao_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_alterarActionPerformed
+
+        int pagaConta = RetornarLinhaSelecionada(0);
+        
+        
+
+        CarCapContasDAO pagar = new CarCapContasDAO();
+        CarCapContas altera = new CarCapContas();
+
+        
+        altera = pagar.BuscarContasId(pagaConta);
             
-            JOptionPane.showMessageDialog(null,"Esta Parcela parece estar quitada :D");
+        altera.setForma_rece_pagamento(FormaPagamento.values()[Comb_forma_pagamento_recebimento.getSelectedIndex()]);
+
+        altera.setDescricao(txt_descricao.getText());
+
+        double valorParcela = Double.parseDouble(txt_Valor_parcela.getText());
+        
+        altera.setContaValorPago(valorParcela);
+        
+        double valorecebido = Double.parseDouble(txt_Valor_recebido.getText());
+         double valortotal = Double.parseDouble(txt_Valor_Total.getText());
+        altera.setValorRecebido(valorecebido);
+        
+        int value = comb_status.getSelectedIndex();
+        
+        altera.setCapContaStatus(StatusConta.values()[value]);
+        
+        if(value == 1 && valorecebido < valortotal){
             
+            altera.setCapContaStatus(StatusConta.PendenteParcial);
+            System.out.println("**********************************************");
+    
+            
+        }
+        else if(value == 1 && valorecebido > valortotal){
+            
+
+            // acrescentar nos acrecimos
+            
+             altera.setCapContaStatus(StatusConta.Fechada);
+           
+        }else if(value == 1 && valorecebido == valortotal){
+            
+            
+            altera.setCapContaStatus(StatusConta.Fechada);
             
             
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+   
+
+     altera.setContaValorPago(valorecebido);
+      
         
         
        
+
+//        if (valorecebido < valorParcela) {
+//
+//            altera.setCapContaStatus(StatusConta.Pendente);
+//
+//               // Utils.notificacao("Lançamento Pendente " + String.valueOf(altera.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
+//        } else if (valorecebido > valorParcela) {
+//
+//                               // Utils.notificacao("VERIFICAR: recebimento maior que a parcela " + String.valueOf(conta.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
+//            altera.setCapContaStatus(StatusConta.PendenteParcial);
+//
+//         
+//
+//        }
+          pagar.update(altera);
+
+            Preenche_tabela();
+            
+            zeraCampos();
+    }//GEN-LAST:event_botao_alterarActionPerformed
+
+    private void botao_abrir_relatorios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_abrir_relatorios1ActionPerformed
         
-        
-        
-    }//GEN-LAST:event_txt_tabelaMouseClicked
+        zeraCampos();
+    }//GEN-LAST:event_botao_abrir_relatorios1ActionPerformed
 
     /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(FormContaReceber.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(FormContaReceber.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(FormContaReceber.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(FormContaReceber.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new FormContaReceber().setVisible(true);
-//            }
-//        });
-//    }
+         * @param args the command line arguments
+         */
+        //    public static void main(String args[]) {
+        //        /* Set the Nimbus look and feel */
+        //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        //        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+        //         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+        //         */
+        //        try {
+        //            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+        //                if ("Nimbus".equals(info.getName())) {
+        //                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+        //                    break;
+        //                }
+        //            }
+        //        } catch (ClassNotFoundException ex) {
+        //            java.util.logging.Logger.getLogger(FormContaReceber.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        //        } catch (InstantiationException ex) {
+        //            java.util.logging.Logger.getLogger(FormContaReceber.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        //        } catch (IllegalAccessException ex) {
+        //            java.util.logging.Logger.getLogger(FormContaReceber.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        //            java.util.logging.Logger.getLogger(FormContaReceber.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        //        }
+        //        //</editor-fold>
+        //        //</editor-fold>
+        //
+        //        /* Create and display the form */
+        //        java.awt.EventQueue.invokeLater(new Runnable() {
+        //            public void run() {
+        //                new FormContaReceber().setVisible(true);
+        //            }
+        //        });
+        //    }
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(() -> {
 
@@ -1154,6 +1205,7 @@ public class FormContaReceber extends WebInternalFrame {
     private com.alee.laf.combobox.WebComboBox Comb_forma_pagamento_recebimento;
     private com.alee.laf.combobox.WebComboBox Comb_tip_operacao;
     private com.alee.laf.button.WebButton botao_abrir_relatorios;
+    private com.alee.laf.button.WebButton botao_abrir_relatorios1;
     private com.alee.laf.button.WebButton botao_abrir_relatorios2;
     private com.alee.laf.button.WebButton botao_alterar;
     private com.alee.laf.button.WebButton botao_salvar;
