@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -14,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 @Entity
 @SequenceGenerator(name = "seq_nome", sequenceName = "seq_nome", allocationSize = 1)
 public class CarPessoa implements java.io.Serializable {
+    private CarCapContas carCapContas;
 
     private List<CarcapOperacoesComerciais> carcapOperacoesComerciais;
 
@@ -162,6 +164,15 @@ public class CarPessoa implements java.io.Serializable {
 
     public void setPessoaSenha(String pessoaSenha) {
         this.pessoaSenha = pessoaSenha;
+    }
+
+    @OneToOne(mappedBy = "carPessoa")
+    public CarCapContas getCarCapContas() {
+        return carCapContas;
+    }
+
+    public void setCarCapContas(CarCapContas carCapContas) {
+        this.carCapContas = carCapContas;
     }
 
 }

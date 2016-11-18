@@ -2,6 +2,7 @@ package model;
 // Generated 22/10/2016 10:09:26 by Hibernate Tools 4.3.1
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,6 +31,7 @@ public class EstProduto implements java.io.Serializable {
     private Set<EstSaldo> saldos = new HashSet(0);
     private Set<PatItemNota> patItemNotas = new HashSet(0);
     private Set<EstMovimentacao> estMovimentacaos = new HashSet(0);
+    private List<CarCapContas> carCapContass;
 
     public EstProduto() {
     }
@@ -161,5 +163,14 @@ public class EstProduto implements java.io.Serializable {
 //    public void setCarCapContas(CarCapContas carCapContas) {
 //        this.carCapContas = carCapContas;
 //    }
+
+    @OneToMany(mappedBy = "produto")
+    public List<CarCapContas> getCarCapContass() {
+        return carCapContass;
+    }
+
+    public void setCarCapContass(List<CarCapContas> carCapContass) {
+        this.carCapContass = carCapContass;
+    }
 
 }

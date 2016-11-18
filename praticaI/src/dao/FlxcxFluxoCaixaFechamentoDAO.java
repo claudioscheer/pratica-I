@@ -8,11 +8,13 @@ package dao;
 import enumeraveis.TipoConta;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import model.FlxcxFluxoCaixaFechamento;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import sun.util.calendar.Gregorian;
 import utils.HibernateUtil;
 
 /**
@@ -110,6 +112,41 @@ public class FlxcxFluxoCaixaFechamentoDAO {
         }
     }
 
+    public FlxcxFluxoCaixaFechamento BuscarUltimoSaldo() {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.getTransaction().begin();
+
+            Query query = session.createQuery("from FlxcxFluxoCaixaFechamento as t ");
+
+            List<FlxcxFluxoCaixaFechamento> livrosCaixa = query.list();
+
+             Calendar c = Calendar.getInstance();
+
+            c.set(1900, 1,1);
+            
+            Date ultimaData = c.getTime();
+            FlxcxFluxoCaixaFechamento ultimoSaldo = new FlxcxFluxoCaixaFechamento();
+            for (FlxcxFluxoCaixaFechamento f : livrosCaixa){
+            
+                if (ultimaData.before(f.getFechData())){
+                
+                    ultimoSaldo = f;
+                }
+                
+            }
+            
+            return ultimoSaldo;
+
+        } catch (HibernateException e) {
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
     public void VerificaFluxoCaixa() {
 
         //se tem algum registro no fechamento que tem o ano e mes em branco
@@ -122,7 +159,7 @@ public class FlxcxFluxoCaixaFechamentoDAO {
         c.set(Calendar.DAY_OF_MONTH, c.getActualMaximum(Calendar.DAY_OF_MONTH));
 
         Date dataFinal = c.getTime();
-        
+
     }
 
     public void FecharCaixa(Date dataInicial, Date dataFinal) {
@@ -134,8 +171,21 @@ public class FlxcxFluxoCaixaFechamentoDAO {
 
         double saida = contasDAO.SomarContas(TipoConta.Saida, dataInicial, dataFinal);
 
+        FlxcxFluxoCaixaFechamento ultimoSaldo = BuscarUltimoSaldo();
+        
+        double finalMes = entrada - saida;
+        
+        double saldodisponivel = ultimoSaldo.getFechSaldoDisponivel() + finalMes;
+        
+        FlxcxFluxoCaixaFechamento fx = new FlxcxFluxoCaixaFechamento();
+
+        fx.setFechData(new GregorianCalendar().getTime());
+        fx.setFechSaldoDisponivel(saldodisponivel);
+        fx.setFechSaldoMes(finalMes);
+        
+        Inserir(fx);
+        
         //update fechamento
     }
 
-    
 }

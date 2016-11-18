@@ -6,8 +6,6 @@ import enumeraveis.MeioRecebimentoPagamento;
 import enumeraveis.StatusConta;
 import enumeraveis.TipoConta;
 import java.util.Date;
-import java.util.Set;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
@@ -41,7 +39,8 @@ public class CarCapContas implements java.io.Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private CarEstTipoOperacao carEstTipoOperacao;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    
+    @OneToOne
     private CarPessoa carPessoa;
 
     @Transient
@@ -70,14 +69,12 @@ public class CarCapContas implements java.io.Serializable {
 
     private String descricao;
 
-   
     @ManyToOne
     private EstProduto produto;
     
     @ManyToOne
     private CarcapOperacoesComerciais carcapOperacoesComerciais;
 
-     @ManyToOne   
     public EstProduto getProduto() {
         return produto;
     }
@@ -93,7 +90,7 @@ public class CarCapContas implements java.io.Serializable {
     @Enumerated
     private MeioRecebimentoPagamento meio_recebimento;
 
-    @Column(name = "forma_pagamento_receb", nullable = false)
+//    @Column(name = "forma_pagamento_receb", nullable = false)
    // private String forma_rece_pagamento;
 
 

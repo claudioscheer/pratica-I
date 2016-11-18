@@ -15,6 +15,7 @@ import com.alee.managers.notification.WebNotification;
 import components.panelsListagem.PanelConsultaAtivoImobilizado;
 import dao.CarCapContasDAO;
 import dao.ExportacaoParaExcel;
+import dao.FlxcxFluxoCaixaFechamentoDAO;
 import enumeraveis.TipoConta;
 import enumeraveis.TipoGrafico;
 import java.io.File;
@@ -31,6 +32,7 @@ import dao.Graficos;
 import dao.PatAtivoImobilizadoDAO;
 import java.util.ArrayList;
 import javax.swing.SwingWorker;
+import model.FlxcxFluxoCaixaFechamento;
 import model.PatAtivoImobilizado;
 import relatorios.relatorioFluxoDeCaixa.Relatorios;
 import net.sf.jasperreports.engine.JRException;
@@ -61,7 +63,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         super("Fluxo de Caixa", true, true, true, true);
 
         // estancia o array de contas
-        this.contas = new ArrayList<>();
+        
 
         this.initComponents();
 
@@ -76,7 +78,9 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         titulo = "Grafico de Barras";
         // - Final ajuste data inicial -\\
 
+        this.contas = this.buscarconta.ListarTodos(dataInicial, dataFinal);
         verificaTipoGrafico(TipoConta.ambos, 1);
+        
         grapBarras.setSelected(true);
         grapBarras.setIcon(Utils.getImage(Utils.Image.barraMarcado));
 
@@ -85,11 +89,11 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         checkbox_Lista.setSelected(true);
         checkboxEntrada.setSelected(true);
         checkboxSaida.setSelected(true);
-        
-        this.webPanel_Tabela.setSortable(true);
-        this.webPanel_Tabela.setLoadMore(x -> new FormFluxodeCaixa.CarregarContas().execute());
 
-        new CarregarContas().execute();
+//        this.webPanel_Tabela.setSortable(true);
+//        this.webPanel_Tabela.setLoadMore(x -> new FormFluxodeCaixa.CarregarContas().execute());
+//
+//        new CarregarContas().execute();
 
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -258,10 +262,10 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             }
         });
         txtDataInicial.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtDataInicialInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtDataInicial.addActionListener(new java.awt.event.ActionListener() {
@@ -451,6 +455,11 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         webBreadcrumb2.setForeground(new java.awt.Color(0, 204, 255));
 
         webButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/head (1).png"))); // NOI18N
+        webButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                webButton4ActionPerformed(evt);
+            }
+        });
 
         btn_GerarRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/reports-icon.png"))); // NOI18N
         btn_GerarRelatorio.setToolTipText("Gerar relatório em PDF");
@@ -589,7 +598,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
         webLabel8.setText("Total de Saídas:");
 
-        webLabel9.setText("Total disponível em Caixa:");
+        webLabel9.setText("Total:");
 
         javax.swing.GroupLayout webBreadcrumb3Layout = new javax.swing.GroupLayout(webBreadcrumb3);
         webBreadcrumb3.setLayout(webBreadcrumb3Layout);
@@ -608,7 +617,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                 .addComponent(webLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTotalDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(514, Short.MAX_VALUE))
+                .addContainerGap(611, Short.MAX_VALUE))
         );
         webBreadcrumb3Layout.setVerticalGroup(
             webBreadcrumb3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -639,15 +648,15 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         protected Void doInBackground() throws Exception {
 
             contas = new ArrayList<CarCapContas>();
-            
+
             CarCapContasDAO buscar = new CarCapContasDAO();
 
             contas = buscar.ListarTodosPaginacao(paginaBuscar++, dataInicial, dataFinal);
-      
+
             CarregarGraficoJTable(null, null, 3, TipoConta.ambos, dataInicial, dataFinal);
-            
+
             atualizarTabela();
-            
+
             return null;
         }
 
@@ -657,8 +666,8 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         }
 
     }
-    
-        private void atualizarTabela() {
+
+    private void atualizarTabela() {
         DefaultTableModel model = (DefaultTableModel) this.webPanel_Tabela.getModel();
         Utils.clearTableModel(model);
 
@@ -670,7 +679,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     }
 
     private Object[] ativoToArray(CarCapContas conta) {
-      
+
         Object[] o = new Object[6];
         o[0] = conta.getContaId();
         o[1] = conta.getContaStatus();
@@ -678,10 +687,9 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         o[3] = conta.getContaTipo();
         o[4] = conta.getContaValorTotal();
         o[5] = conta.getContaValorPago();
-        
+
         return o;
     }
-    
 
     public List<CarCapContas> CarregarGraficoJTable(String nome, TipoGrafico tipografico, int posicao, TipoConta tipoconta, Date DataInicial, Date DataFinal) {
 
@@ -856,8 +864,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
             webPanel_Tabela.revalidate();
             webPanel_Tabela.repaint();
-            
-       
 
         } else if (posicao == 4) {
 
@@ -1508,6 +1514,22 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     private void webButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton6ActionPerformed
         Excel();
     }//GEN-LAST:event_webButton6ActionPerformed
+
+    private void webButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton4ActionPerformed
+
+        Calendar cIni = Calendar.getInstance();
+                
+        
+        cIni.set(Calendar.DAY_OF_MONTH, 1);
+
+        Calendar cFim = Calendar.getInstance();
+
+        cFim.set(Calendar.DAY_OF_MONTH, cFim.getActualMaximum(Calendar.DAY_OF_MONTH));
+
+        
+
+        new FlxcxFluxoCaixaFechamentoDAO().FecharCaixa(cIni.getTime(), cFim.getTime());
+    }//GEN-LAST:event_webButton4ActionPerformed
 
     /**
      * @param args the command line arguments

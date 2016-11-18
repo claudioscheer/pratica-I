@@ -205,7 +205,7 @@ public class CarCapContasDAO {
 
         System.out.println("DataFinal" + dataFinal + "DataInicial: " + dataInicial);
 
-        Query query = session.createQuery("select sum(a.contaValorPago) from CarCapContas as a where contaTipo =:tipo and conta_data_emissao BETWEEN :dataInicial and :dataFinal");
+        Query query = session.createQuery("select sum(a.contaValorPago) from CarCapContas as a where contaTipo =:tipo and contadataemissao BETWEEN :dataInicial and :dataFinal");
         query.setParameter("dataInicial", dataInicial);
         query.setParameter("dataFinal", dataFinal);
         query.setParameter("tipo", tipo);
@@ -228,11 +228,11 @@ public class CarCapContasDAO {
         Query query;
         
         if (tipo == TipoConta.ambos) {
-            query = session.createQuery("select max(a.contaDataEmissao) as max from CarCapContas as a where conta_data_emissao BETWEEN :dataInicial and :dataFinal");
+            query = session.createQuery("select max(a.contaDataEmissao) as max from CarCapContas as a where contadataemissao BETWEEN :dataInicial and :dataFinal");
             query.setParameter("dataInicial", dataInicial);
             query.setParameter("dataFinal", dataFinal);            
         } else {
-            query = session.createQuery("select max(a.contaDataEmissao) as max from CarCapContas as a where contaTipo =:tipo and conta_data_emissao BETWEEN :dataInicial and :dataFinal");
+            query = session.createQuery("select max(a.contaDataEmissao) as max from CarCapContas as a where contaTipo =:tipo and contadataemissao BETWEEN :dataInicial and :dataFinal");
             query.setParameter("dataInicial", dataInicial);
             query.setParameter("dataFinal", dataFinal);
             query.setParameter("tipo", tipo);
