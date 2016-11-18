@@ -125,7 +125,7 @@ public class FlxcxFluxoCaixaFechamentoDAO {
 
              Calendar c = Calendar.getInstance();
 
-            c.set(1900, 1,1);
+            c.set(1900, 1,1); //Valor inicial pra comparacao.
             
             Date ultimaData = c.getTime();
             FlxcxFluxoCaixaFechamento ultimoSaldo = new FlxcxFluxoCaixaFechamento();
