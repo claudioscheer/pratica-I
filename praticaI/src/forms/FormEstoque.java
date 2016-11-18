@@ -19,8 +19,7 @@ import model.EstUnidadeMedida;
  *
  * @author Anderson
  */
-public class FormEstoque extends javax.swing.JFrame
-{
+public class FormEstoque extends javax.swing.JFrame {
 
     private EstMovimentacaoDAO movDao = new EstMovimentacaoDAO();
     private int idProduto = 0;
@@ -29,8 +28,7 @@ public class FormEstoque extends javax.swing.JFrame
     /**
      * Creates new form FormEstoque
      */
-    public FormEstoque(java.awt.Frame parent, boolean modal)
-    {
+    public FormEstoque(java.awt.Frame parent, boolean modal) {
         //super(parent, modal);
         initComponents();
     }
@@ -183,8 +181,8 @@ public class FormEstoque extends javax.swing.JFrame
         FormBuscaProduto buscaProd = new FormBuscaProduto();
         buscaProd.setFrameBloquear(FormPrincipal.getInstance());
         this.txtBuscaProduto.setFrame(buscaProd);
-        this.txtBuscaProduto.setFuncaoDepoisSelecionar(produto ->
-        {
+        this.txtBuscaProduto.setFuncaoDepoisSelecionar(produto
+                -> {
             preencheTabela((EstProduto) produto);
         });
 
@@ -209,50 +207,38 @@ public class FormEstoque extends javax.swing.JFrame
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try
-        {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
-            {
-                if ("Nimbus".equals(info.getName()))
-                {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex)
-        {
+        } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(FormEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex)
-        {
+        } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(FormEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex)
-        {
+        } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(FormEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex)
-        {
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FormEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
                 FormEstoque dialog = new FormEstoque(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter()
-                {
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
-                    public void windowClosing(java.awt.event.WindowEvent e)
-                    {
+                    public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
                     }
                 });
@@ -261,25 +247,19 @@ public class FormEstoque extends javax.swing.JFrame
         });
     }
 
-    private void preencheTabela(EstProduto produto)
-    {
-      
+    private void preencheTabela(EstProduto produto) {
 
         DefaultTableModel modelo = (DefaultTableModel) tblMov.getModel();
         modelo.setNumRows(0);
 
         //semelhante ao foreach
-        for (EstMovimentacao mov : movDao.findByProduto(produto))
-        {
-            modelo.addRow(new String[]
-            {
+        for (EstMovimentacao mov : movDao.findByProduto(produto)) {
+            modelo.addRow(new String[]{
                 "" + mov.getMovData(),
                 mov.getCarEstTipoOperacao().getTpOpNome(),
                 "" + mov.getMovQuantidade(),
                 "" + mov.getMovVlrUnit(),
-                "" + mov.getMovTotal(),
-
-            });
+                "" + mov.getMovTotal(),});
 
         }
 
@@ -289,18 +269,14 @@ public class FormEstoque extends javax.swing.JFrame
 
     }
 
-    public double[] calculaCusto()
-    {
+    public double[] calculaCusto() {
         double vet[] = new double[2];
         double qtde = 0.0, custoM = 0.0, total = 0.0;
-        for (EstMovimentacao mov : movDao.getAll())
-        {
-            if (mov.getCarEstTipoOperacao().getTpOpTipo() == 1 || mov.getCarEstTipoOperacao().getTpOpTipo() == 2)
-            {
+        for (EstMovimentacao mov : movDao.getAll()) {
+            if (mov.getCarEstTipoOperacao().getTpOpId() == 1) {
                 qtde += mov.getMovQuantidade();
                 total += mov.getMovTotal();
-            } else
-            {
+            } else {
                 qtde += (-mov.getMovQuantidade());
                 total += (-mov.getMovTotal());
             }
@@ -313,16 +289,12 @@ public class FormEstoque extends javax.swing.JFrame
         return vet;
     }
 
-    public void paint(double value)
-    {
-        if (value < 0)
-        {
+    public void paint(double value) {
+        if (value < 0) {
             txtDisponivel.setBackground(Color.red);
-        } else if (value == 0.0)
-        {
+        } else if (value == 0.0) {
             txtDisponivel.setBackground(Color.yellow);
-        } else
-        {
+        } else {
             txtDisponivel.setBackground(Color.green);
         }
 
