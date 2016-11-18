@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.SwingWorker;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import model.PatAtivoImobilizado;
 import model.PatHistoricoDepreciacao;
 import utils.Utils;
@@ -40,6 +42,12 @@ public class PanelDepreciar extends WebPanel {
         this.txtMesDepreciar.setDateFormat(new SimpleDateFormat("MM/yyyy"));
         this.txtMesDepreciar.setDate(new Date());
 
+        this.refreshDados();
+    }
+
+    private void refreshDados() {
+        this.model.clear();
+        this.buttonDepreciar.setEnabled(false);
         new LoadDados().execute();
     }
 
@@ -66,19 +74,18 @@ public class PanelDepreciar extends WebPanel {
     }
 
     public void getUltimaDepreciacao() {
-        PatHistoricoDepreciacao depreciacao = new PatHistoricoDepreciacaoDAO().buscarUltimaDepreciacao();
+        Calendar c = Calendar.getInstance();
+        c.setTime(this.txtMesDepreciar.getDate());
+        PatHistoricoDepreciacao depreciacao = new PatHistoricoDepreciacaoDAO().buscarUltimaDepreciacao(c);
         String mes_ano;
         if (depreciacao == null) {
             mes_ano = "Nenhum valor depreciado ainda.";
+        } else if (c.get(Calendar.MONTH) == depreciacao.getHistoricoDepreciacaoMes() && c.get(Calendar.YEAR) == depreciacao.getHistoricoDepreciacaoAno()) {
+            mes_ano = "Mês atual já foi depreciado.";
+            this.jaDepreciadoMesAtual = true;
         } else {
-            Calendar c = Calendar.getInstance();
-            if (c.get(Calendar.MONTH) == depreciacao.getHistoricoDepreciacaoMes() && c.get(Calendar.YEAR) == depreciacao.getHistoricoDepreciacaoAno()) {
-                mes_ano = "Mês atual já foi depreciado.";
-                this.jaDepreciadoMesAtual = true;
-            } else {
-                this.jaDepreciadoMesAtual = false;
-                mes_ano = new SimpleDateFormat("MMMM").format(depreciacao.getHistoricoDepreciacaoDia()).toLowerCase() + "/" + depreciacao.getHistoricoDepreciacaoAno();
-            }
+            this.jaDepreciadoMesAtual = false;
+            mes_ano = new SimpleDateFormat("MMMM").format(depreciacao.getHistoricoDepreciacaoDia()).toLowerCase() + "/" + depreciacao.getHistoricoDepreciacaoAno();
         }
         this.lblDataDepreciado.setText(mes_ano);
     }
@@ -152,11 +159,11 @@ public class PanelDepreciar extends WebPanel {
         webLabel2 = new com.alee.laf.label.WebLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listDetalhesDepreciacao = new javax.swing.JList(model);
+        btnAtualizar = new com.alee.laf.button.WebButton();
 
         setMinimumSize(new java.awt.Dimension(565, 496));
 
         buttonDepreciar.setText("Depreciar");
-        buttonDepreciar.setEnabled(false);
 
         buttonCancelar.setText("Fechar");
 
@@ -174,6 +181,13 @@ public class PanelDepreciar extends WebPanel {
 
         jScrollPane2.setViewportView(listDetalhesDepreciacao);
 
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,7 +203,10 @@ public class PanelDepreciar extends WebPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(lblDataDepreciado))
                             .addComponent(webLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMesDepreciar, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtMesDepreciar, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(webLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 228, Short.MAX_VALUE))
                     .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -213,7 +230,9 @@ public class PanelDepreciar extends WebPanel {
                 .addGap(18, 18, 18)
                 .addComponent(webLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMesDepreciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtMesDepreciar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(webLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -230,7 +249,12 @@ public class PanelDepreciar extends WebPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        this.refreshDados();
+    }//GEN-LAST:event_btnAtualizarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.alee.laf.button.WebButton btnAtualizar;
     private com.alee.laf.button.WebButton buttonCancelar;
     private com.alee.laf.button.WebButton buttonDepreciar;
     private javax.swing.ButtonGroup buttonGroup;

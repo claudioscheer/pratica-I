@@ -96,6 +96,10 @@ public class PatDepreciacaoDAO {
             return "O ativo " + ativo.getAtivoDescricao() + " já foi depreciado!";
         }
 
+        if (ativo.getAtivoValorAtual() <= 0) {
+            return "O ativo " + ativo.getAtivoDescricao() + " não pode mais ser depreciado!";
+        }
+
         Calendar c = Calendar.getInstance();
         c.setTime(dia);
 
@@ -107,17 +111,25 @@ public class PatDepreciacaoDAO {
         if (depreciacao == null) {
             return "A categoria " + ativo.getEstCategoria().getCategoriaDescricao() + " não possui depreciação relacionada!";
         }
+
         double valororiginal = ativo.getAtivoValorOriginal();
         double valordepreciar = valororiginal * (depreciacao.getDepreciacaoTaxaMensal() / 100);
 
+        double novovalor = ativo.getAtivoValorAtual() - valordepreciar;
+
+        if (novovalor < 0) {
+            novovalor = 0;
+        }
+
         historico.setHistoricoDepreciacaoValor(valordepreciar);
         historico.setHistoricoDepreciacaoDia(Calendar.getInstance().getTime());
-        ativo.setAtivoValorAtual(ativo.getAtivoValorAtual() - valordepreciar);
+        ativo.setAtivoValorAtual(novovalor);
         historico.setPatAtivoImobilizado(ativo);
 
         new PatHistoricoDepreciacaoDAO().inserir(historico);
 
-        return "Depreciação do ativo " + ativo.getAtivoDescricao() + " realizada!";
+        return "Depreciação do ativo " + ativo.getAtivoDescricao() + " realizado!"
+                + (novovalor <= 0 ? " (ATIVO ZERADO)" : "");
     }
 
 }

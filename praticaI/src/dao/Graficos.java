@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
+package dao;
 
 import static com.alee.managers.notification.NotificationOption.no;
 import enumeraveis.TipoConta;
@@ -11,6 +11,7 @@ import enumeraveis.TipoGrafico;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JPanel;
+import model.CarCapContas;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;

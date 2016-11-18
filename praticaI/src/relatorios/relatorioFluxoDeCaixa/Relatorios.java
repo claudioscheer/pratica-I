@@ -39,9 +39,9 @@ public class Relatorios {
        
         for(CarCapContas i : conta){
            
-//            i.setContaStatusDescricao(i.getCapContaStatus().toString());
-//            i.setContaTipoDescricao(i.getContaTipo().toString());
-           
+            i.setContaStatusDescricao(i.getCapContaStatus().toString());
+            i.setContaTipoDescricao(i.getContaTipo().toString());
+          
       
             contaRelatorio.add(i); 
             
