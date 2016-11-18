@@ -159,7 +159,6 @@ public class PanelCadPessoa extends WebPanel {
         radiobtnPJ = new javax.swing.JRadioButton();
         txtEndereco = new javax.swing.JLabel();
         fieldEndereco = new javax.swing.JTextField();
-        txtCadastrar = new javax.swing.JLabel();
         txtFone = new javax.swing.JLabel();
         fieldFone = new javax.swing.JTextField();
         txtEmail = new javax.swing.JLabel();
@@ -219,9 +218,6 @@ public class PanelCadPessoa extends WebPanel {
 
         txtEndereco.setText("Endereço:");
 
-        txtCadastrar.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        txtCadastrar.setText("CADASTRAR PESSOA - Informe os dados a seguir");
-
         txtFone.setText("Fone:");
 
         txtEmail.setText("E-mail:");
@@ -275,68 +271,72 @@ public class PanelCadPessoa extends WebPanel {
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelItensLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelItensLayout.createSequentialGroup()
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtComplemento)
-                            .addComponent(fieldComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtBairro)
-                            .addComponent(fieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(txtEndereco)
-                    .addComponent(txtCpfCnpj)
-                    .addComponent(fieldCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCadastrar)
-                    .addComponent(txtNome)
-                    .addComponent(txtTipo)
-                    .addGroup(panelItensLayout.createSequentialGroup()
-                        .addComponent(radiobtnPF)
-                        .addGap(8, 8, 8)
-                        .addComponent(radiobtnPJ))
-                    .addComponent(txtFone)
-                    .addComponent(txtEmail)
-                    .addComponent(fieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fieldFone, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelItensLayout.createSequentialGroup()
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelItensLayout.createSequentialGroup()
-                                .addGap(225, 225, 225)
-                                .addComponent(txtUF))
-                            .addGroup(panelItensLayout.createSequentialGroup()
-                                .addComponent(fieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(comboboxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtCidade))
-                        .addGap(16, 16, 16)
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCEP)
-                            .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(fieldEndereco)
-                    .addComponent(fieldNome))
-                .addGap(45, 45, 45)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSenha)
-                    .addComponent(txtLogin)
                     .addGroup(panelItensLayout.createSequentialGroup()
-                        .addComponent(radiobtnAdmin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(radiobtnUser))
-                    .addComponent(fieldUser, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNivel)
-                    .addComponent(fieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(136, Short.MAX_VALUE))
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEndereco)
+                            .addComponent(txtFone)
+                            .addComponent(txtEmail))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelItensLayout.createSequentialGroup()
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCpfCnpj)
+                            .addComponent(txtNome)
+                            .addComponent(txtTipo)
+                            .addGroup(panelItensLayout.createSequentialGroup()
+                                .addComponent(radiobtnPF)
+                                .addGap(8, 8, 8)
+                                .addComponent(radiobtnPJ))
+                            .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(fieldFone, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(fieldCpfCnpj, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(fieldEmail, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                            .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(fieldNome, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(fieldEndereco, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCidade)
+                                    .addGroup(panelItensLayout.createSequentialGroup()
+                                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(panelItensLayout.createSequentialGroup()
+                                                .addComponent(txtComplemento)
+                                                .addGap(141, 141, 141))
+                                            .addGroup(panelItensLayout.createSequentialGroup()
+                                                .addComponent(fieldComplemento)
+                                                .addGap(12, 12, 12)))
+                                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtBairro)
+                                            .addComponent(fieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(panelItensLayout.createSequentialGroup()
+                                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtUF)
+                                                    .addComponent(comboboxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtCEP)
+                                                    .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNivel)
+                            .addGroup(panelItensLayout.createSequentialGroup()
+                                .addComponent(radiobtnAdmin)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radiobtnUser))
+                            .addComponent(txtLogin)
+                            .addComponent(fieldUser)
+                            .addComponent(txtSenha)
+                            .addComponent(fieldSenha))
+                        .addGap(146, 146, 146))))
         );
         panelItensLayout.setVerticalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelItensLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(txtCadastrar)
-                .addGap(28, 28, 28)
+                .addContainerGap()
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTipo)
                     .addComponent(txtNivel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(radiobtnPF)
                     .addComponent(radiobtnPJ)
@@ -354,45 +354,45 @@ public class PanelCadPessoa extends WebPanel {
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCpfCnpj)
                     .addComponent(txtSenha))
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fieldCpfCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fieldSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(txtFone)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldFone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtEmail)
-                .addGap(25, 25, 25)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtEndereco)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
+                .addGap(18, 18, 18)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtComplemento)
                     .addComponent(txtBairro))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fieldComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelItensLayout.createSequentialGroup()
                         .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCidade)
                             .addComponent(txtUF))
-                        .addGap(18, 18, 18)
-                        .addComponent(fieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(fieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboboxUF, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelItensLayout.createSequentialGroup()
                         .addComponent(txtCEP)
-                        .addGap(18, 18, 18)
-                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboboxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fieldCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         scrollCadastro.setViewportView(panelItens);
@@ -408,7 +408,7 @@ public class PanelCadPessoa extends WebPanel {
         panelOpcoesLayout.setHorizontalGroup(
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
-                .addContainerGap(619, Short.MAX_VALUE)
+                .addContainerGap(491, Short.MAX_VALUE)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -434,7 +434,7 @@ public class PanelCadPessoa extends WebPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(scrollCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
+                .addComponent(scrollCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOpcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -443,13 +443,8 @@ public class PanelCadPessoa extends WebPanel {
     private void radiobtnPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiobtnPFActionPerformed
         this.validador.isValid();
         txtNivel.setEnabled(true);
-        fieldUser.setEnabled(true);
-        fieldSenha.setEnabled(true);
-        txtLogin.setEnabled(true);
-        txtSenha.setEnabled(true);
         radiobtnAdmin.setEnabled(true);
         radiobtnUser.setEnabled(true);
-        fieldNome.requestFocus();
     }//GEN-LAST:event_radiobtnPFActionPerformed
 
     private void radiobtnPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radiobtnPJActionPerformed
@@ -498,7 +493,6 @@ public class PanelCadPessoa extends WebPanel {
     private javax.swing.JScrollPane scrollCadastro;
     private javax.swing.JLabel txtBairro;
     private javax.swing.JLabel txtCEP;
-    private javax.swing.JLabel txtCadastrar;
     private javax.swing.JLabel txtCidade;
     private javax.swing.JLabel txtComplemento;
     private javax.swing.JLabel txtCpfCnpj;

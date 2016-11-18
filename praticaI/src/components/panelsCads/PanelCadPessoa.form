@@ -28,14 +28,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="panelOpcoes" max="32767" attributes="0"/>
-          <Component id="scrollCadastro" alignment="0" max="32767" attributes="0"/>
+          <Component id="scrollCadastro" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="scrollCadastro" pref="791" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="scrollCadastro" pref="610" max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="panelOpcoes" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -71,83 +71,94 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtComplemento" min="-2" max="-2" attributes="0"/>
-                                  <Component id="fieldComplemento" min="-2" pref="135" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtBairro" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="fieldBairro" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="txtEndereco" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCpfCnpj" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="fieldCpfCnpj" alignment="0" min="-2" pref="228" max="-2" attributes="0"/>
-                          <Component id="txtCadastrar" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtNome" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtTipo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="radiobtnPF" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              <Component id="radiobtnPJ" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="txtFone" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEmail" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="fieldEmail" alignment="0" min="-2" pref="245" max="-2" attributes="0"/>
-                          <Component id="fieldFone" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="225" max="-2" attributes="0"/>
-                                      <Component id="txtUF" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="fieldCidade" min="-2" pref="213" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="comboboxUF" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="txtCidade" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtCEP" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="fieldCEP" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="fieldEndereco" max="32767" attributes="0"/>
-                          <Component id="fieldNome" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtSenha" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtLogin" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="radiobtnAdmin" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="radiobtnUser" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtEndereco" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtFone" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtEmail" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
-                          <Component id="fieldUser" alignment="0" min="-2" pref="159" max="-2" attributes="0"/>
-                          <Component id="txtNivel" min="-2" max="-2" attributes="0"/>
-                          <Component id="fieldSenha" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtCpfCnpj" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtNome" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtTipo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="radiobtnPF" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                      <Component id="radiobtnPJ" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="fieldFone" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="fieldCpfCnpj" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="fieldEmail" alignment="0" pref="245" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="fieldNome" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="fieldEndereco" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="fieldCidade" alignment="0" min="-2" pref="213" max="-2" attributes="0"/>
+                                          <Component id="txtCidade" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="txtComplemento" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="fieldComplemento" max="32767" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="txtBairro" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="fieldBairro" min="-2" pref="174" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="txtUF" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="comboboxUF" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="txtCEP" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="fieldCEP" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace type="separate" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtNivel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="radiobtnAdmin" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="radiobtnUser" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="txtLogin" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fieldUser" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtSenha" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fieldSenha" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="136" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="txtCadastrar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtNivel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="radiobtnPF" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="radiobtnPJ" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -169,53 +180,53 @@
                           <Component id="txtCpfCnpj" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="fieldCpfCnpj" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="fieldSenha" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txtFone" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="fieldFone" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txtEmail" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="fieldEmail" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="txtEndereco" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="fieldEndereco" min="-2" pref="30" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="txtComplemento" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtBairro" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="fieldComplemento" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="fieldBairro" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="txtCidade" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtUF" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="fieldCidade" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="txtCEP" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="fieldCEP" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <Component id="comboboxUF" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="fieldCidade" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="comboboxUF" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="txtCEP" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="fieldCEP" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace pref="94" max="32767" attributes="0"/>
+                      <EmptySpace pref="54" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -268,14 +279,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="fieldEndereco">
-            </Component>
-            <Component class="javax.swing.JLabel" name="txtCadastrar">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="13" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="CADASTRAR PESSOA - Informe os dados a seguir"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="txtFone">
               <Properties>
@@ -428,7 +431,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="619" max="32767" attributes="0"/>
+                  <EmptySpace pref="491" max="32767" attributes="0"/>
                   <Component id="btnCancelar" min="-2" pref="73" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnSalvar" min="-2" pref="74" max="-2" attributes="0"/>
