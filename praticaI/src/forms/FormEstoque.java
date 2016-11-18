@@ -7,10 +7,13 @@ package forms;
 
 import dao.EstMovimentacaoDAO;
 import dao.EstProdutoDAO;
+import forms.busca.FormBuscaCategoria;
+import forms.busca.FormBuscaProduto;
+import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import model.EstMovimentacao;
 import model.EstProduto;
-import org.apache.poi.ss.formula.ptg.TblPtg;
+import model.EstUnidadeMedida;
 
 /**
  *
@@ -20,6 +23,8 @@ public class FormEstoque extends javax.swing.JFrame
 {
 
     private EstMovimentacaoDAO movDao = new EstMovimentacaoDAO();
+    private int idProduto = 0;
+    private String prodString = "";
 
     /**
      * Creates new form FormEstoque
@@ -37,11 +42,15 @@ public class FormEstoque extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMov = new javax.swing.JTable();
+        txtBuscaProduto = new components.TextFieldFK();
+        txtDisponivel = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtCustoMedio = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -52,47 +61,48 @@ public class FormEstoque extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerenciamento de Estoque");
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter()
-        {
-            public void windowOpened(java.awt.event.WindowEvent evt)
-            {
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
 
         tblMov.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null}
             },
-            new String []
-            {
+            new String [] {
                 "Data", "Operação", "Quantidade", "Unitário", "Total"
             }
-        )
-        {
-            boolean[] canEdit = new boolean []
-            {
+        ) {
+            boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblMov);
 
+        txtBuscaProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaProdutoActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Quantidade Disponível");
+
+        jLabel2.setText("Custo Médio");
+
         jMenu1.setText("Cadastros");
 
         jMenuItem1.setText("Tipo de Operação");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });
@@ -106,6 +116,11 @@ public class FormEstoque extends javax.swing.JFrame
         jMenu3.setText("Lançamentos");
 
         jMenuItem2.setText("Movimentação de Estoque");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem2);
 
         jMenuBar1.add(jMenu3);
@@ -116,14 +131,40 @@ public class FormEstoque extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(27, 27, 27)
+                        .addComponent(txtDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(51, 51, 51)
+                        .addComponent(txtCustoMedio, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addComponent(txtBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(175, 175, 175))
+                .addGap(61, 61, 61)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtCustoMedio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtDisponivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
@@ -138,8 +179,32 @@ public class FormEstoque extends javax.swing.JFrame
 
     private void formWindowOpened(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowOpened
     {//GEN-HEADEREND:event_formWindowOpened
-        preencheTabela();
+        txtDisponivel.setEditable(false);
+        FormBuscaProduto buscaProd = new FormBuscaProduto();
+        buscaProd.setFrameBloquear(FormPrincipal.getInstance());
+        this.txtBuscaProduto.setFrame(buscaProd);
+        this.txtBuscaProduto.setFuncaoDepoisSelecionar(produto ->
+        {
+            preencheTabela((EstProduto) produto);
+        });
+
+        /*EstProduto p = (EstProduto) txtBuscaProduto.getValue();
+       
+         System.out.println("" +  p.getProdutoId()); */
+        // Precche tabela so depois que filtrar um produto
+
     }//GEN-LAST:event_formWindowOpened
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
+    {//GEN-HEADEREND:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        FormManutencaoEstoque form = new FormManutencaoEstoque(null, rootPaneCheckingEnabled);
+        form.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void txtBuscaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscaProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,6 +240,7 @@ public class FormEstoque extends javax.swing.JFrame
             java.util.logging.Logger.getLogger(FormEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable()
@@ -195,13 +261,15 @@ public class FormEstoque extends javax.swing.JFrame
         });
     }
 
-    private void preencheTabela()
-    {//listar dados na jtable
+    private void preencheTabela(EstProduto produto)
+    {
+      
+
         DefaultTableModel modelo = (DefaultTableModel) tblMov.getModel();
         modelo.setNumRows(0);
 
         //semelhante ao foreach
-        for (EstMovimentacao mov : movDao.getAll())
+        for (EstMovimentacao mov : movDao.findByProduto(produto))
         {
             modelo.addRow(new String[]
             {
@@ -210,13 +278,60 @@ public class FormEstoque extends javax.swing.JFrame
                 "" + mov.getMovQuantidade(),
                 "" + mov.getMovVlrUnit(),
                 "" + mov.getMovTotal(),
-            
+
             });
+
         }
+
+        txtDisponivel.setText("" + calculaCusto()[0]);
+        txtCustoMedio.setText("" + movDao.doubleDecimais(calculaCusto()[1]));
+        paint(calculaCusto()[0]);
+
+    }
+
+    public double[] calculaCusto()
+    {
+        double vet[] = new double[2];
+        double qtde = 0.0, custoM = 0.0, total = 0.0;
+        for (EstMovimentacao mov : movDao.getAll())
+        {
+            if (mov.getCarEstTipoOperacao().getTpOpTipo() == 1 || mov.getCarEstTipoOperacao().getTpOpTipo() == 2)
+            {
+                qtde += mov.getMovQuantidade();
+                total += mov.getMovTotal();
+            } else
+            {
+                qtde += (-mov.getMovQuantidade());
+                total += (-mov.getMovTotal());
+            }
+
+        }
+
+        vet[0] = qtde;
+        vet[1] = (qtde != 0 && total != 0 ? total / qtde : 0);
+
+        return vet;
+    }
+
+    public void paint(double value)
+    {
+        if (value < 0)
+        {
+            txtDisponivel.setBackground(Color.red);
+        } else if (value == 0.0)
+        {
+            txtDisponivel.setBackground(Color.yellow);
+        } else
+        {
+            txtDisponivel.setBackground(Color.green);
+        }
+
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -225,5 +340,8 @@ public class FormEstoque extends javax.swing.JFrame
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMov;
+    private components.TextFieldFK txtBuscaProduto;
+    private javax.swing.JTextField txtCustoMedio;
+    private javax.swing.JTextField txtDisponivel;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,32 +9,38 @@ import javax.swing.table.DefaultTableModel;
 import model.EstProduto;
 import utils.Utils;
 
-public class FormBuscaProduto extends JFrameBusca {
+public class FormBuscaProduto extends JFrameBusca
+{
 
     private LoadProdutos loadProdutos;
     private List<EstProduto> produtos;
 
-    public FormBuscaProduto() {
+    public FormBuscaProduto()
+    {
         initComponents();
         this.buscarProdutos();
         this.setLocationRelativeTo(null);
     }
 
-    public void buscarProdutos() {
+    public void buscarProdutos()
+    {
         this.loadProdutos = new LoadProdutos();
         this.loadProdutos.execute();
     }
 
-    public class LoadProdutos extends SwingWorker<Void, Void> {
+    public class LoadProdutos extends SwingWorker<Void, Void>
+    {
 
-        protected Void doInBackground() throws Exception {
+        protected Void doInBackground() throws Exception
+        {
 
             DefaultTableModel model = (DefaultTableModel) tabelaProdutos.getModel();
 
             EstProdutoDAO produtoDAO = new EstProdutoDAO();
-            
-           produtos =  produtoDAO.getAll();
-            for (EstProduto produto : produtos) {
+
+            produtos = produtoDAO.getAll();
+            for (EstProduto produto : produtos)
+            {
                 Object[] o = new Object[2];
                 o[0] = produto.getProdutoId();
                 o[1] = produto.getProdutoDescricao();
@@ -44,11 +50,13 @@ public class FormBuscaProduto extends JFrameBusca {
             return null;
         }
 
-        public void done() {
+        public void done()
+        {
 
         }
 
-        private Object ProdutoDAO() {
+        private Object ProdutoDAO()
+        {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     }
@@ -146,16 +154,23 @@ public class FormBuscaProduto extends JFrameBusca {
 
     private void buttonSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelecionarActionPerformed
         int linhaselecionada = this.tabelaProdutos.getSelectedRow();
-        if (linhaselecionada < 0) {
+        if (linhaselecionada < 0)
+        {
             Utils.notificacao("Selecione um produto!", Utils.TipoNotificacao.erro, 0);
             return;
         }
 
-        if (this.getFrameBuscaTipo() == JFrameBuscaTipo.textFieldFK) {
-            TextFieldFK text = this.getTextFieldFK();
-            EstProduto marca = this.produtos.get(linhaselecionada);
-            text.setText(marca.getProdutoId() + "-" + marca.getProdutoDescricao());
-            text.setValue(marca);
+        TextFieldFK text = this.getTextFieldFK();
+        EstProduto produto = this.produtos.get(linhaselecionada);
+        if (this.getFrameBuscaTipo() == JFrameBuscaTipo.textFieldFK)
+        {
+            text.setText(produto.getProdutoId() + "-" + produto.getProdutoDescricao());
+            text.setValue(produto);
+        }
+
+        if (text.getFuncaoDepoisSelecionar() != null)
+        {
+            text.getFuncaoDepoisSelecionar().accept(produto);
         }
 
         this.getFrameBloquear().setEnabled(true);
