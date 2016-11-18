@@ -61,6 +61,9 @@ public class CarCapContasDAO {
         session.close();
         return contas;
     }
+    
+    
+    
 
     public List<CarCapContas> ListarTodosPaginacao(int paginaBuscar, Date dataInicial, Date dataFinal) {
 
@@ -77,7 +80,7 @@ public class CarCapContasDAO {
         query.setMaxResults(maxResults);
         query.setFirstResult(paginaBuscar * maxResults);
         
-        List<CarCapContas> contas = query.list();
+        List<CarCapContas> contas = query.list();   
         session.getTransaction().commit();
         session.close();
         return contas;

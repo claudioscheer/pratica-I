@@ -55,7 +55,7 @@
 			</rectangle>
 			<image>
 				<reportElement x="10" y="10" width="140" height="80" uuid="aa934927-9419-4acb-bdb8-57c5c2c4ced2"/>
-				<imageExpression><![CDATA["K:/Diego/SI/SI 4 sem/Pratica1/Pratica1Final/trunk/praticaI/src/imagens/logo.png"]]></imageExpression>
+				<imageExpression><![CDATA["./imagens/logo.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="170" y="50" width="368" height="40" uuid="9e9ff3ef-683b-4b77-8f1d-a64d5fc94ac6">
