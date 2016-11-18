@@ -10,14 +10,86 @@ import utils.HibernateUtil;
 
 public class CarCapContasDAO {
 
-    public Boolean update(CarCapContas conta) {
+    public boolean update(CarCapContas conta) {
+        
+        try {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.update(conta);
         session.getTransaction().commit();
         session.close();
-        return true;
+         return true;
+        } catch (Exception e) {
+            
+            System.out.println(e);
+            return false;
+        }
+       
+       
     }
+    
+    
+     public CarCapContas altera(int id,CarCapContas cont) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+
+        Query query = session.createQuery("from CarCapContas as a where contaID =:codigo ");
+
+        query.setParameter("codigo", id);
+
+       // CarCapContas contas = (CarCapContas) query.uniqueResult();
+        session.update(cont);
+        session.getTransaction().commit();
+        session.close();
+        
+        return cont;
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      public CarCapContas BuscarContasId(int id) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+
+        Query query = session.createQuery("from CarCapContas as a where contaID =:codigo ");
+
+        query.setParameter("codigo", id);
+
+        CarCapContas contas = (CarCapContas) query.uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+        
+        return contas;
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     public Boolean insert(CarCapContas conta) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -124,22 +196,7 @@ public class CarCapContasDAO {
 
     }
     
-        public CarCapContas BuscarContasId(int id) {
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
-
-        Query query = session.createQuery("from CarCapContas as a where contaID =:codigo ");
-
-        query.setParameter("codigo", id);
-
-        CarCapContas contas = (CarCapContas) query.uniqueResult();
-        session.getTransaction().commit();
-        session.close();
-        
-        return contas;
-
-    }
+      
 
     public double SomarContas(TipoConta tipo, Date dataInicial, Date dataFinal) {
 
