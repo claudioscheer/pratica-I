@@ -38,10 +38,13 @@ public class PatHistoricoDepreciacaoDAO {
         return marcas;
     }
 
-    public PatHistoricoDepreciacao buscarUltimaDepreciacao() {
+    public PatHistoricoDepreciacao buscarUltimaDepreciacao(Calendar c) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("FROM PatHistoricoDepreciacao hd ORDER BY hd.historicoDepreciacaoCodigo DESC");
+        Query query = session.createQuery("FROM PatHistoricoDepreciacao hd WHERE hd.historicoDepreciacaoMes = :mes AND "
+                + "hd.historicoDepreciacaoAno = :ano ORDER BY hd.historicoDepreciacaoCodigo DESC");
+        query.setParameter("mes", c.get(Calendar.MONTH));
+        query.setParameter("ano", c.get(Calendar.YEAR));
         query.setMaxResults(1);
         List<PatHistoricoDepreciacao> historico = query.list();
         session.getTransaction().commit();

@@ -45,7 +45,6 @@ public class PanelCadDepreciacoes extends WebPanel {
         this.validador.addObrigatorioValidator(this.txtTaxaAnual);
         this.validador.addApenasNumeroValidator(this.txtTaxaMensal);
         this.validador.addObrigatorioValidator(this.txtTaxaDiaria);
-        this.validador.addMenorQueValidator(this.txtTaxaAnual, 100.00);
 
         FormBuscaCategoria formCategoria = new FormBuscaCategoria();
         formCategoria.buscarCategorias();
