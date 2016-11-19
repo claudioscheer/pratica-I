@@ -15,6 +15,7 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
 
     public FormHistoricoDepreciacoes() {
         initComponents();
+        this.setTitle("Histórico depreciação");
         this.setLocationRelativeTo(null);
     }
 
@@ -74,7 +75,7 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
 
             },
             new String [] {
-                "Dia", "Valor"
+                "Data", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {

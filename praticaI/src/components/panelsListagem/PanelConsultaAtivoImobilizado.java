@@ -13,11 +13,8 @@ import forms.patrimonio.FormDepreciar;
 import forms.patrimonio.FormHistoricoDepreciacoes;
 import forms.patrimonio.FormQrCodeAtivoImobilizado;
 import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import model.PatAtivoImobilizado;
@@ -41,7 +38,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         this.tabelaAtivosImobilizados.setModel(new javax.swing.table.DefaultTableModel(
                 new Object[][]{},
                 new String[]{
-                    "Código", "Descrição", "Categoria", "Marca", "Valor original", "Valor atual"
+                    "Código", "Descrição", "Categoria", "Marca", "Valor original", "Valor atual", "Valor já depreciado"
                 }
         ) {
             boolean[] canEdit = new boolean[]{
@@ -163,7 +160,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         });
         popupMenuRelatorios.add(menuRelatorioInventario);
 
-        WebMenuItem menuRelatorioOutros = new WebMenuItem("Outros", Hotkey.NUMBER_2);
+        WebMenuItem menuRelatorioOutros = new WebMenuItem("Relatório de bens baixados", Hotkey.NUMBER_2);
         menuRelatorioOutros.addActionListener((e) -> {
             System.out.println("relatório outros");
         });
@@ -232,13 +229,14 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
     }
 
     private Object[] ativoToArray(PatAtivoImobilizado ativo) {
-        Object[] o = new Object[6];
+        Object[] o = new Object[7];
         o[0] = ativo.getAtivoCodigo();
         o[1] = ativo.getAtivoDescricao();
         o[2] = ativo.getEstCategoria().getCategoriaDescricao();
         o[3] = ativo.getEstMarca().getMarcaDescricao();
         o[4] = ativo.getAtivoValorOriginal();
         o[5] = ativo.getAtivoValorAtual();
+        o[6] = ativo.getAtivoValorOriginal() - ativo.getAtivoValorAtual();
         return o;
     }
 

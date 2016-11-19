@@ -496,14 +496,14 @@ public class FormMateriais extends javax.swing.JFrame {
         modelo.setNumRows(0);
 
         //semelhante ao foreach
-        for (EstProduto prd : prodDao.buscarProdutos(descricao, categoria, unMedida, marca)) {
-            modelo.addRow(new String[]{
-                "" + prd.getProdutoId(),
-                prd.getProdutoDescricao(),
-                prd.getEstCategoria().getCategoriaDescricao(),
-                prd.getEstMarca().getMarcaDescricao(),
-                prd.getEstUnidadeMedida().getUnidadeMedidaDescricao(),});
-        }
+//        for (EstProduto prd : prodDao.buscarProdutos(descricao, categoria, unMedida, marca)) {
+//            modelo.addRow(new String[]{
+//                "" + prd.getProdutoId(),
+//                prd.getProdutoDescricao(),
+//                prd.getEstCategoria().getCategoriaDescricao(),
+//                prd.getEstMarca().getMarcaDescricao(),
+//                prd.getEstUnidadeMedida().getUnidadeMedidaDescricao(),});
+//        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

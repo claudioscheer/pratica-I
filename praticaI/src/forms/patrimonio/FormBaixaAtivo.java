@@ -23,6 +23,7 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
 
     public FormBaixaAtivo() {
         initComponents();
+        this.setTitle("Baixa ativo");
         this.setLocationRelativeTo(null);
 
         FormBuscaTipoBaixa tipoBaixa = new FormBuscaTipoBaixa();

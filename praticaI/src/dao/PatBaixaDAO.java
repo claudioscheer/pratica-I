@@ -15,6 +15,7 @@ public class PatBaixaDAO {
         try {
             session.getTransaction().begin();
             baixa.getPatAtivoImobilizado().setAtivo(false);
+            baixa.getPatAtivoImobilizado().setAtivoValorAtual(0);
             session.update(baixa.getPatAtivoImobilizado());
             session.save(baixa);
             session.getTransaction().commit();

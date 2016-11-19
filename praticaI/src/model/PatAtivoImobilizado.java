@@ -4,8 +4,10 @@ import com.sun.istack.internal.NotNull;
 import enumeraveis.EstadoBem;
 import enumeraveis.UtilizacaoBem;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 @Entity
 @SequenceGenerator(name = "seq_ativo_imobilizado", sequenceName = "seq_ativo_imobilizado", allocationSize = 1)
@@ -34,6 +37,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
     private List<PatHistoricoDepreciacao> patHistoricoDepreciacaos;
     private boolean ativoDepreciavel;
     private boolean ativo;
+    private Date ativoDataCadastro;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_ativo_imobilizado")
@@ -129,7 +133,7 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoUtilizacao = ativoUtilizacao;
     }
 
-    @OneToMany(mappedBy = "patAtivoImobilizado")
+    @OneToMany(mappedBy = "patAtivoImobilizado", fetch = FetchType.EAGER)
     public List<PatHistoricoDepreciacao> getPatHistoricoDepreciacaos() {
         if (this.patHistoricoDepreciacaos == null) {
             this.patHistoricoDepreciacaos = new ArrayList<>();
@@ -166,6 +170,15 @@ public class PatAtivoImobilizado implements java.io.Serializable {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    @Temporal(javax.persistence.TemporalType.DATE)
+    public Date getAtivoDataCadastro() {
+        return ativoDataCadastro;
+    }
+
+    public void setAtivoDataCadastro(Date ativoDataCadastro) {
+        this.ativoDataCadastro = ativoDataCadastro;
     }
 
 }
