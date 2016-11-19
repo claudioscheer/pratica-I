@@ -6,14 +6,11 @@
 package forms;
 
 import dao.EstMovimentacaoDAO;
-import dao.EstProdutoDAO;
-import forms.busca.FormBuscaCategoria;
 import forms.busca.FormBuscaProduto;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import model.EstMovimentacao;
 import model.EstProduto;
-import model.EstUnidadeMedida;
 
 /**
  *
@@ -27,9 +24,10 @@ public class FormEstoque extends javax.swing.JFrame {
 
     /**
      * Creates new form FormEstoque
+     * @param parent
+     * @param modal
      */
-    public FormEstoque(java.awt.Frame parent, boolean modal) {
-        //super(parent, modal);
+    public FormEstoque(java.awt.Frame parent, boolean modal) {        
         initComponents();
     }
 
@@ -49,10 +47,12 @@ public class FormEstoque extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtCustoMedio = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -96,6 +96,8 @@ public class FormEstoque extends javax.swing.JFrame {
 
         jLabel2.setText("Custo Médio");
 
+        jLabel3.setText("Buscar Produto");
+
         jMenu1.setText("Cadastros");
 
         jMenuItem1.setText("Tipo de Operação");
@@ -109,6 +111,15 @@ public class FormEstoque extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Relatórios");
+
+        jMenuItem3.setText("Gerar Relatório");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Lançamentos");
@@ -132,9 +143,6 @@ public class FormEstoque extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -146,12 +154,20 @@ public class FormEstoque extends javax.swing.JFrame {
                         .addGap(51, 51, 51)
                         .addComponent(txtCustoMedio, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(txtBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
@@ -185,12 +201,6 @@ public class FormEstoque extends javax.swing.JFrame {
                 -> {
             preencheTabela((EstProduto) produto);
         });
-
-        /*EstProduto p = (EstProduto) txtBuscaProduto.getValue();
-       
-         System.out.println("" +  p.getProdutoId()); */
-        // Precche tabela so depois que filtrar um produto
-
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -203,6 +213,12 @@ public class FormEstoque extends javax.swing.JFrame {
     private void txtBuscaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscaProdutoActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        FormRelatorioEstoque form = new FormRelatorioEstoque(null, rootPaneCheckingEnabled);
+        form.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -304,12 +320,14 @@ public class FormEstoque extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMov;
     private components.TextFieldFK txtBuscaProduto;

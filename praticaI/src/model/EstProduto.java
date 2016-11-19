@@ -21,7 +21,7 @@ import javax.persistence.SequenceGenerator;
 @SequenceGenerator(name = "seq_produto", sequenceName = "seq_produto", allocationSize = 1)
 public class EstProduto implements java.io.Serializable {
 
-    private int produtoId;
+        private int produtoId;
     private EstCategoria estCategoria;
     private EstMarca estMarca;
     private EstUnidadeMedida estUnidadeMedida;
