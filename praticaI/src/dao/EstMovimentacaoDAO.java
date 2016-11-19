@@ -33,7 +33,7 @@ public class EstMovimentacaoDAO
 {
 
     private EstProdutoDAO produtoDao = new EstProdutoDAO();
-    EstMovimentacaoDAO mDAO = new EstMovimentacaoDAO();
+    //EstMovimentacaoDAO mDAO = new EstMovimentacaoDAO();
 
     public Boolean update(EstMovimentacao mov)
     {
@@ -181,7 +181,7 @@ public class EstMovimentacaoDAO
     {
         double vet[] = new double[3];
         double qtde = 0.0, custoM = 0.0, total = 0.0;
-        for (EstMovimentacao mov : mDAO.findByProduto(produto))
+        for (EstMovimentacao mov : this.findByProduto(produto))
         {
             if (mov.getCarEstTipoOperacao().getTpOpTipo() == 1 || mov.getCarEstTipoOperacao().getTpOpTipo() == 2)
             {
@@ -194,12 +194,12 @@ public class EstMovimentacaoDAO
             }
 
         }
-
+  
         vet[0] = qtde;
         vet[1] = (qtde != 0 && total != 0 ? total / qtde : 0);
         vet[2] = total;
 
         return vet;
-    }
+}
 
 }
