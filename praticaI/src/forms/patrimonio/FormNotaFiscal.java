@@ -4,6 +4,7 @@ import com.alee.laf.desktoppane.WebInternalFrame;
 import com.alee.laf.optionpane.WebOptionPane;
 import components.panelsCads.PanelCadNotaFiscal;
 import components.panelsListagem.PanelConsultaNotaFiscal;
+import dao.EstMovimentacaoDAO;
 import dao.PatAtivoImobilizadoDAO;
 import dao.PatNotaFiscalDAO;
 import forms.FormPrincipal;
@@ -87,6 +88,12 @@ public class FormNotaFiscal extends WebInternalFrame {
             this.panelCadastroNotaFiscal.editando = false;
             this.panelConsultaNotaFiscal.removeNotaFiscal(this.indexEditando);
             this.indexEditando = -1;
+        }
+
+        try {
+            new EstMovimentacaoDAO().itensNota(notaFiscal.getPatItemNotas(), notaFiscal.getNotaDataEntrada());
+        } catch (Exception e) {
+            utils.Utils.notificacao("Erro ao atualizar itens da nota!", Utils.TipoNotificacao.erro, 0);
         }
 
         this.panelConsultaNotaFiscal.addNotaFiscal(notaFiscal);
