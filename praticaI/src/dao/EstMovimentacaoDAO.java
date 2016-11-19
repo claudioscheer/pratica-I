@@ -5,8 +5,14 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
 import java.util.Map;
 import javafx.scene.chart.PieChart;
+import model.CarEstTipoOperacao;
+
+import java.util.Map;
+import javafx.scene.chart.PieChart;
+
 import model.EstMovimentacao;
 import model.EstProduto;
 import net.sf.jasperreports.engine.JRException;
@@ -27,8 +33,9 @@ public class EstMovimentacaoDAO
 {
 
     private EstProdutoDAO produtoDao = new EstProdutoDAO();
+    EstMovimentacaoDAO mDAO = new EstMovimentacaoDAO();
 
-    public Boolean update(EstMovimentacaoDAO mov)
+    public Boolean update(EstMovimentacao mov)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
@@ -38,7 +45,7 @@ public class EstMovimentacaoDAO
         return true;
     }
 
-    public Boolean insert(EstMovimentacaoDAO mov)
+    public Boolean insert(EstMovimentacao mov)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
@@ -97,8 +104,7 @@ public class EstMovimentacaoDAO
     {
         EstProduto produto = new EstProduto();
         EstMovimentacao movimento = new EstMovimentacao();
-        
-        
+
         movimento.setMovQuantidade(quantidade);
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -149,6 +155,51 @@ public class EstMovimentacaoDAO
         String string2 = part[0] + "." + part[1];
         double vlr = Double.parseDouble(string2);
         return vlr;
+    }
+
+    public void atualizaEstoque(int codigoProduto, Date dataMov, int tipoMov, double quantidade, double Unitario)
+    {
+        EstMovimentacao m = new EstMovimentacao();
+        EstMovimentacaoDAO mDao = new EstMovimentacaoDAO();
+        EstProdutoDAO pDAO = new EstProdutoDAO();
+        EstTipoOperacaoDAO movDAO = new EstTipoOperacaoDAO();
+
+        CarEstTipoOperacao op = movDAO.Buscar(tipoMov);
+        EstProduto p = pDAO.get(codigoProduto);
+
+        m.setEstProduto(p);
+        m.setMovData(dataMov);
+        m.setCarEstTipoOperacao(op);
+        m.setMovQuantidade(quantidade);
+        m.setMovVlrUnit(Unitario);
+        m.setMovTotal(quantidade * Unitario);
+        mDao.insert(m);
+
+    }
+
+    public double[] calculaCusto(EstProduto produto)
+    {
+        double vet[] = new double[3];
+        double qtde = 0.0, custoM = 0.0, total = 0.0;
+        for (EstMovimentacao mov : mDAO.findByProduto(produto))
+        {
+            if (mov.getCarEstTipoOperacao().getTpOpTipo() == 1 || mov.getCarEstTipoOperacao().getTpOpTipo() == 2)
+            {
+                qtde += mov.getMovQuantidade();
+                total += mov.getMovTotal();
+            } else
+            {
+                qtde += (-mov.getMovQuantidade());
+                total += (-mov.getMovTotal());
+            }
+
+        }
+
+        vet[0] = qtde;
+        vet[1] = (qtde != 0 && total != 0 ? total / qtde : 0);
+        vet[2] = total;
+
+        return vet;
     }
 
 }
