@@ -30,6 +30,7 @@ import javax.swing.table.DefaultTableModel;
 import model.CarCapContas;
 import dao.Graficos;
 import dao.PatAtivoImobilizadoDAO;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.SwingWorker;
 import model.FlxcxFluxoCaixaFechamento;
@@ -63,8 +64,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         super("Fluxo de Caixa", true, true, true, true);
 
         // estancia o array de contas
-        
-
         this.initComponents();
 
         //--ajustes data inicial --\\
@@ -80,7 +79,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
         this.contas = this.buscarconta.ListarTodos(dataInicial, dataFinal);
         verificaTipoGrafico(TipoConta.ambos, 1);
-        
+
         grapBarras.setSelected(true);
         grapBarras.setIcon(Utils.getImage(Utils.Image.barraMarcado));
 
@@ -90,11 +89,23 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         checkboxEntrada.setSelected(true);
         checkboxSaida.setSelected(true);
 
+        Thread t = new Thread(() -> {
+
+            Calendar cIni = Calendar.getInstance();
+
+            int mes = Integer.valueOf(new SimpleDateFormat("MM").format(cIni.getTime()));
+            int ano = Integer.valueOf(new SimpleDateFormat("YYYY").format(cIni.getTime()));
+
+            FlxcxFluxoCaixaFechamento caixa = new FlxcxFluxoCaixaFechamentoDAO().BuscarSaldoMes(mes, ano);
+            
+            txtTotalDisponivelCaixa.setText(title);
+
+        });
+
 //        this.webPanel_Tabela.setSortable(true);
 //        this.webPanel_Tabela.setLoadMore(x -> new FormFluxodeCaixa.CarregarContas().execute());
 //
 //        new CarregarContas().execute();
-
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -856,11 +867,11 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             txtTotalSaidas.setText(String.valueOf(Utils.format(totalSaidas)));
 
             txtTotal.setText(String.valueOf(Utils.format(totalEntradas - totalSaidas)));
-            
+
             FlxcxFluxoCaixaFechamento fechamento = new FlxcxFluxoCaixaFechamentoDAO().BuscarUltimoSaldo();
-            
+
             txtTotalDisponivelCaixa.setText(Utils.format(fechamento.getFechSaldoDisponivel()));
-            
+
             tablenovo.setModel(modelTabela);
 
             JScrollPane tableContainer = new JScrollPane(tablenovo);
@@ -1521,6 +1532,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         FormAddSaldoInicial formSaldo = new FormAddSaldoInicial(null, rootPaneCheckingEnabled);
         formSaldo.setVisible(true);
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void comboFiltroDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltroDataActionPerformed
@@ -1534,17 +1546,16 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     private void webButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton4ActionPerformed
 
         Calendar cIni = Calendar.getInstance();
-                
-        
+
         cIni.set(Calendar.DAY_OF_MONTH, 1);
 
         Calendar cFim = Calendar.getInstance();
 
         cFim.set(Calendar.DAY_OF_MONTH, cFim.getActualMaximum(Calendar.DAY_OF_MONTH));
 
-        
-
         new FlxcxFluxoCaixaFechamentoDAO().FecharCaixa(cIni.getTime(), cFim.getTime());
+        
+        Utils.notificacao("Caixa fechado com sucesso", Utils.TipoNotificacao.ok, 0);
     }//GEN-LAST:event_webButton4ActionPerformed
 
     /**

@@ -8,9 +8,14 @@ package forms;
 import com.alee.laf.desktoppane.WebInternalFrame;
 import dao.FlxcxFluxoCaixaFechamentoDAO;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import model.FlxcxFluxoCaixa;
 import model.FlxcxFluxoCaixaFechamento;
+import org.slf4j.helpers.Util;
+import utils.Utils;
 
 /**
  *
@@ -23,9 +28,9 @@ public class FormAddSaldoInicial extends javax.swing.JDialog {
      */
     public FormAddSaldoInicial(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        
+
         setLocationRelativeTo(this);
-        
+
         initComponents();
     }
 
@@ -102,11 +107,25 @@ public class FormAddSaldoInicial extends javax.swing.JDialog {
 
         FlxcxFluxoCaixaFechamento fx = new FlxcxFluxoCaixaFechamento();
 
-        fx.setFechData(new GregorianCalendar().getTime());
+        
+        Calendar c = Calendar.getInstance();
+
+        c.add(Calendar.MONTH, -1);
+        
+        Date data = c.getTime();
+        
+        fx.setFechData(data);
+        fx.setMesEquivalente(Integer.valueOf(new SimpleDateFormat("MM").format(data)));
+        fx.setAnoEquivalente(Integer.valueOf(new SimpleDateFormat("yyyy").format(data)));
+
         fx.setFechSaldoDisponivel(Double.valueOf(txtValor.getText()));
         fx.setFechSaldoMes(0.0);
 
         new FlxcxFluxoCaixaFechamentoDAO().Inserir(fx);
+
+        Utils.notificacao("Saldo anterior adicionado com sucesso", Utils.TipoNotificacao.ok, 0);
+
+        this.setVisible(false);
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 

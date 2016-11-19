@@ -38,6 +38,9 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
         MoverComponente moveItem = new MoverComponente();
         this.addMouseListener(moveItem);
         this.addMouseMotionListener(moveItem);
+        
+        this.loadSaldo();
+        
     }
 
     @Override
@@ -68,16 +71,12 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
     private void loadSaldo() {
         this.lblValorSaldo.setText("...");
         this.lblValorSaldo.setForeground(Color.BLACK);
-//        Thread t = new Thread(() -> {
-//            ThreadUtils.sleepSafely(500);
         this.setSaldo();
-//        });
-//        t.start();
     }
 
     private void setSaldo() {
         Color c;
-        System.out.println("Saldo: " + this.saldo);
+       
         if (this.saldo < 0) {
             c = Color.RED;
         } else if (this.saldo > 0) {
@@ -116,13 +115,19 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
 
     private void LoadValorCaixa() {
 
-        this.setMesAno();
+        Thread t = new Thread(() -> {
 
-        FlxcxFluxoCaixaFechamento saldoAtual = new FlxcxFluxoCaixaFechamentoDAO().BuscarSaldoMes(this.mes, this.ano);
+            this.setMesAno();
 
-        this.saldo = saldoAtual.getFechSaldoDisponivel();
+            FlxcxFluxoCaixaFechamento saldoAtual = new FlxcxFluxoCaixaFechamentoDAO().BuscarSaldoMes(this.mes, this.ano);
 
-        this.loadSaldo();
+            this.saldo = saldoAtual.getFechSaldoDisponivel();
+
+            this.loadSaldo();
+
+        });
+        
+        t.start();
 
     }
 
@@ -142,14 +147,14 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(350, 150));
 
-        lblAnterior.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAnterior.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblAnterior.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAnteriorMouseClicked(evt);
             }
         });
 
-        lblProximo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblProximo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblProximo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblProximoMouseClicked(evt);
@@ -159,7 +164,7 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
         lblMesAno.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblMesAno.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMesAno.setText("agosto / 2016");
-        lblMesAno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblMesAno.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lblMesAno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblMesAnoMouseClicked(evt);
@@ -170,7 +175,12 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
         lblValorSaldo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblValorSaldo.setText("jLabel1");
 
-        lblAtualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblAtualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblAtualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAtualizarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
@@ -233,6 +243,10 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
     private void lblMesAnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMesAnoMouseClicked
         this.setMesAtual();
     }//GEN-LAST:event_lblMesAnoMouseClicked
+
+    private void lblAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAtualizarMouseClicked
+        this.LoadValorCaixa();
+    }//GEN-LAST:event_lblAtualizarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
