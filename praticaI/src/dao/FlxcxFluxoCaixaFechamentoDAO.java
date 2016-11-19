@@ -6,6 +6,7 @@
 package dao;
 
 import enumeraveis.TipoConta;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -207,9 +208,22 @@ public class FlxcxFluxoCaixaFechamentoDAO {
 //        insert fechamento, em branco mes e ano
         CarCapContasDAO contasDAO = new CarCapContasDAO();
 
-        double entrada = contasDAO.SomarContas(TipoConta.Entrada, dataInicial, dataFinal);
+        Calendar c = Calendar.getInstance();
+        
+        c.setTime(dataInicial);
+        c.add(Calendar.DAY_OF_MONTH, -1);
 
-        double saida = contasDAO.SomarContas(TipoConta.Saida, dataInicial, dataFinal);
+        Date dtIni = c.getTime();
+        
+        c.setTime(dataFinal);
+        c.add(Calendar.DAY_OF_MONTH, -1);
+
+        Date dtFim = c.getTime();
+        
+        
+        double entrada = contasDAO.SomarContas(TipoConta.Entrada, dtIni, dtFim);
+
+        double saida = contasDAO.SomarContas(TipoConta.Saida, dtIni, dtFim);
 
         FlxcxFluxoCaixaFechamento ultimoSaldo = BuscarUltimoSaldo();
         
@@ -219,10 +233,15 @@ public class FlxcxFluxoCaixaFechamentoDAO {
         
         FlxcxFluxoCaixaFechamento fx = new FlxcxFluxoCaixaFechamento();
 
-        fx.setFechData(new GregorianCalendar().getTime());
+        
+        Date data = new GregorianCalendar().getTime();
+        
+        fx.setFechData(data);
+        fx.setMesEquivalente(Integer.valueOf(new SimpleDateFormat("MM").format(dtIni)));
+        fx.setAnoEquivalente(Integer.valueOf(new SimpleDateFormat("yyyy").format(dtFim)));
+        
         fx.setFechSaldoDisponivel(saldodisponivel);
         fx.setFechSaldoMes(finalMes);
-        
         Inserir(fx);
         
         //update fechamento

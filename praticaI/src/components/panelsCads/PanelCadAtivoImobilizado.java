@@ -15,6 +15,8 @@ import model.PatAtivoImobilizado;
 import model.PatItemNota;
 import model.PatNotaFiscal;
 import enumeraveis.UtilizacaoBem;
+import java.util.Calendar;
+import utils.Utils;
 
 public class PanelCadAtivoImobilizado extends WebPanel {
 
@@ -50,6 +52,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.comboUtilizacaoBem.setSelectedIndex(this.ativoImobilizado.getAtivoUtilizacao().ordinal());
         this.cbAtivoDepreciavel.setSelected(this.ativoImobilizado.isAtivoDepreciavel());
         this.txtValorJaDepreciado.setValue(this.ativoImobilizado.getAtivoValorOriginal() - this.ativoImobilizado.getAtivoValorAtual());
+        this.txtDataCadastro.setDate(this.ativoImobilizado.getAtivoDataCadastro());
 
         if (this.ativoImobilizado.getPatItemNota() != null) {
             this.txtNotaFiscal.setText(this.ativoImobilizado.getPatItemNota().getPatNotaFiscal().getNotaCodigo()
@@ -77,8 +80,14 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.validador.addApenasNumeroValidator(this.txtTaxaValorResidual);
         this.validador.addObrigatorioValidator(this.txtValorResidual);
         this.validador.addApenasNumeroValidator(this.txtValorResidual);
+        this.validador.addObrigatorioValidator(this.txtDataCadastro);
 
         this.validador.addMenorQueValidator(this.txtTaxaValorResidual, 100.00);
+
+        this.txtDataCadastro.setDateFormat(Utils.formatoDataPadrao);
+        this.txtDataCadastro.setDate(Calendar.getInstance().getTime());
+
+        this.txtTaxaValorResidual.setTextoMonetario(" %");
 
         FormBuscaCategoria formCategoria = new FormBuscaCategoria();
         formCategoria.setApenasComDepreciacoes(true);
@@ -134,6 +143,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.ativoImobilizado.setAtivoValorResidual(this.txtValorResidual.getValue());
         this.ativoImobilizado.setAtivoEstadoBem(EstadoBem.values()[this.comboEstadoBem.getSelectedIndex()]);
         this.ativoImobilizado.setAtivoUtilizacao(UtilizacaoBem.values()[this.comboUtilizacaoBem.getSelectedIndex()]);
+        this.ativoImobilizado.setAtivoDataCadastro(this.txtDataCadastro.getDate());
 
         if (!this.editando) {
             this.ativoImobilizado.setAtivoValorAtual(this.ativoImobilizado.getAtivoValorOriginal());
@@ -165,18 +175,20 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        comboEstadoBem = new javax.swing.JComboBox<String>();
+        comboEstadoBem = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        comboUtilizacaoBem = new javax.swing.JComboBox<String>();
+        comboUtilizacaoBem = new javax.swing.JComboBox<>();
         txtValorOriginal = new components.TextFieldValorMonetario();
         txtValorAtual = new components.TextFieldValorMonetario();
         txtTaxaValorResidual = new components.TextFieldValorMonetario();
         txtValorResidual = new components.TextFieldValorMonetario();
-        comboItemNota = new javax.swing.JComboBox<String>();
+        comboItemNota = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         cbAtivoDepreciavel = new com.alee.laf.checkbox.WebCheckBox();
         jLabel12 = new javax.swing.JLabel();
         txtValorJaDepreciado = new components.TextFieldValorMonetario();
+        jLabel13 = new javax.swing.JLabel();
+        txtDataCadastro = new com.alee.extended.date.WebDateField();
         panelOpcoes = new javax.swing.JPanel();
         btnSalvar = new com.alee.laf.button.WebButton();
         btnCancelar = new com.alee.laf.button.WebButton();
@@ -203,17 +215,17 @@ public class PanelCadAtivoImobilizado extends WebPanel {
 
         jLabel6.setText("Nota fiscal");
 
-        jLabel7.setText("Taxa valor residual");
+        jLabel7.setText("Taxa residual");
 
         jLabel8.setText("Valor residual");
 
         jLabel9.setText("Estado do bem");
 
-        comboEstadoBem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Novo", "Usado" }));
+        comboEstadoBem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Novo", "Usado" }));
 
         jLabel10.setText("Utilização do bem");
 
-        comboUtilizacaoBem.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Diariamente", "Semanalmente", "Mensalmente", "Semestralmente", "Trimestralmente", "Anualmente" }));
+        comboUtilizacaoBem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Diariamente", "Semanalmente", "Mensalmente", "Semestralmente", "Trimestralmente", "Anualmente" }));
 
         txtValorOriginal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -229,13 +241,22 @@ public class PanelCadAtivoImobilizado extends WebPanel {
             }
         });
 
+        comboItemNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboItemNotaActionPerformed(evt);
+            }
+        });
+
         jLabel11.setText("Produto da nota");
 
+        cbAtivoDepreciavel.setSelected(true);
         cbAtivoDepreciavel.setText("Ativo Depreciável");
 
         jLabel12.setText("Valor já depreciado");
 
         txtValorJaDepreciado.setEnabled(false);
+
+        jLabel13.setText("Data lançamento");
 
         javax.swing.GroupLayout panelItensLayout = new javax.swing.GroupLayout(panelItens);
         panelItens.setLayout(panelItensLayout);
@@ -244,36 +265,41 @@ public class PanelCadAtivoImobilizado extends WebPanel {
             .addGroup(panelItensLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtMarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtDescricao)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel6)
-                        .addGroup(panelItensLayout.createSequentialGroup()
-                            .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelItensLayout.createSequentialGroup()
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelItensLayout.createSequentialGroup()
+                                .addComponent(cbAtivoDepreciavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12)
+                                    .addComponent(txtValorJaDepreciado, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(58, 58, 58)
+                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(txtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panelItensLayout.createSequentialGroup()
                                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel2)
                                     .addComponent(txtValorOriginal, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
                                     .addComponent(txtTaxaValorResidual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(cbAtivoDepreciavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(52, 52, 52)
-                            .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtValorAtual, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                                .addComponent(txtValorResidual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtValorJaDepreciado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(panelItensLayout.createSequentialGroup()
-                                    .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel8)
-                                        .addComponent(jLabel12))
-                                    .addGap(0, 0, Short.MAX_VALUE))))
-                        .addComponent(txtNotaFiscal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel11)
-                        .addComponent(comboItemNota, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(52, 52, 52)
+                                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtValorResidual, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtValorAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel8)))
+                            .addComponent(comboItemNota, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNotaFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel11))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(panelItensLayout.createSequentialGroup()
                             .addGap(282, 282, 282)
@@ -285,7 +311,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
                         .addGroup(panelItensLayout.createSequentialGroup()
                             .addComponent(comboEstadoBem, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGap(282, 282, 282))))
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addGap(299, 299, 299))
         );
         panelItensLayout.setVerticalGroup(
             panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,29 +335,34 @@ public class PanelCadAtivoImobilizado extends WebPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboItemNota, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtValorOriginal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtValorAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTaxaValorResidual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtValorResidual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtValorJaDepreciado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbAtivoDepreciavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelItensLayout.createSequentialGroup()
+                        .addComponent(comboItemNota, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtValorOriginal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValorAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTaxaValorResidual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValorResidual, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtValorJaDepreciado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbAtivoDepreciavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelItensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelItensLayout.createSequentialGroup()
@@ -397,6 +428,13 @@ public class PanelCadAtivoImobilizado extends WebPanel {
         this.calcularValorResidual();
     }//GEN-LAST:event_txtValorOriginalKeyReleased
 
+    private void comboItemNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboItemNotaActionPerformed
+        PatItemNota itemnota = this.notaFiscal.getPatItemNotas().get(this.comboItemNota.getSelectedIndex());
+        if (this.txtValorOriginal.getValue() <= 0d) {
+            this.txtValorOriginal.setValue(itemnota.getItemNotaValorTotal());
+        }
+    }//GEN-LAST:event_comboItemNotaActionPerformed
+
     private void calcularValorResidual() {
         double valor = this.txtValorOriginal.getValue();
         double taxa = this.txtTaxaValorResidual.getValue() / 100;
@@ -415,6 +453,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -427,6 +466,7 @@ public class PanelCadAtivoImobilizado extends WebPanel {
     private javax.swing.JPanel panelOpcoes;
     private javax.swing.JScrollPane scrollCadastro;
     private components.TextFieldFK txtCategoria;
+    private com.alee.extended.date.WebDateField txtDataCadastro;
     private javax.swing.JTextField txtDescricao;
     private components.TextFieldFK txtMarca;
     private components.TextFieldFK txtNotaFiscal;

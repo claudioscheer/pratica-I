@@ -131,7 +131,7 @@ public class PanelDepreciar extends WebPanel {
     public void startDepreciacao() {
 
         if (this.jaDepreciadoMesAtual) {
-            WebOptionPane.showMessageDialog(this, "Serão depreciados apenas os ativos não depreciados este mês!", "Aviso", WebOptionPane.INFORMATION_MESSAGE);
+            WebOptionPane.showMessageDialog(this, "Serão depreciados apenas os ativos não calculados no mês!", "Aviso", WebOptionPane.INFORMATION_MESSAGE);
         }
 
         this.valueProgress = 0;
