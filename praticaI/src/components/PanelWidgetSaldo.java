@@ -22,8 +22,7 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
     private Calendar calendar;
     private int mes;
     private int ano;
-    
-    
+
     private static PanelWidgetSaldo instance = null;
 
     public PanelWidgetSaldo() {
@@ -69,15 +68,16 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
     private void loadSaldo() {
         this.lblValorSaldo.setText("...");
         this.lblValorSaldo.setForeground(Color.BLACK);
-        Thread t = new Thread(() -> {
-            ThreadUtils.sleepSafely(500);
-            this.setSaldo();
-        });
-        t.start();
+//        Thread t = new Thread(() -> {
+//            ThreadUtils.sleepSafely(500);
+        this.setSaldo();
+//        });
+//        t.start();
     }
 
     private void setSaldo() {
         Color c;
+        System.out.println("Saldo: " + this.saldo);
         if (this.saldo < 0) {
             c = Color.RED;
         } else if (this.saldo > 0) {
@@ -90,9 +90,9 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
     }
 
     private String getMesAno() {
-        this.mes = this.calendar.getTime().getMonth();
-        this.ano = this.calendar.getTime().getYear();
-                
+        this.mes = Integer.valueOf(new SimpleDateFormat("MM").format(this.calendar.getTime()));
+        this.ano = Integer.valueOf(new SimpleDateFormat("YYYY").format(this.calendar.getTime()));
+
         String mes_ano = new SimpleDateFormat("MMMM").format(this.calendar.getTime()).toLowerCase() + " / " + this.calendar.get(Calendar.YEAR);
         return mes_ano;
     }
@@ -109,16 +109,21 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
 
     private void setMesAtual() {
         this.calendar = Calendar.getInstance();
-        this.loadSaldo();
+
+        this.LoadValorCaixa();
+
+    }
+
+    private void LoadValorCaixa() {
+
         this.setMesAno();
 
-//        FlxcxFluxoCaixaFechamento saldoAtual = new FlxcxFluxoCaixaFechamentoDAO().BuscarSaldoMes(this.mes, this.ano);
-        
-        //só pra teste
-//        this.saldo = saldoAtual.getFechSaldoDisponivel();
-        
-        this.saldo = 200;
-        
+        FlxcxFluxoCaixaFechamento saldoAtual = new FlxcxFluxoCaixaFechamentoDAO().BuscarSaldoMes(this.mes, this.ano);
+
+        this.saldo = saldoAtual.getFechSaldoDisponivel();
+
+        this.loadSaldo();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -217,21 +222,12 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
     private void lblAnteriorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAnteriorMouseClicked
         this.calendar.add(Calendar.MONTH, -1);
 
-        //só pra teste
-        this.saldo -= 100;
-
-        this.setMesAno();
-        this.loadSaldo();
+        this.LoadValorCaixa();
     }//GEN-LAST:event_lblAnteriorMouseClicked
 
     private void lblProximoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProximoMouseClicked
         this.calendar.add(Calendar.MONTH, 1);
-
-        //só pra teste
-        this.saldo += 100;
-
-        this.setMesAno();
-        this.loadSaldo();
+        this.LoadValorCaixa();
     }//GEN-LAST:event_lblProximoMouseClicked
 
     private void lblMesAnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMesAnoMouseClicked

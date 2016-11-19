@@ -59,7 +59,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.loadAtivoImobilizado();
         this.loadContasPagar();
         this.loadBackgroud();
-        this.loadWidgetSaldo();
+        Thread t = new Thread(() -> {
+            this.loadWidgetSaldo();
+            
+        });
+        t.start();
         this.loadFluxoCaixa();
         this.loadContasReceber();
         this.loadaddpessaoa();

@@ -167,8 +167,16 @@ public class FlxcxFluxoCaixaFechamentoDAO {
             c.set(1900, 1,1); //Valor inicial pra comparacao.
             
             Date ultimaData = c.getTime();
-            FlxcxFluxoCaixaFechamento ultimoSaldo = livrosCaixa.get(1);
-                      
+            
+            FlxcxFluxoCaixaFechamento ultimoSaldo = new FlxcxFluxoCaixaFechamento();
+            
+            for (FlxcxFluxoCaixaFechamento f : livrosCaixa){
+            
+                ultimoSaldo = f;
+                break;
+                
+            }
+                                  
             return ultimoSaldo;
 
         } catch (HibernateException e) {
