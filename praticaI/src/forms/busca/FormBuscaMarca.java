@@ -4,6 +4,7 @@ import components.JFrameBusca;
 import components.TextFieldFK;
 import dao.EstCategoriaDAO;
 import dao.EstMarcaDAO;
+import forms.FormManutencaoMarca;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
@@ -31,7 +32,7 @@ public class FormBuscaMarca extends JFrameBusca {
         protected Void doInBackground() throws Exception {
 
             DefaultTableModel model = (DefaultTableModel) tabelaMarcas.getModel();
-
+            model.setNumRows(0);
             marcas = new EstMarcaDAO().ListarTodas();
             for (EstMarca marca : marcas) {
                 Object[] o = new Object[2];
@@ -57,9 +58,17 @@ public class FormBuscaMarca extends JFrameBusca {
         txtBuscar = new components.TextFieldBuscar();
         panelOpcoes = new javax.swing.JPanel();
         buttonSelecionar = new com.alee.laf.button.WebButton();
+        btnInserir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busca de Marcas");
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                GanhoDeFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -93,12 +102,21 @@ public class FormBuscaMarca extends JFrameBusca {
             }
         });
 
+        btnInserir.setText("Inserir");
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
         panelOpcoes.setLayout(panelOpcoesLayout);
         panelOpcoesLayout.setHorizontalGroup(
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcoesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnInserir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -106,7 +124,9 @@ public class FormBuscaMarca extends JFrameBusca {
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(buttonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInserir))
                 .addGap(6, 6, 6))
         );
 
@@ -150,7 +170,7 @@ public class FormBuscaMarca extends JFrameBusca {
         if (this.getFrameBuscaTipo() == JFrameBuscaTipo.textFieldFK) {
             TextFieldFK text = this.getTextFieldFK();
             EstMarca marca = this.marcas.get(linhaselecionada);
-            text.setText(marca.getMarcaId()+ " - " + marca.getMarcaDescricao());
+            text.setText(marca.getMarcaId() + " - " + marca.getMarcaDescricao());
             text.setValue(marca);
         }
 
@@ -158,7 +178,19 @@ public class FormBuscaMarca extends JFrameBusca {
         this.dispose();
     }//GEN-LAST:event_buttonSelecionarActionPerformed
 
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        // TODO add your handling code here:
+        FormManutencaoMarca manut = new FormManutencaoMarca(null, rootPaneCheckingEnabled);
+        manut.setVisible(true);
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void GanhoDeFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_GanhoDeFocus
+        // TODO add your handling code here:
+        this.buscarMarcas();
+    }//GEN-LAST:event_GanhoDeFocus
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnInserir;
     private com.alee.laf.button.WebButton buttonSelecionar;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelOpcoes;

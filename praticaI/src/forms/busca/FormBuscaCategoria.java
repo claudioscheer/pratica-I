@@ -4,8 +4,8 @@ import components.JFrameBusca;
 import components.TextFieldFK;
 import dao.EstCategoriaDAO;
 import dao.PatDepreciacaoDAO;
+import forms.formManutencaoCategoria;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
@@ -37,6 +37,7 @@ public class FormBuscaCategoria extends JFrameBusca {
         @Override
         protected Void doInBackground() throws Exception {
             DefaultTableModel model = (DefaultTableModel) tabelaCategoria.getModel();
+            model.setNumRows(0);
             Utils.clearTableModel(model);
             if (!apenasComDepreciacoes) {
                 categorias = new EstCategoriaDAO().getAll();
@@ -67,11 +68,19 @@ public class FormBuscaCategoria extends JFrameBusca {
         txtBuscar = new components.TextFieldBuscar();
         panelOpcoes = new javax.swing.JPanel();
         buttonSelecionar = new com.alee.laf.button.WebButton();
+        btnInserir = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaCategoria = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Busca de Categorias");
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                GanhoDeFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -87,12 +96,21 @@ public class FormBuscaCategoria extends JFrameBusca {
             }
         });
 
+        btnInserir.setText("Inserir");
+        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
         panelOpcoes.setLayout(panelOpcoesLayout);
         panelOpcoesLayout.setHorizontalGroup(
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOpcoesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnInserir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -100,7 +118,9 @@ public class FormBuscaCategoria extends JFrameBusca {
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(buttonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnInserir))
                 .addGap(6, 6, 6))
         );
 
@@ -170,7 +190,19 @@ public class FormBuscaCategoria extends JFrameBusca {
         this.dispose();
     }//GEN-LAST:event_buttonSelecionarActionPerformed
 
+    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
+        // TODO add your handling code here:
+        formManutencaoCategoria cat = new formManutencaoCategoria(null, apenasComDepreciacoes);
+        cat.setVisible(true);        
+    }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void GanhoDeFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_GanhoDeFocus
+        // TODO add your handling code here:
+        buscarCategorias();
+    }//GEN-LAST:event_GanhoDeFocus
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnInserir;
     private com.alee.laf.button.WebButton buttonSelecionar;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelOpcoes;
