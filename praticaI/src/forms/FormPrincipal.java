@@ -166,7 +166,8 @@ public class FormPrincipal extends javax.swing.JFrame {
             if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
                 return;
             }
-            FormContaPagar form = new FormContaPagar();
+            FormContaReceber form = new FormContaReceber();
+            form.iniciarCPagar();
             this.desktopPanel.add(form);
             form.open();
             try {
