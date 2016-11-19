@@ -70,27 +70,7 @@ public class ExportacaoParaExcel {
 
             for (FlxcxEspecificacoes especificacao : especificacoes) {
 
-                //Linha alimenta uma nova especificacao
-                linha += 1;
-                row = firstSheet.createRow(linha);
-
-                //Coluna com a descricao da especificacao
-                row.createCell(0).setCellValue(especificacao.getEspDescricao());
-
-                int sequenciaOperacao = 0;
-
                 for (FlxcxOperacoes operacao : BuscarOperacoes(especificacao.getEspCodigo())) {
-
-                    //Linha alimenta uma nova operacao
-                    linha += 1;
-                    row = firstSheet.createRow(linha);
-
-                    //codigo sequencial
-                    sequenciaOperacao += 1;
-                    row.createCell(0).setCellValue(sequenciaOperacao);
-
-                    //Descricao da operacao
-                    row.createCell(1).setCellValue(operacao.getOpDescricao());
 
                     totalEntradas = 0;
                     totalSaidas = 0;
@@ -103,6 +83,32 @@ public class ExportacaoParaExcel {
                     for (int colunaControle = 0; colunaControle < colunasExcel.size(); colunaControle++) {
 
                         for (CarCapContas conta : BuscaContas(operacao.getOpCodigo(), dataInicial, dataFinal)) {
+
+                            boolean mostrar = true;
+                            
+                            if (mostrar) {
+
+                                //Linha alimenta uma nova especificacao
+                                linha += 1;
+                                row = firstSheet.createRow(linha);
+
+                                //Coluna com a descricao da especificacao
+                                row.createCell(0).setCellValue(especificacao.getEspDescricao());
+
+                                int sequenciaOperacao = 0;
+
+                                //Linha alimenta uma nova operacao
+                                linha += 1;
+                                row = firstSheet.createRow(linha);
+
+                                //codigo sequencial
+                                sequenciaOperacao += 1;
+                                row.createCell(0).setCellValue(sequenciaOperacao);
+                                mostrar = false;
+                            }
+
+                            //Descricao da operacao
+                            row.createCell(1).setCellValue(operacao.getOpDescricao());
 
                             switch (filtroData) {
 
