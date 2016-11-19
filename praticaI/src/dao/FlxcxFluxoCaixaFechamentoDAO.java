@@ -147,6 +147,38 @@ public class FlxcxFluxoCaixaFechamentoDAO {
         }
     }
 
+    
+    public FlxcxFluxoCaixaFechamento BuscarSaldoMes(int mes, int ano) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.getTransaction().begin();
+
+            Query query = session.createQuery("from FlxcxFluxoCaixaFechamento as t where mesEquivalente = :mes and anoEquivalente = :ano ");
+
+            query.setParameter("mes", mes);
+            query.setParameter("ano", ano);
+            
+            List<FlxcxFluxoCaixaFechamento> livrosCaixa = query.list();
+
+             Calendar c = Calendar.getInstance();
+
+            c.set(1900, 1,1); //Valor inicial pra comparacao.
+            
+            Date ultimaData = c.getTime();
+            FlxcxFluxoCaixaFechamento ultimoSaldo = livrosCaixa.get(1);
+                      
+            return ultimoSaldo;
+
+        } catch (HibernateException e) {
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+    
+    
     public void VerificaFluxoCaixa() {
 
         //se tem algum registro no fechamento que tem o ano e mes em branco

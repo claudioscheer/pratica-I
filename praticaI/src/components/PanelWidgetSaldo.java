@@ -3,6 +3,7 @@ package components;
 import com.alee.managers.language.data.TooltipWay;
 import com.alee.managers.tooltip.TooltipManager;
 import com.alee.utils.ThreadUtils;
+import dao.FlxcxFluxoCaixaFechamentoDAO;
 import utils.Utils;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
+import model.FlxcxFluxoCaixaFechamento;
 
 public class PanelWidgetSaldo extends javax.swing.JPanel {
 
@@ -18,7 +20,10 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
 
     private final int borda = 5;
     private Calendar calendar;
-
+    private int mes;
+    private int ano;
+    
+    
     private static PanelWidgetSaldo instance = null;
 
     public PanelWidgetSaldo() {
@@ -85,6 +90,9 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
     }
 
     private String getMesAno() {
+        this.mes = this.calendar.getTime().getMonth();
+        this.ano = this.calendar.getTime().getYear();
+                
         String mes_ano = new SimpleDateFormat("MMMM").format(this.calendar.getTime()).toLowerCase() + " / " + this.calendar.get(Calendar.YEAR);
         return mes_ano;
     }
@@ -104,8 +112,13 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
         this.loadSaldo();
         this.setMesAno();
 
+//        FlxcxFluxoCaixaFechamento saldoAtual = new FlxcxFluxoCaixaFechamentoDAO().BuscarSaldoMes(this.mes, this.ano);
+        
         //só pra teste
+//        this.saldo = saldoAtual.getFechSaldoDisponivel();
+        
         this.saldo = 200;
+        
     }
 
     @SuppressWarnings("unchecked")
