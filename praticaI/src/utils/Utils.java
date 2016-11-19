@@ -28,7 +28,7 @@ public class Utils {
     public static int hPadrao = 500;
 
     public static SimpleDateFormat formatoDataPadrao = new SimpleDateFormat("dd/MM/yyyy");
-    public static DecimalFormat formatDouble = new DecimalFormat("##0.00");
+    public static DecimalFormat formatDouble = new DecimalFormat("###,###,###,###,##0.00");
 
     public static class CoresPadrao {
 

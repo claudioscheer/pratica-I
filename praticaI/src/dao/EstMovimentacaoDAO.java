@@ -162,7 +162,6 @@ public class EstMovimentacaoDAO {
         m.setMovVlrUnit(Unitario);
         m.setMovTotal(quantidade * Unitario);
         mDao.insert(m);
-
     }
 
     public double[] calculaCusto(EstProduto produto) {
