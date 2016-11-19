@@ -85,6 +85,13 @@ public class FormMateriais extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerenciamento de Materiais");
         setResizable(false);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                FocusTela(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 AoAbrirTela(evt);
@@ -433,6 +440,11 @@ public class FormMateriais extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_AoDigitarTecla
+
+    private void FocusTela(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_FocusTela
+        // TODO add your handling code here:
+        this.preencheTabela();
+    }//GEN-LAST:event_FocusTela
 
     /**
      * @param args the command line arguments
