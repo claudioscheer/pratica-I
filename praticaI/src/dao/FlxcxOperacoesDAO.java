@@ -114,7 +114,7 @@ public class FlxcxOperacoesDAO {
         try {
             session.getTransaction().begin();
 
-            Query query = session.createQuery("from FlxcxOperacoes as t where flxcxEspecificacoes_esp_codigo = :codigo");
+            Query query = session.createQuery("from FlxcxOperacoes as t where flxcxEspecificacoes_espCodigo = :codigo");
             query.setParameter("codigo", codigoEspecificacao);
             
             List<FlxcxOperacoes> operacoes = query.list();

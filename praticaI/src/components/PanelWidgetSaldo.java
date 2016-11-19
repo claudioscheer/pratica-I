@@ -85,7 +85,7 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
             c = Utils.CoresPadrao.fundoDesktop;
         }
         this.lblValorSaldo.setForeground(c);
-        this.lblValorSaldo.setText("R$ " + new DecimalFormat("#0.00").format(this.saldo));
+        this.lblValorSaldo.setText("R$ " + Utils.format(this.saldo));
     }
 
     private String getMesAno() {
