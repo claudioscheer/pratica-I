@@ -236,10 +236,7 @@
                                   <EmptySpace min="23" pref="23" max="-2" attributes="0"/>
                                   <Component id="webDateField3" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="webLabel16" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="35" pref="35" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="webLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="webLabel3" min="-2" max="-2" attributes="0"/>
@@ -250,10 +247,7 @@
                               </Group>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="webLabel19" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="35" pref="35" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="webLabel19" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -373,13 +367,13 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="webLabel7" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="checkboxEntrada" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="checkboxEntrada3" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="checkboxEntrada4" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="webLabel7" min="-2" pref="20" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" pref="460" max="-2" attributes="0"/>

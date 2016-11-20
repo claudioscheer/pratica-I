@@ -38,7 +38,10 @@ public class CarCapContasDAO {
 
         query.setParameter("codigo", id);
 
-       // CarCapContas contas = (CarCapContas) query.uniqueResult();
+        
+        
+        
+        
         session.update(cont);
         session.getTransaction().commit();
         session.close();

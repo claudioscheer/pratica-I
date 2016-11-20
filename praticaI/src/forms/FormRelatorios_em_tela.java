@@ -1,4 +1,3 @@
-
 package forms;
 
 import dao.CarCapContasDAO;
@@ -37,7 +36,7 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
         webLabel13 = new com.alee.laf.label.WebLabel();
         webLabel14 = new com.alee.laf.label.WebLabel();
         webButton1 = new com.alee.laf.button.WebButton();
-        webComboBox1 = new com.alee.laf.combobox.WebComboBox();
+        cbTipo = new com.alee.laf.combobox.WebComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -52,10 +51,10 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
             }
         });
 
-        webComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lançamentos", "Estimativa e Mensuração" }));
-        webComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lançamentos", "Estimativa e Mensuração" }));
+        cbTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                webComboBox1ActionPerformed(evt);
+                cbTipoActionPerformed(evt);
             }
         });
 
@@ -75,7 +74,7 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
                 .addGap(79, 79, 79))
             .addGroup(layout.createSequentialGroup()
                 .addGap(129, 129, 129)
-                .addComponent(webComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -94,7 +93,7 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
                     .addComponent(txtDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addComponent(webComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(webButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
@@ -104,22 +103,26 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void webButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton1ActionPerformed
-        
-        CarCapContasDAO relatorio = new CarCapContasDAO();
-        List<CarCapContas> dados = relatorio.ListarContas(TipoConta.Saida, txtDataInicial.getDate(), txtDataFinal.getDate());
-        
-        RelatoriosContasReceber r = new RelatoriosContasReceber();
-        try {
-            r.preenchedados(dados);
-        } catch (JRException ex) {
-            Logger.getLogger(FormRelatorios_em_tela.class.getName()).log(Level.SEVERE, null, ex);
+
+        if (cbTipo.getSelectedIndex() == 0) {
+            CarCapContasDAO relatorio = new CarCapContasDAO();
+            List<CarCapContas> dados = relatorio.ListarContas(TipoConta.Saida, txtDataInicial.getDate(), txtDataFinal.getDate());
+
+            RelatoriosContasReceber r = new RelatoriosContasReceber();
+            try {
+                r.geraRelatorioLancamentos(dados, txtDataInicial.getDate(), txtDataFinal.getDate());
+            } catch (JRException ex) {
+                Logger.getLogger(FormRelatorios_em_tela.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (cbTipo.getSelectedIndex() == 1) {
+            
         }
 
     }//GEN-LAST:event_webButton1ActionPerformed
 
-    private void webComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webComboBox1ActionPerformed
+    private void cbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_webComboBox1ActionPerformed
+    }//GEN-LAST:event_cbTipoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,10 +160,10 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.alee.laf.combobox.WebComboBox cbTipo;
     private com.alee.extended.date.WebDateField txtDataFinal;
     private com.alee.extended.date.WebDateField txtDataInicial;
     private com.alee.laf.button.WebButton webButton1;
-    private com.alee.laf.combobox.WebComboBox webComboBox1;
     private com.alee.laf.label.WebLabel webLabel13;
     private com.alee.laf.label.WebLabel webLabel14;
     // End of variables declaration//GEN-END:variables

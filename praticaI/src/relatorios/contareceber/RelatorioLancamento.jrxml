@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-05T16:41:31 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFluxo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2aa1104-ccd2-4655-ac8f-735df765de3f">
+<!-- 2016-11-19T17:13:58 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFluxo" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2aa1104-ccd2-4655-ac8f-735df765de3f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="dataIni" class="java.util.Date"/>
+	<parameter name="dataFim" class="java.util.Date"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -37,8 +39,8 @@
 				<reportElement x="0" y="0" width="555" height="101" backcolor="#E6EFF5" uuid="71ba137f-cc18-4baa-b16c-4e949c5a208d"/>
 			</rectangle>
 			<image>
-				<reportElement x="10" y="10" width="140" height="80" uuid="aa934927-9419-4acb-bdb8-57c5c2c4ced2"/>
-				<imageExpression><![CDATA["./imagens/logo.png"]]></imageExpression>
+				<reportElement x="10" y="50" width="140" height="40" uuid="aa934927-9419-4acb-bdb8-57c5c2c4ced2"/>
+				<imageExpression><![CDATA["C:/imagens/logo2.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="170" y="50" width="368" height="40" uuid="9e9ff3ef-683b-4b77-8f1d-a64d5fc94ac6">
@@ -58,6 +60,14 @@
 				<reportElement x="446" y="2" width="12" height="20" uuid="fa5d17cc-fc89-4759-aa93-d7503458eb3c"/>
 				<text><![CDATA[à]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="360" y="6" width="79" height="13" uuid="03356351-9c7f-4290-9a01-ee7762e6d849"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{dataIni})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="6" width="79" height="13" uuid="e2409fe2-323b-4091-8b49-f7d44f55f20a"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($P{dataFim})]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
