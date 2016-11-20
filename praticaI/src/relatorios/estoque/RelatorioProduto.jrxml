@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-21T02:17:42 -->
+<!-- 2016-11-21T04:16:07 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioProduto" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2aed009d-dd60-46d3-9a45-d10d33559dbe">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="produtoId" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -96,27 +97,27 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="41" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="80" height="30" uuid="7c4dbcff-d3a9-440d-b5a9-11544019dcf4"/>
+				<reportElement x="0" y="0" width="80" height="20" uuid="7c4dbcff-d3a9-440d-b5a9-11544019dcf4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{produtoId}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="80" y="-1" width="160" height="30" uuid="beca29a2-5d2d-4f4f-ac26-7b22d31f37d8"/>
+				<reportElement x="80" y="-1" width="160" height="21" uuid="beca29a2-5d2d-4f4f-ac26-7b22d31f37d8"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{produtoDescricao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="240" y="0" width="110" height="30" uuid="9d1b3787-dc0a-4b61-ae11-4eb9df112736"/>
+				<reportElement x="240" y="0" width="110" height="20" uuid="9d1b3787-dc0a-4b61-ae11-4eb9df112736"/>
 				<textFieldExpression><![CDATA[$F{estMarca.marcaDescricao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="350" y="0" width="100" height="30" uuid="80e2dd0f-6724-434e-a72e-ee58180da8dd"/>
+				<reportElement x="350" y="0" width="100" height="20" uuid="80e2dd0f-6724-434e-a72e-ee58180da8dd"/>
 				<textFieldExpression><![CDATA[$F{estCategoria.categoriaDescricao}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="450" y="0" width="105" height="30" uuid="7816f3f3-6314-40e1-8d55-d56968367ea2"/>
+				<reportElement x="450" y="0" width="105" height="20" uuid="7816f3f3-6314-40e1-8d55-d56968367ea2"/>
 				<textFieldExpression><![CDATA[$F{estUnidadeMedida.unidadeMedidaDescricao}]]></textFieldExpression>
 			</textField>
 		</band>
