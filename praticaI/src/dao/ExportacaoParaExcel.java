@@ -41,9 +41,6 @@ public class ExportacaoParaExcel {
             //controla linha posicionada
             int linha = 0;
 
-            double totalEntradas = 0;
-            double totalSaidas = 0;
-
             HSSFRow row = firstSheet.createRow(linha);
 
             row.createCell(0).setCellValue("Data Inicial: ");
@@ -66,88 +63,7 @@ public class ExportacaoParaExcel {
                 coluna += 1;
             }
 
-            List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
-
-            for (FlxcxEspecificacoes especificacao : especificacoes) {
-
-                for (FlxcxOperacoes operacao : BuscarOperacoes(especificacao.getEspCodigo())) {
-
-                    totalEntradas = 0;
-                    totalSaidas = 0;
-
-                    SimpleDateFormat sdf = new SimpleDateFormat("MM");
-                    int mesAnterior = Integer.valueOf(sdf.format(dataInicial));
-
-                    int colunaConta = 3; //Deve comecar no tres pq as outra colunas possue outros valores ja
-
-                    for (int colunaControle = 0; colunaControle < colunasExcel.size(); colunaControle++) {
-
-                        for (CarCapContas conta : BuscaContas(operacao.getOpCodigo(), dataInicial, dataFinal)) {
-
-                            boolean mostrar = true;
-                            
-                            if (mostrar) {
-
-                                //Linha alimenta uma nova especificacao
-                                linha += 1;
-                                row = firstSheet.createRow(linha);
-
-                                //Coluna com a descricao da especificacao
-                                row.createCell(0).setCellValue(especificacao.getEspDescricao());
-
-                                int sequenciaOperacao = 0;
-
-                                //Linha alimenta uma nova operacao
-                                linha += 1;
-                                row = firstSheet.createRow(linha);
-
-                                //codigo sequencial
-                                sequenciaOperacao += 1;
-                                row.createCell(0).setCellValue(sequenciaOperacao);
-                                mostrar = false;
-                            }
-
-                            //Descricao da operacao
-                            row.createCell(1).setCellValue(operacao.getOpDescricao());
-
-                            switch (filtroData) {
-
-                                case 0: //Diaria
-                                    break;
-
-                                case 1: //Mensal
-
-                                    sdf = new SimpleDateFormat("MM");
-                                    int mes = Integer.valueOf(sdf.format(conta.getContaDataEmissao()));
-
-                                    if (mes == colunaControle) {
-
-                                        //Realiza soma
-                                        if (conta.getContaTipo() == TipoConta.Entrada) {
-                                            totalEntradas += conta.getContaValorPago();
-                                        } else {
-                                            totalSaidas += conta.getContaValorPago();
-                                        }
-                                        //Linha alimenta novo valor
-                                        row.createCell(colunaConta).setCellValue(totalEntradas - totalSaidas);
-
-                                    }
-
-                                    break;
-
-                                case 2: //Anual
-                                    break;
-
-                            }
-
-                        }
-
-                        colunaConta += 1;
-
-                    }
-
-                }
-            }
+            this.ExportacaoMensal(colunasExcel, dataInicial, dataFinal, row, linha);
 
             this.workbook.write(arquivo);
             arquivo.close();
@@ -263,6 +179,126 @@ public class ExportacaoParaExcel {
     public Date BuscaMaiorData(Date dataInicial, Date dataFinal) {
 
         return this.contasDAO.BuscaUltimaData(TipoConta.ambos, dataInicial, dataFinal);
+
+    }
+
+    private void ExportacaoMensal(ArrayList<String> colunasExcel, Date dataInicial, Date dataFinal, HSSFRow row, int linha) {
+
+        double totalEntradas;
+        double totalSaidas;
+
+        List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
+
+//        for (int colunaControle = 0; colunaControle < colunasExcel.size(); colunaControle++) {
+//            SimpleDateFormat sdf = new SimpleDateFormat("MM");
+        int mesAnterior = 0; // = Integer.valueOf(sdf.format(dataInicial));
+
+        for (FlxcxEspecificacoes especificacao : especificacoes) {
+
+            List<FlxcxOperacoes> operacoes = BuscarOperacoes(especificacao.getEspCodigo());
+
+            for (FlxcxOperacoes operacao : operacoes) {
+
+                totalEntradas = 0;
+                totalSaidas = 0;
+
+                int colunaConta = 3; //Deve comecar no tres pq as outra colunas possue outros valores ja
+
+                boolean mostrar = true;
+
+                List<CarCapContas> contas = BuscaContas(operacao.getOpCodigo(), dataInicial, dataFinal);
+
+                for (CarCapContas conta : contas) {
+
+                    if (mostrar) {
+
+                        //Linha alimenta uma nova especificacao
+                        linha += 1;
+                        row = firstSheet.createRow(linha);
+
+                        //Coluna com a descricao da especificacao
+                        row.createCell(0).setCellValue(especificacao.getEspDescricao());
+
+                        int sequenciaOperacao = 0;
+
+                        //Linha alimenta uma nova operacao
+                        linha += 1;
+                        row = firstSheet.createRow(linha);
+
+                        //codigo sequencial
+                        sequenciaOperacao += 1;
+                        row.createCell(0).setCellValue(sequenciaOperacao);
+                        mostrar = false;
+                    }
+
+                    //Descricao da operacao
+                    row.createCell(1).setCellValue(operacao.getOpDescricao());
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM");
+                    int mes = Integer.valueOf(sdf.format(conta.getContaDataEmissao()));
+
+                    
+                    switch (mes) {
+
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                        case 5:
+                            break;
+                        case 6:
+                            break;
+                        case 7:
+                            break;
+                        case 8:
+                            break;
+                        case 9:
+                            break;
+                        case 10:
+                            break;
+                        case 11:
+                            //Realiza soma
+                            if (conta.getContaTipo() == TipoConta.Entrada) {
+                                totalEntradas += conta.getContaValorPago();
+                            } else {
+                                totalSaidas += conta.getContaValorPago();
+                            }
+
+                            
+                            this.AdicionaLinha(row, 13, (totalEntradas - totalSaidas));
+                            break;
+                        case 12:
+                            break;
+
+                    }
+
+                    if (mes != mesAnterior) {
+
+                        totalEntradas = 0;
+                        totalSaidas = 0;
+
+                        colunaConta += 1;
+
+                        mesAnterior = mes;
+                    }
+
+                }
+
+            }
+
+        }
+//        }
+
+    }
+
+    private void AdicionaLinha(HSSFRow row, int coluna, double valor) {
+        
+        //Linha alimenta novo valor
+        row.createCell(coluna).setCellValue(valor);
 
     }
 
