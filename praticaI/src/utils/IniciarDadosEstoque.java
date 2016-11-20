@@ -22,9 +22,10 @@ public class IniciarDadosEstoque {
     }
     private Runnable dados1 = new Runnable() {
 
+        @Override
         public void run() {
             operacao = InserirEspecificacao(1, "Entrada", "Para Entradas");
-            operacao = InserirEspecificacao(1, "Saída", "Para Saídas");
+            operacao = InserirEspecificacao(2, "Saída", "Para Saídas");
         }
     };
 

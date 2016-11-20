@@ -5,6 +5,7 @@
  */
 package forms;
 
+import dao.EstMovimentacaoDAO;
 import forms.busca.FormBuscaProduto;
 import model.EstProduto;
 
@@ -52,6 +53,11 @@ public class FormRelatorioEstoque extends javax.swing.JFrame {
         jLabel1.setText("Buscar Produto");
 
         jButton1.setText("Gerar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -111,6 +117,13 @@ public class FormRelatorioEstoque extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        EstMovimentacaoDAO movDao = new EstMovimentacaoDAO();
+        System.out.println(""+txtBuscaProduto.getValue());
+        movDao.GerarRelatorioMovimentacoes((EstProduto)txtBuscaProduto.getValue());
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

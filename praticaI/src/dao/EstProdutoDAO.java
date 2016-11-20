@@ -39,7 +39,6 @@ public class EstProdutoDAO {
     }
 
     /* movimentação fazer getAll  Est Produto  */
-
     public Boolean delete(int codigo) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -75,9 +74,8 @@ public class EstProdutoDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<EstProduto> listaProdutos = session.createQuery("from EstProduto").list();
         JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(listaProdutos);
-        Map parametros = new HashMap();
         try {
-            JasperPrint jpr = JasperFillManager.fillReport("C:\\Users\\Anderson\\Documents\\GitHub\\praticaI\\praticaI\\src\\relatorios\\estoque\\relatorio_produtos.jasper", null, jrs);
+            JasperPrint jpr = JasperFillManager.fillReport("src/relatorios/estoque/RelatorioProduto.jasper", null, jrs);
             JasperViewer.viewReport(jpr, true);
         } catch (JRException ex) {
             System.out.println("" + ex);
@@ -92,13 +90,24 @@ public class EstProdutoDAO {
     }
 
     public List<EstProduto> buscarProdutos(String descricao, EstCategoria categoria, EstUnidadeMedida unMedida, EstMarca marca) {
-        String hql = "FROM EstProduto WHERE lower(produto_descricao) like lower(:produto_descricao)";// and estCategoria = :categoria";// and produto_marca = :marca and produto_unid_medida : unMedida";
+        String hql = "FROM EstProduto WHERE lower(produtoDescricao) like lower(:produtoDescricao) ";
+        hql += categoria == null ? "" : "and estcategoria_categoriaid = :estcategoria_categoriaid ";
+        hql += marca == null ? "" : "and estmarca_marcaid = :estmarca_marcaid ";
+        hql += unMedida == null ? "" : "and estunidademedida_unidademedidaid = :estunidademedida_unidademedidaid";
+
         Session session = HibernateUtil.getSessionFactory().openSession();
+
         Query query = session.createQuery(hql);
-        query.setParameter("produto_descricao", descricao + "%");
-        //query.setParameter("estCategoria", categoria);
-        //query.setParameter("produto_marca", marca);
-        //query.setParameter("produto_unid_medida", unMedida);
+        query.setParameter("produtoDescricao", descricao + "%");
+        if (categoria != null) {
+            query.setParameter("estcategoria_categoriaid", categoria.getCategoriaId());
+        }
+        if (marca != null) {
+            query.setParameter("estmarca_marcaid", marca.getMarcaId());
+        }
+        if (unMedida != null) {
+            query.setParameter("estunidademedida_unidademedidaid", unMedida.getUnidadeMedidaId());
+        }
         List<EstProduto> produto = query.list();
         return produto;
     }

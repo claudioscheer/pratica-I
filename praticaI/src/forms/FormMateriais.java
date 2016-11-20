@@ -397,24 +397,11 @@ public class FormMateriais extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-        EstCategoria categoria = null;
-        EstMarca marca = null;
-        EstUnidadeMedida unMedida = null;
-        String descricao = "";
-
-        if (!edtDescricao.getText().isEmpty()) {
-            descricao = edtDescricao.getText();
-        }
-        if (!edtCategoria.getText().isEmpty()) {
-            categoria = (EstCategoria) edtCategoria.getValue();
-        }
-        if (!edtMarca.getText().isEmpty()) {
-            marca = (EstMarca) edtMarca.getValue();
-        }
-        if (!edtUnMedida.getText().isEmpty()) {
-            unMedida = (EstUnidadeMedida) edtUnMedida.getValue();
-        }
-        preencheTabelaFiltro(descricao,categoria,unMedida,marca);
+        EstCategoria categoria = (EstCategoria) edtCategoria.getValue();//null;
+        EstMarca marca = (EstMarca) edtMarca.getValue();
+        EstUnidadeMedida unMedida = (EstUnidadeMedida) edtUnMedida.getValue();
+        String descricao = edtDescricao.getText();
+        preencheTabelaFiltro(descricao, categoria, unMedida, marca);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void edtCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtCategoriaActionPerformed
@@ -434,11 +421,12 @@ public class FormMateriais extends javax.swing.JFrame {
         //edtMarca.setValue(null);
         edtUnMedida.setText("");
         //edtUnMedida.setValue(null);
+        preencheTabela();
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void AoDigitarTecla(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AoDigitarTecla
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_AoDigitarTecla
 
     private void FocusTela(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_FocusTela
@@ -508,14 +496,14 @@ public class FormMateriais extends javax.swing.JFrame {
         modelo.setNumRows(0);
 
         //semelhante ao foreach
-//        for (EstProduto prd : prodDao.buscarProdutos(descricao, categoria, unMedida, marca)) {
-//            modelo.addRow(new String[]{
-//                "" + prd.getProdutoId(),
-//                prd.getProdutoDescricao(),
-//                prd.getEstCategoria().getCategoriaDescricao(),
-//                prd.getEstMarca().getMarcaDescricao(),
-//                prd.getEstUnidadeMedida().getUnidadeMedidaDescricao(),});
-//        }
+        for (EstProduto prd : prodDao.buscarProdutos(descricao, categoria, unMedida, marca)) {
+            modelo.addRow(new String[]{
+                "" + prd.getProdutoId(),
+                prd.getProdutoDescricao(),
+                prd.getEstCategoria().getCategoriaDescricao(),
+                prd.getEstMarca().getMarcaDescricao(),
+                prd.getEstUnidadeMedida().getUnidadeMedidaDescricao(),});
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

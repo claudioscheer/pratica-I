@@ -20,7 +20,7 @@ import javax.persistence.SequenceGenerator;
 @SequenceGenerator(name = "seq_produto", sequenceName = "seq_produto", allocationSize = 1)
 public class EstProduto implements java.io.Serializable {
 
-        private int produtoId;
+    private int produtoId;
     private EstCategoria estCategoria;
     private EstMarca estMarca;
     private EstUnidadeMedida estUnidadeMedida;
@@ -56,7 +56,7 @@ public class EstProduto implements java.io.Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_produto")        
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_produto")
     public int getProdutoId() {
         return this.produtoId;
     }
@@ -65,7 +65,7 @@ public class EstProduto implements java.io.Serializable {
         this.produtoId = produtoId;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)    
+    @ManyToOne(fetch = FetchType.LAZY)
     public EstCategoria getEstCategoria() {
         return this.estCategoria;
     }
@@ -74,7 +74,7 @@ public class EstProduto implements java.io.Serializable {
         this.estCategoria = estCategoria;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)    
+    @ManyToOne(fetch = FetchType.LAZY)
     public EstMarca getEstMarca() {
         return this.estMarca;
     }
@@ -83,7 +83,7 @@ public class EstProduto implements java.io.Serializable {
         this.estMarca = estMarca;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)    
+    @ManyToOne(fetch = FetchType.LAZY)
     public EstUnidadeMedida getEstUnidadeMedida() {
         return this.estUnidadeMedida;
     }
@@ -91,7 +91,7 @@ public class EstProduto implements java.io.Serializable {
     public void setEstUnidadeMedida(EstUnidadeMedida estUnidadeMedida) {
         this.estUnidadeMedida = estUnidadeMedida;
     }
-    
+
     public String getProdutoReferencia() {
         return this.produtoReferencia;
     }
@@ -99,7 +99,7 @@ public class EstProduto implements java.io.Serializable {
     public void setProdutoReferencia(String produtoReferencia) {
         this.produtoReferencia = produtoReferencia;
     }
-    
+
     public String getProdutoDescricao() {
         return this.produtoDescricao;
     }
@@ -107,7 +107,7 @@ public class EstProduto implements java.io.Serializable {
     public void setProdutoDescricao(String produtoDescricao) {
         this.produtoDescricao = produtoDescricao;
     }
-    
+
     public int getProdutoStatus() {
         return this.produtoStatus;
     }
@@ -143,7 +143,6 @@ public class EstProduto implements java.io.Serializable {
         this.estMovimentacaos = estMovimentacaos;
     }
 
-   
 //    @OneToMany
 //    public CarcapOperacoesComerciais getCarcapOperacoesComerciais() {
 //        return carcapOperacoesComerciais;
@@ -162,7 +161,6 @@ public class EstProduto implements java.io.Serializable {
 //    public void setCarCapContas(CarCapContas carCapContas) {
 //        this.carCapContas = carCapContas;
 //    }
-
     @OneToMany(mappedBy = "produto")
     public List<CarCapContas> getCarCapContass() {
         return carCapContass;

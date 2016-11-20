@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-11-21T02:32:01 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioMovimentacao" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="23d0b5a1-94f6-48d5-b138-2037730e93aa">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="produtoId" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="carEstTipoOperacao.getTpOpDescricao" class="java.lang.String"/>
+	<field name="movId" class="java.lang.Integer"/>
+	<field name="movData" class="java.util.Date"/>
+	<field name="movQuantidade" class="java.lang.Double"/>
+	<field name="movVlrUnit" class="java.lang.Double"/>
+	<field name="movTotal" class="java.lang.Double"/>
+	<field name="estProduto.getProdutoId" class="java.lang.Integer"/>
+	<field name="estProduto.getProdutoDescricao" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="101" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="101" backcolor="#E6EFF5" uuid="55b97983-2864-45c6-97c5-566633b31db1"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="230" y="60" width="270" height="30" uuid="9e857bb3-f53e-47a6-9623-dfb8b33588d8"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Relatório de Movimentação]]></text>
+			</staticText>
+			<image>
+				<reportElement x="10" y="10" width="120" height="80" uuid="04a54e9e-8042-44f6-862d-d7b41bd6e672"/>
+				<imageExpression><![CDATA["src/imagens/logo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="8" width="90" height="30" uuid="a76d081f-c67b-4e34-a312-525ab50a7557"/>
+				<textFieldExpression><![CDATA[$F{estProduto.getProdutoId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="8" width="464" height="30" uuid="704a8d8c-58a7-4318-bc72-23dde6810015"/>
+				<textFieldExpression><![CDATA[$F{estProduto.getProdutoDescricao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="70" height="30" uuid="8c1be76e-c968-46a4-8fae-d26c770c844e"/>
+				<text><![CDATA[movId]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="1" width="100" height="30" uuid="127aad3f-2c05-4441-ae83-5b9520734076"/>
+				<text><![CDATA[carEstTipoOperacao.getTpOpDescricao]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="0" width="100" height="30" uuid="cb79bf2d-efdc-47f2-b177-b54a82aed1ab"/>
+				<text><![CDATA[movData]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="0" width="100" height="30" uuid="36d6f9dd-749f-41a8-835b-ba53c91cfcc3"/>
+				<text><![CDATA[movQuantidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="100" height="30" uuid="b4de2d47-bdb0-4f08-b7f7-ae39302034eb"/>
+				<text><![CDATA[movVlrUnit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="0" width="85" height="30" uuid="d8fb2530-0ef5-424f-842e-bbf11e2dc072"/>
+				<text><![CDATA[movTotal]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="70" height="30" uuid="278fecdb-0a10-472a-89e7-469408f258b5"/>
+				<textFieldExpression><![CDATA[$F{movId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="100" height="30" uuid="1ba7e819-7d61-495e-b7a6-4d6c484141d0"/>
+				<textFieldExpression><![CDATA[$F{carEstTipoOperacao.getTpOpDescricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="0" width="100" height="30" uuid="905be378-ba78-4430-b827-feb682fcfd57"/>
+				<textFieldExpression><![CDATA[$F{movData}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="100" height="30" uuid="03adf1e7-609a-4868-b0bc-8e076ef378a2"/>
+				<textFieldExpression><![CDATA[$F{movQuantidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="100" height="30" uuid="0d02c581-ac1d-42fe-a514-523ce341c05a"/>
+				<textFieldExpression><![CDATA[$F{movVlrUnit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="0" width="85" height="30" uuid="f8d117a0-9f77-495e-998e-91989df673ef"/>
+				<textFieldExpression><![CDATA[$F{movTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="554" height="30" backcolor="#E6EFF5" uuid="450fbc41-d8de-4085-9466-4cf90b6a9e38"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="160" y="10" width="228" height="20" uuid="c4b86ae6-56a4-41d0-bf47-e9062d9ef7e9"/>
+				<text><![CDATA[Todos os direitos Reservados - CowTábil - 2016]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="29" width="51" height="22" uuid="66fddd99-5218-42db-afd1-ce62eba3a522"/>
+				<text><![CDATA[Emissão]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="424" y="33" width="30" height="14" uuid="8df86006-157b-43b5-9a70-949494e34c53"/>
+				<text><![CDATA[Pág]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

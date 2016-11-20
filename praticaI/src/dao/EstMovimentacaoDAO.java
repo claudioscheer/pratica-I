@@ -77,13 +77,14 @@ public class EstMovimentacaoDAO {
         return mov;
     }
 
-    public void GerarRelatorioMovimentacoes() {
+    public void GerarRelatorioMovimentacoes(EstProduto produto) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        List<EstMovimentacao> listaMov = session.createQuery("from EstMovimentacao").list();
+        List<EstMovimentacao> listaMov = session.createQuery("from EstMovimentacao m where m.produtoId = :produtoId").list();
         JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(listaMov);
         Map parametros = new HashMap();
+        parametros.put("produtoId", produto.getProdutoId());
         try {
-            JasperPrint jpr = JasperFillManager.fillReport("C:\\Users\\Anderson\\Documents\\GitHub\\praticaI\\praticaI\\src\\relatorios\\estoque\\relatorio_movimentacoes.jasper", null, jrs);
+            JasperPrint jpr = JasperFillManager.fillReport("src/relatorios/estoque/RelatorioMovimentacao.jasper", parametros, jrs);
             JasperViewer.viewReport(jpr, true);
         } catch (JRException ex) {
             System.out.println("" + ex);
