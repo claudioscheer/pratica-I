@@ -11,7 +11,7 @@ package enumeraveis;
  */
 public enum FiltroData {
     Diario,
-    Semanal,
     Mensal,
-    Anual
+    Anual,
+    Semanal
 }

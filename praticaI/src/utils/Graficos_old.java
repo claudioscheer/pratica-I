@@ -24,7 +24,7 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  * @author Alisson Allebrandt
  */
-public class Graficos {
+public class Graficos_old {
 
     public enum TiposGrafico {
 
