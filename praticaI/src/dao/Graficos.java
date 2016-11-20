@@ -6,8 +6,11 @@
 package dao;
 
 import static com.alee.managers.notification.NotificationOption.no;
+import enumeraveis.FiltroData;
 import enumeraveis.TipoConta;
 import enumeraveis.TipoGrafico;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JPanel;
@@ -46,6 +49,10 @@ public final class Graficos {
 
     }
 
+    public Graficos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void tipoGrafico(TipoGrafico tipo) {
 
         switch (tipo) {
@@ -72,7 +79,6 @@ public final class Graficos {
 //                grafico = ChartFactory.createXYStepChart(titulo, xx, xy, dados);
 //
 //                break;
-
             case area:
 
                 grafico = ChartFactory.createXYStepAreaChart(titulo, xx, xy, dados);
@@ -110,37 +116,104 @@ public final class Graficos {
 
     }
 
-    public JFreeChart GraficoBarras(List<CarCapContas> contas, String titulo) {
+    public JFreeChart GraficoBarras(List<CarCapContas> contas, String titulo, FiltroData filtro, String estilo) {
 
-        String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-
+        ArrayList<String> tipoFiltragem = new ArrayList();
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        int indice = 0;
+        int tipo = 0;
+        // 1 - diario // 2 - mensal// 3 - anual
 
-        for (int j = 0; j < meses.length; j++) {
+        switch (filtro) {
 
-         //   int mes = j + 1;
+            case Diario:
 
-            dataset.addValue(0, "Contas a pagar", meses[j]);
-            dataset.addValue(0, "Contas a receber", meses[j]);
+                if (estilo.equals("full")) {
 
-            for (CarCapContas i : contas) {
+                    tipoFiltragem.add("Domingo");
+                    tipoFiltragem.add("Segunda");
+                    tipoFiltragem.add("Terça");
+                    tipoFiltragem.add("Quarta");
+                    tipoFiltragem.add("Quinta");
+                    tipoFiltragem.add("Sexta");
+                    tipoFiltragem.add("Sábado");
 
-                if (i.getContaDataEmissao().getMonth() == j) {
+                } else if (estilo.equals("small")) {
 
-                    if (i.getContaTipo().equals(TipoConta.Saida)) {
+                    tipoFiltragem.add("Dom");
+                    tipoFiltragem.add("Seg");
+                    tipoFiltragem.add("Ter");
+                    tipoFiltragem.add("Qua");
+                    tipoFiltragem.add("Qui");
+                    tipoFiltragem.add("Sex");
+                    tipoFiltragem.add("Sáb");
 
-                        dataset.addValue(i.getContaValorPago(), "Contas a pagar", meses[j]);
+                }
 
-                    } else if (i.getContaTipo().equals(TipoConta.Entrada)) {
+                tipo = 1;
 
-                        dataset.addValue(i.getContaValorTotal(), "Contas a receber", meses[j]);
-                    }
+                dataset = montarDataSet(tipo, tipoFiltragem, contas);
+                
+                break;
 
-                } 
+            case Mensal:
 
-            }
+                if (estilo.equals("full")) {
+
+                    tipoFiltragem.add("Janeiro");
+                    tipoFiltragem.add("Fevereiro");
+                    tipoFiltragem.add("Março");
+                    tipoFiltragem.add("Abril");
+                    tipoFiltragem.add("Maio");
+                    tipoFiltragem.add("Junho");
+                    tipoFiltragem.add("Julho");
+                    tipoFiltragem.add("Agosto");
+                    tipoFiltragem.add("Setembro");
+                    tipoFiltragem.add("Outubro");
+                    tipoFiltragem.add("Novembro");
+                    tipoFiltragem.add("Dezembro");
+
+                } else if (estilo.equals("small")) {
+
+                    tipoFiltragem.add("Jan");
+                    tipoFiltragem.add("Fev");
+                    tipoFiltragem.add("Mar");
+                    tipoFiltragem.add("Abr");
+                    tipoFiltragem.add("Mai");
+                    tipoFiltragem.add("Jun");
+                    tipoFiltragem.add("Jul");
+                    tipoFiltragem.add("Ago");
+                    tipoFiltragem.add("Set");
+                    tipoFiltragem.add("Out");
+                    tipoFiltragem.add("Nov");
+                    tipoFiltragem.add("Dez");
+
+                }
+
+                tipo = 2;
+
+                dataset = montarDataSet(tipo, tipoFiltragem, contas);
+
+                break;
+
+            case Anual:
+
+                Calendar c = Calendar.getInstance();
+
+                //seta ano atual
+                tipoFiltragem.add(String.valueOf(c.get(Calendar.YEAR)));
+
+                // seta próximos 5 anos
+                for (int i = 1; i < 6; i++) {
+
+                    c.add(Calendar.YEAR, 1);
+
+                    tipoFiltragem.add(String.valueOf(c.get(Calendar.YEAR)));
+
+                }
+
+                tipo = 3;
+                break;
         }
 
         JFreeChart barChart = ChartFactory.createBarChart(
@@ -150,9 +223,10 @@ public final class Graficos {
                 true, true, false);
 
         return barChart;
+
     }
 
-    public JFreeChart GraficoPizza(String titulo, List<CarCapContas> contas) {
+    public JFreeChart GraficoPizza(String titulo, List<CarCapContas> contas, FiltroData filtro) {
 
         DefaultPieDataset data = new DefaultPieDataset();
 
@@ -171,10 +245,71 @@ public final class Graficos {
             }
         }
 
-            JFreeChart chart = ChartFactory.createPieChart3D(titulo,
-                    data, true, true, true);
+        JFreeChart chart = ChartFactory.createPieChart3D(titulo,
+                data, true, true, true);
 
-            return chart;
+        return chart;
+    }
+
+    public DefaultCategoryDataset montarDataSet(int tipo, ArrayList<String> tipoFiltragem, List<CarCapContas> contas) {
+
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        int indice = 0;
+
+        switch (tipo) {
+
+            case 1:
+
+                for (int j = 0; j < tipoFiltragem.size(); j++) {
+
+                    dataset.addValue(0, "Contas a pagar", tipoFiltragem.get(j));
+                    dataset.addValue(0, "Contas a receber", tipoFiltragem.get(j));
+
+                    for (CarCapContas i : contas) {
+                        
+                        
+                       // incrementar dias
+                    
+                    }
+                }
+                
+                break;
+
+            case 2:
+
+                for (int j = 0; j < tipoFiltragem.size(); j++) {
+
+                    dataset.addValue(0, "Contas a pagar", tipoFiltragem.get(j));
+                    dataset.addValue(0, "Contas a receber", tipoFiltragem.get(j));
+
+                    for (CarCapContas i : contas) {
+
+                        if (i.getContaDataEmissao().getMonth() == j) {
+
+                            if (i.getContaTipo().equals(TipoConta.Saida)) {
+
+                                dataset.addValue(i.getContaValorPago(), "Contas a pagar", tipoFiltragem.get(j));
+
+                            } else if (i.getContaTipo().equals(TipoConta.Entrada)) {
+
+                                dataset.addValue(i.getContaValorTotal(), "Contas a receber", tipoFiltragem.get(j));
+                            }
+
+                        }
+                    }
+
+                }
+
+                break;
+
+            case 3:
+
+                break;
+
         }
-    
+
+        return dataset;
+    }
+
 }
