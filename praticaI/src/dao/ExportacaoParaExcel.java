@@ -5,6 +5,7 @@
  */
 package dao;
 
+import enumeraveis.LogTipo;
 import enumeraveis.TipoConta;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -72,7 +73,8 @@ public class ExportacaoParaExcel {
 
         } catch (Exception ex) {
             utils.Utils.notificacao("Não foi possível gerar o arquivo de exportação", Utils.TipoNotificacao.erro, 0);
-            System.err.println(ex.getMessage());
+            Utils.log("Falha ao gerar relatório Excel", ex.toString(),LogTipo.ERRO);
+            
         }
 
     }
