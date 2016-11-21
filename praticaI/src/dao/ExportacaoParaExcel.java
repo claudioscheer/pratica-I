@@ -189,9 +189,7 @@ public class ExportacaoParaExcel {
 
         List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
 
-//        for (int colunaControle = 0; colunaControle < colunasExcel.size(); colunaControle++) {
-//            SimpleDateFormat sdf = new SimpleDateFormat("MM");
-        int mesAnterior = 0; // = Integer.valueOf(sdf.format(dataInicial));
+        int mesAnterior = 0;
 
         for (FlxcxEspecificacoes especificacao : especificacoes) {
 
@@ -202,13 +200,14 @@ public class ExportacaoParaExcel {
                 totalEntradas = 0;
                 totalSaidas = 0;
 
-                int colunaConta = 3; //Deve comecar no tres pq as outra colunas possue outros valores ja
-
                 boolean mostrar = true;
 
                 List<CarCapContas> contas = BuscaContas(operacao.getOpCodigo(), dataInicial, dataFinal);
 
                 for (CarCapContas conta : contas) {
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM");
+                    int mes = Integer.valueOf(sdf.format(conta.getContaDataEmissao()));
 
                     if (mostrar) {
 
@@ -229,61 +228,67 @@ public class ExportacaoParaExcel {
                         sequenciaOperacao += 1;
                         row.createCell(0).setCellValue(sequenciaOperacao);
                         mostrar = false;
+                    } else {
+
+                        if (mes != mesAnterior) {
+
+                            totalEntradas = 0;
+                            totalSaidas = 0;
+
+                            mesAnterior = mes;
+                        }
+
                     }
 
                     //Descricao da operacao
                     row.createCell(1).setCellValue(operacao.getOpDescricao());
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("MM");
-                    int mes = Integer.valueOf(sdf.format(conta.getContaDataEmissao()));
+                    //Realiza soma
+                    if (conta.getContaTipo() == TipoConta.Entrada) {
+                        totalEntradas += conta.getContaValorPago();
+                    } else {
+                        totalSaidas += conta.getContaValorPago();
+                    }
 
-                    
                     switch (mes) {
 
                         case 1:
+                            this.AdicionaLinha(row, 3, (totalEntradas - totalSaidas));
                             break;
                         case 2:
+                            this.AdicionaLinha(row, 4, (totalEntradas - totalSaidas));
                             break;
                         case 3:
+                            this.AdicionaLinha(row, 5, (totalEntradas - totalSaidas));
                             break;
                         case 4:
+                            this.AdicionaLinha(row, 6, (totalEntradas - totalSaidas));
                             break;
                         case 5:
+                            this.AdicionaLinha(row, 7, (totalEntradas - totalSaidas));
                             break;
                         case 6:
+                            this.AdicionaLinha(row, 8, (totalEntradas - totalSaidas));
                             break;
                         case 7:
+                            this.AdicionaLinha(row, 9, (totalEntradas - totalSaidas));
                             break;
                         case 8:
+                            this.AdicionaLinha(row, 10, (totalEntradas - totalSaidas));
                             break;
                         case 9:
+                            this.AdicionaLinha(row, 11, (totalEntradas - totalSaidas));
                             break;
                         case 10:
+                            this.AdicionaLinha(row, 12, (totalEntradas - totalSaidas));
                             break;
                         case 11:
-                            //Realiza soma
-                            if (conta.getContaTipo() == TipoConta.Entrada) {
-                                totalEntradas += conta.getContaValorPago();
-                            } else {
-                                totalSaidas += conta.getContaValorPago();
-                            }
-
-                            
                             this.AdicionaLinha(row, 13, (totalEntradas - totalSaidas));
                             break;
                         case 12:
+                            this.AdicionaLinha(row, 14, (totalEntradas - totalSaidas));
                             break;
 
-                    }
-
-                    if (mes != mesAnterior) {
-
-                        totalEntradas = 0;
-                        totalSaidas = 0;
-
-                        colunaConta += 1;
-
-                        mesAnterior = mes;
                     }
 
                 }
@@ -291,12 +296,11 @@ public class ExportacaoParaExcel {
             }
 
         }
-//        }
 
     }
 
     private void AdicionaLinha(HSSFRow row, int coluna, double valor) {
-        
+
         //Linha alimenta novo valor
         row.createCell(coluna).setCellValue(valor);
 
