@@ -18,15 +18,26 @@ public class RelatoriosPatrimonio {
     public static class Relatorios {
 
         public static String RELATORIO_INVENTARIO = "src/relatorios/patrimonio/relatorio_inventario.jasper";
+        public static String RELATORIO_BAIXAS = "src/relatorios/patrimonio/relatorio_inventario.jasper";
     }
 
     public static void relatorioInventario(String titulo) throws JRException {
-        List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().buscarParaRelatorio();
+        List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().buscarAtivosAtivosRelatorio();
         JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(ativos);
 
         Map parametros = new HashMap();
         parametros.put("titulo", titulo);
         JasperPrint jpr = JasperFillManager.fillReport(Relatorios.RELATORIO_INVENTARIO, parametros, jrs);
+        JasperViewer.viewReport(jpr, false);
+    }
+
+    public static void relatorioAtivoEmBaixa(String titulo) throws JRException {
+        List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().buscarAtivosAtivosRelatorio();
+        JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(ativos);
+
+        Map parametros = new HashMap();
+        parametros.put("titulo", titulo);
+        JasperPrint jpr = JasperFillManager.fillReport(Relatorios.RELATORIO_BAIXAS, parametros, jrs);
         JasperViewer.viewReport(jpr, false);
     }
 }

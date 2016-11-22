@@ -97,11 +97,21 @@ public class PatAtivoImobilizadoDAO {
         return ativoImobilizado;
     }
 
-    public List<PatAtivoImobilizado> buscarParaRelatorio() {
+    public List<PatAtivoImobilizado> buscarAtivosAtivosRelatorio() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("FROM PatAtivoImobilizado a LEFT JOIN FETCH a.patItemNota WHERE a.ativo = true "
-                + "AND NOT EXISTS(SELECT * FROM PatBaixa baixa WHERE baixa.patAtivoImobilizado.ativoCodigo = a.ativoCodigo)");
+        String sql = "FROM PatAtivoImobilizado a LEFT JOIN FETCH a.patItemNota WHERE NOT EXISTS(SELECT baixa FROM PatBaixa baixa WHERE baixa.patAtivoImobilizado.ativoCodigo = a.ativoCodigo) AND a.ativo = true";
+        Query query = session.createQuery(sql);
+        List<PatAtivoImobilizado> ativos = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return ativos;
+    }
+    
+    public List<PatAtivoImobilizado> buscarAtivoEmBaixaRelatorio() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("FROM PatAtivoImobilizado a LEFT JOIN FETCH a.patItemNota WHERE EXISTS(SELECT baixa FROM PatBaixa baixa WHERE baixa.patAtivoImobilizado.ativoCodigo = a.ativoCodigo)");
         List<PatAtivoImobilizado> ativos = query.list();
         session.getTransaction().commit();
         session.close();

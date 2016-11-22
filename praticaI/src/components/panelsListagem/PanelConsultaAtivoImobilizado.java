@@ -152,17 +152,25 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         WebPopupMenu popupMenuRelatorios = new WebPopupMenu();
         WebMenuItem menuRelatorioInventario = new WebMenuItem("Relatório inventário", Hotkey.NUMBER_1);
         menuRelatorioInventario.addActionListener((e) -> {
-            try {
-                relatorios.patrimonio.RelatoriosPatrimonio.relatorioInventario();
-            } catch (JRException ex) {
-                utils.Utils.notificacao("Erro ao gerar relatório!", Utils.TipoNotificacao.erro, 0);
-            }
+            new Thread(() -> {
+                try {
+                    relatorios.patrimonio.RelatoriosPatrimonio.relatorioInventario("Inventário");
+                } catch (JRException ex) {
+                    utils.Utils.notificacao("Erro ao gerar relatório!", Utils.TipoNotificacao.erro, 0);
+                }
+            }).start();
         });
         popupMenuRelatorios.add(menuRelatorioInventario);
 
         WebMenuItem menuRelatorioOutros = new WebMenuItem("Relatório de bens baixados", Hotkey.NUMBER_2);
         menuRelatorioOutros.addActionListener((e) -> {
-            System.out.println("relatório outros");
+            new Thread(() -> {
+                try {
+                    relatorios.patrimonio.RelatoriosPatrimonio.relatorioAtivoEmBaixa("Ativos já baixados");
+                } catch (JRException ex) {
+                    utils.Utils.notificacao("Erro ao gerar relatório!", Utils.TipoNotificacao.erro, 0);
+                }
+            }).start();
         });
         popupMenuRelatorios.add(menuRelatorioOutros);
         buttonRelatorios.setPopupMenuWay(PopupMenuWay.aboveStart);
