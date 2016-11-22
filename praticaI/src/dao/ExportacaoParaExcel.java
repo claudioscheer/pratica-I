@@ -44,11 +44,11 @@ public class ExportacaoParaExcel {
 
             HSSFRow row = firstSheet.createRow(linha);
 
-            row.createCell(0).setCellValue("Data Inicial: ");
-            row.createCell(1).setCellValue(new SimpleDateFormat("dd-MM-yyyy").format(dataInicial));
+            this.AdicionaLinha(row, 0, "Data Inicial: ");
+            this.AdicionaLinha(row, 1, new SimpleDateFormat("dd-MM-yyyy").format(dataInicial));
 
-            row.createCell(3).setCellValue("Data Final: ");
-            row.createCell(4).setCellValue(new SimpleDateFormat("dd-MM-yyyy").format(dataFinal));
+            this.AdicionaLinha(row, 3, "Data Final: ");
+            this.AdicionaLinha(row, 4, new SimpleDateFormat("dd-MM-yyyy").format(dataFinal));
 
             linha += 1;
             row = firstSheet.createRow(linha);
@@ -59,12 +59,12 @@ public class ExportacaoParaExcel {
 
             for (String item : colunasExcel) {
 
-                row.createCell(coluna).setCellValue(item);
+                this.AdicionaLinha(row, coluna, item);
 
                 coluna += 1;
             }
 
-            this.ExportacaoMensal(colunasExcel, dataInicial, dataFinal, row, linha);
+            this.ExportacaoMensal(dataInicial, dataFinal, row, linha);
 
             this.workbook.write(arquivo);
             arquivo.close();
@@ -73,8 +73,8 @@ public class ExportacaoParaExcel {
 
         } catch (Exception ex) {
             utils.Utils.notificacao("Não foi possível gerar o arquivo de exportação", Utils.TipoNotificacao.erro, 0);
-            Utils.log("Falha ao gerar relatório Excel", ex.toString(),LogTipo.ERRO);
-            
+            Utils.log("Falha ao gerar relatório Excel", ex.toString(), LogTipo.ERRO);
+
         }
 
     }
@@ -184,7 +184,7 @@ public class ExportacaoParaExcel {
 
     }
 
-    private void ExportacaoMensal(ArrayList<String> colunasExcel, Date dataInicial, Date dataFinal, HSSFRow row, int linha) {
+    private void ExportacaoMensal(Date dataInicial, Date dataFinal, HSSFRow row, int linha) {
 
         double totalEntradas;
         double totalSaidas;
@@ -218,8 +218,8 @@ public class ExportacaoParaExcel {
                         row = firstSheet.createRow(linha);
 
                         //Coluna com a descricao da especificacao
-                        row.createCell(0).setCellValue(especificacao.getEspDescricao());
-
+                        this.AdicionaLinha(row, 0, especificacao.getEspDescricao());
+                        
                         int sequenciaOperacao = 0;
 
                         //Linha alimenta uma nova operacao
@@ -227,8 +227,8 @@ public class ExportacaoParaExcel {
                         row = firstSheet.createRow(linha);
 
                         //codigo sequencial
-                        sequenciaOperacao += 1;
-                        row.createCell(0).setCellValue(sequenciaOperacao);
+                        sequenciaOperacao += 1;                        
+                        this.AdicionaLinha(row, 0, sequenciaOperacao);
                         mostrar = false;
                     } else {
 
@@ -301,6 +301,90 @@ public class ExportacaoParaExcel {
 
     }
 
+    private void ExportacaoDiaria(Date dataInicial, Date dataFinal, HSSFRow row, int linha) {
+
+        double totalEntradas;
+        double totalSaidas;
+        int coluna = 4;
+        Calendar c = Calendar.getInstance();
+        c.set(1,1, 1800);
+        Date dataAnterior = c.getTime();
+
+        List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
+
+        for (FlxcxEspecificacoes especificacao : especificacoes) {
+
+            List<FlxcxOperacoes> operacoes = BuscarOperacoes(especificacao.getEspCodigo());
+
+            for (FlxcxOperacoes operacao : operacoes) {
+
+                totalEntradas = 0;
+                totalSaidas = 0;
+
+                boolean mostrar = true;
+
+                List<CarCapContas> contas = BuscaContas(operacao.getOpCodigo(), dataInicial, dataFinal);
+
+                for (CarCapContas conta : contas) {
+
+                    if (mostrar) {
+
+                       //Linha alimenta uma nova especificacao
+                        linha += 1;
+                        row = firstSheet.createRow(linha);
+
+                        //Coluna com a descricao da especificacao
+                        this.AdicionaLinha(row, 0, especificacao.getEspDescricao());
+                        
+                        int sequenciaOperacao = 0;
+
+                        //Linha alimenta uma nova operacao
+                        linha += 1;
+                        row = firstSheet.createRow(linha);
+
+                        //codigo sequencial
+                        sequenciaOperacao += 1;                        
+                        this.AdicionaLinha(row, 0, sequenciaOperacao);
+                        mostrar = false;
+                        
+                    }
+                    
+                    
+                    if (!conta.getContaDataEmissao().equals(dataAnterior)) {
+                        
+                        dataAnterior = conta.getContaDataEmissao();
+                    
+                        totalEntradas = 0;
+                        totalSaidas  = 0;
+
+                        this.AdicionaLinha(row, coluna, dataFinal);
+                        coluna += 1;
+                        
+                        //Isso tem que ser repetido, pois quando vier a nova data deve contar junto depois que adicionou a antiga
+                        //Realiza soma
+                        if (conta.getContaTipo() == TipoConta.Entrada) {
+                            totalEntradas += conta.getContaValorPago();
+                        } else {
+                            totalSaidas += conta.getContaValorPago();
+                        }
+
+                    }else{
+                    
+                        //Realiza soma
+                        if (conta.getContaTipo() == TipoConta.Entrada) {
+                            totalEntradas += conta.getContaValorPago();
+                        } else {
+                            totalSaidas += conta.getContaValorPago();
+                        }
+                        
+                    }
+                }
+
+            }
+
+        }
+    }
+
     private void AdicionaLinha(HSSFRow row, int coluna, double valor) {
 
         //Linha alimenta novo valor
@@ -308,4 +392,25 @@ public class ExportacaoParaExcel {
 
     }
 
+    private void AdicionaLinha(HSSFRow row, int coluna, String valor) {
+
+        //Linha alimenta novo valor
+        row.createCell(coluna).setCellValue(valor);
+
+    }
+
+    private void AdicionaLinha(HSSFRow row, int coluna, Date valor) {
+
+        //Linha alimenta novo valor
+        row.createCell(coluna).setCellValue(valor);
+
+    }
+
+    private void AdicionaLinha(HSSFRow row, int coluna, int valor) {
+
+        //Linha alimenta novo valor
+        row.createCell(coluna).setCellValue(valor);
+
+    }
+    
 }
