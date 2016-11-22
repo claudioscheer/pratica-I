@@ -66,8 +66,6 @@ public class PanelCadDepreciacoes extends WebPanel {
         this.depreciacao.setDepreciacaoVidaUtil(Integer.valueOf(this.txtVidaUtil.getValue().toString()));
         this.depreciacao.setEstCategoria((EstCategoria) this.txtCategoria.getValue());
         this.depreciacao.setDepreciacaoTaxaAnual(this.txtTaxaAnual.getValue());
-//        this.depreciacao.setDepreciacaoTaxaMensal(this.txtTaxaMensal.getValue());
-//        this.depreciacao.setDepreciacaoTaxaDiaria(this.txtTaxaDiaria.getValue());
 
         return this.depreciacao;
     }

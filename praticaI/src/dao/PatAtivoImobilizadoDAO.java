@@ -100,7 +100,8 @@ public class PatAtivoImobilizadoDAO {
     public List<PatAtivoImobilizado> buscarParaRelatorio() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from PatAtivoImobilizado a left join fetch a.patItemNota where a.ativo = true ");
+        Query query = session.createQuery("FROM PatAtivoImobilizado a LEFT JOIN FETCH a.patItemNota WHERE a.ativo = true "
+                + "AND NOT EXISTS(SELECT * FROM PatBaixa baixa WHERE baixa.patAtivoImobilizado.ativoCodigo = a.ativoCodigo)");
         List<PatAtivoImobilizado> ativos = query.list();
         session.getTransaction().commit();
         session.close();
