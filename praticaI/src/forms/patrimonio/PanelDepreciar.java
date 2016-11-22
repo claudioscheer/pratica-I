@@ -40,7 +40,9 @@ public class PanelDepreciar extends WebPanel {
         this.initComponents();
 
         this.txtMesDepreciar.setDateFormat(new SimpleDateFormat("MM/yyyy"));
-        this.txtMesDepreciar.setDate(new Date());
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.MONTH, -1);
+        this.txtMesDepreciar.setDate(c.getTime());
 
         this.refreshDados();
     }

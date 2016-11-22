@@ -233,8 +233,18 @@ public class PanelCadDepreciacoes extends WebPanel {
     }//GEN-LAST:event_txtVidaUtilStateChanged
 
     private void txtTaxaAnualKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTaxaAnualKeyReleased
+        this.calcularVidaUtil();
         this.calcularTaxas();
     }//GEN-LAST:event_txtTaxaAnualKeyReleased
+
+    private void calcularVidaUtil() {
+        double taxaanual = this.txtTaxaAnual.getValue();
+        Double vidautil = 0d;
+        if (taxaanual > 0d) {
+            vidautil = (100 / taxaanual);
+        }
+        this.txtVidaUtil.setValue(vidautil.intValue());
+    }
 
     private void calcularTaxas() {
         double taxaanual = this.txtTaxaAnual.getValue();
