@@ -5,6 +5,7 @@
  */
 package dao;
 
+import enumeraveis.FiltroData;
 import enumeraveis.LogTipo;
 import enumeraveis.TipoConta;
 import java.io.File;
@@ -34,7 +35,7 @@ public class ExportacaoParaExcel {
     private final FlxcxEspecificacoesDAO especificacaoDAO = new FlxcxEspecificacoesDAO();
     private final CarCapContasDAO contasDAO = new CarCapContasDAO();
 
-    public void Exportar(String nomeArquivo, Date dataInicial, Date dataFinal, int filtroData) {
+    public void Exportar(String nomeArquivo, Date dataInicial, Date dataFinal, FiltroData filtroData) {
 
         try {
             FileOutputStream arquivo = new FileOutputStream(new File(nomeArquivo));
@@ -64,7 +65,18 @@ public class ExportacaoParaExcel {
                 coluna += 1;
             }
 
-            this.ExportacaoMensal(dataInicial, dataFinal, row, linha);
+            switch (filtroData){
+                
+                case Diario: 
+                    this.ExportacaoDiaria(dataInicial, dataFinal, row, linha);
+                    break;
+                
+                case Mensal: 
+                    this.ExportacaoMensal(dataInicial, dataFinal, row, linha);
+                    break;
+            
+            }
+            
 
             this.workbook.write(arquivo);
             arquivo.close();
@@ -97,16 +109,16 @@ public class ExportacaoParaExcel {
 
     }
 
-    public ArrayList<String> RetornaColunas(int posicao, Date dataInicial, Date dataFinal) {
+    public ArrayList<String> RetornaColunas(FiltroData filtroData, Date dataInicial, Date dataFinal) {
 
         ArrayList<String> colunas = new ArrayList<String>();
 
         Calendar c = Calendar.getInstance();
         SimpleDateFormat sdf;
 
-        switch (posicao) {
+        switch (filtroData) {
 
-            case 0:
+            case Diario:
 
                 sdf = new SimpleDateFormat("yyyy");
 
@@ -132,7 +144,7 @@ public class ExportacaoParaExcel {
 
                 break;
 
-            case 1: //Mensal
+            case Mensal: 
 
                 colunas.add("Janeiro");
                 colunas.add("Fevereiro");
@@ -149,7 +161,7 @@ public class ExportacaoParaExcel {
 
                 break;
 
-            case 2: //Anual
+            case Anual: 
 
                 sdf = new SimpleDateFormat("yyyy");
                 int anoInicio = Integer.valueOf(sdf.format(dataInicial));
@@ -219,7 +231,7 @@ public class ExportacaoParaExcel {
 
                         //Coluna com a descricao da especificacao
                         this.AdicionaLinha(row, 0, especificacao.getEspDescricao());
-                        
+
                         int sequenciaOperacao = 0;
 
                         //Linha alimenta uma nova operacao
@@ -227,72 +239,82 @@ public class ExportacaoParaExcel {
                         row = firstSheet.createRow(linha);
 
                         //codigo sequencial
-                        sequenciaOperacao += 1;                        
+                        sequenciaOperacao += 1;
                         this.AdicionaLinha(row, 0, sequenciaOperacao);
+
+                        //Descricao da operacao
+                        row.createCell(1).setCellValue(operacao.getOpDescricao());
+
                         mostrar = false;
                     } else {
 
-                        if (mes != mesAnterior) {
+                    }
 
-                            totalEntradas = 0;
-                            totalSaidas = 0;
+                    if (mes != mesAnterior) {
 
-                            mesAnterior = mes;
+                        totalEntradas = 0;
+                        totalSaidas = 0;
+
+                        mesAnterior = mes;
+
+                        //Realiza soma
+                        if (conta.getContaTipo() == TipoConta.Entrada) {
+                            totalEntradas += conta.getContaValorPago();
+                        } else {
+                            totalSaidas += conta.getContaValorPago();
+                        }
+
+                        switch (mes) {
+
+                            case 1:
+                                this.AdicionaLinha(row, 3, (totalEntradas - totalSaidas));
+                                break;
+                            case 2:
+                                this.AdicionaLinha(row, 4, (totalEntradas - totalSaidas));
+                                break;
+                            case 3:
+                                this.AdicionaLinha(row, 5, (totalEntradas - totalSaidas));
+                                break;
+                            case 4:
+                                this.AdicionaLinha(row, 6, (totalEntradas - totalSaidas));
+                                break;
+                            case 5:
+                                this.AdicionaLinha(row, 7, (totalEntradas - totalSaidas));
+                                break;
+                            case 6:
+                                this.AdicionaLinha(row, 8, (totalEntradas - totalSaidas));
+                                break;
+                            case 7:
+                                this.AdicionaLinha(row, 9, (totalEntradas - totalSaidas));
+                                break;
+                            case 8:
+                                this.AdicionaLinha(row, 10, (totalEntradas - totalSaidas));
+                                break;
+                            case 9:
+                                this.AdicionaLinha(row, 11, (totalEntradas - totalSaidas));
+                                break;
+                            case 10:
+                                this.AdicionaLinha(row, 12, (totalEntradas - totalSaidas));
+                                break;
+                            case 11:
+                                this.AdicionaLinha(row, 13, (totalEntradas - totalSaidas));
+                                break;
+                            case 12:
+                                this.AdicionaLinha(row, 14, (totalEntradas - totalSaidas));
+                                break;
+
+                        }
+
+                    } else {
+
+                        //Realiza soma
+                        if (conta.getContaTipo() == TipoConta.Entrada) {
+                            totalEntradas += conta.getContaValorPago();
+                        } else {
+                            totalSaidas += conta.getContaValorPago();
                         }
 
                     }
-
-                    //Descricao da operacao
-                    row.createCell(1).setCellValue(operacao.getOpDescricao());
-
-                    //Realiza soma
-                    if (conta.getContaTipo() == TipoConta.Entrada) {
-                        totalEntradas += conta.getContaValorPago();
-                    } else {
-                        totalSaidas += conta.getContaValorPago();
-                    }
-
-                    switch (mes) {
-
-                        case 1:
-                            this.AdicionaLinha(row, 3, (totalEntradas - totalSaidas));
-                            break;
-                        case 2:
-                            this.AdicionaLinha(row, 4, (totalEntradas - totalSaidas));
-                            break;
-                        case 3:
-                            this.AdicionaLinha(row, 5, (totalEntradas - totalSaidas));
-                            break;
-                        case 4:
-                            this.AdicionaLinha(row, 6, (totalEntradas - totalSaidas));
-                            break;
-                        case 5:
-                            this.AdicionaLinha(row, 7, (totalEntradas - totalSaidas));
-                            break;
-                        case 6:
-                            this.AdicionaLinha(row, 8, (totalEntradas - totalSaidas));
-                            break;
-                        case 7:
-                            this.AdicionaLinha(row, 9, (totalEntradas - totalSaidas));
-                            break;
-                        case 8:
-                            this.AdicionaLinha(row, 10, (totalEntradas - totalSaidas));
-                            break;
-                        case 9:
-                            this.AdicionaLinha(row, 11, (totalEntradas - totalSaidas));
-                            break;
-                        case 10:
-                            this.AdicionaLinha(row, 12, (totalEntradas - totalSaidas));
-                            break;
-                        case 11:
-                            this.AdicionaLinha(row, 13, (totalEntradas - totalSaidas));
-                            break;
-                        case 12:
-                            this.AdicionaLinha(row, 14, (totalEntradas - totalSaidas));
-                            break;
-
-                    }
-
                 }
 
             }
@@ -305,9 +327,9 @@ public class ExportacaoParaExcel {
 
         double totalEntradas;
         double totalSaidas;
-        int coluna = 4;
+        int coluna = 3;
         Calendar c = Calendar.getInstance();
-        c.set(1,1, 1800);
+        c.set(1, 1, 1800);
         Date dataAnterior = c.getTime();
 
         List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
@@ -329,13 +351,13 @@ public class ExportacaoParaExcel {
 
                     if (mostrar) {
 
-                       //Linha alimenta uma nova especificacao
+                        //Linha alimenta uma nova especificacao
                         linha += 1;
                         row = firstSheet.createRow(linha);
 
                         //Coluna com a descricao da especificacao
                         this.AdicionaLinha(row, 0, especificacao.getEspDescricao());
-                        
+
                         int sequenciaOperacao = 0;
 
                         //Linha alimenta uma nova operacao
@@ -343,22 +365,24 @@ public class ExportacaoParaExcel {
                         row = firstSheet.createRow(linha);
 
                         //codigo sequencial
-                        sequenciaOperacao += 1;                        
+                        sequenciaOperacao += 1;
                         this.AdicionaLinha(row, 0, sequenciaOperacao);
+                        this.AdicionaLinha(row, 1, operacao.getOpDescricao());
                         mostrar = false;
-                        
-                    }
-                    
-                    
-                    if (!conta.getContaDataEmissao().equals(dataAnterior)) {
-                        
-                        dataAnterior = conta.getContaDataEmissao();
-                    
-                        totalEntradas = 0;
-                        totalSaidas  = 0;
 
-                        this.AdicionaLinha(row, coluna, dataFinal);
+                    }
+
+                    if (!conta.getContaDataEmissao().equals(dataAnterior)) {
+
+                        dataAnterior = conta.getContaDataEmissao();
+
+                        
+
+                        this.AdicionaLinha(row, coluna, (totalEntradas - totalSaidas));
                         coluna += 1;
+
+                        totalEntradas = 0;
+                        totalSaidas = 0;
                         
                         //Isso tem que ser repetido, pois quando vier a nova data deve contar junto depois que adicionou a antiga
                         //Realiza soma
@@ -368,15 +392,15 @@ public class ExportacaoParaExcel {
                             totalSaidas += conta.getContaValorPago();
                         }
 
-                    }else{
-                    
+                    } else {
+
                         //Realiza soma
                         if (conta.getContaTipo() == TipoConta.Entrada) {
                             totalEntradas += conta.getContaValorPago();
                         } else {
                             totalSaidas += conta.getContaValorPago();
                         }
-                        
+
                     }
                 }
 
@@ -412,5 +436,5 @@ public class ExportacaoParaExcel {
         row.createCell(coluna).setCellValue(valor);
 
     }
-    
+
 }

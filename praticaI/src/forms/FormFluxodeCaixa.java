@@ -1207,7 +1207,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
             }
 
-            new ExportacaoParaExcel().Exportar(caminho, dataInicial, dataFinal, comboFiltroData.getSelectedIndex());
+            new ExportacaoParaExcel().Exportar(caminho, dataInicial, dataFinal, FiltroData.values()[comboFiltroData.getSelectedIndex()]);
 
         }
 
