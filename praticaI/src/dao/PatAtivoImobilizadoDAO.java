@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Date;
 import java.util.List;
 import model.PatAtivoImobilizado;
 import org.hibernate.Query;
@@ -106,10 +107,12 @@ public class PatAtivoImobilizadoDAO {
         return ativos;
     }
 
-    public List<PatAtivoImobilizado> buscarAtivosParaDepreciar() {
+    public List<PatAtivoImobilizado> buscarAtivosParaDepreciar(Date datadepreciar) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from PatAtivoImobilizado a where a.ativo = true and a.ativoDepreciavel = true ");
+        Query query = session.createQuery("FROM PatAtivoImobilizado a WHERE a.ativo = true AND "
+                + "a.ativoDepreciavel = true AND a.ativoDataCadastro <= :ativoDataCadastro ");
+        query.setParameter("ativoDataCadastro", datadepreciar);
         List<PatAtivoImobilizado> ativos = query.list();
         session.getTransaction().commit();
         session.close();

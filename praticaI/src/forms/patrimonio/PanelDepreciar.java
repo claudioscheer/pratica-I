@@ -39,7 +39,7 @@ public class PanelDepreciar extends WebPanel {
         this.panelConsultaAtivoImobilizado = panelConsultaAtivoImobilizado;
         this.initComponents();
 
-        this.txtMesDepreciar.setDateFormat(new SimpleDateFormat("MM/yyyy"));
+        this.txtMesDepreciar.setDateFormat(utils.Utils.formatoDataPadrao);
         Calendar c = Calendar.getInstance();
         c.add(Calendar.MONTH, -1);
         this.txtMesDepreciar.setDate(c.getTime());
@@ -97,7 +97,7 @@ public class PanelDepreciar extends WebPanel {
         @Override
         protected Void doInBackground() throws Exception {
             depreciando = true;
-            List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().buscarAtivosParaDepreciar();
+            List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().buscarAtivosParaDepreciar(txtMesDepreciar.getDate());
             ativosSize = ativos.size();
             progressBar.setMaximum(ativosSize);
             progressBar.setValue(valueProgress);
