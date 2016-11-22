@@ -131,6 +131,20 @@ public class PanelDepreciar extends WebPanel {
     }
 
     public void startDepreciacao() {
+        Calendar dataMaximaPermitida = Calendar.getInstance();
+        dataMaximaPermitida.add(Calendar.MONTH, -1);
+        dataMaximaPermitida.set(Calendar.DAY_OF_MONTH, 1);
+
+        Calendar dataSelecionada = Calendar.getInstance();
+        dataSelecionada.setTime(this.txtMesDepreciar.getDate());
+        dataSelecionada.set(Calendar.DAY_OF_MONTH, 1);
+
+        if (dataSelecionada.compareTo(dataMaximaPermitida) > 0) {
+            dataMaximaPermitida.add(Calendar.MONTH, 1);
+            utils.Utils.notificacao("A depreciação só pode ser feita para meses anterior ao mês de "
+                    + new SimpleDateFormat("MMMM").format(dataMaximaPermitida.getTime()) + "!", Utils.TipoNotificacao.erro, 20000);
+            return;
+        }
 
         if (this.jaDepreciadoMesAtual) {
             WebOptionPane.showMessageDialog(this, "Serão depreciados apenas os ativos não calculados no mês!", "Aviso", WebOptionPane.INFORMATION_MESSAGE);
