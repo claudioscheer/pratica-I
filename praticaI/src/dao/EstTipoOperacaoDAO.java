@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 import model.CarEstTipoOperacao;
+import model.EstProduto;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -63,6 +64,14 @@ public class EstTipoOperacaoDAO {
         } finally {
             session.close();
         }
+    }
+    
+    public List<EstTipoOperacaoDAO> getAll()
+    {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query query = session.createQuery("from CarEstTipoOperacao as t ");
+        List<EstTipoOperacaoDAO> tpMov = query.list();
+        return tpMov;
     }
 
     public CarEstTipoOperacao Buscar(int codigo) {
