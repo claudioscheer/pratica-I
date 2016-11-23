@@ -18,9 +18,11 @@ import org.hibernate.Session;
 import org.jboss.logging.Logger;
 import utils.HibernateUtil;
 
-public class EstProdutoDAO {
+public class EstProdutoDAO
+{
 
-    public Boolean update(EstProduto produto) {
+    public Boolean update(EstProduto produto)
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.update(produto);
@@ -29,7 +31,8 @@ public class EstProdutoDAO {
         return true;
     }
 
-    public Boolean insert(EstProduto produto) {
+    public Boolean insert(EstProduto produto)
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.save(produto);
@@ -39,29 +42,35 @@ public class EstProdutoDAO {
     }
 
     /* movimentação fazer getAll  Est Produto  */
-    public Boolean delete(int codigo) {
+    public Boolean delete(int codigo)
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
+        try
+        {
             session.getTransaction().begin();
             EstProduto produto = (EstProduto) session.get(EstProduto.class, codigo);
             session.delete(produto);
             return true;
-        } catch (HibernateException e) {
+        } catch (HibernateException e)
+        {
             throw e;
-        } finally {
+        } finally
+        {
             session.getTransaction().commit();
             session.close();
         }
     }
 
-    public List<EstProduto> getAll() {
+    public List<EstProduto> getAll()
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query query = session.createQuery("from EstProduto ");
         List<EstProduto> produto = query.list();
         return produto;
     }
 
-    public EstProduto get(int value) {
+    public EstProduto get(int value)
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         EstProduto produto = (EstProduto) session.get(EstProduto.class, value);
@@ -70,11 +79,13 @@ public class EstProdutoDAO {
         return produto;
     }
 
-    public void GerarRelatorioProdutos() {
+    public void GerarRelatorioProdutos()
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<EstProduto> listaProdutos = session.createQuery("from EstProduto").list();
         JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(listaProdutos);
-        try {
+        try
+        {
             JasperPrint jpr = JasperFillManager.fillReport("src/relatorios/estoque/RelatorioProduto.jasper", null, jrs);
             JasperViewer.viewReport(jpr, true);
         } catch (JRException ex) {
