@@ -32,7 +32,7 @@ public class RelatoriosPatrimonio {
     }
 
     public static void relatorioAtivoEmBaixa(String titulo) throws JRException {
-        List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().buscarAtivosAtivosRelatorio();
+        List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().buscarAtivoEmBaixaRelatorio();
         JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(ativos);
 
         Map parametros = new HashMap();
