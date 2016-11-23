@@ -1,6 +1,5 @@
 package model;
 
-import com.sun.istack.internal.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +36,6 @@ public class PatNotaFiscal implements java.io.Serializable {
     private List<PatItemNota> patItemNotas;
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_nota_fiscal")
     public int getNotaCodigo() {
         return this.notaCodigo;
@@ -47,7 +45,6 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.notaCodigo = notaCodigo;
     }
 
-    @NotNull
     public String getNotaDescricao() {
         return notaDescricao;
     }
@@ -56,7 +53,6 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.notaDescricao = notaDescricao;
     }
 
-    @NotNull
     @ManyToOne
     public CarPessoa getCarPessoa() {
         return this.carPessoa;
@@ -66,7 +62,6 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.carPessoa = carPessoa;
     }
 
-    @NotNull
     public double getNotaValor() {
         return this.notaValor;
     }
@@ -75,7 +70,6 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.notaValor = notaValor;
     }
 
-    @NotNull
     @Temporal(TemporalType.DATE)
     public Date getNotaDataEmissao() {
         return this.notaDataEmissao;
@@ -85,7 +79,6 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.notaDataEmissao = notaDataEmissao;
     }
 
-    @NotNull
     public String getNotaChaveAcesso() {
         return this.notaChaveAcesso;
     }
@@ -94,7 +87,6 @@ public class PatNotaFiscal implements java.io.Serializable {
         this.notaChaveAcesso = notaChaveAcesso;
     }
 
-    @NotNull
     @Temporal(TemporalType.DATE)
     public Date getNotaDataEntrada() {
         return this.notaDataEntrada;

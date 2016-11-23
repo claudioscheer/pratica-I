@@ -1,6 +1,5 @@
 package model;
 
-import com.sun.istack.internal.NotNull;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,7 +23,6 @@ public class PatDepreciacao implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_depreciacao")
-    @NotNull
     public int getDepreciacaoCodigo() {
         return this.depreciacaoCodigo;
     }
@@ -42,7 +40,6 @@ public class PatDepreciacao implements java.io.Serializable {
         this.estCategoria = estCategoria;
     }
 
-    @NotNull
     public double getDepreciacaoTaxaAnual() {
         return this.depreciacaoTaxaAnual;
     }
@@ -54,7 +51,6 @@ public class PatDepreciacao implements java.io.Serializable {
         this.setDepreciacaoTaxaDiaria(Double.valueOf(utils.Utils.removerCaracteresDoubleString(utils.Utils.format(this.depreciacaoTaxaMensal / 30))));
     }
 
-    @NotNull
     public int getDepreciacaoVidaUtil() {
         return this.depreciacaoVidaUtil;
     }
@@ -63,7 +59,6 @@ public class PatDepreciacao implements java.io.Serializable {
         this.depreciacaoVidaUtil =  depreciacaoVidaUtil;
     }
 
-    @NotNull
     public double getDepreciacaoTaxaMensal() {
         return this.depreciacaoTaxaMensal;
     }
@@ -72,7 +67,6 @@ public class PatDepreciacao implements java.io.Serializable {
         this.depreciacaoTaxaMensal = depreciacaoTaxaMensal;
     }
 
-    @NotNull
     public double getDepreciacaoTaxaDiaria() {
         return depreciacaoTaxaDiaria;
     }

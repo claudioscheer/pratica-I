@@ -1,6 +1,5 @@
 package model;
 
-import com.sun.istack.internal.NotNull;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +24,6 @@ public class PatItemNota implements java.io.Serializable {
     private int itemNotaOrdem;
 
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_item_nota")
     public int getItemNotaCodigo() {
         return this.itemNotaCodigo;
@@ -36,7 +34,6 @@ public class PatItemNota implements java.io.Serializable {
     }
 
     @ManyToOne
-    @NotNull
     public EstProduto getEstProduto() {
         return this.estProduto;
     }
@@ -46,7 +43,6 @@ public class PatItemNota implements java.io.Serializable {
     }
 
     @ManyToOne
-    @NotNull
     public PatNotaFiscal getPatNotaFiscal() {
         return this.patNotaFiscal;
     }
@@ -55,7 +51,6 @@ public class PatItemNota implements java.io.Serializable {
         this.patNotaFiscal = patNotaFiscal;
     }
 
-    @NotNull
     public int getItemNotaQuantidade() {
         return this.itemNotaQuantidade;
     }
@@ -64,7 +59,6 @@ public class PatItemNota implements java.io.Serializable {
         this.itemNotaQuantidade = itemNotaQuantidade;
     }
 
-    @NotNull
     public double getItemNotaValorUnitario() {
         return this.itemNotaValorUnitario;
     }
@@ -73,7 +67,6 @@ public class PatItemNota implements java.io.Serializable {
         this.itemNotaValorUnitario = itemNotaValorUnitario;
     }
 
-    @NotNull
     public double getItemNotaValorTotal() {
         return this.itemNotaValorTotal;
     }
@@ -82,7 +75,6 @@ public class PatItemNota implements java.io.Serializable {
         this.itemNotaValorTotal = itemNotaValorTotal;
     }
 
-    @NotNull
     public boolean isItemNotacontrolavel() {
         return itemNotacontrolavel;
     }
@@ -91,7 +83,6 @@ public class PatItemNota implements java.io.Serializable {
         this.itemNotacontrolavel = itemNotacontrolavel;
     }
 
-    @NotNull
     public int getItemNotaOrdem() {
         return itemNotaOrdem;
     }

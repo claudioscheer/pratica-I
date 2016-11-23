@@ -1,6 +1,5 @@
 package model;
 
-import com.sun.istack.internal.NotNull;
 import enumeraveis.EstadoBem;
 import enumeraveis.UtilizacaoBem;
 import java.util.ArrayList;
@@ -41,7 +40,6 @@ public class PatAtivoImobilizado implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_ativo_imobilizado")
-    @NotNull
     public int getAtivoCodigo() {
         return this.ativoCodigo;
     }
@@ -51,7 +49,6 @@ public class PatAtivoImobilizado implements java.io.Serializable {
     }
 
     @ManyToOne
-    @NotNull
     public EstCategoria getEstCategoria() {
         return this.estCategoria;
     }
@@ -61,7 +58,6 @@ public class PatAtivoImobilizado implements java.io.Serializable {
     }
 
     @ManyToOne
-    @NotNull
     public EstMarca getEstMarca() {
         return this.estMarca;
     }
@@ -70,7 +66,6 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.estMarca = estMarca;
     }
 
-    @NotNull
     public String getAtivoDescricao() {
         return this.ativoDescricao;
     }
@@ -79,7 +74,6 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoDescricao = ativoDescricao;
     }
 
-    @NotNull
     public double getAtivoValorOriginal() {
         return this.ativoValorOriginal;
     }
@@ -88,7 +82,6 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoValorOriginal = ativoValorOriginal;
     }
 
-    @NotNull
     public double getAtivoValorAtual() {
         return this.ativoValorAtual;
     }
@@ -97,7 +90,6 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoValorAtual = ativoValorAtual;
     }
 
-    @NotNull
     public double getAtivoTaxaValorResidual() {
         return this.ativoTaxaValorResidual;
     }
@@ -106,7 +98,6 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoTaxaValorResidual = ativoTaxaValorResidual;
     }
 
-    @NotNull
     public double getAtivoValorResidual() {
         return this.ativoValorResidual;
     }
@@ -115,7 +106,6 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoValorResidual = ativoValorResidual;
     }
 
-    @NotNull
     public EstadoBem getAtivoEstadoBem() {
         return this.ativoEstadoBem;
     }
@@ -124,7 +114,6 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoEstadoBem = ativoEstadoBem;
     }
 
-    @NotNull
     public UtilizacaoBem getAtivoUtilizacao() {
         return this.ativoUtilizacao;
     }
@@ -154,7 +143,6 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.patItemNota = patItemNota;
     }
 
-    @NotNull
     public boolean isAtivoDepreciavel() {
         return ativoDepreciavel;
     }
@@ -163,7 +151,6 @@ public class PatAtivoImobilizado implements java.io.Serializable {
         this.ativoDepreciavel = ativoDepreciavel;
     }
 
-    @NotNull
     public boolean isAtivo() {
         return ativo;
     }

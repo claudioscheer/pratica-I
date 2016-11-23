@@ -1,7 +1,5 @@
 package model;
-// Generated 22/10/2016 10:09:26 by Hibernate Tools 4.3.1
 
-import com.sun.istack.internal.NotNull;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +24,6 @@ public class PatBaixa implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_baixa")
-    @NotNull
     public int getBaixaCodigo() {
         return this.baixaCodigo;
     }
@@ -35,7 +32,6 @@ public class PatBaixa implements java.io.Serializable {
         this.baixaCodigo = baixaCodigo;
     }
 
-    @NotNull
     @ManyToOne
     @JoinColumn(unique = true)
     public PatAtivoImobilizado getPatAtivoImobilizado() {
@@ -46,7 +42,6 @@ public class PatBaixa implements java.io.Serializable {
         this.patAtivoImobilizado = patAtivoImobilizado;
     }
 
-    @NotNull
     @ManyToOne
     public PatTipoBaixa getPatTipoBaixa() {
         return this.patTipoBaixa;
@@ -56,7 +51,6 @@ public class PatBaixa implements java.io.Serializable {
         this.patTipoBaixa = patTipoBaixa;
     }
 
-    @NotNull
     @Temporal(TemporalType.DATE)
     public Date getBaixaDataBaixa() {
         return this.baixaDataBaixa;
