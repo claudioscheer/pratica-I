@@ -30,12 +30,14 @@ import utils.HibernateUtil;
  *
  * @author Anderson
  */
-public class EstMovimentacaoDAO {
+public class EstMovimentacaoDAO
+{
 
     private EstProdutoDAO produtoDao = new EstProdutoDAO();
     //EstMovimentacaoDAO mDAO = new EstMovimentacaoDAO();
 
-    public Boolean update(EstMovimentacao mov) {
+    public Boolean update(EstMovimentacao mov)
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.update(mov);
@@ -44,7 +46,8 @@ public class EstMovimentacaoDAO {
         return true;
     }
 
-    public Boolean insert(EstMovimentacao mov) {
+    public Boolean insert(EstMovimentacao mov)
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.save(mov);
@@ -53,22 +56,27 @@ public class EstMovimentacaoDAO {
         return true;
     }
 
-    public Boolean delete(int codigo) {
+    public Boolean delete(int codigo)
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
+        try
+        {
             session.getTransaction().begin();
             EstMovimentacaoDAO mov = (EstMovimentacaoDAO) session.get(EstMovimentacaoDAO.class, codigo);
             session.delete(mov);
             return true;
-        } catch (HibernateException e) {
+        } catch (HibernateException e)
+        {
             throw e;
-        } finally {
+        } finally
+        {
             session.getTransaction().commit();
             session.close();
         }
     }
 
-    public EstMovimentacaoDAO get(int value) {
+    public EstMovimentacaoDAO get(int value)
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         EstMovimentacaoDAO mov = (EstMovimentacaoDAO) session.get(EstMovimentacaoDAO.class, value);
@@ -86,27 +94,32 @@ public class EstMovimentacaoDAO {
         try {
             JasperPrint jpr = JasperFillManager.fillReport("src/relatorios/estoque/RelatorioMovimentacao.jasper", parametros, jrs);
             JasperViewer.viewReport(jpr, true);
-        } catch (JRException ex) {
+        } catch (JRException ex)
+        {
             System.out.println("" + ex);
         }
     }
 
-    public boolean AumentarEstoque(int codigoProduto, Date dataMov, int tipoMov, double quantidade, double Unitario) {
+    public boolean AumentarEstoque(int codigoProduto, Date dataMov, int tipoMov, double quantidade, double Unitario)
+    {
         EstProduto produto = new EstProduto();
         EstMovimentacao movimento = new EstMovimentacao();
 
         movimento.setMovQuantidade(quantidade);
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
+        try
+        {
             produto = produtoDao.get(codigoProduto);
             session.getTransaction().begin();
             //session.save(tipOperacao);
             session.getTransaction().commit();
             return true;
-        } catch (HibernateException e) {
+        } catch (HibernateException e)
+        {
             throw e;
-        } finally {
+        } finally
+        {
             session.close();
         }
     }
@@ -116,14 +129,16 @@ public class EstMovimentacaoDAO {
         return true;
     }
 
-    public List<EstMovimentacao> getAll() {
+    public List<EstMovimentacao> getAll()
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query query = session.createQuery("from EstMovimentacao ");
         List<EstMovimentacao> movimentacaos = query.list();
         return movimentacaos;
     }
 
-    public List<EstMovimentacao> findByProduto(EstProduto p) {
+    public List<EstMovimentacao> findByProduto(EstProduto p)
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         String hql = "from EstMovimentacao as m where m.estProduto = :produto";
@@ -132,7 +147,8 @@ public class EstMovimentacaoDAO {
         return q.list();
     }
 
-    public double doubleDecimais(double value) {
+    public double doubleDecimais(double value)
+    {
         DecimalFormat fmt = new DecimalFormat("0.00");
         String string = fmt.format(value);
         String[] part = string.split("[,]");
@@ -141,13 +157,16 @@ public class EstMovimentacaoDAO {
         return vlr;
     }
 
-    public void itensNota(List<PatItemNota> itens, Date data) {
-        for (PatItemNota item : itens) {
+    public void itensNota(List<PatItemNota> itens, Date data)
+    {
+        for (PatItemNota item : itens)
+        {
             this.atualizaEstoque(item.getEstProduto().getProdutoId(), data, 1, item.getItemNotaQuantidade(), item.getItemNotaValorUnitario());
         }
     }
 
-    public void atualizaEstoque(int codigoProduto, Date dataMov, int tipoMov, double quantidade, double Unitario) {
+    public void atualizaEstoque(int codigoProduto, Date dataMov, int tipoMov, double quantidade, double Unitario)
+    {
         EstMovimentacao m = new EstMovimentacao();
         EstMovimentacaoDAO mDao = new EstMovimentacaoDAO();
         EstProdutoDAO pDAO = new EstProdutoDAO();
@@ -165,14 +184,18 @@ public class EstMovimentacaoDAO {
         mDao.insert(m);
     }
 
-    public double[] calculaCusto(EstProduto produto) {
+    public double[] calculaCusto(EstProduto produto)
+    {
         double vet[] = new double[3];
         double qtde = 0.0, custoM = 0.0, total = 0.0;
-        for (EstMovimentacao mov : this.findByProduto(produto)) {
-            if (mov.getCarEstTipoOperacao().getTpOpTipo() == 1 || mov.getCarEstTipoOperacao().getTpOpTipo() == 2) {
+        for (EstMovimentacao mov : this.findByProduto(produto))
+        {
+            if (mov.getCarEstTipoOperacao().getTpOpTipo() == 1 || mov.getCarEstTipoOperacao().getTpOpTipo() == 2)
+            {
                 qtde += mov.getMovQuantidade();
                 total += mov.getMovTotal();
-            } else {
+            } else
+            {
                 qtde += (-mov.getMovQuantidade());
                 total += (-mov.getMovTotal());
             }
@@ -184,6 +207,23 @@ public class EstMovimentacaoDAO {
         vet[2] = total;
 
         return vet;
+    }
+
+    public boolean verificaEstoque(EstProduto produto)
+    {
+        double qtde = 0.0;
+        for (EstMovimentacao mov : this.findByProduto(produto))
+        {
+            qtde += mov.getMovQuantidade();
+        }
+        if (qtde > 0)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+
     }
 
 }
