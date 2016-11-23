@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-21T02:32:01 -->
+<!-- 2016-11-23T20:23:23 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioMovimentacao" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="23d0b5a1-94f6-48d5-b138-2037730e93aa">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="produtoId" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="carEstTipoOperacao.getTpOpDescricao" class="java.lang.String"/>
+	<field name="carEstTipoOperacao.tpOpNome" class="java.lang.String"/>
 	<field name="movId" class="java.lang.Integer"/>
 	<field name="movData" class="java.util.Date"/>
 	<field name="movQuantidade" class="java.lang.Double"/>
 	<field name="movVlrUnit" class="java.lang.Double"/>
 	<field name="movTotal" class="java.lang.Double"/>
-	<field name="estProduto.getProdutoId" class="java.lang.Integer"/>
-	<field name="estProduto.getProdutoDescricao" class="java.lang.String"/>
+	<field name="estProduto.produtoId" class="java.lang.Integer"/>
+	<field name="estProduto.produtoDescricao" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -38,14 +38,14 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="55" splitType="Stretch">
+		<band height="56" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="8" width="90" height="30" uuid="a76d081f-c67b-4e34-a312-525ab50a7557"/>
-				<textFieldExpression><![CDATA[$F{estProduto.getProdutoId}]]></textFieldExpression>
+				<reportElement x="0" y="10" width="100" height="30" uuid="180d8b00-eec4-4c33-bcbe-9dd1fbb56f72"/>
+				<textFieldExpression><![CDATA[$F{estProduto.produtoId}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="90" y="8" width="464" height="30" uuid="704a8d8c-58a7-4318-bc72-23dde6810015"/>
-				<textFieldExpression><![CDATA[$F{estProduto.getProdutoDescricao}]]></textFieldExpression>
+				<reportElement x="100" y="10" width="454" height="30" uuid="0032d903-7c97-46bc-91b4-38ee69b52264"/>
+				<textFieldExpression><![CDATA[$F{estProduto.produtoDescricao}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -53,39 +53,35 @@
 		<band height="32" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="70" height="30" uuid="8c1be76e-c968-46a4-8fae-d26c770c844e"/>
-				<text><![CDATA[movId]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="70" y="1" width="100" height="30" uuid="127aad3f-2c05-4441-ae83-5b9520734076"/>
-				<text><![CDATA[carEstTipoOperacao.getTpOpDescricao]]></text>
+				<text><![CDATA[Código]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="170" y="0" width="100" height="30" uuid="cb79bf2d-efdc-47f2-b177-b54a82aed1ab"/>
-				<text><![CDATA[movData]]></text>
+				<text><![CDATA[Data]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="270" y="0" width="100" height="30" uuid="36d6f9dd-749f-41a8-835b-ba53c91cfcc3"/>
-				<text><![CDATA[movQuantidade]]></text>
+				<text><![CDATA[Quantidade]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="370" y="0" width="100" height="30" uuid="b4de2d47-bdb0-4f08-b7f7-ae39302034eb"/>
-				<text><![CDATA[movVlrUnit]]></text>
+				<text><![CDATA[Valor Unitário]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="470" y="0" width="85" height="30" uuid="d8fb2530-0ef5-424f-842e-bbf11e2dc072"/>
-				<text><![CDATA[movTotal]]></text>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="70" y="0" width="100" height="30" uuid="791a8d8e-e2d9-4137-b884-39b03a25c6b6"/>
+				<text><![CDATA[Operação]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="70" height="30" uuid="278fecdb-0a10-472a-89e7-469408f258b5"/>
 				<textFieldExpression><![CDATA[$F{movId}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="70" y="0" width="100" height="30" uuid="1ba7e819-7d61-495e-b7a6-4d6c484141d0"/>
-				<textFieldExpression><![CDATA[$F{carEstTipoOperacao.getTpOpDescricao}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="170" y="0" width="100" height="30" uuid="905be378-ba78-4430-b827-feb682fcfd57"/>
@@ -102,6 +98,10 @@
 			<textField>
 				<reportElement x="470" y="0" width="85" height="30" uuid="f8d117a0-9f77-495e-998e-91989df673ef"/>
 				<textFieldExpression><![CDATA[$F{movTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="0" width="100" height="30" uuid="83ab9689-a647-4293-b750-d93b9d335a0c"/>
+				<textFieldExpression><![CDATA[$F{carEstTipoOperacao.tpOpNome}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

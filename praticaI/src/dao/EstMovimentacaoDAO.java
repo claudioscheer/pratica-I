@@ -11,6 +11,7 @@ import javafx.scene.chart.PieChart;
 import model.CarEstTipoOperacao;
 
 import java.util.Map;
+import java.util.Set;
 import javafx.scene.chart.PieChart;
 
 import model.EstMovimentacao;
@@ -87,12 +88,17 @@ public class EstMovimentacaoDAO
 
     public void GerarRelatorioMovimentacoes(EstProduto produto) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        List<EstMovimentacao> listaMov = session.createQuery("from EstMovimentacao m where m.produtoId = :produtoId").list();
+        //String hql = "from EstMovimentacao where produtoId = :produtoId";        
+        String hql = "from EstProduto where produtoId = :produtoId";
+        Query q = session.createQuery(hql);                              
+        q.setParameter("produtoId", produto.getProdutoId());        
+        EstProduto prod = (EstProduto) session.get(EstProduto.class, produto.getProdutoId());
+        Set<EstMovimentacao> listaMov = prod.getEstMovimentacaos();
         JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(listaMov);
         Map parametros = new HashMap();
         parametros.put("produtoId", produto.getProdutoId());
         try {
-            JasperPrint jpr = JasperFillManager.fillReport("src/relatorios/estoque/RelatorioMovimentacao.jasper", parametros, jrs);
+            JasperPrint jpr = JasperFillManager.fillReport("src/relatorios/estoque/RelatorioMovimentacao1_1.jasper", parametros, jrs);
             JasperViewer.viewReport(jpr, true);
         } catch (JRException ex)
         {
@@ -140,7 +146,6 @@ public class EstMovimentacaoDAO
     public List<EstMovimentacao> findByProduto(EstProduto p)
     {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.getTransaction().begin();
         String hql = "from EstMovimentacao as m where m.estProduto = :produto";
         Query q = session.createQuery(hql);
         q.setParameter("produto", p);
