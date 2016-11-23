@@ -8,18 +8,17 @@ package forms;
 import components.Validador;
 import dao.EstCategoriaDAO;
 import dao.EstMarcaDAO;
+import dao.EstMovimentacaoDAO;
 import dao.EstProdutoDAO;
-import dao.EstUnidadeMedidaDAO;
-import forms.busca.FormBuscaCategoria;
+import dao.EstTipoOperacaoDAO;
 import forms.busca.FormBuscaMarca;
 import forms.busca.FormBuscaProduto;
-import forms.busca.FormBuscaUnidadeMedida;
+import forms.busca.FormBuscaTipoMovimentacao;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
-import model.EstCategoria;
-import model.EstMarca;
+import model.CarEstTipoOperacao;
+import model.EstMovimentacao;
 import model.EstProduto;
-import model.EstUnidadeMedida;
 
 /**
  *
@@ -29,8 +28,10 @@ public class FormManutencaoEstoque extends javax.swing.JFrame
 {
 
     private EstProdutoDAO produtoDao = new EstProdutoDAO();
+    private EstMovimentacaoDAO movDAO = new EstMovimentacaoDAO();
+
     private boolean isEditar = false;
-    private EstProduto produtoEditar = new EstProduto();
+    private EstMovimentacao movEditar = new EstMovimentacao();
     public Validador validador;
     FormBuscaMarca formMarca;
 
@@ -69,7 +70,7 @@ public class FormManutencaoEstoque extends javax.swing.JFrame
         initComponents();
 
         isEditar = true;
-       
+
         txtTipoMov.setEditable(false);
 
         //inicia o validador
@@ -131,7 +132,8 @@ public class FormManutencaoEstoque extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -141,46 +143,76 @@ public class FormManutencaoEstoque extends javax.swing.JFrame
         webLabel13 = new com.alee.laf.label.WebLabel();
         txtTipoMov = new components.TextFieldFK();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtValor = new components.TextFieldValorMonetario();
+        jLabel2 = new javax.swing.JLabel();
+        txtUnitario = new components.TextFieldValorMonetario();
+        txtQtde = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
+        addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            public void windowOpened(java.awt.event.WindowEvent evt)
+            {
                 iniciaTela(evt);
             }
         });
 
         btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnSalvar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnSalvarActionPerformed(evt);
             }
         });
 
         btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCancelar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 btnCancelarActionPerformed(evt);
             }
         });
 
         jLabel6.setText("Produto");
 
-        txt_data_lançamento1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txt_data_lançamento1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 txt_data_lançamento1ActionPerformed(evt);
             }
         });
 
         webLabel13.setText("Data lançamento:");
 
-        txtTipoMov.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        txtTipoMov.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 txtTipoMovActionPerformed(evt);
             }
         });
 
         jLabel7.setText("Tipo Movimentação");
+
+        jLabel8.setText("Quantidade");
+
+        jLabel9.setText("Unitário");
+
+        jLabel2.setText("Valor total");
+
+        txtUnitario.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusLost(java.awt.event.FocusEvent evt)
+            {
+                txtUnitarioFocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -188,41 +220,73 @@ public class FormManutencaoEstoque extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_data_lançamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(webLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTipoMov, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)))
-                    .addComponent(jLabel6)
-                    .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(393, 393, 393)
                         .addComponent(btnCancelar)
                         .addGap(9, 9, 9)
-                        .addComponent(btnSalvar)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_data_lançamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(webLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(txtTipoMov, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel6)
+                            .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtQtde, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8))
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(9, 9, 9)
+                                        .addComponent(jLabel9)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(21, 21, 21)))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txt_data_lançamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTipoMov, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(webLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_data_lançamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTipoMov, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(webLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtQtde, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(117, 117, 117)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar))
@@ -236,7 +300,7 @@ public class FormManutencaoEstoque extends javax.swing.JFrame
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-         txtProduto.setEditable(false);
+        txtProduto.setEditable(false);
         FormBuscaProduto buscaProd = new FormBuscaProduto();
         buscaProd.setFrameBloquear(FormPrincipal.getInstance());
         this.txtProduto.setFrame(buscaProd);
@@ -244,7 +308,45 @@ public class FormManutencaoEstoque extends javax.swing.JFrame
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
-        /*       
+        EstMovimentacao m = new EstMovimentacao();
+        double qtde = Double.parseDouble(txtQtde.getText().replace(",", "."));
+        double unit = Double.parseDouble(txtUnitario.getText().replace(",", "."));
+        double tot = Double.parseDouble(txtValor.getText().replace(",", "."));
+        m.setEstProduto((EstProduto) this.txtProduto.getValue());
+        m.setMovData(this.txt_data_lançamento1.getDate());
+        m.setCarEstTipoOperacao((CarEstTipoOperacao) txtTipoMov.getValue());
+        m.setMovQuantidade(qtde);
+        m.setMovVlrUnit(unit);
+        m.setMovTotal(tot);
+
+        if (!isEditar)
+        {
+            movDAO.insert(m);
+            JOptionPane.showMessageDialog(null, "Cadastro Salvo com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+        } else
+        {
+            m.setMovId(this.movEditar.getMovId());
+            movDAO.update(m);
+            JOptionPane.showMessageDialog(null, "Cadastro Alterado com Sucesso!", "Atenção", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        this.dispose();
+        
+
+        /*EstMovimentacaoDAO mov = new EstMovimentacaoDAO();
+         EstMovimentacao m = new EstMovimentacao();
+         EstProdutoDAO  pDAO = new EstProdutoDAO();
+         EstProduto p = new EstProduto();
+        
+         EstProduto prod = produtoDao.get(produto.getProdutoId());
+         txtProduto.setText(""+m.getEstProduto().getProdutoId());
+         txt_data_lançamento1.setText("" + m.getMovData());
+         txtTipoMov.setText(""+m.getCarEstTipoOperacao().getTpOpId());
+         txtQtde.setText("" + m.getMovQuantidade());
+         txtUnitario.setText("" + m.getMovVlrUnit());
+         txtTotal.setText("" + m.getMovTotal());
+        
+         /*       
          EstProduto produto = new EstProduto();
          produto.setProdutoReferencia(this.txtReferencia.getText());
          produto.setProdutoDescricao(this.txtDescricao.getText());
@@ -266,10 +368,19 @@ public class FormManutencaoEstoque extends javax.swing.JFrame
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void iniciaTela(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_iniciaTela
+
+        txtUnitario.setTextoMonetario("");
+
+        FormBuscaTipoMovimentacao b = new FormBuscaTipoMovimentacao();
+        b.setFrameBloquear(FormPrincipal.getInstance());
+        this.txtTipoMov.setFrame(b);
+
         txtProduto.setEditable(false);
         FormBuscaProduto buscaProd = new FormBuscaProduto();
         buscaProd.setFrameBloquear(FormPrincipal.getInstance());
         this.txtProduto.setFrame(buscaProd);
+
+        txtValor.setEditable(false);
     }//GEN-LAST:event_iniciaTela
 
     private void txt_data_lançamento1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txt_data_lançamento1ActionPerformed
@@ -279,9 +390,27 @@ public class FormManutencaoEstoque extends javax.swing.JFrame
 
     private void txtTipoMovActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_txtTipoMovActionPerformed
     {//GEN-HEADEREND:event_txtTipoMovActionPerformed
- FormListaTipoOperacao form = new FormListaTipoOperacao(null, rootPaneCheckingEnabled);
-        form.setVisible(true);       
+        FormListaTipoOperacao form = new FormListaTipoOperacao(null, rootPaneCheckingEnabled);
+        form.setVisible(true);
     }//GEN-LAST:event_txtTipoMovActionPerformed
+
+    private void txtUnitarioFocusLost(java.awt.event.FocusEvent evt)//GEN-FIRST:event_txtUnitarioFocusLost
+    {//GEN-HEADEREND:event_txtUnitarioFocusLost
+
+        try
+        {
+            double qtde = Double.parseDouble(txtQtde.getText());
+
+            double unit = Double.parseDouble(txtUnitario.getText().replace(",", "."));
+            double total = calculaTotal(qtde, unit);
+            txtValor.setText(("" + total).replace(",", "."));
+
+        } catch (Exception e)
+        {
+            System.out.println(e);
+        }
+
+    }//GEN-LAST:event_txtUnitarioFocusLost
 
     /**
      * @param args the command line arguments
@@ -317,7 +446,6 @@ public class FormManutencaoEstoque extends javax.swing.JFrame
             java.util.logging.Logger.getLogger(FormManutencaoEstoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable()
@@ -338,13 +466,24 @@ public class FormManutencaoEstoque extends javax.swing.JFrame
         });
     }
 
+    public double calculaTotal(double Qtde, double Unitario)
+    {
+        return Qtde != 0 ? Qtde * Unitario : 0;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private components.TextFieldFK txtProduto;
+    private javax.swing.JTextField txtQtde;
     private components.TextFieldFK txtTipoMov;
+    private components.TextFieldValorMonetario txtUnitario;
+    private components.TextFieldValorMonetario txtValor;
     private com.alee.extended.date.WebDateField txt_data_lançamento1;
     private com.alee.laf.label.WebLabel webLabel13;
     // End of variables declaration//GEN-END:variables
