@@ -1,12 +1,16 @@
 package utils;
 
+import dao.CarPessoaDAO;
 import dao.EstCategoriaDAO;
 import dao.EstMarcaDAO;
 import dao.EstProdutoDAO;
+import dao.PatDepreciacaoDAO;
 import dao.PatTipoBaixaDAO;
+import model.CarPessoa;
 import model.EstCategoria;
 import model.EstMarca;
 import model.EstProduto;
+import model.PatDepreciacao;
 import model.PatTipoBaixa;
 
 /**
@@ -19,41 +23,79 @@ public class IniciarDadosPatrimonio {
         addCategoria();
         addMarca();
         addTipoBaixa();
+        addPessoa();
     }
     
     
     public static void addCategoria() {
         EstCategoriaDAO categoriaDAO = new EstCategoriaDAO();
-
+        PatDepreciacaoDAO depreciacaoDAO = new PatDepreciacaoDAO();
+        
+        PatDepreciacao depreciacao = new PatDepreciacao();
         EstCategoria categoria = new EstCategoria();
-
+        
+        //ok
         categoria.setCategoriaDescricao("Móveis");
-        categoriaDAO.Inserir(categoria);
-
+        categoriaDAO.Inserir(categoria); 
+        depreciacao.setEstCategoria(categoria);
+        depreciacao.setDepreciacaoTaxaAnual(10.00);
+        depreciacao.setDepreciacaoVidaUtil(10);
+        depreciacaoDAO.inserir(depreciacao);
+        
+        //ok
         categoria = new EstCategoria();
         categoria.setCategoriaDescricao("Informática");
         categoriaDAO.Inserir(categoria);
-
+        depreciacao.setEstCategoria(categoria);
+        depreciacao.setDepreciacaoTaxaAnual(20.00);
+        depreciacao.setDepreciacaoVidaUtil(5);
+        depreciacaoDAO.inserir(depreciacao);
+        
+        // ok
         categoria = new EstCategoria();
         categoria.setCategoriaDescricao("Automóveis");
         categoriaDAO.Inserir(categoria);
-
+        depreciacao.setEstCategoria(categoria);
+        depreciacao.setDepreciacaoTaxaAnual(20.00);
+        depreciacao.setDepreciacaoVidaUtil(5);
+        depreciacaoDAO.inserir(depreciacao);
+        
+        // ok
         categoria = new EstCategoria();
         categoria.setCategoriaDescricao("Maquinário");
         categoriaDAO.Inserir(categoria);
-
+        depreciacao.setEstCategoria(categoria);
+        depreciacao.setDepreciacaoTaxaAnual(25.00);
+        depreciacao.setDepreciacaoVidaUtil(4);
+        depreciacaoDAO.inserir(depreciacao);
+        
+        // ok
         categoria = new EstCategoria();
         categoria.setCategoriaDescricao("Ferramentas");
         categoriaDAO.Inserir(categoria);
-
+        depreciacao.setEstCategoria(categoria);
+        depreciacao.setDepreciacaoTaxaAnual(20.00);
+        depreciacao.setDepreciacaoVidaUtil(5);
+        depreciacaoDAO.inserir(depreciacao);
+        
+        // ok
         categoria = new EstCategoria();
         categoria.setCategoriaDescricao("Imóveis");
         categoriaDAO.Inserir(categoria);
-
+        depreciacao.setEstCategoria(categoria);
+        depreciacao.setDepreciacaoTaxaAnual(10.00);
+        depreciacao.setDepreciacaoVidaUtil(10);
+        depreciacaoDAO.inserir(depreciacao);
+        
+        //ok
         categoria = new EstCategoria();
         categoria.setCategoriaDescricao("Eletronicos");
         categoriaDAO.Inserir(categoria);
-
+        depreciacao.setEstCategoria(categoria);
+        depreciacao.setDepreciacaoTaxaAnual(20.00);
+        depreciacao.setDepreciacaoVidaUtil(5);
+        depreciacaoDAO.inserir(depreciacao);
+        
     }
 
     public static void addMarca() {
@@ -118,7 +160,40 @@ public class IniciarDadosPatrimonio {
     }
     
     public static void addPessoa(){
+        CarPessoaDAO pessoaDAO = new CarPessoaDAO();
+        CarPessoa pessoa = new CarPessoa();
         
+        pessoa.setPessoaTipo(2);
+        pessoa.setPessoaNome("Larissa Daiane Caneppele Guder");
+        pessoa.setPessoaCpfCnpj("02914266030");
+        pessoa.setPessoaEmail("lariguder@hotmail.com");
+        pessoa.setPessoaFone("92187669");
+        pessoaDAO.insert(pessoa);
+        
+        pessoa = new CarPessoa();
+        pessoa.setPessoaTipo(2);
+        pessoa.setPessoaNome("Claudio Roberto Scheer Jr");
+        pessoa.setPessoaCpfCnpj("03218400429");
+        pessoa.setPessoaEmail("claudioscheer16@gmail.com");
+        pessoa.setPessoaFone("99676593");
+        pessoaDAO.insert(pessoa);
+
+                pessoa = new CarPessoa();
+        pessoa.setPessoaTipo(2);
+        pessoa.setPessoaNome("Elenara Hein");
+        pessoa.setPessoaCpfCnpj("09312944560");
+        pessoa.setPessoaEmail("elenarahein@gmail.com");
+        pessoa.setPessoaFone("99647351");
+        pessoaDAO.insert(pessoa);
+
+        
+        pessoa = new CarPessoa();
+        pessoa.setPessoaTipo(3);
+        pessoa.setPessoaNome("Pitiço on fire Gorros");
+        pessoa.setPessoaCpfCnpj("93812839401938");
+        pessoa.setPessoaEmail("pitiçoonfire@gorros.com");
+        pessoa.setPessoaFone("35251232");
+        pessoaDAO.insert(pessoa);
     }
     
     public static void addProduto(){
@@ -126,6 +201,7 @@ public class IniciarDadosPatrimonio {
         EstProduto produto = new EstProduto();
         produto.setProdutoDescricao("Leite");
         produto.setProdutoReferencia("In Natura");
+        
         
         
         
