@@ -137,7 +137,7 @@ public class PanelConsultaNotaFiscal extends WebPanel {
         o[1] = nota.getNotaDescricao();
         o[2] = Utils.formatData(nota.getNotaDataEmissao());
         o[3] = Utils.formatData(nota.getNotaDataEntrada());
-        o[4] = nota.getCarPessoa().getPessoaNome();
+        o[4] = nota.getCarPessoa() == null ? "" : nota.getCarPessoa().getPessoaNome();
         o[5] = nota.getNotaValor();
         return o;
     }

@@ -12,6 +12,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
+import utils.Utils;
 
 public class RelatoriosPatrimonio {
 
@@ -23,6 +24,11 @@ public class RelatoriosPatrimonio {
 
     public static void relatorioInventario(String titulo) throws JRException {
         List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().buscarAtivosAtivosRelatorio();
+        if (ativos.size() < 1) {
+            utils.Utils.notificacao("Nenhum ativo encontrado!", Utils.TipoNotificacao.erro, 10000);
+            return;
+        }
+        
         JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(ativos);
 
         Map parametros = new HashMap();
@@ -33,6 +39,11 @@ public class RelatoriosPatrimonio {
 
     public static void relatorioAtivoEmBaixa(String titulo) throws JRException {
         List<PatAtivoImobilizado> ativos = new PatAtivoImobilizadoDAO().buscarAtivoEmBaixaRelatorio();
+        if (ativos.size() < 1) {
+            utils.Utils.notificacao("Nenhum ativo em baixa encontrado!", Utils.TipoNotificacao.erro, 10000);
+            return;
+        }
+
         JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(ativos);
 
         Map parametros = new HashMap();

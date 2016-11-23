@@ -86,18 +86,21 @@ public class PanelCadNotaFiscal extends WebPanel {
         this.scrollCadastro.getVerticalScrollBar().setUnitIncrement(20);
 
         this.validador = new Validador(Validador.TipoValidator.ICONE);
-        this.validador.addObrigatorioValidator(txtChaveAcesso);
+        this.validador.addObrigatorioValidator(this.txtChaveAcesso);
+        this.validador.addApenasNumeroValidator(this.txtChaveAcesso);
+        this.validador.addMaxLengthValidator(this.txtChaveAcesso, 44);
+        this.validador.addMinLengthValidator(this.txtChaveAcesso, 44);
         this.validador.addObrigatorioValidator(this.txtDescricao);
-        this.validador.addApenasNumeroValidator(txtValor);
-        this.validador.addObrigatorioValidator(txtFornecedor);
-        this.validador.addObrigatorioValidator(txtDataEmissao);
-        this.validador.addObrigatorioValidator(txtDataEntrada);
+        this.validador.addApenasNumeroValidator(this.txtValor);
+        this.validador.addObrigatorioValidator(this.txtFornecedor);
+        this.validador.addObrigatorioValidator(this.txtDataEmissao);
+        this.validador.addObrigatorioValidator(this.txtDataEntrada);
     }
 
     public void setDadosEditar(PatNotaFiscal notaFiscal) {
         this.notaFiscal = notaFiscal;
         this.editando = true;
-        TableColumnModel tcm = tabelaProdutos.getColumnModel();
+        TableColumnModel tcm = this.tabelaProdutos.getColumnModel();
         tcm.removeColumn(tcm.getColumn(5));
         this.setDadosForm();
     }
@@ -125,7 +128,9 @@ public class PanelCadNotaFiscal extends WebPanel {
         this.txtDescricao.setText(this.notaFiscal.getNotaDescricao());
         this.txtChaveAcesso.setText(this.notaFiscal.getNotaChaveAcesso());
         this.txtValor.setValue(this.notaFiscal.getNotaValor());
-        this.txtFornecedor.setText(this.notaFiscal.getCarPessoa().getPessoaId() + " - " + this.notaFiscal.getCarPessoa().getPessoaNome());
+        if (this.notaFiscal.getCarPessoa() != null) {
+            this.txtFornecedor.setText(this.notaFiscal.getCarPessoa().getPessoaId() + " - " + this.notaFiscal.getCarPessoa().getPessoaNome());
+        }
         this.txtDataEmissao.setDate(this.notaFiscal.getNotaDataEmissao());
         this.txtDataEntrada.setDate(this.notaFiscal.getNotaDataEntrada());
         this.atualizarItensNota();

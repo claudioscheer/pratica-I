@@ -240,8 +240,8 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         Object[] o = new Object[7];
         o[0] = ativo.getAtivoCodigo();
         o[1] = ativo.getAtivoDescricao();
-        o[2] = ativo.getEstCategoria().getCategoriaDescricao();
-        o[3] = ativo.getEstMarca().getMarcaDescricao();
+        o[2] = ativo.getEstCategoria() == null ? "" : ativo.getEstCategoria().getCategoriaDescricao();
+        o[3] = ativo.getEstMarca() == null ? "" : ativo.getEstMarca().getMarcaDescricao();
         o[4] = ativo.getAtivoValorOriginal();
         o[5] = ativo.getAtivoValorAtual();
         o[6] = ativo.getAtivoValorOriginal() - ativo.getAtivoValorAtual();
