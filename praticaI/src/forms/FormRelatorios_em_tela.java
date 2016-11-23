@@ -51,7 +51,7 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
             }
         });
 
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lançamentos", "Estimativa e Mensuração" }));
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Lançamentos", "Estimativas" }));
         cbTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbTipoActionPerformed(evt);
@@ -115,11 +115,19 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
                 Logger.getLogger(FormRelatorios_em_tela.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (cbTipo.getSelectedIndex() == 1) {
-            
-        }
+
+            CarCapContasDAO relatorio = new CarCapContasDAO();
+            List<CarCapContas> dados = relatorio.ListarContas(TipoConta.Saida, txtDataInicial.getDate(), txtDataFinal.getDate());
+
+            RelatoriosContasReceber r = new RelatoriosContasReceber();
+            try {
+                r.geraRelatorioEstimativas(dados, txtDataInicial.getDate(), txtDataFinal.getDate());
+            } catch (JRException ex) {
+                Logger.getLogger(FormRelatorios_em_tela.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
     }//GEN-LAST:event_webButton1ActionPerformed
-
+    }
     private void cbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbTipoActionPerformed
