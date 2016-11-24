@@ -86,18 +86,20 @@ public class EstMovimentacaoDAO
         return mov;
     }
 
-    public void GerarRelatorioMovimentacoes(EstProduto produto) {
+    public void GerarRelatorioMovimentacoes(EstProduto produto)
+    {
         Session session = HibernateUtil.getSessionFactory().openSession();
         //String hql = "from EstMovimentacao where produtoId = :produtoId";        
         String hql = "from EstProduto where produtoId = :produtoId";
-        Query q = session.createQuery(hql);                              
-        q.setParameter("produtoId", produto.getProdutoId());        
+        Query q = session.createQuery(hql);
+        q.setParameter("produtoId", produto.getProdutoId());
         EstProduto prod = (EstProduto) session.get(EstProduto.class, produto.getProdutoId());
         Set<EstMovimentacao> listaMov = prod.getEstMovimentacaos();
         JRBeanCollectionDataSource jrs = new JRBeanCollectionDataSource(listaMov);
         Map parametros = new HashMap();
         parametros.put("produtoId", produto.getProdutoId());
-        try {
+        try
+        {
             JasperPrint jpr = JasperFillManager.fillReport("src/relatorios/estoque/RelatorioMovimentacao1_1.jasper", parametros, jrs);
             JasperViewer.viewReport(jpr, true);
         } catch (JRException ex)
@@ -229,6 +231,11 @@ public class EstMovimentacaoDAO
             return false;
         }
 
+    }
+
+    public static String format(double x)
+    {
+        return String.format("%.2f", x);
     }
 
 }
