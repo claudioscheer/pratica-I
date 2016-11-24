@@ -34,6 +34,7 @@ public class ExportacaoParaExcel {
     private final FlxcxOperacoesDAO operacoesDao = new FlxcxOperacoesDAO();
     private final FlxcxEspecificacoesDAO especificacaoDAO = new FlxcxEspecificacoesDAO();
     private final CarCapContasDAO contasDAO = new CarCapContasDAO();
+    private int linhaCabecalho = 0;
 
     public void Exportar(String nomeArquivo, Date dataInicial, Date dataFinal, FiltroData filtroData) {
 
@@ -56,6 +57,8 @@ public class ExportacaoParaExcel {
 
             int coluna = 3;
 
+            this.linhaCabecalho = linha;
+
             ArrayList<String> colunasExcel = RetornaColunas(filtroData, dataInicial, dataFinal);
 
             for (String item : colunasExcel) {
@@ -65,18 +68,17 @@ public class ExportacaoParaExcel {
                 coluna += 1;
             }
 
-            switch (filtroData){
-                
-                case Diario: 
+            switch (filtroData) {
+
+                case Diario:
                     this.ExportacaoDiaria(dataInicial, dataFinal, row, linha);
                     break;
-                
-                case Mensal: 
+
+                case Mensal:
                     this.ExportacaoMensal(dataInicial, dataFinal, row, linha);
                     break;
-            
+
             }
-            
 
             this.workbook.write(arquivo);
             arquivo.close();
@@ -144,7 +146,7 @@ public class ExportacaoParaExcel {
 
                 break;
 
-            case Mensal: 
+            case Mensal:
 
                 colunas.add("Janeiro");
                 colunas.add("Fevereiro");
@@ -161,7 +163,7 @@ public class ExportacaoParaExcel {
 
                 break;
 
-            case Anual: 
+            case Anual:
 
                 sdf = new SimpleDateFormat("yyyy");
                 int anoInicio = Integer.valueOf(sdf.format(dataInicial));
@@ -198,8 +200,9 @@ public class ExportacaoParaExcel {
 
     private void ExportacaoMensal(Date dataInicial, Date dataFinal, HSSFRow row, int linha) {
 
-        double totalEntradas;
-        double totalSaidas;
+        double totalEntradas = 0;
+        double totalSaidas = 0;
+        int mes = 0;
 
         List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
 
@@ -221,7 +224,7 @@ public class ExportacaoParaExcel {
                 for (CarCapContas conta : contas) {
 
                     SimpleDateFormat sdf = new SimpleDateFormat("MM");
-                    int mes = Integer.valueOf(sdf.format(conta.getContaDataEmissao()));
+                    mes = Integer.valueOf(sdf.format(conta.getContaDataEmissao()));
 
                     if (mostrar) {
 
@@ -317,6 +320,50 @@ public class ExportacaoParaExcel {
                     }
                 }
 
+                if (totalEntradas != 0 || totalSaidas != 0) {
+                    switch (mes) {
+
+                        case 1:
+                            this.AdicionaLinha(row, 3, (totalEntradas - totalSaidas));
+                            break;
+                        case 2:
+                            this.AdicionaLinha(row, 4, (totalEntradas - totalSaidas));
+                            break;
+                        case 3:
+                            this.AdicionaLinha(row, 5, (totalEntradas - totalSaidas));
+                            break;
+                        case 4:
+                            this.AdicionaLinha(row, 6, (totalEntradas - totalSaidas));
+                            break;
+                        case 5:
+                            this.AdicionaLinha(row, 7, (totalEntradas - totalSaidas));
+                            break;
+                        case 6:
+                            this.AdicionaLinha(row, 8, (totalEntradas - totalSaidas));
+                            break;
+                        case 7:
+                            this.AdicionaLinha(row, 9, (totalEntradas - totalSaidas));
+                            break;
+                        case 8:
+                            this.AdicionaLinha(row, 10, (totalEntradas - totalSaidas));
+                            break;
+                        case 9:
+                            this.AdicionaLinha(row, 11, (totalEntradas - totalSaidas));
+                            break;
+                        case 10:
+                            this.AdicionaLinha(row, 12, (totalEntradas - totalSaidas));
+                            break;
+                        case 11:
+                            this.AdicionaLinha(row, 13, (totalEntradas - totalSaidas));
+                            break;
+                        case 12:
+                            this.AdicionaLinha(row, 14, (totalEntradas - totalSaidas));
+                            break;
+
+                    }
+
+                }
+
             }
 
         }
@@ -376,14 +423,12 @@ public class ExportacaoParaExcel {
 
                         dataAnterior = conta.getContaDataEmissao();
 
-                        
-
                         this.AdicionaLinha(row, coluna, (totalEntradas - totalSaidas));
                         coluna += 1;
 
                         totalEntradas = 0;
                         totalSaidas = 0;
-                        
+
                         //Isso tem que ser repetido, pois quando vier a nova data deve contar junto depois que adicionou a antiga
                         //Realiza soma
                         if (conta.getContaTipo() == TipoConta.Entrada) {
