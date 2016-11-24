@@ -70,8 +70,8 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
 
     private void loadSaldo() {
         this.lblValorSaldo.setText("...");
-        this.lblValorSaldo.setForeground(Color.BLACK);
-        this.setSaldo();
+        this.lblValorSaldo.setForeground(Utils.CoresPadrao.fundoDesktop);
+//        this.setSaldo();
     }
 
     private void setSaldo() {
@@ -123,7 +123,7 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
 
             this.saldo = saldoAtual.getFechSaldoDisponivel();
 
-            this.loadSaldo();
+            this.setSaldo();
 
         });
         
