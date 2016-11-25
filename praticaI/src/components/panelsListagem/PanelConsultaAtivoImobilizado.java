@@ -16,10 +16,12 @@ import forms.patrimonio.FormReavaliarAtivo;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 import model.PatAtivoImobilizado;
 import model.PatBaixa;
+import model.PatHistoricoDepreciacao;
 import net.sf.jasperreports.engine.JRException;
 import utils.Utils;
 
@@ -97,7 +99,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
             formBloquear.setEnabled(false);
         });
         popupMenuOpcoes.add(menuQrCode);
-        
+
         WebMenuItem menuReavaliarAtivo = new WebMenuItem("Reavaliar ativo", Hotkey.NUMBER_2);
         menuReavaliarAtivo.addActionListener((e) -> {
             int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
@@ -105,7 +107,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
                 Utils.notificacao("Selecione um ativo imobilizado!", Utils.TipoNotificacao.erro, 0);
                 return;
             }
-            
+
             PatAtivoImobilizado ativo = this.ativosImobilizados.get(linhaselecionada);
             FormReavaliarAtivo form = new FormReavaliarAtivo();
             form.setAtivoImobilizado(ativo, this);
@@ -261,8 +263,14 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         o[3] = ativo.getEstMarca() == null ? "" : ativo.getEstMarca().getMarcaDescricao();
         o[4] = Utils.formatDouble.format(ativo.getAtivoValorOriginal());
         o[5] = Utils.formatDouble.format(ativo.getAtivoValorAtual());
-        o[6] = Utils.formatDouble.format(ativo.getAtivoValorOriginal() - ativo.getAtivoValorAtual());
+        o[6] = Utils.formatDouble.format(this.valorJaDepreciado(ativo));
         return o;
+    }
+
+    private double valorJaDepreciado(PatAtivoImobilizado ativo) {
+        double valor = ativo.getPatHistoricoDepreciacaos().stream().collect(
+                Collectors.summingDouble(PatHistoricoDepreciacao::getHistoricoDepreciacaoValor));
+        return valor;
     }
 
     public void setEvents(ActionListener add, ActionListener edit) {

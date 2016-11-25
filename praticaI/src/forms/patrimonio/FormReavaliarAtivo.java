@@ -170,14 +170,20 @@ public class FormReavaliarAtivo extends javax.swing.JFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
+        double valor = this.txtNovoValor.getValue();
+        if (valor <= 0) {
+            Utils.notificacao("O valor precisa ser maior que 0!", Utils.TipoNotificacao.erro, 10000);
+            return;
+        }
+
         Calendar c = Calendar.getInstance();
         c.setTime(this.txtDataReavaliacao.getDate());
 
         PatHistoricoDepreciacao historicoDepreciacao = new PatHistoricoDepreciacao();
 
-        this.ativoImobilizado.setAtivoValorAtual(this.txtNovoValor.getValue());
+        this.ativoImobilizado.setAtivoValorAtual(valor);
 
-        historicoDepreciacao.setHistoricoDepreciacaoDescricao("Reavaliação do ativo no valor de " + this.ativoImobilizado.getAtivoValorAtual());
+        historicoDepreciacao.setHistoricoDepreciacaoDescricao("Reavaliação do ativo no valor de " + valor);
         historicoDepreciacao.setHistoricoDepreciacaoDia(c.getTime());
         historicoDepreciacao.setHistoricoDepreciacaoAno(c.get(Calendar.YEAR));
         historicoDepreciacao.setHistoricoDepreciacaoMes(c.get(Calendar.MONTH));
@@ -188,9 +194,9 @@ public class FormReavaliarAtivo extends javax.swing.JFrame {
 
         Utils.notificacao("Ativo reavaliado", Utils.TipoNotificacao.ok, 0);
         this.panelConsultaAtivoImobilizado.resetBusca();
-        this.dispose();
-
         FormPrincipal.getInstance().setEnabled(true);
+
+        this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
