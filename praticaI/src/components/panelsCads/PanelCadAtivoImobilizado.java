@@ -39,8 +39,8 @@ public class PanelCadAtivoImobilizado extends WebPanel {
     private void setDadosForm() {
         this.txtDescricao.setText(this.ativoImobilizado.getAtivoDescricao());
         this.txtCategoria.setValue(this.ativoImobilizado.getEstCategoria());
-        this.txtCategoria.setText(this.ativoImobilizado.getEstCategoria().getCategoriaDescricao()
-                + " - " + this.ativoImobilizado.getEstCategoria().getCategoriaId());
+        this.txtCategoria.setText(this.ativoImobilizado.getEstCategoria().getCategoriaId()
+                + " - " + this.ativoImobilizado.getEstCategoria().getCategoriaDescricao());
         this.txtMarca.setValue(this.ativoImobilizado.getEstMarca());
         this.txtMarca.setText(this.ativoImobilizado.getEstMarca().getMarcaId()
                 + " - " + this.ativoImobilizado.getEstMarca().getMarcaDescricao());
