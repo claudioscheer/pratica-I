@@ -656,7 +656,7 @@ public class FormContaReceber extends WebInternalFrame {
         } else if (combo_tip_lancamento.getSelectedIndex() == 1) {
             tipoConta = TipoConta.Saida;
         }
-        conta.setTipoDeConta(tipoConta);
+       
 
         //        Utils.notificacao("Valor: " + String.valueOf(conta.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
         String[] txt = txt_busca_produto.getText().split("-");
@@ -733,7 +733,13 @@ public class FormContaReceber extends WebInternalFrame {
                 //pegar data lançamento
             }
 
-            double valorParcela = Double.parseDouble(fieldValorParcela.getText());
+            String ValorDaParcela = fieldValorParcela.getText();
+            
+             ValorDaParcela = ValorDaParcela.replace(".", "");
+        ValorDaParcela = ValorDaParcela.replace(",", ".");
+            
+            double valorParcela = Double.parseDouble(ValorDaParcela);
+            
             conta02.setContaValorPago(valorParcela);
 
             // pega o produto
@@ -774,9 +780,12 @@ public class FormContaReceber extends WebInternalFrame {
             
              String g = fieldValorTotal.getText();
         
-       
+       g = g.replace(".", "");
+        g = g.replace(",", ".");
        
         double valor_total = FormataValor(Double.parseDouble(g));
+        
+        conta02.setContaValorTotal(valorTotal);
     
             if (valorecebido < valorParcela) {
                 conta02.setCapContaStatus(StatusConta.Pendente);
