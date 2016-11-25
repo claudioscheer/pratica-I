@@ -10,37 +10,38 @@ import model.CarPessoa;
 import model.EstCategoria;
 import model.EstMarca;
 import model.EstProduto;
+import model.EstUnidadeMedida;
 import model.PatDepreciacao;
 import model.PatTipoBaixa;
 
 public class IniciarDadosPatrimonio {
 
     public static void main(String[] args) {
+        
+        
         addCategoria();
         addMarca();
-        addTipoBaixa();
         addPessoa();
-        
+        addTipoBaixa();
+        addProduto();
+               
         System.exit(0);
     }
-    
-    
+
     public static void addCategoria() {
         EstCategoriaDAO categoriaDAO = new EstCategoriaDAO();
         PatDepreciacaoDAO depreciacaoDAO = new PatDepreciacaoDAO();
-        
+
         PatDepreciacao depreciacao = new PatDepreciacao();
         EstCategoria categoria = new EstCategoria();
-        
-        //ok
+
         categoria.setCategoriaDescricao("Móveis");
-        categoriaDAO.Inserir(categoria); 
+        categoriaDAO.Inserir(categoria);
         depreciacao.setEstCategoria(categoria);
         depreciacao.setDepreciacaoTaxaAnual(10.00);
         depreciacao.setDepreciacaoVidaUtil(10);
         depreciacaoDAO.inserir(depreciacao);
-        
-        //ok
+
         categoria = new EstCategoria();
         categoria.setCategoriaDescricao("Informática");
         categoriaDAO.Inserir(categoria);
@@ -48,8 +49,7 @@ public class IniciarDadosPatrimonio {
         depreciacao.setDepreciacaoTaxaAnual(20.00);
         depreciacao.setDepreciacaoVidaUtil(5);
         depreciacaoDAO.inserir(depreciacao);
-        
-        // ok
+
         categoria = new EstCategoria();
         categoria.setCategoriaDescricao("Automóveis");
         categoriaDAO.Inserir(categoria);
@@ -57,8 +57,7 @@ public class IniciarDadosPatrimonio {
         depreciacao.setDepreciacaoTaxaAnual(20.00);
         depreciacao.setDepreciacaoVidaUtil(5);
         depreciacaoDAO.inserir(depreciacao);
-        
-        // ok
+
         categoria = new EstCategoria();
         categoria.setCategoriaDescricao("Maquinário");
         categoriaDAO.Inserir(categoria);
@@ -66,8 +65,7 @@ public class IniciarDadosPatrimonio {
         depreciacao.setDepreciacaoTaxaAnual(25.00);
         depreciacao.setDepreciacaoVidaUtil(4);
         depreciacaoDAO.inserir(depreciacao);
-        
-        // ok
+
         categoria = new EstCategoria();
         categoria.setCategoriaDescricao("Ferramentas");
         categoriaDAO.Inserir(categoria);
@@ -75,8 +73,7 @@ public class IniciarDadosPatrimonio {
         depreciacao.setDepreciacaoTaxaAnual(20.00);
         depreciacao.setDepreciacaoVidaUtil(5);
         depreciacaoDAO.inserir(depreciacao);
-        
-        // ok
+
         categoria = new EstCategoria();
         categoria.setCategoriaDescricao("Imóveis");
         categoriaDAO.Inserir(categoria);
@@ -84,8 +81,7 @@ public class IniciarDadosPatrimonio {
         depreciacao.setDepreciacaoTaxaAnual(10.00);
         depreciacao.setDepreciacaoVidaUtil(10);
         depreciacaoDAO.inserir(depreciacao);
-        
-        //ok
+
         categoria = new EstCategoria();
         categoria.setCategoriaDescricao("Eletronicos");
         categoriaDAO.Inserir(categoria);
@@ -93,7 +89,7 @@ public class IniciarDadosPatrimonio {
         depreciacao.setDepreciacaoTaxaAnual(20.00);
         depreciacao.setDepreciacaoVidaUtil(5);
         depreciacaoDAO.inserir(depreciacao);
-        
+
     }
 
     public static void addMarca() {
@@ -156,18 +152,18 @@ public class IniciarDadosPatrimonio {
         tipoBaixa.setTipoBaixaDescricao("Mercado Negro");
         tipoBaixaDAO.inserir(tipoBaixa);
     }
-    
-    public static void addPessoa(){
+
+    public static void addPessoa() {
         CarPessoaDAO pessoaDAO = new CarPessoaDAO();
         CarPessoa pessoa = new CarPessoa();
-        
+
         pessoa.setPessoaTipo(2);
         pessoa.setPessoaNome("Larissa Daiane Caneppele Guder");
         pessoa.setPessoaCpfCnpj("02914266030");
         pessoa.setPessoaEmail("lariguder@hotmail.com");
         pessoa.setPessoaFone("92187669");
         pessoaDAO.insert(pessoa);
-        
+
         pessoa = new CarPessoa();
         pessoa.setPessoaTipo(2);
         pessoa.setPessoaNome("Claudio Roberto Scheer Jr");
@@ -176,7 +172,7 @@ public class IniciarDadosPatrimonio {
         pessoa.setPessoaFone("99676593");
         pessoaDAO.insert(pessoa);
 
-                pessoa = new CarPessoa();
+        pessoa = new CarPessoa();
         pessoa.setPessoaTipo(2);
         pessoa.setPessoaNome("Elenara Hein");
         pessoa.setPessoaCpfCnpj("09312944560");
@@ -184,24 +180,32 @@ public class IniciarDadosPatrimonio {
         pessoa.setPessoaFone("99647351");
         pessoaDAO.insert(pessoa);
 
-        
         pessoa = new CarPessoa();
         pessoa.setPessoaTipo(3);
-        pessoa.setPessoaNome("Pitiço on fire Gorros");
+        pessoa.setPessoaNome("Pitiço on fire");
         pessoa.setPessoaCpfCnpj("93812839401938");
         pessoa.setPessoaEmail("pitiçoonfire@gorros.com");
         pessoa.setPessoaFone("35251232");
         pessoaDAO.insert(pessoa);
     }
-    
-    public static void addProduto(){
+
+    public static void addProduto() {
         EstProdutoDAO produtoDAO = new EstProdutoDAO();
+        
         EstProduto produto = new EstProduto();
-        produto.setProdutoDescricao("Leite");
-        produto.setProdutoReferencia("In Natura");
-        
-        
-        
+        EstMarca marca = new EstMarca();
+        EstCategoria categoria = new EstCategoria();
+        EstUnidadeMedida unidadeMedida = new EstUnidadeMedida();
+        marca.setMarcaId(4);
+        categoria.setCategoriaId(5);
+        unidadeMedida.setUnidadeMedidaId(1);
+        produto.setProdutoDescricao("Chave de Fenda");
+        produto.setProdutoReferencia("Chaves");
+        produto.setProdutoStatus(0);
+        produto.setEstMarca(marca);
+        produto.setEstCategoria(categoria);
+        produto.setEstUnidadeMedida(unidadeMedida);
+        produtoDAO.insert(produto);
         
     }
     
