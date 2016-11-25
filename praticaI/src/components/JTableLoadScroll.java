@@ -82,6 +82,7 @@ public class JTableLoadScroll extends JScrollPane implements ChangeListener {
             }
             // do stuff with each visible row
         }
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
         if (last == this.table.getModel().getRowCount() - 1) {
             // load more data

@@ -55,7 +55,7 @@ public class PatAtivoImobilizadoDAO {
         }
         return true;
     }
-
+ 
     public List<PatAtivoImobilizado> buscarTodos(int paginaBuscar, int indexfiltro, String filtro) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
