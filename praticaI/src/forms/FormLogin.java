@@ -5,8 +5,11 @@ import com.alee.laf.WebLookAndFeel;
 import com.alee.managers.language.LanguageManager;
 import com.alee.utils.ThreadUtils;
 import components.Validador;
+import dao.CarPessoaDAO;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import model.CarPessoa;
+import utils.Utils;
 
 public class FormLogin extends javax.swing.JFrame {
 
@@ -20,17 +23,11 @@ public class FormLogin extends javax.swing.JFrame {
 
     public void initValidador() {
         this.validador = new Validador(Validador.TipoValidator.TEXTO);
-        validador.addObrigatorioValidator(txtUsuario);
-        validador.addObrigatorioValidator(txtSenha);
+        this.validador.addObrigatorioValidator(this.txtUsuario);
+        this.validador.addObrigatorioValidator(this.txtSenha);
 
-        validador.addMaxLengthValidator(txtUsuario, 30);
-        validador.addMaxLengthValidator(txtSenha, 30);
-        
-        validador.addValidador(txtUsuario, s -> valida(s), "nao deu");
-    }
-
-    private boolean valida(String s) {
-        return false;
+        this.validador.addMaxLengthValidator(this.txtUsuario, 30);
+        this.validador.addMaxLengthValidator(this.txtSenha, 30);
     }
 
     @SuppressWarnings("unchecked")
@@ -42,11 +39,10 @@ public class FormLogin extends javax.swing.JFrame {
         btnLogar = new com.alee.laf.button.WebButton();
         btnEsqueciSenha = new com.alee.laf.button.WebButton();
         txtUsuario = new javax.swing.JTextField();
-        txtSenha = new javax.swing.JTextField();
+        txtSenha = new com.alee.laf.text.WebPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
-        setMaximumSize(new java.awt.Dimension(423, 205));
         setMinimumSize(new java.awt.Dimension(423, 205));
         setResizable(false);
 
@@ -72,7 +68,7 @@ public class FormLogin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSenha)
+                    .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtUsuario)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 180, Short.MAX_VALUE)
@@ -97,35 +93,47 @@ public class FormLogin extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLogar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEsqueciSenha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
-
         if (!this.validador.isValid()) {
             return;
         }
 
-        this.startCarregandoSistema();
+        CarPessoa pessoa = new CarPessoaDAO().buscarPessoaPeloLogin(this.txtUsuario.getText());
+        if (pessoa == null) {
+            this.txtUsuario.setText("");
+            this.txtSenha.setText("");
+            utils.Utils.notificacao("Usuário não encontrado!", Utils.TipoNotificacao.erro, 20000);
+            return;
+        }
+
+        if (pessoa.getPessoaSenha() != null && pessoa.getPessoaSenha().equals(this.txtSenha.getText())) {
+            this.startCarregandoSistema(pessoa.getPessoaNome());
+        } else {
+            Utils.notificacao("Senha incorreta!", Utils.TipoNotificacao.erro, 20000);
+            this.txtSenha.setText("");
+        }
     }//GEN-LAST:event_btnLogarActionPerformed
 
-    private void startCarregandoSistema() {
+    private void startCarregandoSistema(String nomeUsuario) {
 
         final WebProgressDialog progress = new WebProgressDialog(this, "");
         progress.setText("Configurando sistema...");
 
-        fechouProgress = false;
+        this.fechouProgress = false;
 
         final Thread t = new Thread(() -> {
 
-            for (int i = 0; i <= 100 && !fechouProgress; i++) {
+            for (int i = 0; i <= 100 && !this.fechouProgress; i++) {
                 ThreadUtils.sleepSafely(20);
                 progress.setProgress(i);
                 switch (i) {
@@ -140,9 +148,9 @@ public class FormLogin extends javax.swing.JFrame {
                 }
             }
 
-            if (!fechouProgress) {
+            if (!this.fechouProgress) {
                 progress.setVisible(false);
-                FormPrincipal.start();
+                FormPrincipal.start(nomeUsuario);
                 this.dispose();
             }
         });
@@ -185,7 +193,7 @@ public class FormLogin extends javax.swing.JFrame {
     private com.alee.laf.button.WebButton btnLogar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txtSenha;
+    private com.alee.laf.text.WebPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

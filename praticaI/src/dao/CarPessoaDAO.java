@@ -6,6 +6,7 @@
 package dao;
 
 import enumeraveis.TipoConta;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.CarCapContas;
@@ -21,9 +22,9 @@ import utils.HibernateUtil;
  * @author Marcos
  */
 public class CarPessoaDAO {
-    
+
     public Boolean update(CarPessoa pessoa) {
-        
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.update(pessoa);
@@ -33,7 +34,7 @@ public class CarPessoaDAO {
     }
 
     public Boolean insert(CarPessoa pessoa) {
-        
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.save(pessoa);
@@ -43,7 +44,7 @@ public class CarPessoaDAO {
     }
 
     public Boolean delete(CarPessoa pessoa) {
-        
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         session.delete(pessoa);
@@ -53,35 +54,53 @@ public class CarPessoaDAO {
     }
 
     public CarPessoa ListarId(int codigo) {
-     
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        
-    try{
 
-        CarPessoa carpessoa = (CarPessoa) session.get(CarPessoa.class, codigo);
+        try {
 
-        return carpessoa;
-        
-    }catch (HibernateException e) {
+            CarPessoa carpessoa = (CarPessoa) session.get(CarPessoa.class, codigo);
+
+            return carpessoa;
+
+        } catch (HibernateException e) {
             throw e;
         } finally {
             session.close();
         }
 
     }
-    
+
     public List<CarPessoa> ListarTodos() {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("from CarPessoa as a");
- 
+
         List<CarPessoa> pessoa = query.list();
         session.getTransaction().commit();
         session.close();
         return pessoa;
     }
 
-    
+    public CarPessoa buscarPessoaPeloLogin(String login) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        List<CarPessoa> pessoa = new ArrayList<>();
+        try {
+            Query query = session.createQuery("FROM CarPessoa p WHERE p.pessoaLogin = :usuario");
+            query.setParameter("usuario", login);
+            pessoa = query.list();
+            session.getTransaction().commit();
+        } catch (HibernateException e) {
+        } finally {
+            session.close();
+        }
+        if (pessoa.size() > 0) {
+            return pessoa.get(0);
+        }
+        return null;
+    }
+
 }

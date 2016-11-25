@@ -1,16 +1,13 @@
 package forms;
 
 import forms.patrimonio.FormNotaFiscal;
-import forms.patrimonio.FormAtivoImobilizado;
 import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.desktoppane.WebDesktopPane;
 import com.alee.managers.language.LanguageManager;
 import components.MoverComponente;
 import components.IconDesktop;
-import components.PanelNotificacoes;
 import components.PanelWidgetSaldo;
 import forms.patrimonio.FormAtivoImobilizado;
-import forms.patrimonio.FormDepreciar;
 import utils.Utils;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
@@ -22,12 +19,10 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 public class FormPrincipal extends javax.swing.JFrame {
 
     private static FormPrincipal instance = null;
-    private PanelNotificacoes notificacoes;
     private PanelWidgetSaldo saldo;
 
     public FormPrincipal() {
@@ -48,10 +43,6 @@ public class FormPrincipal extends javax.swing.JFrame {
     public static void setBloqueado(boolean bloqueado) {
         FormPrincipal f = getInstance();
         f.setEnabled(!bloqueado);
-    }
-
-    public void setQntdNotificacoes(String qntd) {
-        this.lblQntdNotificacoes.setText(qntd);
     }
 
     private void loadComponents() {
@@ -91,33 +82,31 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         this.panelInformacoes.setBackground(Utils.CoresPadrao.fundoPadrao);
 
-        this.lblNotificacoes.setIcon(Utils.getImage(Utils.Image.notificacao));
-
     }
 
-    public void toggleNotificacoes() {
-        if (!this.notificacoes.isOpen) {
-            int w = this.desktopPanel.getWidth() / 4;
-            int h = this.desktopPanel.getHeight();
-            int x = this.desktopPanel.getWidth() - w;
-            this.notificacoes.setBounds(x + 3, 15, w, h - 12);
-            this.desktopPanel.add(this.notificacoes);
-            this.desktopPanel.setComponentZOrder(this.notificacoes, 1);
-        } else {
-            this.desktopPanel.remove(this.notificacoes);
-            this.desktopPanel.repaint();
-        }
-        this.notificacoes.isOpen = !this.notificacoes.isOpen;
-    }
+//    public void toggleNotificacoes() {
+//        if (!this.notificacoes.isOpen) {
+//            int w = this.desktopPanel.getWidth() / 4;
+//            int h = this.desktopPanel.getHeight();
+//            int x = this.desktopPanel.getWidth() - w;
+//            this.notificacoes.setBounds(x + 3, 15, w, h - 12);
+//            this.desktopPanel.add(this.notificacoes);
+//            this.desktopPanel.setComponentZOrder(this.notificacoes, 1);
+//        } else {
+//            this.desktopPanel.remove(this.notificacoes);
+//            this.desktopPanel.repaint();
+//        }
+//        this.notificacoes.isOpen = !this.notificacoes.isOpen;
+//    }
 
-    private void carrregarNotificacoes() {
-        if (this.notificacoes == null) {
-            this.notificacoes = new PanelNotificacoes();
-            this.notificacoes.setVisible(false);
-            this.lblNotificacoes.setVisible(false);
-            this.lblQntdNotificacoes.setVisible(false);
-        }
-    }
+//    private void carrregarNotificacoes() {
+//        if (this.notificacoes == null) {
+//            this.notificacoes = new PanelNotificacoes();
+//            this.notificacoes.setVisible(false);
+//            this.lblNotificacoes.setVisible(false);
+//            this.lblQntdNotificacoes.setVisible(false);
+//        }
+//    }
 
     private void loadNotaFiscal() {
 
@@ -285,6 +274,10 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.desktopPanel.add(iconDesktop);
     }
 
+    public void setNomeUsuario(String nomeUsuario) {
+        this.lblNomeUsuario.setText(nomeUsuario);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -294,9 +287,6 @@ public class FormPrincipal extends javax.swing.JFrame {
         panelInformacoes = new javax.swing.JPanel();
         lblNomeUsuario = new javax.swing.JLabel();
         labelBorda = new javax.swing.JLabel();
-        panelDetalhesNotificacao = new javax.swing.JPanel();
-        lblNotificacoes = new javax.swing.JLabel();
-        lblQntdNotificacoes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(778, 508));
@@ -309,49 +299,9 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         lblNomeUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblNomeUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        lblNomeUsuario.setText("Claudio Scheer (ADMIN)");
 
         labelBorda.setBackground(new java.awt.Color(153, 153, 153));
         labelBorda.setOpaque(true);
-
-        panelDetalhesNotificacao.setOpaque(false);
-
-        lblNotificacoes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblNotificacoes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblNotificacoesMouseClicked(evt);
-            }
-        });
-
-        lblQntdNotificacoes.setBackground(new java.awt.Color(255, 255, 255));
-        lblQntdNotificacoes.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        lblQntdNotificacoes.setForeground(new java.awt.Color(255, 0, 0));
-        lblQntdNotificacoes.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-
-        javax.swing.GroupLayout panelDetalhesNotificacaoLayout = new javax.swing.GroupLayout(panelDetalhesNotificacao);
-        panelDetalhesNotificacao.setLayout(panelDetalhesNotificacaoLayout);
-        panelDetalhesNotificacaoLayout.setHorizontalGroup(
-            panelDetalhesNotificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDetalhesNotificacaoLayout.createSequentialGroup()
-                .addComponent(lblNotificacoes, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelDetalhesNotificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDetalhesNotificacaoLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(lblQntdNotificacoes)
-                    .addGap(5, 5, 5)))
-        );
-        panelDetalhesNotificacaoLayout.setVerticalGroup(
-            panelDetalhesNotificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDetalhesNotificacaoLayout.createSequentialGroup()
-                .addGap(1, 1, 1)
-                .addComponent(lblNotificacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelDetalhesNotificacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDetalhesNotificacaoLayout.createSequentialGroup()
-                    .addGap(0, 0, 0)
-                    .addComponent(lblQntdNotificacoes)
-                    .addGap(0, 0, 0)))
-        );
 
         javax.swing.GroupLayout panelInformacoesLayout = new javax.swing.GroupLayout(panelInformacoes);
         panelInformacoes.setLayout(panelInformacoesLayout);
@@ -360,9 +310,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             .addGroup(panelInformacoesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelDetalhesNotificacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5))
+                .addGap(5, 821, Short.MAX_VALUE))
             .addComponent(labelBorda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelInformacoesLayout.setVerticalGroup(
@@ -370,9 +318,7 @@ public class FormPrincipal extends javax.swing.JFrame {
             .addGroup(panelInformacoesLayout.createSequentialGroup()
                 .addComponent(labelBorda, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addGroup(panelInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                    .addComponent(panelDetalhesNotificacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(lblNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -397,11 +343,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblNotificacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotificacoesMouseClicked
-        this.toggleNotificacoes();
-    }//GEN-LAST:event_lblNotificacoesMouseClicked
-
-    public static void start() {
+    public static void start(String nomeUsuario) {
 
         WebLookAndFeel.setDecorateAllWindows(true);
         WebLookAndFeel.setDecorateDialogs(true);
@@ -419,11 +361,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         frame.setMaximizedBounds(r);
         frame.setExtendedState(frame.getState() | JFrame.MAXIMIZED_BOTH);
         frame.loadComponents();
-        frame.carrregarNotificacoes();
-    }
-
-    public static void main(String[] args) {
-        start();
+        //frame.carrregarNotificacoes();
+        frame.setNomeUsuario(nomeUsuario);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -431,9 +370,6 @@ public class FormPrincipal extends javax.swing.JFrame {
     private com.alee.extended.image.WebImage imageBackgroud;
     private javax.swing.JLabel labelBorda;
     private javax.swing.JLabel lblNomeUsuario;
-    private javax.swing.JLabel lblNotificacoes;
-    private javax.swing.JLabel lblQntdNotificacoes;
-    private javax.swing.JPanel panelDetalhesNotificacao;
     private javax.swing.JPanel panelInformacoes;
     // End of variables declaration//GEN-END:variables
 }
