@@ -12,6 +12,7 @@ import com.alee.laf.table.WebTable;
 import com.alee.managers.language.LanguageManager;
 import com.alee.managers.notification.NotificationManager;
 import com.alee.managers.notification.WebNotification;
+import static com.alee.managers.style.SupportedComponent.scrollPane;
 import components.panelsListagem.PanelConsultaAtivoImobilizado;
 import dao.CarCapContasDAO;
 import dao.ExportacaoParaExcel;
@@ -29,11 +30,15 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import model.CarCapContas;
 import dao.Graficos;
+import dao.ColorCells;
 import dao.PatAtivoImobilizadoDAO;
 import enumeraveis.FiltroData;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.persistence.Table;
 import javax.swing.SwingWorker;
+import javax.swing.table.TableCellRenderer;
 import model.FlxcxFluxoCaixaFechamento;
 import model.PatAtivoImobilizado;
 import relatorios.relatorioFluxoDeCaixa.Relatorios;
@@ -82,8 +87,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
         verificaTipoGrafico(TipoConta.ambos, 1, FiltroData.Mensal);
 
-
-
         grapBarras.setSelected(true);
         grapBarras.setIcon(Utils.getImage(Utils.Image.barraMarcado));
 
@@ -101,7 +104,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             int ano = Integer.valueOf(new SimpleDateFormat("YYYY").format(cIni.getTime()));
 
             FlxcxFluxoCaixaFechamento caixa = new FlxcxFluxoCaixaFechamentoDAO().BuscarSaldoMes(mes, ano);
-            
+
             txtTotalDisponivelCaixa.setText(title);
 
         });
@@ -119,7 +122,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         webTable1 = new com.alee.laf.table.WebTable();
         WebPanelGrafico = new com.alee.extended.breadcrumb.WebBreadcrumbPanel();
-        webPanel_Tabela = new components.JTableLoadScroll();
+        webPanel_Tabela = new com.alee.laf.panel.WebPanel();
         webBreadcrumb1 = new com.alee.extended.breadcrumb.WebBreadcrumb();
         webLabel1 = new com.alee.laf.label.WebLabel();
         webLabel2 = new com.alee.laf.label.WebLabel();
@@ -248,6 +251,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
         webLabel2.setText("Data Final:");
 
+        txtDataInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         txtDataInicial.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtDataInicialCaretUpdate(evt);
@@ -301,6 +305,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             }
         });
 
+        txtDataFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
         txtDataFinal.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtDataFinalFocusGained(evt);
@@ -680,7 +685,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
             CarregarGraficoJTable(null, null, 3, TipoConta.ambos, dataInicial, dataFinal, null);
 
-            atualizarTabela();
+//            atualizarTabela();
 
             return null;
         }
@@ -692,16 +697,16 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     }
 
-    private void atualizarTabela() {
-        DefaultTableModel model = (DefaultTableModel) this.webPanel_Tabela.getModel();
-        Utils.clearTableModel(model);
-
-        this.contas.forEach(x -> {
-            model.addRow(ativoToArray(x));
-        });
-
-        this.webPanel_Tabela.setModel(model);
-    }
+//    private void atualizarTabela() {
+//        DefaultTableModel model = (DefaultTableModel) this.webPanel_Tabela.getModel();
+//        Utils.clearTableModel(model);
+//
+//        this.contas.forEach(x -> {
+//            model.addRow(ativoToArray(x));
+//        });
+//
+//        this.webPanel_Tabela.setModel(model);
+//    }
 
     private Object[] ativoToArray(CarCapContas conta) {
 
@@ -729,7 +734,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
                 if (tipografico.equals(TipoGrafico.barras)) {
 
-                    j = grap.GraficoBarras(contas, "Entradas X Saidas", filtro, "full");
+                    j = grap.GraficoBarras(contas, "Entradas X Saidas", filtro, "small");
 
                 } else if (tipografico.equals(TipoGrafico.pizza)) {
 
@@ -790,7 +795,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
                 if (tipografico.equals(TipoGrafico.barras)) {
 
-                    j = grap.GraficoBarras(contas, "Entradas X Saidas", filtro, "full");
+                    j = grap.GraficoBarras(contas, "Entradas X Saidas", filtro, "small");
 
                 } else if (tipografico.equals(TipoGrafico.pizza)) {
 
@@ -848,52 +853,105 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
             double valorEntrada = 0;
             double valorSaida = 0;
-            double SaldoDia;
+
+            String valorSaidaFinal = null;
+            String valorEntradaFinal = null;
+            String SaldoDia = null;
 
             WebTable tablenovo = new WebTable();
 
             DefaultTableModel modelTabela = new DefaultTableModel(new Object[]{"Data", "Entradas", "Saídas", "Saldo do Dia"}, 0);
 
-            for (CarCapContas i : contas) {
+            // Tive que criar esse cara por que o valor da data final de perdia ao clicar em filtrar
+            String dataInicialSetada = Utils.formatData(txtDataInicial.getDate());
+            String dataFinalsetada = Utils.formatData(txtDataFinal.getDate());
 
-                if (i.getContaTipo().equals(TipoConta.Entrada)) {
+            int intervaloDatas = new utils.Utils().diasEntreDatas(dataInicialSetada, dataFinalsetada);
 
-                    valorEntrada += i.getContaValorPago();
+            // aqui eu seto o valor que estava novamente no campo, não sei por que ele ta perdendo o valor :/
+            txtDataFinal.setText(dataFinalsetada);
+            txtDataInicial.setText(dataInicialSetada);
 
-                } else {
+            Date dataAtualdoLoop;
+            Calendar c = Calendar.getInstance();
 
-                    valorSaida += i.getContaValorPago();
+            c.setTime(dataInicial);
+
+            for (int j = 0; j <= intervaloDatas; j++) {
+
+                dataAtualdoLoop = c.getTime();
+
+                for (CarCapContas i : contas) {
+
+                    System.out.println("data 1:" + Utils.formatData(dataAtualdoLoop) + "data2: " + Utils.formatData(i.getContaDataEmissao()));
+
+                    if (Utils.formatData(dataAtualdoLoop).equals(Utils.formatData(i.getContaDataEmissao()))) {
+
+                        if (i.getContaTipo().equals(TipoConta.Entrada)) {
+
+                            valorEntrada += i.getContaValorPago();
+
+                        } else {
+
+                            valorSaida += i.getContaValorPago();
+
+                        }
+
+                        valorSaidaFinal = Utils.formatDouble.format(valorSaida);
+                        valorEntradaFinal = Utils.formatDouble.format(valorEntrada);
+                        SaldoDia = Utils.formatDouble.format(valorEntrada - valorSaida);
+
+                        if (valorSaida == 0.00) {
+
+                            valorSaidaFinal = "";
+
+                        } else if (valorEntrada == 0.00) {
+
+                            valorEntradaFinal = "";
+
+                        } else if (valorEntrada - valorSaida == 0.00) {
+
+                            SaldoDia = "";
+
+                        }
+
+                    }
+
+                    if (i.getContaTipo().equals(TipoConta.Entrada)) {
+
+                        totalEntradas += i.getContaValorPago();
+
+                    } else if (i.getContaTipo().equals(TipoConta.Saida)) {
+
+                        totalSaidas += i.getContaValorPago();
+
+                    }
+                }
+
+                if (SaldoDia != null) {
+
+                    Object[] data = {Utils.formatData(dataAtualdoLoop), valorEntradaFinal, valorSaidaFinal, SaldoDia};
+
+                    modelTabela.addRow(data);
+                    valorEntradaFinal = null;
+                    valorSaidaFinal = null;
+                    valorEntrada = 0;
+                    valorSaida = 0;
+                    SaldoDia = null;
 
                 }
-   
-                String valorSaidaFinal = Utils.formatDouble.format(valorSaida);
-                String valorEntradaFinal = Utils.formatDouble.format(valorEntrada);
-                
-                if(valorSaida == 0.00){
-             
-                valorSaidaFinal = "";
-                    
-                }else if(valorEntrada == 0.00){
-                    
-                valorEntradaFinal = "";
-
-                }
-            
-            
-                Object[] data = {i.getContaDataEmissao(),valorEntradaFinal ,valorSaidaFinal , Utils.formatDouble.format(valorEntrada - valorSaida)};
-
-                modelTabela.addRow(data);
-
-                if (i.getContaTipo().equals(TipoConta.Entrada)) {
-
-                    totalEntradas += i.getContaValorPago();
-
-                } else if (i.getContaTipo().equals(TipoConta.Saida)) {
-
-                    totalSaidas += i.getContaValorPago();
-
-                }
+                c.add(Calendar.DATE, +1);
             }
+
+         
+            TableCellRenderer renderer = new ColorCells(true);
+            tablenovo.setDefaultRenderer(String.class, renderer);
+            tablenovo.setDefaultRenderer(Integer.class, renderer);
+            tablenovo.setDefaultRenderer(BigDecimal.class, renderer);
+            tablenovo.setDefaultRenderer(Date.class, renderer);
+                    
+            tablenovo.setDefaultRenderer(Object.class, renderer);
+                
 
             txtTotalEntradas.setText(String.valueOf(Utils.format(totalEntradas)));
             txtTotalSaidas.setText(String.valueOf(Utils.format(totalSaidas)));
@@ -1567,7 +1625,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         FormAddSaldoInicial formSaldo = new FormAddSaldoInicial(null, rootPaneCheckingEnabled);
         formSaldo.setVisible(true);
-        
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void comboFiltroDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFiltroDataActionPerformed
@@ -1588,10 +1646,8 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
         cFim.set(Calendar.DAY_OF_MONTH, cFim.getActualMaximum(Calendar.DAY_OF_MONTH));
 
-
         new FlxcxFluxoCaixaFechamentoDAO().FecharCaixa(cIni.getTime(), cFim.getTime());
 
-        
         Utils.notificacao("Caixa fechado com sucesso", Utils.TipoNotificacao.ok, 0);
 
     }//GEN-LAST:event_webButton4ActionPerformed
@@ -1654,7 +1710,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     private com.alee.laf.label.WebLabel webLabel9;
     private com.alee.laf.panel.WebPanel webPanel3;
     private com.alee.laf.splitpane.WebSplitPane webPanel_Split;
-    private components.JTableLoadScroll webPanel_Tabela;
+    private com.alee.laf.panel.WebPanel webPanel_Tabela;
     private com.alee.laf.table.WebTable webTable1;
     // End of variables declaration//GEN-END:variables
 

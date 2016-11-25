@@ -11,6 +11,8 @@ import enumeraveis.TipoConta;
 import enumeraveis.TipoGrafico;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.JPanel;
@@ -152,8 +154,13 @@ public final class Graficos {
 
                 tipo = 1;
 
-                dataset = montarDataSet(tipo, tipoFiltragem, contas);
+                Date primeiroDiaSemana = dia_inicial_final_semana(true);
+                Date ultimoDiaSemana = dia_inicial_final_semana(false);
                 
+                contas = new CarCapContasDAO().ListarTodos(primeiroDiaSemana, ultimoDiaSemana);
+                
+                dataset = montarDataSet(tipo, tipoFiltragem, contas, primeiroDiaSemana, ultimoDiaSemana);
+
                 break;
 
             case Mensal:
@@ -191,8 +198,10 @@ public final class Graficos {
                 }
 
                 tipo = 2;
+                
+            
 
-                dataset = montarDataSet(tipo, tipoFiltragem, contas);
+                dataset = montarDataSet(tipo, tipoFiltragem, contas, null, null);
 
                 break;
 
@@ -251,7 +260,7 @@ public final class Graficos {
         return chart;
     }
 
-    public DefaultCategoryDataset montarDataSet(int tipo, ArrayList<String> tipoFiltragem, List<CarCapContas> contas) {
+    public DefaultCategoryDataset montarDataSet(int tipo, ArrayList<String> tipoFiltragem, List<CarCapContas> contas, Date dataInicial, Date dataFinal) {
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
@@ -260,20 +269,61 @@ public final class Graficos {
         switch (tipo) {
 
             case 1:
+//
+//            String dataInicialSetada = Utils.formatData(dataInicial);
+//            String dataFinalsetada = Utils.formatData(dataFinal);
+//
+//            int intervaloDatas = new utils.Utils().diasEntreDatas(dataInicialSetada, dataFinalsetada);
+
+                double valorEntrada = 0;
+                double valorSaida = 0;
+
+                int controle = 0;
+                Date dataAtualdoLoop;
+                Calendar c = Calendar.getInstance();
+
+                c.setTime(dataInicial);
 
                 for (int j = 0; j < tipoFiltragem.size(); j++) {
 
                     dataset.addValue(0, "Contas a pagar", tipoFiltragem.get(j));
                     dataset.addValue(0, "Contas a receber", tipoFiltragem.get(j));
 
+                    dataAtualdoLoop = c.getTime();
+
                     for (CarCapContas i : contas) {
-                        
-                        
-                       // incrementar dias
-                    
+
+                        System.out.println("data 1:" + Utils.formatData(dataAtualdoLoop) + "data2: " + Utils.formatData(i.getContaDataEmissao()));
+
+                        if (Utils.formatData(dataAtualdoLoop).equals(Utils.formatData(i.getContaDataEmissao()))) {
+
+                            if (i.getContaTipo().equals(TipoConta.Entrada)) {
+
+                                valorEntrada += i.getContaValorPago();
+
+                            } else {
+
+                                valorSaida += i.getContaValorPago();
+
+                            }
+
+                        }else{
+                            
+                            controle +=1;
+                            
+                        }
+                   
                     }
+
+                    dataset.addValue(valorEntrada, "Contas a receber", tipoFiltragem.get(j));
+                    dataset.addValue(valorSaida, "Contas a pagar", tipoFiltragem.get(j));
+                    c.add(Calendar.DATE, +1);
+
+                    valorEntrada = 0;
+                    valorSaida = 0;
+
                 }
-                
+
                 break;
 
             case 2:
@@ -310,6 +360,22 @@ public final class Graficos {
         }
 
         return dataset;
+    }
+    
+     public static Date dia_inicial_final_semana(boolean isPrimeiro) {
+        //Seta a data atual.
+        Date dataAtual= new Date();
+        GregorianCalendar calendar = new GregorianCalendar();
+        //Define que a semana começa no domingo.
+        calendar.setFirstDayOfWeek(Calendar.SUNDAY);
+        //Define a data atual.
+        calendar.setTime(dataAtual);
+        if (isPrimeiro) {
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        } else {
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+        }
+        return calendar.getTime();
     }
 
 }
