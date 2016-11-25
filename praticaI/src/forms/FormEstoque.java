@@ -19,7 +19,7 @@ import utils.IniciarDadosEstoque;
  */
 public class FormEstoque extends javax.swing.JFrame
 {
-    
+
     private EstMovimentacaoDAO movDao = new EstMovimentacaoDAO();
     private int idProduto = 0;
     private String prodString = "";
@@ -317,10 +317,10 @@ public class FormEstoque extends javax.swing.JFrame
             }
         });
     }
-    
+
     private void preencheTabela(EstProduto produto)
     {
-        
+
         DefaultTableModel modelo = (DefaultTableModel) tblMov.getModel();
         modelo.setNumRows(0);
 
@@ -335,23 +335,23 @@ public class FormEstoque extends javax.swing.JFrame
                 "" + mov.getMovVlrUnit(),
                 "" + mov.getMovTotal(),
             });
-            
+
         }
-        
-        txtDisponivel.setText("" + movDao.format(calculaCusto()[0]).replace(",", "."));
-        txtCustoMedio.setText("" + movDao.format(calculaCusto()[1]).replace(",", "."));
-        txtTotal.setText("" + movDao.format(calculaCusto()[2]).replace(",", "."));
-        paint(calculaCusto()[0]);
-        
+
+        txtDisponivel.setText("" + movDao.format(calculaCusto(produto)[0]));
+        txtCustoMedio.setText("" + movDao.format(calculaCusto(produto)[1]));
+        txtTotal.setText("" + movDao.format(calculaCusto(produto)[2]));
+        paint(calculaCusto(produto)[0]);
+
     }
-    
-    public double[] calculaCusto()
+
+    public double[] calculaCusto(EstProduto produto)
     {
         double vet[] = new double[3];
         double qtde = 0.0, custoM = 0.0, total = 0.0;
-        for (EstMovimentacao mov : movDao.getAll())
+        for (EstMovimentacao mov : movDao.findByProduto(produto))
         {
-            if (mov.getCarEstTipoOperacao().getTpOpId() == 1)
+            if (mov.getCarEstTipoOperacao().getTpOpTipo() == 1 || mov.getCarEstTipoOperacao().getTpOpTipo() == 2)
             {
                 qtde += mov.getMovQuantidade();
                 total += mov.getMovTotal();
@@ -360,16 +360,16 @@ public class FormEstoque extends javax.swing.JFrame
                 qtde += (-mov.getMovQuantidade());
                 total += (-mov.getMovTotal());
             }
-            
+
         }
         custoM = (qtde != 0 && total != 0 ? total / qtde : 0);
         vet[0] = qtde < 0 ? qtde * -1 : qtde;
         vet[1] = custoM < 0 ? custoM * -1 : custoM;
         vet[2] = total < 0 ? total * -1 : total;
-        
+
         return vet;
     }
-    
+
     public void paint(double value)
     {
         if (value < 0)
@@ -382,7 +382,7 @@ public class FormEstoque extends javax.swing.JFrame
         {
             txtDisponivel.setBackground(Color.green);
         }
-        
+
     }
 
 
