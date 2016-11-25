@@ -3,6 +3,7 @@ package dao;
 import java.util.Date;
 import java.util.List;
 import model.PatAtivoImobilizado;
+import model.PatHistoricoDepreciacao;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
@@ -128,6 +129,22 @@ public class PatAtivoImobilizadoDAO {
         session.getTransaction().commit();
         session.close();
         return ativos;
+    }
+    
+    public Boolean reavaliarAtivo(PatAtivoImobilizado ativoImobilizado, PatHistoricoDepreciacao historicoReavaliação) {
+        boolean ok = true;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.getTransaction().begin();
+            session.update(ativoImobilizado);
+            session.save(historicoReavaliação);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            ok = false;
+        } finally {
+            session.close();
+        }
+        return ok;
     }
 
 }

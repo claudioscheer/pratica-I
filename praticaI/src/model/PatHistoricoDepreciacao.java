@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 public class PatHistoricoDepreciacao implements java.io.Serializable {
 
     private int historicoDepreciacaoCodigo;
+    private String historicoDepreciacaoDescricao;
     private PatAtivoImobilizado patAtivoImobilizado;
     private Date historicoDepreciacaoDia;
     private int historicoDepreciacaoMes;
@@ -31,6 +32,14 @@ public class PatHistoricoDepreciacao implements java.io.Serializable {
 
     public void setHistoricoDepreciacaoCodigo(int historicoDepreciacaoCodigo) {
         this.historicoDepreciacaoCodigo = historicoDepreciacaoCodigo;
+    }
+
+    public String getHistoricoDepreciacaoDescricao() {
+        return historicoDepreciacaoDescricao;
+    }
+
+    public void setHistoricoDepreciacaoDescricao(String historicoDepreciacaoDescricao) {
+        this.historicoDepreciacaoDescricao = historicoDepreciacaoDescricao;
     }
 
     @ManyToOne

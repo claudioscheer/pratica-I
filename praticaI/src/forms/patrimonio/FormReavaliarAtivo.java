@@ -2,12 +2,15 @@ package forms.patrimonio;
 
 import components.Validador;
 import components.panelsListagem.PanelConsultaAtivoImobilizado;
+import dao.PatAtivoImobilizadoDAO;
 import dao.PatBaixaDAO;
+import dao.PatHistoricoDepreciacaoDAO;
 import forms.FormPrincipal;
 import forms.busca.FormBuscaTipoBaixa;
 import java.util.Calendar;
 import model.PatAtivoImobilizado;
 import model.PatBaixa;
+import model.PatHistoricoDepreciacao;
 import model.PatTipoBaixa;
 import utils.Utils;
 
@@ -23,15 +26,11 @@ public class FormReavaliarAtivo extends javax.swing.JFrame {
 
     public FormReavaliarAtivo() {
         initComponents();
-        this.setTitle("Baixa ativo");
+        this.setTitle("Reavaliar ativo");
         this.setLocationRelativeTo(null);
 
-        FormBuscaTipoBaixa tipoBaixa = new FormBuscaTipoBaixa();
-        tipoBaixa.setFrameBloquear(FormPrincipal.getInstance());
-        txtMotivo.setFrame(tipoBaixa);
-
-        this.txtDataAtivo.setDateFormat(utils.Utils.formatoDataPadrao);
-        this.txtDataAtivo.setDate(Calendar.getInstance().getTime());
+        this.txtDataReavaliacao.setDateFormat(utils.Utils.formatoDataPadrao);
+        this.txtDataReavaliacao.setDate(Calendar.getInstance().getTime());
     }
 
     public void setAtivoImobilizado(PatAtivoImobilizado ativoImobilizado, PanelConsultaAtivoImobilizado panelConsultaAtivoImobilizado) {
@@ -54,13 +53,14 @@ public class FormReavaliarAtivo extends javax.swing.JFrame {
         btnSalvar = new com.alee.laf.button.WebButton();
         btnCancelar = new com.alee.laf.button.WebButton();
         jPanel1 = new javax.swing.JPanel();
-        txtDataAtivo = new com.alee.extended.date.WebDateField();
+        txtDataReavaliacao = new com.alee.extended.date.WebDateField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtMotivo = new components.TextFieldFK();
+        txtNovoValor = new components.TextFieldValorMonetario();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(null);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -69,7 +69,7 @@ public class FormReavaliarAtivo extends javax.swing.JFrame {
 
         panelOpcoes.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnSalvar.setText("Baixar");
+        btnSalvar.setText("Reavaliar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -88,7 +88,7 @@ public class FormReavaliarAtivo extends javax.swing.JFrame {
         panelOpcoesLayout.setHorizontalGroup(
             panelOpcoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOpcoesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(199, Short.MAX_VALUE)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -106,9 +106,9 @@ public class FormReavaliarAtivo extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setText("Data da Baixa");
+        jLabel3.setText("Data reavaliação");
 
-        jLabel4.setText("Motivo");
+        jLabel4.setText("Novo valor");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,20 +116,18 @@ public class FormReavaliarAtivo extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtNovoValor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(txtDataAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(200, 200, 200))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, 0)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+                            .addComponent(txtDataReavaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtMotivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())))))
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel4)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,17 +135,14 @@ public class FormReavaliarAtivo extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDataAtivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDataReavaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMotivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNovoValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -174,14 +169,24 @@ public class FormReavaliarAtivo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        PatBaixa baixa = new PatBaixa();
 
-        baixa.setBaixaDataBaixa(this.txtDataAtivo.getDate());
-        baixa.setPatTipoBaixa((PatTipoBaixa) this.txtMotivo.getValue());
-        baixa.setPatAtivoImobilizado((PatAtivoImobilizado) this.ativoImobilizado);
-        new PatBaixaDAO().inserir(baixa);
+        Calendar c = Calendar.getInstance();
+        c.setTime(this.txtDataReavaliacao.getDate());
 
-        Utils.notificacao("Baixa realizada", Utils.TipoNotificacao.ok, 0);
+        PatHistoricoDepreciacao historicoDepreciacao = new PatHistoricoDepreciacao();
+
+        this.ativoImobilizado.setAtivoValorAtual(this.txtNovoValor.getValue());
+
+        historicoDepreciacao.setHistoricoDepreciacaoDescricao("Reavaliação do ativo no valor de " + this.ativoImobilizado.getAtivoValorAtual());
+        historicoDepreciacao.setHistoricoDepreciacaoDia(c.getTime());
+        historicoDepreciacao.setHistoricoDepreciacaoAno(c.get(Calendar.YEAR));
+        historicoDepreciacao.setHistoricoDepreciacaoMes(c.get(Calendar.MONTH));
+        historicoDepreciacao.setPatAtivoImobilizado(this.ativoImobilizado);
+        historicoDepreciacao.setHistoricoDepreciacaoValor(0);
+
+        new PatAtivoImobilizadoDAO().reavaliarAtivo(this.ativoImobilizado, historicoDepreciacao);
+
+        Utils.notificacao("Ativo reavaliado", Utils.TipoNotificacao.ok, 0);
         this.panelConsultaAtivoImobilizado.resetBusca();
         this.dispose();
 
@@ -203,8 +208,8 @@ public class FormReavaliarAtivo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JPanel panelOpcoes;
-    private com.alee.extended.date.WebDateField txtDataAtivo;
-    private components.TextFieldFK txtMotivo;
+    private com.alee.extended.date.WebDateField txtDataReavaliacao;
+    private components.TextFieldValorMonetario txtNovoValor;
     private com.alee.extended.date.WebDateFieldStyle webDateFieldStyle1;
     private com.alee.laf.panel.WebPanel webPanel1;
     private com.alee.managers.style.skin.web.WebPanelPainter webPanelPainter1;

@@ -12,6 +12,7 @@ import forms.patrimonio.FormControleDepreciacoes;
 import forms.patrimonio.FormDepreciar;
 import forms.patrimonio.FormHistoricoDepreciacoes;
 import forms.patrimonio.FormQrCodeAtivoImobilizado;
+import forms.patrimonio.FormReavaliarAtivo;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
                 }
         ) {
             boolean[] canEdit = new boolean[]{
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             @Override
@@ -96,8 +97,24 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
             formBloquear.setEnabled(false);
         });
         popupMenuOpcoes.add(menuQrCode);
+        
+        WebMenuItem menuReavaliarAtivo = new WebMenuItem("Reavaliar ativo", Hotkey.NUMBER_2);
+        menuReavaliarAtivo.addActionListener((e) -> {
+            int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
+            if (linhaselecionada < 0) {
+                Utils.notificacao("Selecione um ativo imobilizado!", Utils.TipoNotificacao.erro, 0);
+                return;
+            }
+            
+            PatAtivoImobilizado ativo = this.ativosImobilizados.get(linhaselecionada);
+            FormReavaliarAtivo form = new FormReavaliarAtivo();
+            form.setAtivoImobilizado(ativo, this);
+            form.setVisible(true);
+            FormPrincipal.getInstance().setEnabled(false);
+        });
+        popupMenuOpcoes.add(menuReavaliarAtivo);
 
-        WebMenuItem menuHistoricoDepreciacao = new WebMenuItem("Histórico depreciação", Hotkey.NUMBER_2);
+        WebMenuItem menuHistoricoDepreciacao = new WebMenuItem("Histórico depreciação", Hotkey.NUMBER_3);
         menuHistoricoDepreciacao.addActionListener((e) -> {
             int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
             if (linhaselecionada < 0) {
@@ -113,7 +130,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         });
         popupMenuOpcoes.add(menuHistoricoDepreciacao);
 
-        WebMenuItem menuBaixa = new WebMenuItem("Dar baixa", Hotkey.NUMBER_3);
+        WebMenuItem menuBaixa = new WebMenuItem("Dar baixa", Hotkey.NUMBER_4);
         menuBaixa.addActionListener((e) -> {
             int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
             if (linhaselecionada < 0) {
@@ -242,9 +259,9 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         o[1] = ativo.getAtivoDescricao();
         o[2] = ativo.getEstCategoria() == null ? "" : ativo.getEstCategoria().getCategoriaDescricao();
         o[3] = ativo.getEstMarca() == null ? "" : ativo.getEstMarca().getMarcaDescricao();
-        o[4] = ativo.getAtivoValorOriginal();
-        o[5] = ativo.getAtivoValorAtual();
-        o[6] = ativo.getAtivoValorOriginal() - ativo.getAtivoValorAtual();
+        o[4] = Utils.formatDouble.format(ativo.getAtivoValorOriginal());
+        o[5] = Utils.formatDouble.format(ativo.getAtivoValorAtual());
+        o[6] = Utils.formatDouble.format(ativo.getAtivoValorOriginal() - ativo.getAtivoValorAtual());
         return o;
     }
 

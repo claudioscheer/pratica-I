@@ -42,7 +42,8 @@ public class PatHistoricoDepreciacaoDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("FROM PatHistoricoDepreciacao hd WHERE hd.historicoDepreciacaoMes = :mes AND "
-                + "hd.historicoDepreciacaoAno = :ano ORDER BY hd.historicoDepreciacaoCodigo DESC");
+                + "hd.historicoDepreciacaoAno = :ano AND hd.historicoDepreciacaoValor != 0 "
+                + "ORDER BY hd.historicoDepreciacaoCodigo DESC");
         query.setParameter("mes", c.get(Calendar.MONTH));
         query.setParameter("ano", c.get(Calendar.YEAR));
         query.setMaxResults(1);
@@ -63,7 +64,7 @@ public class PatHistoricoDepreciacaoDAO {
         session.getTransaction().begin();
         Query query = session.createQuery("FROM PatHistoricoDepreciacao hd "
                 + "WHERE hd.patAtivoImobilizado = :ativo AND hd.historicoDepreciacaoMes = :mes "
-                + "AND hd.historicoDepreciacaoAno = :ano");
+                + "AND hd.historicoDepreciacaoAno = :ano AND hd.historicoDepreciacaoValor != 0");
         query.setParameter("mes", c.get(Calendar.MONTH));
         query.setParameter("ano", c.get(Calendar.YEAR));
         query.setParameter("ativo", ativo);

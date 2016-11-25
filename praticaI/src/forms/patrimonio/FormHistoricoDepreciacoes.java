@@ -1,7 +1,6 @@
 package forms.patrimonio;
 
 import components.JFrameBusca;
-import dao.PatHistoricoDepreciacaoDAO;
 import java.util.List;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
@@ -37,9 +36,10 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
 
             List<PatHistoricoDepreciacao> historicoDepreciacoes = ativoImobilizado.getPatHistoricoDepreciacaos();
             for (PatHistoricoDepreciacao hd : historicoDepreciacoes) {
-                Object[] o = new Object[2];
-                o[0] = Utils.formatData(hd.getHistoricoDepreciacaoDia());
-                o[1] = hd.getHistoricoDepreciacaoValor();
+                Object[] o = new Object[3];
+                o[0] = hd.getHistoricoDepreciacaoDescricao();
+                o[1] = Utils.formatData(hd.getHistoricoDepreciacaoDia());
+                o[2] = hd.getHistoricoDepreciacaoValor();
                 model.addRow(o);
             }
 
@@ -57,11 +57,8 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        textFieldBuscar1 = new components.TextFieldBuscar();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaHistoricoDepreciacoes = new com.alee.laf.table.WebTable();
-
-        textFieldBuscar1.setText("textFieldBuscar1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -75,11 +72,11 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
 
             },
             new String [] {
-                "Data", "Valor"
+                "Descrição", "Data", "Valor depreciação"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -115,6 +112,5 @@ public class FormHistoricoDepreciacoes extends JFrameBusca {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private com.alee.laf.table.WebTable tabelaHistoricoDepreciacoes;
-    private components.TextFieldBuscar textFieldBuscar1;
     // End of variables declaration//GEN-END:variables
 }

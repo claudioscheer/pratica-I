@@ -113,6 +113,9 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void carrregarNotificacoes() {
         if (this.notificacoes == null) {
             this.notificacoes = new PanelNotificacoes();
+            this.notificacoes.setVisible(false);
+            this.lblNotificacoes.setVisible(false);
+            this.lblQntdNotificacoes.setVisible(false);
         }
     }
 

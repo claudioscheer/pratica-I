@@ -13,10 +13,6 @@ import model.EstProduto;
 import model.PatDepreciacao;
 import model.PatTipoBaixa;
 
-/**
- *
- * @author Larissa Guder <lariguder10@gmail.com>
- */
 public class IniciarDadosPatrimonio {
 
     public static void main(String[] args) {
@@ -24,6 +20,8 @@ public class IniciarDadosPatrimonio {
         addMarca();
         addTipoBaixa();
         addPessoa();
+        
+        System.exit(0);
     }
     
     

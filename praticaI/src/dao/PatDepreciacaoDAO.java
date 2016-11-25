@@ -3,7 +3,6 @@ package dao;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import model.EstCategoria;
 import model.PatAtivoImobilizado;
 import model.PatDepreciacao;
 import model.PatHistoricoDepreciacao;
@@ -91,8 +90,8 @@ public class PatDepreciacaoDAO {
     }
 
     public String depreciarAtivoImobilizado(PatAtivoImobilizado ativo, Date dia) {
-        PatHistoricoDepreciacao historico = new PatHistoricoDepreciacaoDAO().buscarDepreciacaoMes(ativo, dia);
-        if (historico != null) {
+        PatHistoricoDepreciacao historicoDepreciacao = new PatHistoricoDepreciacaoDAO().buscarDepreciacaoMes(ativo, dia);
+        if (historicoDepreciacao != null) {
             return "O ativo " + ativo.getAtivoDescricao() + " já foi depreciado!";
         }
 
@@ -103,9 +102,10 @@ public class PatDepreciacaoDAO {
         Calendar c = Calendar.getInstance();
         c.setTime(dia);
 
-        historico = new PatHistoricoDepreciacao();
-        historico.setHistoricoDepreciacaoAno(c.get(Calendar.YEAR));
-        historico.setHistoricoDepreciacaoMes(c.get(Calendar.MONTH));
+        historicoDepreciacao = new PatHistoricoDepreciacao();
+        historicoDepreciacao.setHistoricoDepreciacaoDescricao("Depreciação");
+        historicoDepreciacao.setHistoricoDepreciacaoAno(c.get(Calendar.YEAR));
+        historicoDepreciacao.setHistoricoDepreciacaoMes(c.get(Calendar.MONTH));
 
         PatDepreciacao depreciacao = ativo.getEstCategoria().getDepreciacao();
         if (depreciacao == null) {
@@ -121,12 +121,12 @@ public class PatDepreciacaoDAO {
             novovalor = 0;
         }
 
-        historico.setHistoricoDepreciacaoValor(valordepreciar);
-        historico.setHistoricoDepreciacaoDia(Calendar.getInstance().getTime());
+        historicoDepreciacao.setHistoricoDepreciacaoValor(valordepreciar);
+        historicoDepreciacao.setHistoricoDepreciacaoDia(Calendar.getInstance().getTime());
         ativo.setAtivoValorAtual(novovalor);
-        historico.setPatAtivoImobilizado(ativo);
+        historicoDepreciacao.setPatAtivoImobilizado(ativo);
 
-        new PatHistoricoDepreciacaoDAO().inserir(historico);
+        new PatHistoricoDepreciacaoDAO().inserir(historicoDepreciacao);
 
         return "Depreciação do ativo " + ativo.getAtivoDescricao() + " realizado!"
                 + (novovalor <= 0 ? " (ATIVO ZERADO)" : "");
