@@ -17,6 +17,7 @@ import enumeraveis.MeioRecebimentoPagamento;
 import enumeraveis.StatusConta;
 import forms.busca.FormBuscaPessoa;
 import forms.busca.FormBuscaProduto;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -208,7 +209,7 @@ public class FormContaReceber extends WebInternalFrame {
         botao_abrir_relatorios1 = new com.alee.laf.button.WebButton();
         fieldValorParcela = new components.TextFieldValorMonetario();
         fieldQuantidade = new components.TextFieldValorMonetario();
-        textFieldValorMonetario3 = new components.TextFieldValorMonetario();
+        fild_Preco_Unitario = new components.TextFieldValorMonetario();
         fieldValorTotal = new components.TextFieldValorMonetario();
         fieldValorRecebido = new components.TextFieldValorMonetario();
 
@@ -308,7 +309,7 @@ public class FormContaReceber extends WebInternalFrame {
         });
         webPanel1.add(webDateField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1068, 29, 120, 30));
 
-        Comb_forma_pagamento_recebimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "À Prazo", "À Vista", " ", " " }));
+        Comb_forma_pagamento_recebimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A Prazo", "A Vista", " ", " " }));
         Comb_forma_pagamento_recebimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Comb_forma_pagamento_recebimentoActionPerformed(evt);
@@ -499,6 +500,11 @@ public class FormContaReceber extends WebInternalFrame {
         });
         webPanel1.add(botao_abrir_relatorios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 521, 130, -1));
 
+        fieldValorParcela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fieldValorParcelaMouseClicked(evt);
+            }
+        });
         fieldValorParcela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldValorParcelaActionPerformed(evt);
@@ -508,7 +514,7 @@ public class FormContaReceber extends WebInternalFrame {
 
         fieldQuantidade.setTextoMonetario(" ");
         webPanel1.add(fieldQuantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 173, 100, 30));
-        webPanel1.add(textFieldValorMonetario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 313, 150, 30));
+        webPanel1.add(fild_Preco_Unitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 313, 150, 30));
 
         fieldValorTotal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -671,7 +677,7 @@ public class FormContaReceber extends WebInternalFrame {
         conta.setNumeroParcela(numParcela);
         // quantidade produto
         String[] pess = txt_busca_cliente_fornecedor.getText().split("-");
-        int cod = Integer.parseInt(txt[0]);
+        int cod = Integer.parseInt (txt[0]);
         CarPessoaDAO pessoaDao = new CarPessoaDAO();
         conta.setPessoa(pessoaDao.ListarId(cod));
 
@@ -685,9 +691,17 @@ public class FormContaReceber extends WebInternalFrame {
         // conta.setMovimento(TipoMovimento.venda);
         //quantiade
         String j = fieldQuantidade.getText();
-        double b = Double.parseDouble(j);
-        conta.setQuantidade(b);
+       j = j.replace(".", ""); 
+       j = j.replace(",", ".");
+       
+   
+        double z = Double.parseDouble(j);
+       
+        conta.setTipoDeConta(tipoConta);
+        
+        conta.setQuantidade(z);
         c.insert(conta);
+        
         for (int i = 0; i < numParcela; i++) {
 
             //             incrementar data
@@ -699,7 +713,13 @@ public class FormContaReceber extends WebInternalFrame {
             //
             //          SimpleDateFormat formatarData = new SimpleDateFormat(formato);
             //conta02.setPessoaNome(txt_busca_cliente_fornecedor.getText());
-            double valorTotal = Double.parseDouble(fieldValorTotal.getText());
+            String Valor_Total = fieldValorTotal.getText();
+            
+             Valor_Total = Valor_Total.replace(".", ""); 
+       Valor_Total = Valor_Total.replace(",", ".");
+       
+            double valorTotal = Double.parseDouble(Valor_Total);
+            
             conta02.setContaValorTotal(valorTotal);
             if (comb_status.getSelectedIndex() == 0) {
                 conta02.setCapContaStatus(StatusConta.Fechada);
@@ -725,9 +745,9 @@ public class FormContaReceber extends WebInternalFrame {
             cont = i + 1;
             conta02.setContaNumParcelas(cont);
             String[] pesso = txt_busca_cliente_fornecedor.getText().split("-");
-            String nome = (txt[0]);
+            String nome = (pesso[0]);
             conta02.setPessoaNome(nome);
-            conta02.setQuantidade_produto(b);
+            conta02.setQuantidade_produto(z);
             //pegar nota
 
             //                conta02.setPatNotaFiscal(chave);
@@ -741,8 +761,23 @@ public class FormContaReceber extends WebInternalFrame {
             conta02.setMeio_recebimento(MeioRecebimentoPagamento.values()[comb_meio_recebimento.getSelectedIndex()]);
             conta02.setContaTipo(tipoConta);
             conta02.setCarcapOperacoesComerciais(conta);
-            double valorecebido = Double.parseDouble(fieldValorRecebido.getText());
-            conta02.setValorRecebido(valorecebido);
+            String ValorRecebido = fieldValorRecebido.getText();
+            
+             ValorRecebido = ValorRecebido.replace(".", "");
+        ValorRecebido = ValorRecebido.replace(",", ".");
+            
+            
+            double valorecebido = Double.parseDouble(ValorRecebido);
+       
+//            conta02.setValorRecebido(valorecebido);
+            
+            
+             String g = fieldValorTotal.getText();
+        
+       
+       
+        double valor_total = FormataValor(Double.parseDouble(g));
+    
             if (valorecebido < valorParcela) {
                 conta02.setCapContaStatus(StatusConta.Pendente);
                 Utils.notificacao("Lançamento Pendente " + String.valueOf(conta.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
@@ -769,10 +804,13 @@ public class FormContaReceber extends WebInternalFrame {
 
     private void Comb_forma_pagamento_recebimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Comb_forma_pagamento_recebimentoActionPerformed
         String b = (String) Comb_forma_pagamento_recebimento.getSelectedItem();
+
         if (b.equals("A Vista")) {
+
             comb_parcelas.setEnabled(false);
         } else {
             comb_parcelas.setEnabled(true);
+
         }
     }//GEN-LAST:event_Comb_forma_pagamento_recebimentoActionPerformed
 
@@ -820,8 +858,90 @@ public class FormContaReceber extends WebInternalFrame {
     }//GEN-LAST:event_fieldValorParcelaActionPerformed
 
     private void fieldValorTotalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldValorTotalMouseClicked
-        // TODO add your handling code here:
+        
+        
+        
+        
+          String b = fieldQuantidade.getText();
+
+        b = b.replace(",", "."); //Isso precisa ter pois se o cara digitar o numero com virgula vai dar pau no double
+
+        double q = FormataValor(Double.parseDouble(b));
+
+        String c = fild_Preco_Unitario.getText();
+
+        c = c.replace(",", "."); //Isso precisa ter pois se o cara digitar o numero com virgula vai dar pau no double
+
+        double u = FormataValor(Double.parseDouble(c));
+
+        double soma = q * u;
+
+        String Soma = "" + soma;
+
+        fieldValorTotal.setText(Soma);
     }//GEN-LAST:event_fieldValorTotalMouseClicked
+
+    private void fieldValorParcelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldValorParcelaMouseClicked
+        
+           String b = fieldQuantidade.getText();
+
+        b = b.replace(",", "."); //Isso precisa ter pois se o cara digitar o numero com virgula vai dar pau no double
+
+        double q = FormataValor(Double.parseDouble(b));
+
+        String c = fild_Preco_Unitario.getText();
+
+        c = c.replace(",", "."); //Isso precisa ter pois se o cara digitar o numero com virgula vai dar pau no double
+
+        double u = FormataValor(Double.parseDouble(c));
+
+        double soma = q * u;
+
+        String Soma = "" + soma;
+
+        fieldValorTotal.setText(Soma);
+
+        Object parcela = comb_parcelas.getValue();
+
+        int numParcela = Integer.parseInt(parcela.toString());
+        String g = fieldValorTotal.getText();
+        
+        g = g.replace(".", "");
+        g = g.replace(",", ".");
+       
+        double valor_total = FormataValor(Double.parseDouble(g));
+
+        double valor_parcela = 0;
+
+        String setvalorParcela = "";
+
+        setvalorParcela = "" + valor_parcela;
+
+        if (numParcela > 1) {
+            valor_parcela = valor_total / numParcela;
+            setvalorParcela = "" + valor_parcela;
+            fieldValorParcela.setText(setvalorParcela);
+
+        } else {
+
+            fieldValorParcela.setText(Soma);
+            fieldValorParcela.setEnabled(false);
+
+        }
+
+        if (numParcela != 1 && Comb_forma_pagamento_recebimento.getSelectedIndex() == 1) {
+
+            JOptionPane.showMessageDialog(null, "Operação inválida, rever número de parcelas em relação ao"
+                    + "forma de recebimento *A VISTA*");
+            // Utils.notificacao("Operação inválida, rever número de parcelas " , Utils.TipoNotificacao.erro, 0);
+        }
+
+
+    
+        
+        
+        
+    }//GEN-LAST:event_fieldValorParcelaMouseClicked
 
     /**
          * @param args the command line arguments
@@ -869,6 +989,19 @@ public class FormContaReceber extends WebInternalFrame {
             fluxo.setVisible(true);
         });
     }
+    
+    
+     private static double FormataValor(Double valor) {
+
+        String pattern = "###.##";
+
+        DecimalFormat dm = new DecimalFormat(pattern);
+
+        String str = dm.format(valor);
+
+        return Float.parseFloat(str.replace(',', '.'));
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.combobox.WebComboBox Comb_forma_pagamento_recebimento;
@@ -889,8 +1022,8 @@ public class FormContaReceber extends WebInternalFrame {
     private components.TextFieldValorMonetario fieldValorParcela;
     private components.TextFieldValorMonetario fieldValorRecebido;
     private components.TextFieldValorMonetario fieldValorTotal;
+    private components.TextFieldValorMonetario fild_Preco_Unitario;
     private javax.swing.JScrollPane jScrollPane2;
-    private components.TextFieldValorMonetario textFieldValorMonetario3;
     private components.TextFieldFK txt_busca_cliente_fornecedor;
     private components.TextFieldFK txt_busca_nota;
     private components.TextFieldFK txt_busca_produto;
