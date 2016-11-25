@@ -294,7 +294,7 @@ public class FormManutencaoEstoque extends javax.swing.JFrame
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
         EstMovimentacao m = new EstMovimentacao();
-        double qtde = Double.parseDouble(txtQteste.getText().replace(",", "."));
+        double qtde = Double.parseDouble(txtQteste.getText());
         double unit = Double.parseDouble(txtUnitario1.getText().replace(",", "."));
         double tot = Double.parseDouble(txtValor.getText().replace(",", "."));
         m.setEstProduto((EstProduto) this.txtProduto.getValue());
