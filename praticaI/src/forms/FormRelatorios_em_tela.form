@@ -98,7 +98,7 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
             <StringItem index="0" value="Lan&#xe7;amentos"/>
-            <StringItem index="1" value="Estimativa e Mensura&#xe7;&#xe3;o"/>
+            <StringItem index="1" value="Estimativas"/>
           </StringArray>
         </Property>
       </Properties>

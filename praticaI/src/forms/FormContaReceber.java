@@ -2,7 +2,6 @@
 package forms;
 
 import com.alee.laf.WebLookAndFeel;
-import components.TextFieldFK;
 import com.alee.laf.desktoppane.WebInternalFrame;
 import com.alee.managers.language.LanguageManager;
 import dao.CarCapContasDAO;
@@ -499,11 +498,28 @@ public class FormContaReceber extends WebInternalFrame {
             }
         });
         webPanel1.add(botao_abrir_relatorios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 521, 130, -1));
+
+        fieldValorParcela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldValorParcelaActionPerformed(evt);
+            }
+        });
         webPanel1.add(fieldValorParcela, new org.netbeans.lib.awtextra.AbsoluteConstraints(413, 383, 167, 30));
 
         fieldQuantidade.setTextoMonetario(" ");
         webPanel1.add(fieldQuantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 173, 100, 30));
         webPanel1.add(textFieldValorMonetario3, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 313, 150, 30));
+
+        fieldValorTotal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fieldValorTotalMouseClicked(evt);
+            }
+        });
+        fieldValorTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldValorTotalActionPerformed(evt);
+            }
+        });
         webPanel1.add(fieldValorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 383, 143, 30));
         webPanel1.add(fieldValorRecebido, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 453, 160, 30));
 
@@ -794,6 +810,18 @@ public class FormContaReceber extends WebInternalFrame {
             JOptionPane.showMessageDialog(null, "Esta parcela parece estar quitada :D");
         }
     }//GEN-LAST:event_txt_tabelaMouseClicked
+
+    private void fieldValorTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldValorTotalActionPerformed
+
+    }//GEN-LAST:event_fieldValorTotalActionPerformed
+
+    private void fieldValorParcelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldValorParcelaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldValorParcelaActionPerformed
+
+    private void fieldValorTotalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fieldValorTotalMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldValorTotalMouseClicked
 
     /**
          * @param args the command line arguments

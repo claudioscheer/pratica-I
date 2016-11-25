@@ -69,7 +69,7 @@ public class RelatoriosContasReceber {
     }
     
 
-public void geraRelatorioEstimativas(List<CarCapContas> estimativas, Date dataIni, Date dataFim) throws JRException {
+public void geraRelatorioEstimativas(List<CarCapContas> estimativas, Date dataIni, Date dataFim, double totalEntradas) throws JRException {
         
             InputStream fonte = RelatoriosContasReceber.class.getResourceAsStream("RelatorioEstimativas.jrxml");
           
@@ -102,6 +102,7 @@ public void geraRelatorioEstimativas(List<CarCapContas> estimativas, Date dataIn
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("dataIni", dataIni);
         parametros.put("dataFim", dataFim);
+         parametros.put("totalEntradas", totalEntradas);
         JasperPrint print = JasperFillManager.fillReport(report, parametros, new JRBeanCollectionDataSource(estimativas,false));
  
      
