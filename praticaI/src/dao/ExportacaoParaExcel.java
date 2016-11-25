@@ -12,16 +12,24 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import model.CarCapContas;
+import model.ColunasExcel;
+import model.Contas;
+import model.Excel;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import utils.Utils;
 import model.FlxcxEspecificacoes;
 import model.FlxcxOperacoes;
+import model.Operacao;
+import org.apache.commons.beanutils.BeanComparator;
+import org.apache.commons.collections.comparators.ComparatorChain;
 
 /**
  *
@@ -35,6 +43,8 @@ public class ExportacaoParaExcel {
     private final FlxcxEspecificacoesDAO especificacaoDAO = new FlxcxEspecificacoesDAO();
     private final CarCapContasDAO contasDAO = new CarCapContasDAO();
     private int linhaCabecalho = 0;
+    private Excel valor = new Excel();
+    private List<Excel> colunas = new ArrayList<>();
 
     public void Exportar(String nomeArquivo, Date dataInicial, Date dataFinal, FiltroData filtroData) {
 
@@ -59,22 +69,23 @@ public class ExportacaoParaExcel {
 
             this.linhaCabecalho = linha;
 
-            ArrayList<String> colunasExcel = RetornaColunas(filtroData, dataInicial, dataFinal);
-
-            for (String item : colunasExcel) {
-
-                this.AdicionaLinha(row, coluna, item);
-
-                coluna += 1;
-            }
-
             switch (filtroData) {
 
                 case Diario:
-                    this.ExportacaoDiaria(dataInicial, dataFinal, row, linha);
+                    this.ExportacaoDiariaNova(dataInicial, dataFinal, row, linha);
                     break;
 
                 case Mensal:
+
+                    ArrayList<String> colunasExcel = RetornaColunas(filtroData, dataInicial, dataFinal);
+
+                    for (String item : colunasExcel) {
+
+                        this.AdicionaLinha(row, coluna, item);
+
+                        coluna += 1;
+                    }
+
                     this.ExportacaoMensal(dataInicial, dataFinal, row, linha);
                     break;
 
@@ -375,7 +386,10 @@ public class ExportacaoParaExcel {
 
         double totalEntradas;
         double totalSaidas;
+        double entrada;
+        double saida;
         int coluna;
+        Date dataMostrar;
         Date dataConta;
         Calendar c = Calendar.getInstance();
         c.set(1, 1, 1800);
@@ -391,17 +405,18 @@ public class ExportacaoParaExcel {
 
                 totalEntradas = 0;
                 totalSaidas = 0;
+                entrada = 0;
+                saida = 0;
                 coluna = 3;
                 dataConta = c.getTime();
                 dataAnterior = c.getTime();
+                dataMostrar = c.getTime();
 
                 boolean mostrar = true;
                 boolean primeiroRegistro = true;
 
                 List<CarCapContas> contas = BuscaContas(operacao.getOpCodigo(), dataInicial, dataFinal);
 
-                
-                
                 for (CarCapContas conta : contas) {
 
                     dataConta = conta.getContaDataEmissao();
@@ -433,8 +448,12 @@ public class ExportacaoParaExcel {
                     if (!conta.getContaDataEmissao().equals(dataAnterior)) {
 
                         novacoluna = true;
-                        
+
+                        dataMostrar = dataAnterior;
                         dataAnterior = dataConta;
+
+                        entrada = totalEntradas;
+                        saida = totalSaidas;
 
                         totalEntradas = 0;
                         totalSaidas = 0;
@@ -458,28 +477,232 @@ public class ExportacaoParaExcel {
 
                     }
 
-                    this.AdicionaColunaCabecalho(coluna, dataConta);
-                    this.AdicionaLinha(row, coluna, (totalEntradas - totalSaidas));
+                    this.AdicionaColunaCabecalho(coluna, dataMostrar);
+                    this.AdicionaLinha(row, coluna, (entrada - saida));
 
-                    if (novacoluna && !primeiroRegistro){
-                    
+                    if (novacoluna && !primeiroRegistro) {
+
                         coluna += 1;
-                    
+
                     }
-                    
+
                     primeiroRegistro = false;
-                    
+
                 }
 
                 if (totalEntradas != 0 || totalSaidas != 0) {
 
-                    this.AdicionaColunaCabecalho(coluna, dataConta);
-                    this.AdicionaLinha(row, coluna, (totalEntradas - totalSaidas));
+                    dataMostrar = dataAnterior;
+                    entrada = totalEntradas;
+                    saida = totalSaidas;
+
+                    this.AdicionaColunaCabecalho(coluna, dataMostrar);
+                    this.AdicionaLinha(row, coluna, (entrada - saida));
 
                 }
             }
 
         }
+    }
+
+    private void ExportacaoDiariaNova(Date dataInicial, Date dataFinal, HSSFRow row, int linha) {
+
+        BuscaContas(dataInicial, dataFinal);
+
+        List<ColunasExcel> arquivo = new ArrayList<ColunasExcel>();
+
+        int sequenciaOperacao = 0;
+        for (Excel excel : colunas) {
+
+            for (Operacao op : excel.getOperacao()) {
+                boolean mostrar = true;
+                if (op.getContas().size() > 0) {
+
+//                    
+//
+//                    if (mostrar) {
+//
+//                        
+//
+////                        //Linha alimenta uma nova especificacao
+////                        linha += 1;
+////                        row = firstSheet.createRow(linha);
+////
+////                        //Coluna com a descricao da especificacao
+////                        this.AdicionaLinha(row, 0, excel.getEspecificacao().getEspDescricao());
+////
+////                        //Linha alimenta uma nova operacao
+////                        linha += 1;
+////                        row = firstSheet.createRow(linha);
+////
+////                        //codigo sequencial
+////                        sequenciaOperacao += 1;
+////                        this.AdicionaLinha(row, 0, sequenciaOperacao);
+////                        this.AdicionaLinha(row, 1, op.getOperacoes().getOpDescricao());
+////
+////                        mostrar = false;
+//                    }
+                    for (Contas conta : op.getContas()) {
+
+                        ColunasExcel colunasExcel = new ColunasExcel();
+
+                        colunasExcel.setEspecificacao(excel.getEspecificacao());
+                        colunasExcel.setOperacao(op.getOperacoes());
+
+//                        this.AdicionaColunaCabecalho(3, conta.getDataColuna());
+                        double entrada = this.Soma(conta.getValoresEntrada());
+
+                        double saida = this.Soma(conta.getValoresSaida());
+
+                        colunasExcel.setDataColuna(conta.getDataColuna());
+                        colunasExcel.setValorTotal(entrada - saida);
+
+                        arquivo.add(colunasExcel);
+
+//                        this.AdicionaLinha(row, 3, (entrada - saida));
+                    }
+
+                }
+            }
+        }
+
+        int coluna = 3;
+
+        BeanComparator fieldComparator = new BeanComparator("dataColuna");
+
+        Collections.sort(arquivo, fieldComparator);
+
+        Calendar c = Calendar.getInstance();
+        c.set(1, 1, 1800);
+        Date dataAnterior = c.getTime();
+
+        int espCodigoAnterior = 0, opCodigoAnterior = 0;
+
+        for (ColunasExcel e : arquivo) {
+
+            if (espCodigoAnterior != 0 && espCodigoAnterior != e.getEspecificacao().getEspCodigo()) {
+                //Linha alimenta uma nova especificacao
+                linha += 1;
+                row = firstSheet.createRow(linha);
+
+                //Coluna com a descricao da especificacao
+                this.AdicionaLinha(row, 0, e.getEspecificacao().getEspDescricao());
+
+            }
+
+            if (opCodigoAnterior != 0 && opCodigoAnterior != e.getOperacao().getOpCodigo()) {
+                //Linha alimenta uma nova operacao
+                linha += 1;
+                row = firstSheet.createRow(linha);
+
+                //codigo sequencial
+                sequenciaOperacao += 1;
+                this.AdicionaLinha(row, 0, sequenciaOperacao);
+                this.AdicionaLinha(row, 1, e.getOperacao().getOpDescricao());
+
+            }
+
+            if (!dataAnterior.equals(c.getTime()) && e.getDataColuna().before(dataAnterior)) {
+                coluna += 1;
+            } else {
+
+                this.AdicionaColunaCabecalho(coluna, e.getDataColuna());
+
+            }
+            
+            this.AdicionaLinha(row, coluna, e.getValorTotal());
+            
+            coluna += 1;
+            
+            dataAnterior = e.getDataColuna();
+            espCodigoAnterior = e.getEspecificacao().getEspCodigo();
+            opCodigoAnterior = e.getOperacao().getOpCodigo();
+        }
+
+    }
+
+    private void BuscaContas(Date dataInicial, Date dataFinal) {
+
+        List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
+
+        boolean carregar = false;
+
+        for (FlxcxEspecificacoes especificacao : especificacoes) {
+
+            this.valor = new Excel();
+            this.valor.setEspecificacao(especificacao);
+
+            List<FlxcxOperacoes> operacoes = BuscarOperacoes(especificacao.getEspCodigo());
+
+            for (FlxcxOperacoes operacao : operacoes) {
+
+                Operacao op = new Operacao();
+                op.setOperacoes(operacao);
+
+                boolean mostrar = true;
+                boolean primeiroRegistro = true;
+
+                List<CarCapContas> contas = BuscaContas(operacao.getOpCodigo(), dataInicial, dataFinal);
+
+                Contas cont = new Contas();
+
+                Calendar c = Calendar.getInstance();
+                c.set(1, 1, 1800);
+                Date dataAnterior = c.getTime();
+
+                for (CarCapContas conta : contas) {
+
+                    if (!conta.getContaDataEmissao().equals(dataAnterior)) {
+
+                        if (!dataAnterior.equals(c.getTime())) {
+                            cont.setDataColuna(dataAnterior);
+                            op.getContas().add(cont);
+                            cont = new Contas();
+                        }
+
+                        dataAnterior = conta.getContaDataEmissao();
+
+                    }
+
+                    if (conta.getContaTipo() == TipoConta.Entrada) {
+
+                        cont.getValoresEntrada().add(conta);
+                    } else {
+
+                        cont.getValoresSaida().add(conta);
+
+                    }
+
+                }
+
+                if (!dataAnterior.equals(c.getTime())) {
+                    cont.setDataColuna(dataAnterior);
+                    op.getContas().add(cont);
+                    cont = new Contas();
+                    this.valor.getOperacao().add(op);
+                    carregar = true;
+                }
+
+            }
+
+            if (carregar) {
+                this.colunas.add(this.valor);
+            }
+        }
+
+    }
+
+    private double Soma(List<CarCapContas> valores) {
+
+        double total = 0;
+        for (CarCapContas valor : valores) {
+
+            total += valor.getContaValorPago();
+
+        }
+
+        return total;
+
     }
 
     private void AdicionaLinha(HSSFRow row, int coluna, double valor) {
