@@ -43,7 +43,7 @@
 			</rectangle>
 			<image>
 				<reportElement x="10" y="22" width="200" height="67" uuid="aa934927-9419-4acb-bdb8-57c5c2c4ced2"/>
-				<imageExpression><![CDATA["C:/imagens/logo2.png"]]></imageExpression>
+				<imageExpression><![CDATA["./imagens/logo2.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="220" y="40" width="329" height="40" uuid="9e9ff3ef-683b-4b77-8f1d-a64d5fc94ac6">
