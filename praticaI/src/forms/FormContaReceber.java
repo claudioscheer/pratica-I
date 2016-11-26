@@ -549,11 +549,11 @@ public class FormContaReceber extends WebInternalFrame {
         double valorecebido = fieldValorRecebido.getValue();
         altera.setValorRecebido(valorecebido);
         if (valorecebido == 0) {
-            altera.setCapContaStatus(StatusConta.Pendente);
+            altera.setCapContaStatus(StatusConta.PendenteEmser);
         } else if (valorecebido < valorParcela) {
-            altera.setCapContaStatus(StatusConta.PendenteParcial);
+            altera.setCapContaStatus(StatusConta.PendenteVencida);
         } else if (valorecebido >= valorParcela) {
-            altera.setCapContaStatus(StatusConta.Fechada);
+            altera.setCapContaStatus(StatusConta.Quitada);
         }
 
 //        int value = comb_status.getSelectedIndex();
@@ -679,11 +679,11 @@ public class FormContaReceber extends WebInternalFrame {
             conta02.setContaValorTotal(fieldValorTotal.getValue());
             conta02.setContaValorPago(fieldValorParcela.getValue());
             if (fieldValorRecebido.getValue() == 0) {
-                conta02.setCapContaStatus(StatusConta.Pendente);
+                conta02.setCapContaStatus(StatusConta.PendenteEmser);
             } else if (fieldValorRecebido.getValue() < fieldValorParcela.getValue()) {
-                conta02.setCapContaStatus(StatusConta.PendenteParcial);
+                conta02.setCapContaStatus(StatusConta.PendenteVencida);
             } else if (fieldValorRecebido.getValue() >= fieldValorParcela.getValue()) {
-                conta02.setCapContaStatus(StatusConta.Fechada);
+                conta02.setCapContaStatus(StatusConta.Quitada);
             }
 //            if (comb_status.getSelectedIndex() == 0) {
 //                conta02.setCapContaStatus(StatusConta.Fechada);
@@ -721,12 +721,12 @@ public class FormContaReceber extends WebInternalFrame {
             conta02.setCarcapOperacoesComerciais(conta);
             conta02.setValorRecebido(fieldValorRecebido.getValue());
             if (conta02.getValorRecebido() < conta02.getContaValorPago()) {
-                conta02.setCapContaStatus(StatusConta.Pendente);
+                conta02.setCapContaStatus(StatusConta.PendenteEmser);
                 Utils.notificacao("Lançamento Pendente " + String.valueOf(conta.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
 
             } else if (conta02.getValorRecebido() > conta02.getContaValorPago()) {
                 Utils.notificacao("VERIFICAR: recebimento maior que a parcela " + String.valueOf(conta.getTipoDeConta()), Utils.TipoNotificacao.ok, 0);
-                conta02.setCapContaStatus(StatusConta.PendenteParcial);
+                conta02.setCapContaStatus(StatusConta.PendenteEmser);
             }
             new CarCapContasDAO().insert(conta02);
             Preenche_tabela();
