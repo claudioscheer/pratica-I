@@ -279,10 +279,10 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             }
         });
         txtDataInicial.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtDataInicialInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtDataInicial.addActionListener(new java.awt.event.ActionListener() {
@@ -473,6 +473,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         webBreadcrumb2.setForeground(new java.awt.Color(0, 204, 255));
 
         webButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/head (1).png"))); // NOI18N
+        webButton4.setToolTipText("Lançamentos Futuros");
         webButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 webButton4ActionPerformed(evt);
@@ -1631,17 +1632,26 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
     private void webButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton4ActionPerformed
 
-        Calendar cIni = Calendar.getInstance();
-
-        cIni.set(Calendar.DAY_OF_MONTH, 1);
-
-        Calendar cFim = Calendar.getInstance();
-
-        cFim.set(Calendar.DAY_OF_MONTH, cFim.getActualMaximum(Calendar.DAY_OF_MONTH));
-
-        new FlxcxFluxoCaixaFechamentoDAO().FecharCaixa(cIni.getTime(), cFim.getTime());
-
-        Utils.notificacao("Caixa fechado com sucesso", Utils.TipoNotificacao.ok, 0);
+//        Calendar cIni = Calendar.getInstance();
+//
+//        cIni.set(Calendar.DAY_OF_MONTH, 1);
+//
+//        Calendar cFim = Calendar.getInstance();
+//
+//        cFim.set(Calendar.DAY_OF_MONTH, cFim.getActualMaximum(Calendar.DAY_OF_MONTH));
+//
+//        new FlxcxFluxoCaixaFechamentoDAO().FecharCaixa(cIni.getTime(), cFim.getTime());
+//
+//        Utils.notificacao("Caixa fechado com sucesso", Utils.TipoNotificacao.ok, 0);
+        
+        
+        FormLancamentosFuturos lanc = new FormLancamentosFuturos();
+        
+        
+        lanc.setVisible(true);
+        lanc.setLocationRelativeTo(null);
+        lanc.setDefaultCloseOperation(WIDTH);
+        
 
     }//GEN-LAST:event_webButton4ActionPerformed
 
