@@ -114,6 +114,23 @@ public class CarCapContasDAO {
         return contas;
     }
     
+    public List<CarCapContas> ListarLancamentosFuturos(Date dataInicial, Date dataFinal){
+        
+         Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+
+        Query query = session.createQuery("from CarCapContas as a where contadataemissao BETWEEN :datainicial and :datafinal and contaStatus =:pendente order by contadataemissao");
+
+        query.setParameter("datainicial", dataInicial);
+        query.setParameter("datafinal", dataFinal);
+        query.setParameter("pendente", StatusConta.PendenteEmser);
+        List<CarCapContas> contas = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return contas;  
+        
+    }
+    
     
     
 
