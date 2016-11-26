@@ -1,5 +1,6 @@
 package dao;
 
+import enumeraveis.StatusConta;
 import enumeraveis.TipoConta;
 import java.util.Date;
 import java.util.List;
@@ -185,11 +186,12 @@ public class CarCapContasDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
 
-        Query query = session.createQuery("from CarCapContas as a where flxcxoperacoes_opcodigo = :codigo and contadataemissao BETWEEN :dataInicial and :dataFinal");
+        Query query = session.createQuery("from CarCapContas as a where flxcxoperacoes_opcodigo = :codigo and contadataemissao BETWEEN :dataInicial and :dataFinal and contaStatus = :status");
 
         query.setParameter("codigo", codigoOperacao);
         query.setParameter("dataInicial", dataInicial);
         query.setParameter("dataFinal", dataFinal);
+        query.setParameter("status", StatusConta.Fechada);
         
         
         List<CarCapContas> contas = query.list();
@@ -246,6 +248,34 @@ public class CarCapContasDAO {
         session.getTransaction().commit();
         session.close();
         return maior;
+
+    }
+    
+    public double Fechamento(Date data) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+
+        Query query = session.createQuery("select sum(a.contaValorPago) from CarCapContas as a where contaTipo =:tipo and contadataemissao <= :dataInicial and contaStatus = :status");
+        query.setParameter("dataInicial", data);
+        query.setParameter("status", StatusConta.Fechada);
+        query.setParameter("tipo", TipoConta.Entrada);
+
+        double entrada = (double) (query.uniqueResult() == null ? 0.0 : query.uniqueResult());
+        
+        query = session.createQuery("select sum(a.contaValorPago) from CarCapContas as a where contaTipo =:tipo and contadataemissao <= :dataInicial and contaStatus = :status");
+        query.setParameter("dataInicial", data);
+        query.setParameter("status", StatusConta.Fechada);
+        query.setParameter("tipo", TipoConta.Saida);
+
+        double saida = (double) (query.uniqueResult() == null ? 0.0 : query.uniqueResult());
+        
+        
+        double total = entrada - saida;
+
+        session.getTransaction().commit();
+        session.close();
+        return total;
 
     }
 

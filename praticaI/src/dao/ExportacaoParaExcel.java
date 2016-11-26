@@ -518,30 +518,6 @@ public class ExportacaoParaExcel {
                 boolean mostrar = true;
                 if (op.getContas().size() > 0) {
 
-//                    
-//
-//                    if (mostrar) {
-//
-//                        
-//
-////                        //Linha alimenta uma nova especificacao
-////                        linha += 1;
-////                        row = firstSheet.createRow(linha);
-////
-////                        //Coluna com a descricao da especificacao
-////                        this.AdicionaLinha(row, 0, excel.getEspecificacao().getEspDescricao());
-////
-////                        //Linha alimenta uma nova operacao
-////                        linha += 1;
-////                        row = firstSheet.createRow(linha);
-////
-////                        //codigo sequencial
-////                        sequenciaOperacao += 1;
-////                        this.AdicionaLinha(row, 0, sequenciaOperacao);
-////                        this.AdicionaLinha(row, 1, op.getOperacoes().getOpDescricao());
-////
-////                        mostrar = false;
-//                    }
                     for (Contas conta : op.getContas()) {
 
                         ColunasExcel colunasExcel = new ColunasExcel();
@@ -559,7 +535,6 @@ public class ExportacaoParaExcel {
 
                         arquivo.add(colunasExcel);
 
-//                        this.AdicionaLinha(row, 3, (entrada - saida));
                     }
 
                 }
@@ -576,49 +551,106 @@ public class ExportacaoParaExcel {
         c.set(1, 1, 1800);
         Date dataAnterior = c.getTime();
 
-        int espCodigoAnterior = 0, opCodigoAnterior = 0;
+        List<ColunasExcel> mostrar = new ArrayList<ColunasExcel>();
 
-        for (ColunasExcel e : arquivo) {
+        for (ColunasExcel linhaExc : arquivo) {
 
-            if (espCodigoAnterior != 0 && espCodigoAnterior != e.getEspecificacao().getEspCodigo()) {
-                //Linha alimenta uma nova especificacao
-                linha += 1;
-                row = firstSheet.createRow(linha);
+            boolean acrescentarColuna = true;
+            boolean acrescentarLinha = true;
 
-                //Coluna com a descricao da especificacao
-                this.AdicionaLinha(row, 0, e.getEspecificacao().getEspDescricao());
+            for (ColunasExcel colunaExc : arquivo) {
 
-            }
+                if (linhaExc.getEspecificacao().getEspCodigo() == colunaExc.getEspecificacao().getEspCodigo()) {
+                
 
-            if (opCodigoAnterior != 0 && opCodigoAnterior != e.getOperacao().getOpCodigo()) {
-                //Linha alimenta uma nova operacao
-                linha += 1;
-                row = firstSheet.createRow(linha);
+                }
 
-                //codigo sequencial
-                sequenciaOperacao += 1;
-                this.AdicionaLinha(row, 0, sequenciaOperacao);
-                this.AdicionaLinha(row, 1, e.getOperacao().getOpDescricao());
+                if (linhaExc.getDataColuna().equals(colunaExc.getDataColuna())) {
+                   coluna -= 1;           
+
+                }
 
             }
 
-            if (!dataAnterior.equals(c.getTime()) && e.getDataColuna().before(dataAnterior)) {
-                coluna += 1;
-            } else {
-
-                this.AdicionaColunaCabecalho(coluna, e.getDataColuna());
-
-            }
             
-            this.AdicionaLinha(row, coluna, e.getValorTotal());
-            
+
+            linhaExc.setColuna(coluna);
+            linhaExc.setLinha(linha);
+
+            mostrar.add(linhaExc);
+
             coluna += 1;
+            linha += 1;
             
-            dataAnterior = e.getDataColuna();
-            espCodigoAnterior = e.getEspecificacao().getEspCodigo();
-            opCodigoAnterior = e.getOperacao().getOpCodigo();
         }
 
+        int espCodigoAnterior = 0, opCodigoAnterior = 0;
+
+        for (ColunasExcel excel : mostrar) {
+
+            this.AdicionaLinha(row, excel.getColuna(), excel.getDataColuna());
+
+            linha = excel.getLinha();
+            row = firstSheet.createRow(linha);
+
+            //Coluna com a descricao da especificacao
+            this.AdicionaLinha(row, 0, excel.getEspecificacao().getEspDescricao());
+
+            //Linha alimenta uma nova operacao
+            linha += 1;
+            row = firstSheet.createRow(linha);
+
+            //codigo sequencial
+            sequenciaOperacao += 1;
+            this.AdicionaLinha(row, 0, sequenciaOperacao);
+            this.AdicionaLinha(row, 1, excel.getOperacao().getOpDescricao());
+
+            this.AdicionaLinha(row, excel.getColuna(), excel.getValorTotal());
+
+            linha += 1;
+            row = firstSheet.createRow(linha);
+
+        }
+
+        /*
+         if (espCodigoAnterior != 0 && espCodigoAnterior != e.getEspecificacao().getEspCodigo()) {
+         //Linha alimenta uma nova especificacao
+         linha += 1;
+         row = firstSheet.createRow(linha);
+
+         //Coluna com a descricao da especificacao
+         this.AdicionaLinha(row, 0, e.getEspecificacao().getEspDescricao());
+
+         }
+
+         if (opCodigoAnterior != 0 && opCodigoAnterior != e.getOperacao().getOpCodigo()) {
+         //Linha alimenta uma nova operacao
+         linha += 1;
+         row = firstSheet.createRow(linha);
+
+         //codigo sequencial
+         sequenciaOperacao += 1;
+         this.AdicionaLinha(row, 0, sequenciaOperacao);
+         this.AdicionaLinha(row, 1, e.getOperacao().getOpDescricao());
+
+         }
+
+         if (!dataAnterior.equals(c.getTime()) && e.getDataColuna().before(dataAnterior)) {
+         coluna += 1;
+         } else {
+
+         this.AdicionaColunaCabecalho(coluna, e.getDataColuna());
+
+         }
+            
+         this.AdicionaLinha(row, coluna, e.getValorTotal());
+            
+         coluna += 1;
+            
+         dataAnterior = e.getDataColuna();
+         espCodigoAnterior = e.getEspecificacao().getEspCodigo();
+         opCodigoAnterior = e.getOperacao().getOpCodigo();
+         */
     }
 
     private void BuscaContas(Date dataInicial, Date dataFinal) {

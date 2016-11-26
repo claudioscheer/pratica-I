@@ -3,6 +3,7 @@ package components;
 import com.alee.managers.language.data.TooltipWay;
 import com.alee.managers.tooltip.TooltipManager;
 import com.alee.utils.ThreadUtils;
+import dao.CarCapContasDAO;
 import dao.FlxcxFluxoCaixaFechamentoDAO;
 import utils.Utils;
 import java.awt.Color;
@@ -119,9 +120,7 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
 
             this.setMesAno();
 
-            FlxcxFluxoCaixaFechamento saldoAtual = new FlxcxFluxoCaixaFechamentoDAO().BuscarSaldoMes(this.mes, this.ano);
-
-            this.saldo = saldoAtual.getFechSaldoDisponivel();
+            this.saldo = new CarCapContasDAO().Fechamento(this.calendar.getTime());
 
             this.setSaldo();
 

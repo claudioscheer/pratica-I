@@ -16,6 +16,8 @@ public class ColunasExcel {
     private FlxcxOperacoes operacao;
     private Date dataColuna;
     private double valorTotal;
+    private int linha;
+    private int coluna;
 
     public FlxcxEspecificacoes getEspecificacao() {
         return especificacao;
@@ -47,6 +49,22 @@ public class ColunasExcel {
 
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    public int getLinha() {
+        return linha;
+    }
+
+    public void setLinha(int linha) {
+        this.linha = linha;
+    }
+
+    public int getColuna() {
+        return coluna;
+    }
+
+    public void setColuna(int coluna) {
+        this.coluna = coluna;
     }
     
     

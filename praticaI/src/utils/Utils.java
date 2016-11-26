@@ -17,6 +17,7 @@ import model.Log;
 import enumeraveis.LogTipo;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.exception.ExceptionUtils;
 //import org.hibernate.exception.ExceptionUtils;
 //import org.hibernate.exception.ExceptionUtils;
 
