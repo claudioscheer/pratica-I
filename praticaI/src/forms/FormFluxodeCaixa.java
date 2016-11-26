@@ -37,7 +37,9 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.persistence.Table;
+import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import model.FlxcxFluxoCaixaFechamento;
 import model.PatAtivoImobilizado;
@@ -96,18 +98,14 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         checkboxEntrada.setSelected(true);
         checkboxSaida.setSelected(true);
 
-        Thread t = new Thread(() -> {
+        if (new FlxcxFluxoCaixaFechamentoDAO().verificaLancamentoInicial()) {
 
-            Calendar cIni = Calendar.getInstance();
+            btnAdd.setVisible(false);
 
-            int mes = Integer.valueOf(new SimpleDateFormat("MM").format(cIni.getTime()));
-            int ano = Integer.valueOf(new SimpleDateFormat("YYYY").format(cIni.getTime()));
+        } else {
 
-            FlxcxFluxoCaixaFechamento caixa = new FlxcxFluxoCaixaFechamentoDAO().BuscarSaldoMes(mes, ano);
-
-            txtTotalDisponivelCaixa.setText(title);
-
-        });
+            btnAdd.setVisible(true);
+        }
 
 //        this.webPanel_Tabela.setSortable(true);
 //        this.webPanel_Tabela.setLoadMore(x -> new FormFluxodeCaixa.CarregarContas().execute());
@@ -153,8 +151,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
         txtTotalEntradas = new com.alee.laf.text.WebTextField();
         txtTotalSaidas = new com.alee.laf.text.WebTextField();
         txtTotal = new com.alee.laf.text.WebTextField();
-        txtTotalDisponivelCaixa = new com.alee.laf.text.WebTextField();
-        webLabel6 = new com.alee.laf.label.WebLabel();
 
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -283,10 +279,10 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             }
         });
         txtDataInicial.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtDataInicialInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtDataInicial.addActionListener(new java.awt.event.ActionListener() {
@@ -622,8 +618,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
         webLabel9.setText("Total:");
 
-        webLabel6.setText("Total disponível em caixa: ");
-
         javax.swing.GroupLayout webBreadcrumb3Layout = new javax.swing.GroupLayout(webBreadcrumb3);
         webBreadcrumb3.setLayout(webBreadcrumb3Layout);
         webBreadcrumb3Layout.setHorizontalGroup(
@@ -641,11 +635,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                 .addComponent(webLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 359, Short.MAX_VALUE)
-                .addComponent(webLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTotalDisponivelCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(611, Short.MAX_VALUE))
         );
         webBreadcrumb3Layout.setVerticalGroup(
             webBreadcrumb3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -657,9 +647,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                     .addComponent(webLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTotalEntradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTotalSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTotalDisponivelCaixa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(webLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39))
         );
 
@@ -686,7 +674,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             CarregarGraficoJTable(null, null, 3, TipoConta.ambos, dataInicial, dataFinal, null);
 
 //            atualizarTabela();
-
             return null;
         }
 
@@ -707,7 +694,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 //
 //        this.webPanel_Tabela.setModel(model);
 //    }
-
     private Object[] ativoToArray(CarCapContas conta) {
 
         Object[] o = new Object[6];
@@ -734,7 +720,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
                 if (tipografico.equals(TipoGrafico.barras)) {
 
-                    j = grap.GraficoBarras(contas, "Entradas X Saidas", filtro, "small", dataInicial, dataFinal);
+                    j = grap.GraficoBarras(contas, "Entradas X Saidas", filtro, "full", dataInicial, dataFinal);
 
                 } else if (tipografico.equals(TipoGrafico.pizza)) {
 
@@ -795,7 +781,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
                 if (tipografico.equals(TipoGrafico.barras)) {
 
-                    j = grap.GraficoBarras(contas, "Entradas X Saidas", filtro, "small", dataInicial, dataFinal);
+                    j = grap.GraficoBarras(contas, "Entradas X Saidas", filtro, "full", dataInicial, dataFinal);
 
                 } else if (tipografico.equals(TipoGrafico.pizza)) {
 
@@ -862,6 +848,9 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
             DefaultTableModel modelTabela = new DefaultTableModel(new Object[]{"Data", "Entradas", "Saídas", "Saldo do Dia"}, 0);
 
+        
+           
+
             // Tive que criar esse cara por que o valor da data final de perdia ao clicar em filtrar
             String dataInicialSetada = Utils.formatData(txtDataInicial.getDate());
             String dataFinalsetada = Utils.formatData(txtDataFinal.getDate());
@@ -878,6 +867,9 @@ public class FormFluxodeCaixa extends WebInternalFrame {
             c.setTime(dataInicial);
 
             for (int j = 0; j <= intervaloDatas; j++) {
+
+                totalEntradas = 0;
+                totalSaidas = 0;
 
                 dataAtualdoLoop = c.getTime();
 
@@ -942,27 +934,28 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                 }
                 c.add(Calendar.DATE, +1);
             }
+            
+            
+            tablenovo.setModel(modelTabela);
+            
+          
+      
 
-         
             TableCellRenderer renderer = new ColorCells(true);
             tablenovo.setDefaultRenderer(String.class, renderer);
             tablenovo.setDefaultRenderer(Integer.class, renderer);
             tablenovo.setDefaultRenderer(BigDecimal.class, renderer);
             tablenovo.setDefaultRenderer(Date.class, renderer);
-                    
+
             tablenovo.setDefaultRenderer(Object.class, renderer);
-                
 
             txtTotalEntradas.setText(String.valueOf(Utils.format(totalEntradas)));
             txtTotalSaidas.setText(String.valueOf(Utils.format(totalSaidas)));
 
             txtTotal.setText(String.valueOf(Utils.format(totalEntradas - totalSaidas)));
 
-            FlxcxFluxoCaixaFechamento fechamento = new FlxcxFluxoCaixaFechamentoDAO().BuscarUltimoSaldo();
-
-            txtTotalDisponivelCaixa.setText(Utils.format(fechamento.getFechSaldoDisponivel()));
-
-            tablenovo.setModel(modelTabela);
+         
+            
 
             JScrollPane tableContainer = new JScrollPane(tablenovo);
 
@@ -1690,7 +1683,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     private com.alee.extended.date.WebDateField txtDataFinal;
     private com.alee.extended.date.WebDateField txtDataInicial;
     private com.alee.laf.text.WebTextField txtTotal;
-    private com.alee.laf.text.WebTextField txtTotalDisponivelCaixa;
     private com.alee.laf.text.WebTextField txtTotalEntradas;
     private com.alee.laf.text.WebTextField txtTotalSaidas;
     private com.alee.extended.breadcrumb.WebBreadcrumb webBreadcrumb1;
@@ -1704,7 +1696,6 @@ public class FormFluxodeCaixa extends WebInternalFrame {
     private com.alee.laf.label.WebLabel webLabel3;
     private com.alee.laf.label.WebLabel webLabel4;
     private com.alee.laf.label.WebLabel webLabel5;
-    private com.alee.laf.label.WebLabel webLabel6;
     private com.alee.laf.label.WebLabel webLabel7;
     private com.alee.laf.label.WebLabel webLabel8;
     private com.alee.laf.label.WebLabel webLabel9;
