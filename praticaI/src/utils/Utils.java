@@ -289,7 +289,7 @@ public class Utils {
         new LogDAO().insert(log);
     }
     
-    public  int diasEntreDatas(String datainicial, String datafinal){
+    public int diasEntreDatas(String datainicial, String datafinal){
         
         // Dando um exemplo: quantos dias se passam desde 07/09/1822 até 05/06/2006?
         DateFormat df = new SimpleDateFormat ("dd/MM/yyyy");
