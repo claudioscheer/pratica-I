@@ -149,8 +149,8 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
-                <StringItem index="0" value="&#xc0; Prazo"/>
-                <StringItem index="1" value="&#xc0; Vista"/>
+                <StringItem index="0" value="A Prazo"/>
+                <StringItem index="1" value="A Vista"/>
                 <StringItem index="2" value=" "/>
                 <StringItem index="3" value=" "/>
               </StringArray>
@@ -596,6 +596,7 @@
         </Component>
         <Component class="components.TextFieldValorMonetario" name="fieldValorParcela">
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="fieldValorParcelaMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fieldValorParcelaActionPerformed"/>
           </Events>
           <Constraints>
@@ -614,7 +615,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="components.TextFieldValorMonetario" name="textFieldValorMonetario3">
+        <Component class="components.TextFieldValorMonetario" name="fild_Preco_Unitario">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="252" y="313" width="150" height="30"/>

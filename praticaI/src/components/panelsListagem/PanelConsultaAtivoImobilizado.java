@@ -84,23 +84,23 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
 
     private void createOpcoesButton() {
         WebPopupMenu popupMenuOpcoes = new WebPopupMenu();
-        WebMenuItem menuQrCode = new WebMenuItem("QrCode", Hotkey.NUMBER_1);
-        menuQrCode.addActionListener((e) -> {
-            int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
-            if (linhaselecionada < 0) {
-                Utils.notificacao("Selecione um ativo imobilizado!", Utils.TipoNotificacao.erro, 0);
-                return;
-            }
-            FormPrincipal formBloquear = FormPrincipal.getInstance();
-            FormQrCodeAtivoImobilizado form = new FormQrCodeAtivoImobilizado();
-            form.setFrameBloquear(formBloquear);
-            form.setAtivoImobilizado(this.ativosImobilizados.get(linhaselecionada));
-            form.setVisible(true);
-            formBloquear.setEnabled(false);
-        });
-        popupMenuOpcoes.add(menuQrCode);
+//        WebMenuItem menuQrCode = new WebMenuItem("QrCode", Hotkey.NUMBER_1);
+//        menuQrCode.addActionListener((e) -> {
+//            int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
+//            if (linhaselecionada < 0) {
+//                Utils.notificacao("Selecione um ativo imobilizado!", Utils.TipoNotificacao.erro, 0);
+//                return;
+//            }
+//            FormPrincipal formBloquear = FormPrincipal.getInstance();
+//            FormQrCodeAtivoImobilizado form = new FormQrCodeAtivoImobilizado();
+//            form.setFrameBloquear(formBloquear);
+//            form.setAtivoImobilizado(this.ativosImobilizados.get(linhaselecionada));
+//            form.setVisible(true);
+//            formBloquear.setEnabled(false);
+//        });
+//        popupMenuOpcoes.add(menuQrCode);
 
-        WebMenuItem menuReavaliarAtivo = new WebMenuItem("Reavaliar ativo", Hotkey.NUMBER_2);
+        WebMenuItem menuReavaliarAtivo = new WebMenuItem("Reavaliar ativo", Hotkey.NUMBER_1);
         menuReavaliarAtivo.addActionListener((e) -> {
             int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
             if (linhaselecionada < 0) {
@@ -116,7 +116,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         });
         popupMenuOpcoes.add(menuReavaliarAtivo);
 
-        WebMenuItem menuHistoricoDepreciacao = new WebMenuItem("Histórico depreciação", Hotkey.NUMBER_3);
+        WebMenuItem menuHistoricoDepreciacao = new WebMenuItem("Histórico depreciação", Hotkey.NUMBER_2);
         menuHistoricoDepreciacao.addActionListener((e) -> {
             int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
             if (linhaselecionada < 0) {
@@ -132,7 +132,7 @@ public class PanelConsultaAtivoImobilizado extends WebPanel {
         });
         popupMenuOpcoes.add(menuHistoricoDepreciacao);
 
-        WebMenuItem menuBaixa = new WebMenuItem("Dar baixa", Hotkey.NUMBER_4);
+        WebMenuItem menuBaixa = new WebMenuItem("Dar baixa", Hotkey.NUMBER_3);
         menuBaixa.addActionListener((e) -> {
             int linhaselecionada = this.tabelaAtivosImobilizados.getSelectedRow();
             if (linhaselecionada < 0) {
