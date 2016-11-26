@@ -183,9 +183,8 @@ public class FormBaixaAtivo extends javax.swing.JFrame {
 
         Utils.notificacao("Baixa realizada", Utils.TipoNotificacao.ok, 0);
         this.panelConsultaAtivoImobilizado.resetBusca();
+         FormPrincipal.getInstance().setEnabled(true);
         this.dispose();
-
-        FormPrincipal.getInstance().setEnabled(true);
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
