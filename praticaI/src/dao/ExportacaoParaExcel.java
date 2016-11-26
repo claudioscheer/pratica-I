@@ -69,13 +69,14 @@ public class ExportacaoParaExcel {
 
             this.linhaCabecalho = linha;
 
-            switch (filtroData) {
-
-                case Diario:
-                    this.ExportacaoDiariaNova(dataInicial, dataFinal, row, linha);
-                    break;
-
-                case Mensal:
+            //futuramente pode ser continuada a implementacao das diferentes formas de visualização
+//            switch (filtroData) {
+//
+//                case Diario:
+//                    this.ExportacaoDiariaNova(dataInicial, dataFinal, row, linha);
+//                    break;
+//
+//                case Mensal:
 
                     ArrayList<String> colunasExcel = RetornaColunas(filtroData, dataInicial, dataFinal);
 
@@ -87,9 +88,10 @@ public class ExportacaoParaExcel {
                     }
 
                     this.ExportacaoMensal(dataInicial, dataFinal, row, linha);
-                    break;
-
-            }
+                    
+//                    break;
+//
+//            }
 
             this.workbook.write(arquivo);
             arquivo.close();

@@ -6,6 +6,7 @@
 package dao;
 
 import enumeraveis.TipoConta;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.CarCapContas;
@@ -83,5 +84,24 @@ public class CarPessoaDAO {
         return pessoa;
     }
 
+    
+    public CarPessoa buscarPessoaPeloLogin(String login) {		 
+         Session session = HibernateUtil.getSessionFactory().openSession();		
+         session.getTransaction().begin();		
+         List<CarPessoa> pessoa = new ArrayList<>();		
+         try {		
+             Query query = session.createQuery("FROM CarPessoa p WHERE p.pessoaLogin = :usuario");		
+             query.setParameter("usuario", login);		
+             pessoa = query.list();		
+             session.getTransaction().commit();		
+         } catch (HibernateException e) {		
+         } finally {		
+             session.close();		
+         }		
+         if (pessoa.size() > 0) {		
+             return pessoa.get(0);		
+         }		
+         return null;		
+     }
     
 }

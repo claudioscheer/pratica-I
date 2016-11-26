@@ -734,7 +734,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
                 if (tipografico.equals(TipoGrafico.barras)) {
 
-                    j = grap.GraficoBarras(contas, "Entradas X Saidas", filtro, "small");
+                    j = grap.GraficoBarras(contas, "Entradas X Saidas", filtro, "small", dataInicial, dataFinal);
 
                 } else if (tipografico.equals(TipoGrafico.pizza)) {
 
@@ -795,7 +795,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
                 if (tipografico.equals(TipoGrafico.barras)) {
 
-                    j = grap.GraficoBarras(contas, "Entradas X Saidas", filtro, "small");
+                    j = grap.GraficoBarras(contas, "Entradas X Saidas", filtro, "small", dataInicial, dataFinal);
 
                 } else if (tipografico.equals(TipoGrafico.pizza)) {
 

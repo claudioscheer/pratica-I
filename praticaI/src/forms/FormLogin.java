@@ -110,7 +110,10 @@ public class FormLogin extends javax.swing.JFrame {
         }
 
         if (pessoa.getPessoaSenha() != null && pessoa.getPessoaSenha().equals(this.txtSenha.getText())) {
-            this.startCarregandoSistema(pessoa.getPessoaNome());
+            FormPrincipal.start(pessoa.getPessoaNome());
+            this.dispose();
+
+//            this.startCarregandoSistema(pessoa.getPessoaNome());
         } else {
             Utils.notificacao("Senha incorreta!", Utils.TipoNotificacao.erro, 20000);
             this.txtSenha.setText("");

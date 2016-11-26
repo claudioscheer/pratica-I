@@ -39,8 +39,10 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
         MoverComponente moveItem = new MoverComponente();
         this.addMouseListener(moveItem);
         this.addMouseMotionListener(moveItem);
-        
+
         this.loadSaldo();
+
+        this.LoadValorCaixa();
         
     }
 
@@ -77,7 +79,7 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
 
     private void setSaldo() {
         Color c;
-       
+
         if (this.saldo < 0) {
             c = Color.RED;
         } else if (this.saldo > 0) {
@@ -125,7 +127,7 @@ public class PanelWidgetSaldo extends javax.swing.JPanel {
             this.setSaldo();
 
         });
-        
+
         t.start();
 
     }
