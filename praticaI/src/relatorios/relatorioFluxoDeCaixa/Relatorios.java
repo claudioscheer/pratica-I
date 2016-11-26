@@ -22,6 +22,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
+import utils.Utils;
 
 /**
  *
@@ -41,6 +42,7 @@ public class Relatorios {
            
             i.setContaStatusDescricao(i.getCapContaStatus().toString());
             i.setContaTipoDescricao(i.getContaTipo().toString());
+            
           
       
             contaRelatorio.add(i); 
@@ -49,9 +51,9 @@ public class Relatorios {
         
         HashMap parametros = new HashMap();
         
-        parametros.put("DataAtual", new Date());
-        parametros.put("DataInicial", dataIni);
-        parametros.put("DataFinal", dataFim);
+        parametros.put("DataAtual", Utils.formatData(new Date()));
+        parametros.put("DataInicial", Utils.formatData(dataIni));
+        parametros.put("DataFinal", Utils.formatData(dataFim));
         
         JasperPrint print = JasperFillManager.fillReport(report,parametros, new JRBeanCollectionDataSource(contaRelatorio,false));
        

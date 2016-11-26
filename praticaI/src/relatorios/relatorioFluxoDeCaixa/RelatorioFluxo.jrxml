@@ -8,11 +8,11 @@
 			<style backcolor="#EDE6E6" fill="Solid"/>
 		</conditionalStyle>
 	</style>
-	<parameter name="DataInicial" class="java.util.Date"/>
-	<parameter name="DataFinal" class="java.util.Date">
+	<parameter name="DataInicial" class="java.lang.String"/>
+	<parameter name="DataFinal" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 	</parameter>
-	<parameter name="DataAtual" class="java.util.Date">
+	<parameter name="DataAtual" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 	</parameter>
 	<queryString>
