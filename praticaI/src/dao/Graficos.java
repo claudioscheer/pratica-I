@@ -118,7 +118,7 @@ public final class Graficos {
 
     }
 
-    public JFreeChart GraficoBarras(List<CarCapContas> contas, String titulo, FiltroData filtro, String estilo) {
+    public JFreeChart GraficoBarras(List<CarCapContas> contas, String titulo, FiltroData filtro, String estilo, Date dataInicial, Date dataFinal) {
 
         ArrayList<String> tipoFiltragem = new ArrayList();
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -129,37 +129,42 @@ public final class Graficos {
         switch (filtro) {
 
             case Diario:
-
+            
+            int intervaloDatas = new utils.Utils().diasEntreDatas(Utils.formatData(dataInicial), Utils.formatData(dataFinal));
+            
+             Calendar c = Calendar.getInstance();
+                    
+             c.setTime(dataInicial);
+            
+            
                 if (estilo.equals("full")) {
 
-                    tipoFiltragem.add("Domingo");
-                    tipoFiltragem.add("Segunda");
-                    tipoFiltragem.add("Terça");
-                    tipoFiltragem.add("Quarta");
-                    tipoFiltragem.add("Quinta");
-                    tipoFiltragem.add("Sexta");
-                    tipoFiltragem.add("Sábado");
+                    
+                    for (int i = 0; i <= intervaloDatas; i++) {
+                        
+                        tipoFiltragem.add(Utils.formatData(c.getTime()));
+                        
+                        c.add(Calendar.DATE, 1);
+                    }
+                    
 
                 } else if (estilo.equals("small")) {
 
-                    tipoFiltragem.add("Dom");
-                    tipoFiltragem.add("Seg");
-                    tipoFiltragem.add("Ter");
-                    tipoFiltragem.add("Qua");
-                    tipoFiltragem.add("Qui");
-                    tipoFiltragem.add("Sex");
-                    tipoFiltragem.add("Sáb");
+                    for (int i = 0; i <= intervaloDatas; i++) {
+                        
+                        String [] dia = Utils.formatData(c.getTime()).split("/");
+
+                        tipoFiltragem.add(dia[0]);
+ 
+                        c.set(Calendar.DATE, +1);
+                    }
 
                 }
 
                 tipo = 1;
 
-                Date primeiroDiaSemana = dia_inicial_final_semana(true);
-                Date ultimoDiaSemana = dia_inicial_final_semana(false);
                 
-                contas = new CarCapContasDAO().ListarTodos(primeiroDiaSemana, ultimoDiaSemana);
-                
-                dataset = montarDataSet(tipo, tipoFiltragem, contas, primeiroDiaSemana, ultimoDiaSemana);
+                dataset = montarDataSet(tipo, tipoFiltragem, contas, dataInicial, dataFinal);
 
                 break;
 
@@ -207,17 +212,17 @@ public final class Graficos {
 
             case Anual:
 
-                Calendar c = Calendar.getInstance();
+                Calendar c2 = Calendar.getInstance();
 
                 //seta ano atual
-                tipoFiltragem.add(String.valueOf(c.get(Calendar.YEAR)));
+                tipoFiltragem.add(String.valueOf(c2.get(Calendar.YEAR)));
 
                 // seta próximos 5 anos
                 for (int i = 1; i < 6; i++) {
 
-                    c.add(Calendar.YEAR, 1);
+                    c2.add(Calendar.YEAR, 1);
 
-                    tipoFiltragem.add(String.valueOf(c.get(Calendar.YEAR)));
+                    tipoFiltragem.add(String.valueOf(c2.get(Calendar.YEAR)));
 
                 }
 
@@ -272,8 +277,7 @@ public final class Graficos {
 //
 //            String dataInicialSetada = Utils.formatData(dataInicial);
 //            String dataFinalsetada = Utils.formatData(dataFinal);
-//
-//            int intervaloDatas = new utils.Utils().diasEntreDatas(dataInicialSetada, dataFinalsetada);
+
 
                 double valorEntrada = 0;
                 double valorSaida = 0;
@@ -285,15 +289,16 @@ public final class Graficos {
                 c.setTime(dataInicial);
 
                 for (int j = 0; j < tipoFiltragem.size(); j++) {
-
-                    dataset.addValue(0, "Contas a pagar", tipoFiltragem.get(j));
-                    dataset.addValue(0, "Contas a receber", tipoFiltragem.get(j));
+                    
+                    dataset.addValue(0, "Saídas", tipoFiltragem.get(j));
+                    dataset.addValue(0, "Entradas", tipoFiltragem.get(j));
+                    
 
                     dataAtualdoLoop = c.getTime();
 
                     for (CarCapContas i : contas) {
 
-                        System.out.println("data 1:" + Utils.formatData(dataAtualdoLoop) + "data2: " + Utils.formatData(i.getContaDataEmissao()));
+                       // System.out.println("data 1:" + Utils.formatData(dataAtualdoLoop) + "data2: " + Utils.formatData(i.getContaDataEmissao()));
 
                         if (Utils.formatData(dataAtualdoLoop).equals(Utils.formatData(i.getContaDataEmissao()))) {
 
@@ -307,16 +312,12 @@ public final class Graficos {
 
                             }
 
-                        }else{
-                            
-                            controle +=1;
-                            
                         }
                    
                     }
 
-                    dataset.addValue(valorEntrada, "Contas a receber", tipoFiltragem.get(j));
-                    dataset.addValue(valorSaida, "Contas a pagar", tipoFiltragem.get(j));
+                    dataset.addValue(valorEntrada, "Entradas", tipoFiltragem.get(j));
+                    dataset.addValue(valorSaida, "Saídas", tipoFiltragem.get(j));
                     c.add(Calendar.DATE, +1);
 
                     valorEntrada = 0;
@@ -330,8 +331,8 @@ public final class Graficos {
 
                 for (int j = 0; j < tipoFiltragem.size(); j++) {
 
-                    dataset.addValue(0, "Contas a pagar", tipoFiltragem.get(j));
-                    dataset.addValue(0, "Contas a receber", tipoFiltragem.get(j));
+                    dataset.addValue(0, "Saídas", tipoFiltragem.get(j));
+                    dataset.addValue(0, "Entradas", tipoFiltragem.get(j));
 
                     for (CarCapContas i : contas) {
 
@@ -339,11 +340,11 @@ public final class Graficos {
 
                             if (i.getContaTipo().equals(TipoConta.Saida)) {
 
-                                dataset.addValue(i.getContaValorPago(), "Contas a pagar", tipoFiltragem.get(j));
+                                dataset.addValue(i.getContaValorPago(), "Saídas", tipoFiltragem.get(j));
 
                             } else if (i.getContaTipo().equals(TipoConta.Entrada)) {
 
-                                dataset.addValue(i.getContaValorTotal(), "Contas a receber", tipoFiltragem.get(j));
+                                dataset.addValue(i.getContaValorTotal(), "Entradas", tipoFiltragem.get(j));
                             }
 
                         }

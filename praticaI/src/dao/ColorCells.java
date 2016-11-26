@@ -11,6 +11,7 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.Renderer;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -32,6 +33,11 @@ public class ColorCells implements TableCellRenderer {
         Color foreground = null, background = null;
         
         TableColumn cl = table.getColumnModel().getColumn(0);
+
+        
+        
+         DEFAULT_RENDERER.setHorizontalAlignment(SwingConstants.CENTER); 
+                  table.getColumnModel().getColumn(1).setCellRenderer(DEFAULT_RENDERER);
         
        
         if(isSelected){
@@ -53,6 +59,8 @@ public class ColorCells implements TableCellRenderer {
                 if(table.getValueAt(row, 0).toString().contains("/")){
                 renderer.setFont(renderer.getFont().deriveFont(Font.BOLD));
                 }
+         
+                
             }else if(ref != null && negativoPositivo == false){
                 foreground = Color.BLACK;
                 background = new Color(74 ,255, 147);

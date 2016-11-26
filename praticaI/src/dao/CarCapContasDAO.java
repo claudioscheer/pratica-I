@@ -51,21 +51,6 @@ public class CarCapContasDAO {
 
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
       public CarCapContas BuscarContasId(int id) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -82,18 +67,6 @@ public class CarCapContasDAO {
         return contas;
 
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     public Boolean insert(CarCapContas conta) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -125,13 +98,16 @@ public class CarCapContasDAO {
 
     public List<CarCapContas> ListarTodos(Date dataInicial, Date dataFinal) {
 
-        System.out.println("DataInicial: " + dataInicial + " DataFinal: " + dataFinal);
+      //  System.out.println("DataInicial: " + dataInicial + " DataFinal: " + dataFinal);
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        Query query = session.createQuery("from CarCapContas as a where contadataemissao BETWEEN :datainicial and :datafinal");
+
+        Query query = session.createQuery("from CarCapContas as a where contadataemissao BETWEEN :datainicial and :datafinal and contaStatus =:fechada order by contadataemissao");
+
         query.setParameter("datainicial", dataInicial);
         query.setParameter("datafinal", dataFinal);
+        query.setParameter("fechada", StatusConta.Fechada);
         List<CarCapContas> contas = query.list();
         session.getTransaction().commit();
         session.close();

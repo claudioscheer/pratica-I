@@ -202,6 +202,29 @@ public class FlxcxFluxoCaixaFechamentoDAO {
         Date dataFinal = c.getTime();
 
     }
+    
+    public boolean verificaLancamentoInicial(){
+        
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+            session.getTransaction().begin();
+
+            Query query = session.createQuery("from FlxcxFluxoCaixaFechamento as t ");
+
+            FlxcxFluxoCaixaFechamento rs = (FlxcxFluxoCaixaFechamento) query.uniqueResult();
+
+            
+            if(rs != null){
+                
+                return true;
+                
+            }else{
+                
+                
+                return false;
+            }
+        
+    }
 
     public void FecharCaixa(Date dataInicial, Date dataFinal) {
 
