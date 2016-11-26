@@ -17,6 +17,9 @@ public class FormRelatorios_em_tela extends javax.swing.JFrame {
      */
     public FormRelatorios_em_tela() {
         initComponents();
+        
+        setLocationRelativeTo(null);
+      
     }
 
     /**

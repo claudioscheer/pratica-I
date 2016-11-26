@@ -205,8 +205,8 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
-                <StringItem index="0" value="&#xc0; Prazo"/>
-                <StringItem index="1" value="&#xc0; Vista"/>
+                <StringItem index="0" value="A Prazo"/>
+                <StringItem index="1" value="A Vista"/>
                 <StringItem index="2" value=" "/>
                 <StringItem index="3" value=" "/>
               </StringArray>
@@ -492,7 +492,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagens/editar_ok.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Alterar"/>
+            <Property name="text" type="java.lang.String" value="Atualizar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_alterarActionPerformed"/>

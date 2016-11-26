@@ -85,6 +85,8 @@ public class FormContaReceber extends WebInternalFrame {
         FormBuscaNotaFiscal buscaNota = new FormBuscaNotaFiscal();
         buscaNota.setFrameBloquear(FormPrincipal.getInstance());
         txt_busca_nota.setFrame(buscaNota);
+        Date d = new Date();
+        txt_data_lançamento1.setDate(d);
         Preenche_tabela();
         preenche_Combo();
 
@@ -124,6 +126,19 @@ public class FormContaReceber extends WebInternalFrame {
         fieldValorTotal.setValue(0);
         fieldValorParcela.setValue(0);
         txt_data_lançamento.setDate(null);
+
+    }
+
+    public void EnabledCampos() {
+
+        txt_busca_cliente_fornecedor.setEnabled(false);
+        fieldQuantidade.setEnabled(false);
+
+        comb_parcelas.setEnabled(false);
+        fieldValorTotal.setEnabled(false);
+        fieldValorParcela.setEnabled(false);
+        txt_data_lançamento.setEnabled(false);
+        txt_busca_produto.setEditable(false);
 
     }
 
@@ -289,7 +304,7 @@ public class FormContaReceber extends WebInternalFrame {
         });
         webPanel1.add(webDateField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1068, 29, 120, 30));
 
-        Comb_forma_pagamento_recebimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "À Prazo", "À Vista", " ", " " }));
+        Comb_forma_pagamento_recebimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A Prazo", "A Vista", " ", " " }));
         Comb_forma_pagamento_recebimento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Comb_forma_pagamento_recebimentoActionPerformed(evt);
@@ -407,7 +422,7 @@ public class FormContaReceber extends WebInternalFrame {
 
         botao_alterar.setBackground(new java.awt.Color(51, 255, 51));
         botao_alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/editar_ok.png"))); // NOI18N
-        botao_alterar.setText("Alterar");
+        botao_alterar.setText("Atualizar");
         botao_alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botao_alterarActionPerformed(evt);
@@ -665,7 +680,7 @@ public class FormContaReceber extends WebInternalFrame {
             Calendar cal = Calendar.getInstance();
             cal.setTime(data);
             cal.add(Calendar.MONTH, i);
-            
+
             conta02.setCarPessoa(pessoa);
             conta02.setContaDataEmissao(cal.getTime());
             conta02.setFlxcxOperacoes(new FlxcxOperacoes(Integer.parseInt(Comb_tip_operacao.getSelectedItem().toString().split("-")[0].trim())));
@@ -784,6 +799,8 @@ public class FormContaReceber extends WebInternalFrame {
         if (fieldValorParcela.getText().equals(fieldValorRecebido.getText())) {
             JOptionPane.showMessageDialog(null, "Esta parcela parece estar quitada :D");
         }
+        
+        EnabledCampos();
     }//GEN-LAST:event_txt_tabelaMouseClicked
 
     private void fieldValorTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldValorTotalActionPerformed
