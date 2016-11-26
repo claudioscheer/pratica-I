@@ -101,7 +101,7 @@ public class EstMovimentacaoDAO
         try
         {
             JasperPrint jpr = JasperFillManager.fillReport("src/relatorios/estoque/RelatorioMovimentacao1_1.jasper", parametros, jrs);
-            JasperViewer.viewReport(jpr, true);
+            JasperViewer.viewReport(jpr, false);
         } catch (JRException ex)
         {
             System.out.println("" + ex);

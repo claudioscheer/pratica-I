@@ -98,7 +98,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 //        }
 //        this.notificacoes.isOpen = !this.notificacoes.isOpen;
 //    }
-
+//
 //    private void carrregarNotificacoes() {
 //        if (this.notificacoes == null) {
 //            this.notificacoes = new PanelNotificacoes();

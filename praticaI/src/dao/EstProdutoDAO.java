@@ -87,7 +87,7 @@ public class EstProdutoDAO
         try
         {
             JasperPrint jpr = JasperFillManager.fillReport("src/relatorios/estoque/RelatorioProduto.jasper", null, jrs);
-            JasperViewer.viewReport(jpr, true);
+            JasperViewer.viewReport(jpr, false);
         } catch (JRException ex) {
             System.out.println("" + ex);
         }
