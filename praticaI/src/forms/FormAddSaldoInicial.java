@@ -6,12 +6,19 @@
 package forms;
 
 import com.alee.laf.desktoppane.WebInternalFrame;
+import dao.CarCapContasDAO;
 import dao.FlxcxFluxoCaixaFechamentoDAO;
+import enumeraveis.FormaPagamento;
+import enumeraveis.MeioRecebimentoPagamento;
+import enumeraveis.StatusConta;
+import enumeraveis.TipoConta;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import model.CarCapContas;
+import model.CarEstTipoOperacao;
 import model.FlxcxFluxoCaixa;
 import model.FlxcxFluxoCaixaFechamento;
 import org.slf4j.helpers.Util;
@@ -97,7 +104,7 @@ public class FormAddSaldoInicial extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -105,24 +112,35 @@ public class FormAddSaldoInicial extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
-        FlxcxFluxoCaixaFechamento fx = new FlxcxFluxoCaixaFechamento();
-
+        CarCapContas lancamento = new CarCapContas();
         
         Calendar c = Calendar.getInstance();
 
-        c.add(Calendar.MONTH, -1);
-        
         Date data = c.getTime();
         
-        fx.setFechData(data);
-        fx.setMesEquivalente(Integer.valueOf(new SimpleDateFormat("MM").format(data)));
-        fx.setAnoEquivalente(Integer.valueOf(new SimpleDateFormat("yyyy").format(data)));
+        lancamento.setContaDataEmissao(data);
+        lancamento.setCapContaStatus(StatusConta.Quitada);
+        lancamento.setContaValorPago(Double.parseDouble(txtValor.getText()));
+        lancamento.setContaValorTotal(Double.parseDouble(txtValor.getText()));
+        lancamento.setDescricao("Saldo Inicial");
+        lancamento.setContaStatusDescricao("Fechada");
+        lancamento.setMeio_recebimento(MeioRecebimentoPagamento.dinheiro);
+        lancamento.setForma_rece_pagamento(FormaPagamento.vista);
+        lancamento.setTipoOperacaoDescricao("Entrada");
+        lancamento.setContaTipo(TipoConta.Entrada);
+        
+        new CarCapContasDAO().insert(lancamento);
 
-        fx.setFechSaldoDisponivel(Double.valueOf(txtValor.getText()));
-        fx.setFechSaldoMes(0.0);
-
+        FlxcxFluxoCaixaFechamento fx = new FlxcxFluxoCaixaFechamento();
+        
+        fx.setAnoEquivalente(data.getYear());
+        fx.setFechCodigo(1);
+        fx.setFechSaldoMes(Double.parseDouble(txtValor.getText()));
+        fx.setFechSaldoDisponivel(Double.parseDouble(txtValor.getText()));
+        
+        
         new FlxcxFluxoCaixaFechamentoDAO().Inserir(fx);
-
+        
         Utils.notificacao("Saldo anterior adicionado com sucesso", Utils.TipoNotificacao.ok, 0);
 
         this.setVisible(false);
