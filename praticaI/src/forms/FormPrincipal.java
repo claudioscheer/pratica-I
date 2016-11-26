@@ -7,6 +7,7 @@ import com.alee.managers.language.LanguageManager;
 import components.MoverComponente;
 import components.IconDesktop;
 import components.PanelWidgetSaldo;
+import dao.FlxcxEspecificacoesDAO;
 import forms.patrimonio.FormAtivoImobilizado;
 import utils.Utils;
 import java.awt.Dimension;
@@ -19,6 +20,8 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import model.FlxcxEspecificacoes;
+import utils.InicializacaoDadosFluxoCaixa;
 
 public class FormPrincipal extends javax.swing.JFrame {
 
@@ -107,7 +110,6 @@ public class FormPrincipal extends javax.swing.JFrame {
 //            this.lblQntdNotificacoes.setVisible(false);
 //        }
 //    }
-
     private void loadNotaFiscal() {
 
         final IconDesktop iconDesktop = new IconDesktop("Notas Fiscais", Utils.getImage(Utils.Image.notafiscal));
@@ -363,8 +365,31 @@ public class FormPrincipal extends javax.swing.JFrame {
         frame.loadComponents();
         //frame.carrregarNotificacoes();
         frame.setNomeUsuario(nomeUsuario);
+        
+        VerificaDados();
+        
     }
 
+    private static void VerificaDados() {
+
+        Thread thread = new Thread() {
+            public void run() {
+                FlxcxEspecificacoes flxcxEspecificacoes = new FlxcxEspecificacoesDAO().Buscar(1);
+
+                if (flxcxEspecificacoes == null || flxcxEspecificacoes.getEspCodigo() <= 0) {
+
+                    InicializacaoDadosFluxoCaixa inicializacao = new InicializacaoDadosFluxoCaixa();
+                    inicializacao.execute();
+                }
+            }
+        };
+        
+        thread.start();
+        
+    }
+
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.desktoppane.WebDesktopPane desktopPanel;
     private com.alee.extended.image.WebImage imageBackgroud;

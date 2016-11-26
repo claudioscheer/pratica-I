@@ -211,7 +211,7 @@ public class FlxcxFluxoCaixaFechamentoDAO {
 
             Query query = session.createQuery("from FlxcxFluxoCaixaFechamento as t ");
 
-            FlxcxFluxoCaixaFechamento rs = (FlxcxFluxoCaixaFechamento) query.uniqueResult();
+            FlxcxFluxoCaixaFechamento rs = (FlxcxFluxoCaixaFechamento) query.list().get(0);
 
             
             if(rs != null){
