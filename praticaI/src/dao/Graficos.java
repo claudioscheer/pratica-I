@@ -329,14 +329,21 @@ public final class Graficos {
 
             case 2:
 
+                Calendar c2 = Calendar.getInstance();
+                
+               
                 for (int j = 0; j < tipoFiltragem.size(); j++) {
 
                     dataset.addValue(0, "Saídas", tipoFiltragem.get(j));
                     dataset.addValue(0, "Entradas", tipoFiltragem.get(j));
 
                     for (CarCapContas i : contas) {
-
-                        if (i.getContaDataEmissao().getMonth() == j) {
+                         
+                        c2.setTime(i.getContaDataEmissao());
+                        
+                        
+                        
+                        if (c2.get(Calendar.MONTH) == j) {
 
                             if (i.getContaTipo().equals(TipoConta.Saida)) {
 
@@ -344,7 +351,7 @@ public final class Graficos {
 
                             } else if (i.getContaTipo().equals(TipoConta.Entrada)) {
 
-                                dataset.addValue(i.getContaValorTotal(), "Entradas", tipoFiltragem.get(j));
+                                dataset.addValue(i.getContaValorPago(), "Entradas", tipoFiltragem.get(j));
                             }
 
                         }
