@@ -107,7 +107,7 @@ public class CarCapContasDAO {
 
         query.setParameter("datainicial", dataInicial);
         query.setParameter("datafinal", dataFinal);
-        query.setParameter("fechada", StatusConta.Fechada);
+        query.setParameter("fechada", StatusConta.Quitada);
         List<CarCapContas> contas = query.list();
         session.getTransaction().commit();
         session.close();
@@ -167,7 +167,7 @@ public class CarCapContasDAO {
         query.setParameter("codigo", codigoOperacao);
         query.setParameter("dataInicial", dataInicial);
         query.setParameter("dataFinal", dataFinal);
-        query.setParameter("status", StatusConta.Fechada);
+        query.setParameter("status", StatusConta.Quitada);
         
         
         List<CarCapContas> contas = query.list();
@@ -234,14 +234,14 @@ public class CarCapContasDAO {
 
         Query query = session.createQuery("select sum(a.contaValorPago) from CarCapContas as a where contaTipo =:tipo and contadataemissao <= :dataInicial and contaStatus = :status");
         query.setParameter("dataInicial", data);
-        query.setParameter("status", StatusConta.Fechada);
+        query.setParameter("status", StatusConta.Quitada);
         query.setParameter("tipo", TipoConta.Entrada);
 
         double entrada = (double) (query.uniqueResult() == null ? 0.0 : query.uniqueResult());
         
         query = session.createQuery("select sum(a.contaValorPago) from CarCapContas as a where contaTipo =:tipo and contadataemissao <= :dataInicial and contaStatus = :status");
         query.setParameter("dataInicial", data);
-        query.setParameter("status", StatusConta.Fechada);
+        query.setParameter("status", StatusConta.Quitada);
         query.setParameter("tipo", TipoConta.Saida);
 
         double saida = (double) (query.uniqueResult() == null ? 0.0 : query.uniqueResult());
