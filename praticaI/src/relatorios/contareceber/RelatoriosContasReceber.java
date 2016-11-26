@@ -32,30 +32,24 @@ public class RelatoriosContasReceber {
             JasperReport report = JasperCompileManager.compileReport(fonte);
         
   
-        FlxcxOperacoesDAO op = new FlxcxOperacoesDAO();
-        FlxcxOperacoes nova ; 
+//        FlxcxOperacoesDAO op = new FlxcxOperacoesDAO();
  
-        CarPessoaDAO pessoaDAO = new CarPessoaDAO();
-        CarPessoa pessoa;
+//        CarPessoaDAO pessoaDAO = new CarPessoaDAO();
+//        CarPessoa pessoa;
              
-        for(CarCapContas i: lancamentos){
-            
-            nova = new FlxcxOperacoes();
-            
-            nova = op.Buscar(i.getFlxcxOperacoes().getOpCodigo());
-          
-            i.setTipoOperacaoDescricao(nova.getOpDescricao());
-            
-            i.setContaStatusDescricao(i.getContaStatus().toString());
-            
-            i.setContaTipoDescricao(i.getContaTipo().toString());
-            
-            pessoa = new CarPessoa();
-            
-            pessoa = pessoaDAO.ListarId(i.getCarPessoa().getPessoaId());
-            
-            i.setPessoaNome(pessoa.getPessoaNome());
-        }
+//        for(CarCapContas i: lancamentos){
+//            FlxcxOperacoes nova = op.Buscar(i.getFlxcxOperacoes().getOpCodigo());
+//          
+//            i.setTipoOperacaoDescricao(nova.getOpDescricao());
+//            
+//            i.setContaStatusDescricao(i.getContaStatus().toString());
+//            
+//            i.setContaTipoDescricao(i.getContaTipo().toString());
+//            
+//            pessoa = pessoaDAO.ListarId(i.getCarPessoa().getPessoaId());
+//            
+//            i.setPessoaNome(pessoa.getPessoaNome());
+//        }
         
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("dataIni", dataIni);
@@ -76,33 +70,33 @@ public void geraRelatorioEstimativas(List<CarCapContas> estimativas, Date dataIn
             JasperReport report = JasperCompileManager.compileReport(fonte);
         
   
-        FlxcxOperacoesDAO op = new FlxcxOperacoesDAO();
-        FlxcxOperacoes nova ; 
+//        FlxcxOperacoesDAO op = new FlxcxOperacoesDAO();
+//        FlxcxOperacoes nova ; 
  
-        CarPessoaDAO pessoaDAO = new CarPessoaDAO();
-        CarPessoa pessoa;
+//        CarPessoaDAO pessoaDAO = new CarPessoaDAO();
+//        CarPessoa pessoa;
              
-        for(CarCapContas j: estimativas){
-            
-            nova = new FlxcxOperacoes();
-            
-            nova = op.Buscar(j.getFlxcxOperacoes().getOpCodigo());
-          
-            j.setTipoOperacaoDescricao(nova.getOpDescricao());
-            
-           j.setContaTipoDescricao(j.getContaTipo().toString());
-            
-            pessoa = new CarPessoa();
-            
-            pessoa = pessoaDAO.ListarId(j.getCarPessoa().getPessoaId());
-            
-            j.setPessoaNome(pessoa.getPessoaNome());
-        }
+//        for(CarCapContas j: estimativas){
+//            
+//            nova = new FlxcxOperacoes();
+//            
+//            nova = op.Buscar(j.getFlxcxOperacoes().getOpCodigo());
+//          
+//            j.setTipoOperacaoDescricao(nova.getOpDescricao());
+//            
+//           j.setContaTipoDescricao(j.getContaTipo().toString());
+//            
+//            pessoa = new CarPessoa();
+//            
+//            pessoa = pessoaDAO.ListarId(j.getCarPessoa().getPessoaId());
+//            
+////            j.setPessoaNome(pessoa.getPessoaNome());
+//        }
         
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("dataIni", dataIni);
         parametros.put("dataFim", dataFim);
-         parametros.put("totalEntradas", totalEntradas);
+//         parametros.put("totalEntradas", totalEntradas);
         JasperPrint print = JasperFillManager.fillReport(report, parametros, new JRBeanCollectionDataSource(estimativas,false));
  
      

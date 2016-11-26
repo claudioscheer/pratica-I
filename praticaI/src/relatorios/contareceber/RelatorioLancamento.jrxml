@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-11-25T23:28:59 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFluxo" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2aa1104-ccd2-4655-ac8f-735df765de3f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="dataIni" class="java.util.Date"/>
@@ -7,7 +8,7 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="tipoOperacaoDescricao" class="java.lang.String">
+	<field name="flxcxOperacoes.opDescricao" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="contaStatusDescricao" class="java.lang.String">
@@ -25,9 +26,12 @@
 	<field name="contaValorTotal" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="pessoaNome" class="java.lang.String"/>
+	<field name="carPessoa.pessoaNome" class="java.lang.String"/>
 	<variable name="somaContas" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{contaValorPago}]]></variableExpression>
+	</variable>
+	<variable name="total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{contaValorTotal}]]></variableExpression>
 	</variable>
 	<background>
 		<band splitType="Stretch"/>
@@ -108,14 +112,14 @@
 			</staticText>
 			<staticText>
 				<reportElement x="380" y="0" width="80" height="20" uuid="b9980720-265a-4a76-a670-9e05322deb03"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Valor Pago]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="480" y="0" width="74" height="20" uuid="fa5c2e60-1896-4d67-8368-a5bafe42663d"/>
-				<textElement>
+				<textElement textAlignment="Right">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Valor Total]]></text>
@@ -124,28 +128,31 @@
 	</columnHeader>
 	<detail>
 		<band height="47" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="0" y="5" width="100" height="20" uuid="27d8c7fa-6bba-4a1d-8495-ff1fd8233e81"/>
-				<textFieldExpression><![CDATA[$F{tipoOperacaoDescricao}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{flxcxOperacoes.opDescricao}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="120" y="5" width="70" height="20" uuid="68d11492-3b56-4593-8b2d-275528fb450f"/>
-				<textFieldExpression><![CDATA[$F{contaDataEmissao}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{contaDataEmissao})
+]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="200" y="5" width="70" height="20" uuid="5a360cb3-9dbf-4f83-9a4c-12285c4261c7"/>
-				<textFieldExpression><![CDATA[$F{pessoaNome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{carPessoa.pessoaNome}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="280" y="5" width="68" height="25" uuid="9472489f-5dd4-4fdf-8187-17ef4369ae5c"/>
 				<textFieldExpression><![CDATA[$F{contaStatusDescricao}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement x="380" y="7" width="80" height="23" uuid="18891345-94b4-41c9-9594-052fb9acbca0"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{contaValorPago}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="480" y="7" width="65" height="23" uuid="147e883a-57ac-4c34-b036-886f86b33d4b"/>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="480" y="7" width="74" height="23" uuid="147e883a-57ac-4c34-b036-886f86b33d4b"/>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{contaValorTotal}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -154,7 +161,7 @@
 		<band height="53" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch">
+		<band height="51" splitType="Stretch">
 			<rectangle>
 				<reportElement x="0" y="12" width="554" height="30" backcolor="#E6EFF5" uuid="0506f9d3-1667-45c6-a9cc-5937d3b14696"/>
 			</rectangle>
@@ -165,6 +172,6 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>

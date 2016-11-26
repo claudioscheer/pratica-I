@@ -40,13 +40,10 @@ public class CarCapContas implements java.io.Serializable {
     private CarEstTipoOperacao carEstTipoOperacao;
 
     
-    @OneToOne
+    @ManyToOne
     private CarPessoa carPessoa;
 
-    @Transient
-    private String pessoaNome;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private FlxcxOperacoes flxcxOperacoes;
 
     @Transient
@@ -133,10 +130,6 @@ public class CarCapContas implements java.io.Serializable {
 //    public String getPessoaNome() {
 //        return pessoaNome;
 //    }
-    public void setPessoaNome(String pessoaNome) {
-        this.pessoaNome = pessoaNome;
-    }
-
     public String getTipoOperacaoDescricao() {
         return tipoOperacaoDescricao;
     }

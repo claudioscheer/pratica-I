@@ -9,10 +9,7 @@ import model.CarCapContas;
 import net.sf.jasperreports.engine.JRException;
 import relatorios.contareceber.RelatoriosContasReceber;
 
-/**
- *
- * @author Marcos
- */
+
 public class FormRelatorios_em_tela extends javax.swing.JFrame {
 
     /**
