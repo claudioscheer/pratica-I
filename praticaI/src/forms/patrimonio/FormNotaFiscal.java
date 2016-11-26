@@ -93,7 +93,7 @@ public class FormNotaFiscal extends WebInternalFrame {
         try {
             new EstMovimentacaoDAO().itensNota(notaFiscal.getPatItemNotas(), notaFiscal.getNotaDataEntrada());
         } catch (Exception e) {
-            utils.Utils.notificacao("Erro ao atualizar itens da nota!", Utils.TipoNotificacao.erro, 0);
+            //utils.Utils.notificacao("Erro ao atualizar itens da nota!", Utils.TipoNotificacao.erro, 0);
         }
 
         this.panelConsultaNotaFiscal.addNotaFiscal(notaFiscal);

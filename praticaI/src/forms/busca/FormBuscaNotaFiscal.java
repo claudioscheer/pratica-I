@@ -4,6 +4,7 @@ import components.JFrameBusca;
 import components.TextFieldFK;
 import components.panelsCads.PanelCadNotaFiscal;
 import components.panelsListagem.PanelConsultaNotaFiscal;
+import dao.PatAtivoImobilizadoDAO;
 import dao.PatNotaFiscalDAO;
 import java.awt.Dimension;
 import utils.Utils;
@@ -76,6 +77,10 @@ public class FormBuscaNotaFiscal extends JFrameBusca {
 
         new PatNotaFiscalDAO().inserir(notaFiscal);
 
+        this.panelCadastroNotaFiscal.getAtivos().forEach((key, value) -> {
+            new PatAtivoImobilizadoDAO().inserir(value);
+        });
+        
         this.panelConsultaNotaFiscal.addNotaFiscal(notaFiscal);
 
         Utils.notificacao("Nota fiscal salva!", Utils.TipoNotificacao.ok, 0);
