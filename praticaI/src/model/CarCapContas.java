@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,6 +29,8 @@ public class CarCapContas implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta")
     private int contaId;
+
+    
 
     private double valorRecebido;
     
@@ -53,7 +54,8 @@ public class CarCapContas implements java.io.Serializable {
     private PatNotaFiscal patNotaFiscal;
 
     private double contaValorTotal;
-
+    
+   
     @Temporal(TemporalType.DATE)
     private Date contaDataEmissao;
 
@@ -121,9 +123,9 @@ public class CarCapContas implements java.io.Serializable {
         return contaStatus;
     }
 
-//    public void setContaStatus(StatusConta contaStatus) {
-//        this.contaStatus = contaStatus;
-//    }
+    public void setContaStatus(StatusConta contaStatus) {
+        this.contaStatus = contaStatus;
+    }
 //    public void setProduto(String produto) {
 //        this.produto = produto;
 //
@@ -206,6 +208,7 @@ public class CarCapContas implements java.io.Serializable {
         this.quantidade_produto = quantidade_produto;
         this.forma_rece_pagamento = forma_rece_pagamento;
         this.valorRecebido = valorRecebido;
+        
     }
 
     public CarCapContas(int contaId, StatusConta contaStatus, CarEstTipoOperacao carEstTipoOperacao, CarPessoa carPessoa, FlxcxOperacoes flxcxOperacoes, PatNotaFiscal patNotaFiscal, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, String produto, String descricao,

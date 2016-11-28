@@ -1,23 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dao;
 
 import enumeraveis.TipoConta;
 import java.util.Date;
 import java.util.List;
-import model.CarCapContas;
 import model.CarcapOperacoesComerciais;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
-/**
- *
- * @author Marcos
- */
+
 public class carcapOperacoesComerciaisDAO {
 
 

@@ -1,15 +1,12 @@
 
 package relatorios.contareceber;
 
-import dao.CarPessoaDAO;
-import dao.FlxcxOperacoesDAO;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import model.CarCapContas;
-import model.CarPessoa;
 import model.FlxcxOperacoes;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -19,10 +16,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
-/**
- *
- * @author Juliano
- */
+
 public class RelatoriosContasReceber {
      
     public void geraRelatorioLancamentos(List<CarCapContas> lancamentos, Date dataIni, Date dataFim) throws JRException {
@@ -37,19 +31,21 @@ public class RelatoriosContasReceber {
 //        CarPessoaDAO pessoaDAO = new CarPessoaDAO();
 //        CarPessoa pessoa;
              
-//        for(CarCapContas i: lancamentos){
-//            FlxcxOperacoes nova = op.Buscar(i.getFlxcxOperacoes().getOpCodigo());
+      for(CarCapContas i: lancamentos){
+ //           FlxcxOperacoes nova = op.Buscar(i.getFlxcxOperacoes().getOpCodigo());
 //          
-//            i.setTipoOperacaoDescricao(nova.getOpDescricao());
+//           i.setTipoOperacaoDescricao(nova.getOpDescricao());
 //            
-//            i.setContaStatusDescricao(i.getContaStatus().toString());
+            i.setContaStatusDescricao(i.getContaStatus().toString());
+           
 //            
 //            i.setContaTipoDescricao(i.getContaTipo().toString());
 //            
 //            pessoa = pessoaDAO.ListarId(i.getCarPessoa().getPessoaId());
 //            
 //            i.setPessoaNome(pessoa.getPessoaNome());
-//        }
+//               i.setContaId(i.getContaId());
+        }
         
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("dataIni", dataIni);
@@ -70,28 +66,29 @@ public void geraRelatorioEstimativas(List<CarCapContas> estimativas, Date dataIn
             JasperReport report = JasperCompileManager.compileReport(fonte);
         
   
-//        FlxcxOperacoesDAO op = new FlxcxOperacoesDAO();
-//        FlxcxOperacoes nova ; 
+   //     FlxcxOperacoesDAO op = new FlxcxOperacoesDAO();
+        FlxcxOperacoes nova ; 
  
 //        CarPessoaDAO pessoaDAO = new CarPessoaDAO();
 //        CarPessoa pessoa;
-             
-//        for(CarCapContas j: estimativas){
-//            
-//            nova = new FlxcxOperacoes();
-//            
+//             
+        for(CarCapContas j: estimativas){
+           
+            nova = new FlxcxOperacoes();
+           
 //            nova = op.Buscar(j.getFlxcxOperacoes().getOpCodigo());
-//          
-//            j.setTipoOperacaoDescricao(nova.getOpDescricao());
-//            
-//           j.setContaTipoDescricao(j.getContaTipo().toString());
-//            
+          
+            j.setTipoOperacaoDescricao(nova.getOpDescricao());
+            
+           j.setContaTipoDescricao(j.getContaTipo().toString());
+           j.setContaStatusDescricao(j.getContaStatus().toString());
+            
 //            pessoa = new CarPessoa();
 //            
 //            pessoa = pessoaDAO.ListarId(j.getCarPessoa().getPessoaId());
 //            
-////            j.setPessoaNome(pessoa.getPessoaNome());
-//        }
+//          j.setPessoaNome(pessoa.getPessoaNome());
+        }
         
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("dataIni", dataIni);

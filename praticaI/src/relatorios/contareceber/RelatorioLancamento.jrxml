@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-25T23:28:59 -->
+<!-- 2016-11-28T13:29:50 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFluxo" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2aa1104-ccd2-4655-ac8f-735df765de3f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="dataIni" class="java.util.Date"/>
@@ -23,16 +23,7 @@
 	<field name="contaValorPago" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="contaValorTotal" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="carPessoa.pessoaNome" class="java.lang.String"/>
-	<variable name="somaContas" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{contaValorPago}]]></variableExpression>
-	</variable>
-	<variable name="total" class="java.lang.Double" calculation="Sum">
-		<variableExpression><![CDATA[$F{contaValorTotal}]]></variableExpression>
-	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -43,7 +34,7 @@
 			</rectangle>
 			<image>
 				<reportElement x="10" y="22" width="200" height="67" uuid="aa934927-9419-4acb-bdb8-57c5c2c4ced2"/>
-				<imageExpression><![CDATA["./imagens/logo2.png"]]></imageExpression>
+				<imageExpression><![CDATA["C:/imagens/logo2.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="220" y="40" width="329" height="40" uuid="9e9ff3ef-683b-4b77-8f1d-a64d5fc94ac6">
@@ -81,79 +72,76 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="28" splitType="Stretch">
+		<band height="50" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="120" height="28" uuid="1af4ae00-14e1-4ba9-8fab-6b0f449c2641"/>
-				<textElement>
-					<font size="14"/>
+				<reportElement x="10" y="0" width="80" height="50" uuid="1af4ae00-14e1-4ba9-8fab-6b0f449c2641"/>
+				<textElement textAlignment="Center">
+					<font size="13"/>
 				</textElement>
 				<text><![CDATA[Tipo de Operação]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="120" y="0" width="70" height="20" uuid="d8d91bdf-b844-4902-8c9e-7881a219c54e"/>
-				<textElement>
-					<font size="14"/>
+				<reportElement x="110" y="0" width="70" height="20" uuid="d8d91bdf-b844-4902-8c9e-7881a219c54e"/>
+				<textElement textAlignment="Center">
+					<font size="13"/>
 				</textElement>
 				<text><![CDATA[Data]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="200" y="0" width="50" height="20" uuid="16d1b58e-c983-475a-801d-8b64d3e12fbc"/>
 				<textElement>
-					<font size="14"/>
+					<font size="13"/>
 				</textElement>
-				<text><![CDATA[Pessoa]]></text>
+				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="280" y="0" width="80" height="20" uuid="6953617a-0e7a-4a9b-bc36-92bdf31977a3"/>
-				<textElement>
-					<font size="14"/>
+				<textElement textAlignment="Center">
+					<font size="13"/>
 				</textElement>
 				<text><![CDATA[Status]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="380" y="0" width="80" height="20" uuid="b9980720-265a-4a76-a670-9e05322deb03"/>
-				<textElement textAlignment="Right">
-					<font size="14"/>
+				<textElement textAlignment="Center">
+					<font size="13"/>
 				</textElement>
 				<text><![CDATA[Valor Pago]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="480" y="0" width="74" height="20" uuid="fa5c2e60-1896-4d67-8368-a5bafe42663d"/>
-				<textElement textAlignment="Right">
-					<font size="14"/>
+				<reportElement x="470" y="0" width="85" height="30" uuid="c6d84769-f616-41ff-a785-dc733e152a2c"/>
+				<textElement>
+					<font size="13"/>
 				</textElement>
-				<text><![CDATA[Valor Total]]></text>
+				<text><![CDATA[Valor Parcela]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="47" splitType="Stretch">
+		<band height="45" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="5" width="100" height="20" uuid="27d8c7fa-6bba-4a1d-8495-ff1fd8233e81"/>
+				<reportElement x="0" y="0" width="100" height="20" uuid="27d8c7fa-6bba-4a1d-8495-ff1fd8233e81"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{flxcxOperacoes.opDescricao}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="120" y="5" width="70" height="20" uuid="68d11492-3b56-4593-8b2d-275528fb450f"/>
-				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{contaDataEmissao})
-]]></textFieldExpression>
+				<reportElement x="110" y="0" width="70" height="20" uuid="68d11492-3b56-4593-8b2d-275528fb450f"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{contaDataEmissao})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="200" y="5" width="70" height="20" uuid="5a360cb3-9dbf-4f83-9a4c-12285c4261c7"/>
+				<reportElement x="182" y="0" width="70" height="20" uuid="5a360cb3-9dbf-4f83-9a4c-12285c4261c7"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{carPessoa.pessoaNome}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="280" y="5" width="68" height="25" uuid="9472489f-5dd4-4fdf-8187-17ef4369ae5c"/>
-				<textFieldExpression><![CDATA[$F{contaStatusDescricao}]]></textFieldExpression>
-			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="380" y="7" width="80" height="23" uuid="18891345-94b4-41c9-9594-052fb9acbca0"/>
-				<textElement textAlignment="Right"/>
+				<reportElement x="380" y="0" width="80" height="23" uuid="18891345-94b4-41c9-9594-052fb9acbca0"/>
+				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{contaValorPago}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="480" y="7" width="74" height="23" uuid="147e883a-57ac-4c34-b036-886f86b33d4b"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{contaValorTotal}]]></textFieldExpression>
+			<textField>
+				<reportElement x="270" y="3" width="120" height="17" uuid="ae9ce20d-269a-47b0-b23a-6225ad1fb0cd"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{contaStatusDescricao}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -161,7 +149,7 @@
 		<band height="53" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="51" splitType="Stretch">
+		<band height="42" splitType="Stretch">
 			<rectangle>
 				<reportElement x="0" y="12" width="554" height="30" backcolor="#E6EFF5" uuid="0506f9d3-1667-45c6-a9cc-5937d3b14696"/>
 			</rectangle>
