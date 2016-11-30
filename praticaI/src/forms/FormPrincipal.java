@@ -36,7 +36,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         if (instance == null) {
             instance = new FormPrincipal();
         }
-        return instance;
+       return instance;
     }
 
     public WebDesktopPane getDesktopPanel() {
@@ -52,13 +52,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.loadNotaFiscal();
         this.loadAtivoImobilizado();
         this.loadContasPagar();
-        this.loadBackgroud();
+        this.loadBackgroud();        
         this.loadWidgetSaldo();
         this.loadFluxoCaixa();
         this.loadContasReceber();
         this.loadaddpessaoa();
         this.loadControleEstoque();
-        this.loadMateriais();
+        this.loadMateriais();        
     }
 
     private void loadWidgetSaldo() {
@@ -360,8 +360,8 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle r = env.getMaximumWindowBounds();
-        frame.setMaximizedBounds(r);
-        frame.setExtendedState(frame.getState() | JFrame.MAXIMIZED_BOTH);
+        frame.setMaximizedBounds(r);        
+        frame.setExtendedState(frame.getState() | JFrame.MAXIMIZED_BOTH);        
         frame.loadComponents();
         //frame.carrregarNotificacoes();
         frame.setNomeUsuario(nomeUsuario);

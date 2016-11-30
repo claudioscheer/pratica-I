@@ -259,6 +259,7 @@ public class ExportacaoParaExcel {
                         this.AdicionaLinha(row, 0, sequenciaOperacao);
 
                         //Descricao da operacao
+                        firstSheet.autoSizeColumn(1);
                         row.createCell(1).setCellValue(operacao.getOpDescricao());
 
                         mostrar = false;
@@ -592,7 +593,7 @@ public class ExportacaoParaExcel {
 
             this.AdicionaLinha(row, excel.getColuna(), excel.getDataColuna());
 
-            linha = excel.getLinha();
+            linha = excel.getLinha();            
             row = firstSheet.createRow(linha);
 
             //Coluna com a descricao da especificacao
@@ -741,6 +742,8 @@ public class ExportacaoParaExcel {
 
     private void AdicionaLinha(HSSFRow row, int coluna, double valor) {
 
+        firstSheet.autoSizeColumn(coluna);
+        
         //Linha alimenta novo valor
         row.createCell(coluna).setCellValue(valor);
 
@@ -748,12 +751,16 @@ public class ExportacaoParaExcel {
 
     private void AdicionaLinha(HSSFRow row, int coluna, String valor) {
 
+        firstSheet.autoSizeColumn(coluna);
+        
         //Linha alimenta novo valor
         row.createCell(coluna).setCellValue(valor);
 
     }
 
     private void AdicionaLinha(HSSFRow row, int coluna, Date valor) {
+        
+        firstSheet.autoSizeColumn(coluna);
 
         //Linha alimenta novo valor
         row.createCell(coluna).setCellValue(valor);
@@ -761,7 +768,9 @@ public class ExportacaoParaExcel {
     }
 
     private void AdicionaLinha(HSSFRow row, int coluna, int valor) {
-
+        
+        firstSheet.autoSizeColumn(coluna);
+        
         //Linha alimenta novo valor
         row.createCell(coluna).setCellValue(valor);
 
