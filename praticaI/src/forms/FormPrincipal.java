@@ -170,14 +170,12 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void loadContasPagar() {
 
-        final IconDesktop iconDesktop = new IconDesktop("Contas à pagar", Utils.getImage(Utils.Image.pagar));
-
+        final IconDesktop iconDesktop = new IconDesktop("Contas A Pagar", Utils.getImage(Utils.Image.pagar));
         iconDesktop.setActionListener((e) -> {
             if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
                 return;
             }
-            FormContaReceber form = new FormContaReceber();
-            form.iniciarCPagar();
+            FormContaPagar form = new FormContaPagar();
             this.desktopPanel.add(form);
             form.open();
             try {
@@ -185,7 +183,6 @@ public class FormPrincipal extends javax.swing.JFrame {
             } catch (PropertyVetoException ex) {
             }
         });
-
         iconDesktop.setLocation(new Point(0, 160));
         this.desktopPanel.add(iconDesktop);
     }
