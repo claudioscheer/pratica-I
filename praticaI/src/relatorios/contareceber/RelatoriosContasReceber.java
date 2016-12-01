@@ -37,9 +37,9 @@ public class RelatoriosContasReceber {
 //           i.setTipoOperacaoDescricao(nova.getOpDescricao());
 //            
             i.setContaStatusDescricao(i.getContaStatus().toString());
-           
+          
 //            
-//            i.setContaTipoDescricao(i.getContaTipo().toString());
+            i.setContaTipoDescricao(i.getContaTipo().toString());
 //            
 //            pessoa = pessoaDAO.ListarId(i.getCarPessoa().getPessoaId());
 //            

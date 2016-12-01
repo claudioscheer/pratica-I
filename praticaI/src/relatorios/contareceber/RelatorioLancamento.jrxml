@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-28T13:29:50 -->
+<!-- 2016-11-30T14:44:08 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFluxo" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2aa1104-ccd2-4655-ac8f-735df765de3f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="dataIni" class="java.util.Date"/>
@@ -24,6 +24,9 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="carPessoa.pessoaNome" class="java.lang.String"/>
+	<field name="contaValorTotal" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -72,81 +75,86 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="50" splitType="Stretch">
+		<band height="42" splitType="Stretch">
 			<staticText>
-				<reportElement x="10" y="0" width="80" height="50" uuid="1af4ae00-14e1-4ba9-8fab-6b0f449c2641"/>
+				<reportElement x="0" y="10" width="130" height="20" uuid="1af4ae00-14e1-4ba9-8fab-6b0f449c2641"/>
 				<textElement textAlignment="Center">
-					<font size="13"/>
+					<font size="13" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tipo de Operação]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="110" y="0" width="70" height="20" uuid="d8d91bdf-b844-4902-8c9e-7881a219c54e"/>
+				<reportElement x="140" y="11" width="60" height="20" uuid="d8d91bdf-b844-4902-8c9e-7881a219c54e"/>
 				<textElement textAlignment="Center">
-					<font size="13"/>
+					<font size="13" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Data]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="0" width="50" height="20" uuid="16d1b58e-c983-475a-801d-8b64d3e12fbc"/>
-				<textElement>
-					<font size="13"/>
+				<reportElement x="210" y="11" width="80" height="20" uuid="16d1b58e-c983-475a-801d-8b64d3e12fbc"/>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cliente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="0" width="80" height="20" uuid="6953617a-0e7a-4a9b-bc36-92bdf31977a3"/>
+				<reportElement x="300" y="11" width="80" height="20" uuid="6953617a-0e7a-4a9b-bc36-92bdf31977a3"/>
 				<textElement textAlignment="Center">
-					<font size="13"/>
+					<font size="13" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Status]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="0" width="80" height="20" uuid="b9980720-265a-4a76-a670-9e05322deb03"/>
+				<reportElement x="390" y="11" width="80" height="20" uuid="b9980720-265a-4a76-a670-9e05322deb03"/>
 				<textElement textAlignment="Center">
-					<font size="13"/>
+					<font size="13" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Valor Pago]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="470" y="0" width="85" height="30" uuid="c6d84769-f616-41ff-a785-dc733e152a2c"/>
-				<textElement>
-					<font size="13"/>
+				<reportElement x="470" y="0" width="85" height="41" uuid="c6d84769-f616-41ff-a785-dc733e152a2c"/>
+				<textElement textAlignment="Center">
+					<font size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Valor Parcela]]></text>
+				<text><![CDATA[Valor Lançamento]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="45" splitType="Stretch">
+		<band height="48" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="100" height="20" uuid="27d8c7fa-6bba-4a1d-8495-ff1fd8233e81"/>
+				<reportElement x="0" y="0" width="130" height="41" uuid="27d8c7fa-6bba-4a1d-8495-ff1fd8233e81"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{flxcxOperacoes.opDescricao}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="110" y="0" width="70" height="20" uuid="68d11492-3b56-4593-8b2d-275528fb450f"/>
+				<reportElement x="140" y="0" width="60" height="20" uuid="68d11492-3b56-4593-8b2d-275528fb450f"/>
 				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{contaDataEmissao})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="182" y="0" width="70" height="20" uuid="5a360cb3-9dbf-4f83-9a4c-12285c4261c7"/>
+				<reportElement x="210" y="0" width="80" height="20" uuid="5a360cb3-9dbf-4f83-9a4c-12285c4261c7"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{carPessoa.pessoaNome}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="380" y="0" width="80" height="23" uuid="18891345-94b4-41c9-9594-052fb9acbca0"/>
+				<reportElement x="390" y="-1" width="72" height="23" uuid="18891345-94b4-41c9-9594-052fb9acbca0"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{contaValorPago}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="270" y="3" width="120" height="17" uuid="ae9ce20d-269a-47b0-b23a-6225ad1fb0cd"/>
+				<reportElement x="300" y="0" width="80" height="17" uuid="ae9ce20d-269a-47b0-b23a-6225ad1fb0cd"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{contaStatusDescricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="0" width="88" height="30" uuid="e18d9dbc-b453-4a2c-8bb0-27505890a8b3"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{contaValorTotal}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="53" splitType="Stretch"/>
+		<band height="11" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="42" splitType="Stretch">

@@ -21,10 +21,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author Marcos
- */
+
 @Entity
 @SequenceGenerator(name = "seq_opComercias", sequenceName = "seq_opComercias",
         allocationSize = 1)

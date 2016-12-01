@@ -5,6 +5,7 @@ import enumeraveis.TipoConta;
 import java.util.Date;
 import java.util.List;
 import model.CarCapContas;
+import model.CarcapOperacoesComerciais;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
@@ -91,6 +92,16 @@ public class CarCapContasDAO {
         session.getTransaction().begin();
         Query query = session.createQuery("from CarCapContas as a");
         List<CarCapContas> contas = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return contas;
+    }
+    
+     public List<CarcapOperacoesComerciais> pega_tudo() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("from CarcapOperacoesComerciais as a");
+        List<CarcapOperacoesComerciais> contas = query.list();
         session.getTransaction().commit();
         session.close();
         return contas;

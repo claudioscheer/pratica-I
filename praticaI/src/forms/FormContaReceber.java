@@ -84,7 +84,8 @@ public class FormContaReceber extends WebInternalFrame {
         txt_busca_nota.setFrame(buscaNota);
         Date d = new Date();
         txt_data_lancamento1.setDate(d);
-        Preenche_tabela();
+        //Preenche_tabela();
+        preenche_TABEL();
         preenche_Combo();
 
     }
@@ -147,36 +148,55 @@ public class FormContaReceber extends WebInternalFrame {
             Comb_tip_operacao.addItem(i.getOpCodigo() + " - " + i.getOpDescricao());
         }
     }
+    
+    public void preenche_TABEL(){
+        
+        CarCapContasDAO linhas = new CarCapContasDAO();
+        List<CarcapOperacoesComerciais> movimentos = linhas.pega_tudo();
+        DefaultTableModel tabelamovimetos = (DefaultTableModel) txt_tabela.getModel();
+        tabelamovimetos.setRowCount(0);
+        
+         for (CarcapOperacoesComerciais j : movimentos) {
 
-    public void Preenche_tabela() {
-
-        CarCapContasDAO retorn_valores = new CarCapContasDAO();
-        List<CarCapContas> conta = retorn_valores.getAll();
-//        DefaultTableModel tabelamodelo = new DefaultTableModel();
-        DefaultTableModel tabelamodelo = (DefaultTableModel) txt_tabela.getModel();
-        tabelamodelo.setRowCount(0);
-//        tabelamodelo.addColumn("ID");
-//        tabelamodelo.addColumn("Lançamento");
-//        tabelamodelo.addColumn("Parcelas");
-//        tabelamodelo.addColumn("D. Vencimento");
-//        tabelamodelo.addColumn("Produto");
-//        tabelamodelo.addColumn("Quantidade");
-//        tabelamodelo.addColumn("Status");
-//        tabelamodelo.addColumn("V. Parcela");
-//        tabelamodelo.addColumn("V. Pago");
-
-        for (CarCapContas j : conta) {
-
-            tabelamodelo.addRow(new Object[]{
-                j.getContaId(), j.getCarcapOperacoesComerciais().getOperacoesID(),
-                j.getContaNumParcelas(), j.getContaDataEmissao(), j.getProduto().getProdutoDescricao(),
-                j.getQuantidade_produto(), j.getCapContaStatus(), j.getContaValorPago(), j.getValorRecebido()});
-
+            tabelamovimetos.addRow(new Object[]{
+              j.getOperacoesID(),j.getDatLancamento(),j.getProdutoId().getProdutoDescricao(),
+                j.getNumeroParcela(),j.getQuantidade(),j.getPessoa().getPessoaNome(),j.getTipoDeConta()});
         }
 
-        txt_tabela.setModel(tabelamodelo);
-
+        txt_tabela.setModel(tabelamovimetos);
     }
+    
+    
+
+//    public void Preenche_tabela() {
+//
+//        CarCapContasDAO retorn_valores = new CarCapContasDAO();
+//        List<CarCapContas> conta = retorn_valores.getAll();
+////        DefaultTableModel tabelamodelo = new DefaultTableModel();
+//        DefaultTableModel tabelamodelo = (DefaultTableModel) txt_tabela.getModel();
+//        tabelamodelo.setRowCount(0);
+////        tabelamodelo.addColumn("ID");
+////        tabelamodelo.addColumn("Lançamento");
+////        tabelamodelo.addColumn("Parcelas");
+////        tabelamodelo.addColumn("D. Vencimento");
+////        tabelamodelo.addColumn("Produto");
+////        tabelamodelo.addColumn("Quantidade");
+////        tabelamodelo.addColumn("Status");
+////        tabelamodelo.addColumn("V. Parcela");
+////        tabelamodelo.addColumn("V. Pago");
+//
+//        for (CarCapContas j : conta) {
+//
+//            tabelamodelo.addRow(new Object[]{
+//                j.getContaId(), j.getCarcapOperacoesComerciais().getOperacoesID(),
+//                j.getContaNumParcelas(), j.getContaDataEmissao(), j.getProduto().getProdutoDescricao(),
+//                j.getQuantidade_produto(), j.getCapContaStatus(), j.getContaValorPago(), j.getValorRecebido()});
+//
+//        }
+//
+//        txt_tabela.setModel(tabelamodelo);
+//
+//    }
 
 //METODOS DE USO
     @SuppressWarnings("unchecked")
@@ -233,6 +253,7 @@ public class FormContaReceber extends WebInternalFrame {
         fieldValorUnitario = new components.TextFieldValorMonetario();
         fieldValorTotal = new components.TextFieldValorMonetario();
         fieldValorRecebido = new components.TextFieldValorMonetario();
+        botao_salvar1 = new com.alee.laf.button.WebButton();
 
         webPanel1.setEnabled(false);
 
@@ -241,17 +262,18 @@ public class FormContaReceber extends WebInternalFrame {
 
             },
             new String [] {
-                "ID", "Lançamento", "Parcela", "Vencimento", "Produto", "Quantidade", "Status", "R$ Parcela", "R$ Total"
+                "ID", "Data", "Produto", "N° Parcelas", "Quantidade", "Cliente", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        txt_tabela.getTableHeader().setReorderingAllowed(false);
         txt_tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_tabelaMouseClicked(evt);
@@ -259,16 +281,13 @@ public class FormContaReceber extends WebInternalFrame {
         });
         jScrollPane2.setViewportView(txt_tabela);
         if (txt_tabela.getColumnModel().getColumnCount() > 0) {
-            txt_tabela.getColumnModel().getColumn(0).setPreferredWidth(50);
             txt_tabela.getColumnModel().getColumn(0).setMaxWidth(50);
             txt_tabela.getColumnModel().getColumn(1).setPreferredWidth(100);
             txt_tabela.getColumnModel().getColumn(2).setPreferredWidth(100);
             txt_tabela.getColumnModel().getColumn(3).setPreferredWidth(100);
             txt_tabela.getColumnModel().getColumn(4).setPreferredWidth(100);
-            txt_tabela.getColumnModel().getColumn(5).setPreferredWidth(100);
-            txt_tabela.getColumnModel().getColumn(6).setPreferredWidth(100);
-            txt_tabela.getColumnModel().getColumn(7).setPreferredWidth(100);
-            txt_tabela.getColumnModel().getColumn(8).setPreferredWidth(100);
+            txt_tabela.getColumnModel().getColumn(5).setPreferredWidth(150);
+            txt_tabela.getColumnModel().getColumn(6).setPreferredWidth(120);
         }
 
         webLabel1.setText("Tipo de Lançamento:");
@@ -458,6 +477,15 @@ public class FormContaReceber extends WebInternalFrame {
             }
         });
 
+        botao_salvar1.setBackground(new java.awt.Color(51, 255, 51));
+        botao_salvar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar_ok.png"))); // NOI18N
+        botao_salvar1.setText("Parcelas");
+        botao_salvar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_salvar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout webPanel1Layout = new javax.swing.GroupLayout(webPanel1);
         webPanel1.setLayout(webPanel1Layout);
         webPanel1Layout.setHorizontalGroup(
@@ -544,15 +572,16 @@ public class FormContaReceber extends WebInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(fieldValorParcela, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addComponent(botao_abrir_relatorios1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addComponent(botao_abrir_relatorios1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
                         .addComponent(botao_alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(botao_abrir_relatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botao_salvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(botao_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addGap(232, 232, 232)
+                        .addComponent(botao_abrir_relatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102)
                         .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(webPanel1Layout.createSequentialGroup()
                                 .addComponent(webLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -647,14 +676,17 @@ public class FormContaReceber extends WebInternalFrame {
                             .addComponent(webLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6)
                         .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_data_lancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txt_data_lancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botao_abrir_relatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(fieldValorRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(38, 38, 38)
-                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botao_abrir_relatorios1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botao_alterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botao_abrir_relatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botao_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(24, 24, 24)
+                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(botao_abrir_relatorios1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botao_alterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(botao_salvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botao_salvar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(webPanel1Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -745,7 +777,8 @@ public class FormContaReceber extends WebInternalFrame {
         //
         //        }
         pagar.update(altera);
-        Preenche_tabela();
+//        Preenche_tabela();
+preenche_TABEL();
         zeraCampos();
     }//GEN-LAST:event_botao_alterarActionPerformed
 
@@ -893,7 +926,8 @@ public class FormContaReceber extends WebInternalFrame {
                 conta02.setCapContaStatus(StatusConta.PendenteEmser);
             }
             new CarCapContasDAO().insert(conta02);
-            Preenche_tabela();
+//            Preenche_tabela();
+preenche_TABEL();
         }
         zeraCampos();
     }//GEN-LAST:event_botao_salvarActionPerformed
@@ -969,6 +1003,10 @@ public class FormContaReceber extends WebInternalFrame {
         fieldValorParcela.setValue(fieldValorTotal.getValue() / (Integer) comb_parcelas.getValue());
     }//GEN-LAST:event_fieldValorUnitarioFocusLost
 
+    private void botao_salvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_salvar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botao_salvar1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1024,6 +1062,7 @@ public class FormContaReceber extends WebInternalFrame {
     private com.alee.laf.button.WebButton botao_abrir_relatorios2;
     private com.alee.laf.button.WebButton botao_alterar;
     private com.alee.laf.button.WebButton botao_salvar;
+    private com.alee.laf.button.WebButton botao_salvar1;
     private com.alee.laf.checkbox.WebCheckBox checkboxEntrada;
     private com.alee.laf.checkbox.WebCheckBox checkboxEntrada3;
     private com.alee.laf.checkbox.WebCheckBox checkboxEntrada4;

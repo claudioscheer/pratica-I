@@ -91,6 +91,7 @@ public class CarCapContas implements java.io.Serializable {
 
 //    @Column(name = "forma_pagamento_receb", nullable = false)
    // private String forma_rece_pagamento;
+    
 
 
     private double quantidade_produto;
@@ -166,6 +167,7 @@ public class CarCapContas implements java.io.Serializable {
 
     public void setQuantidade_produto(double quantidade_produto) {
         this.quantidade_produto = quantidade_produto;
+
     }
 
 //    public StatusConta getContaStatus() {
@@ -195,7 +197,7 @@ public class CarCapContas implements java.io.Serializable {
     }
     
 
-    public CarCapContas(int contaId, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, String produto, String descricao,
+    public CarCapContas(int contaId, double contaValorTotal, /*double valorParcela,*/  Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, String produto, String descricao,
             MeioRecebimentoPagamento meio_recebimento, double quantidade_produto, FormaPagamento forma_rece_pagamento,double valorRecebido) {
         this.contaId = contaId;
         this.contaValorTotal = contaValorTotal;
@@ -208,10 +210,10 @@ public class CarCapContas implements java.io.Serializable {
         this.quantidade_produto = quantidade_produto;
         this.forma_rece_pagamento = forma_rece_pagamento;
         this.valorRecebido = valorRecebido;
-        
-    }
+       // this.valorParcela = valorParcela;
+      }
 
-    public CarCapContas(int contaId, StatusConta contaStatus, CarEstTipoOperacao carEstTipoOperacao, CarPessoa carPessoa, FlxcxOperacoes flxcxOperacoes, PatNotaFiscal patNotaFiscal, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, String produto, String descricao,
+    public CarCapContas(int contaId, StatusConta contaStatus,/*double valorParcela,*/ CarEstTipoOperacao carEstTipoOperacao, CarPessoa carPessoa, FlxcxOperacoes flxcxOperacoes, PatNotaFiscal patNotaFiscal, double contaValorTotal, Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, String produto, String descricao,
             MeioRecebimentoPagamento meio_recebimento, double quantidade_produto, FormaPagamento forma_rece_pagamento,double valo) {
         this.contaId = contaId;
         this.contaStatus = contaStatus;
@@ -229,6 +231,7 @@ public class CarCapContas implements java.io.Serializable {
         this.quantidade_produto = quantidade_produto;
         this.forma_rece_pagamento = forma_rece_pagamento;
         this.valorRecebido = valo;
+      //  this.valorParcela = valorParcela;
     }
 
     public int getContaId() {
