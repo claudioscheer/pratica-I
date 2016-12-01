@@ -77,22 +77,20 @@ public class ExportacaoParaExcel {
 //                    break;
 //
 //                case Mensal:
+            ArrayList<String> colunasExcel = RetornaColunas(filtroData, dataInicial, dataFinal);
 
-                    ArrayList<String> colunasExcel = RetornaColunas(filtroData, dataInicial, dataFinal);
+            for (String item : colunasExcel) {
 
-                    for (String item : colunasExcel) {
+                this.AdicionaLinha(row, coluna, item);
 
-                        this.AdicionaLinha(row, coluna, item);
+                coluna += 1;
+            }
 
-                        coluna += 1;
-                    }
+            this.ExportacaoMensal(dataInicial, dataFinal, row, linha);
 
-                    this.ExportacaoMensal(dataInicial, dataFinal, row, linha);
-                    
 //                    break;
 //
 //            }
-
             this.workbook.write(arquivo);
             arquivo.close();
 
@@ -564,18 +562,15 @@ public class ExportacaoParaExcel {
             for (ColunasExcel colunaExc : arquivo) {
 
                 if (linhaExc.getEspecificacao().getEspCodigo() == colunaExc.getEspecificacao().getEspCodigo()) {
-                
 
                 }
 
                 if (linhaExc.getDataColuna().equals(colunaExc.getDataColuna())) {
-                   coluna -= 1;           
+                    coluna -= 1;
 
                 }
 
             }
-
-            
 
             linhaExc.setColuna(coluna);
             linhaExc.setLinha(linha);
@@ -584,7 +579,7 @@ public class ExportacaoParaExcel {
 
             coluna += 1;
             linha += 1;
-            
+
         }
 
         int espCodigoAnterior = 0, opCodigoAnterior = 0;
@@ -593,7 +588,7 @@ public class ExportacaoParaExcel {
 
             this.AdicionaLinha(row, excel.getColuna(), excel.getDataColuna());
 
-            linha = excel.getLinha();            
+            linha = excel.getLinha();
             row = firstSheet.createRow(linha);
 
             //Coluna com a descricao da especificacao
@@ -743,7 +738,7 @@ public class ExportacaoParaExcel {
     private void AdicionaLinha(HSSFRow row, int coluna, double valor) {
 
         firstSheet.autoSizeColumn(coluna);
-        
+
         //Linha alimenta novo valor
         row.createCell(coluna).setCellValue(valor);
 
@@ -752,14 +747,14 @@ public class ExportacaoParaExcel {
     private void AdicionaLinha(HSSFRow row, int coluna, String valor) {
 
         firstSheet.autoSizeColumn(coluna);
-        
+
         //Linha alimenta novo valor
         row.createCell(coluna).setCellValue(valor);
 
     }
 
     private void AdicionaLinha(HSSFRow row, int coluna, Date valor) {
-        
+
         firstSheet.autoSizeColumn(coluna);
 
         //Linha alimenta novo valor
@@ -768,9 +763,9 @@ public class ExportacaoParaExcel {
     }
 
     private void AdicionaLinha(HSSFRow row, int coluna, int valor) {
-        
+
         firstSheet.autoSizeColumn(coluna);
-        
+
         //Linha alimenta novo valor
         row.createCell(coluna).setCellValue(valor);
 
@@ -786,6 +781,8 @@ public class ExportacaoParaExcel {
         //Linha alimenta novo valor
         HSSFRow rowcabec = firstSheet.getRow(linhaCabecalho);
 
+        //Descricao da operacao
+        firstSheet.autoSizeColumn(coluna);
         rowcabec.createCell(coluna).setCellValue(data);
 
     }

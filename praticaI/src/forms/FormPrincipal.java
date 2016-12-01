@@ -36,7 +36,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         if (instance == null) {
             instance = new FormPrincipal();
         }
-       return instance;
+        return instance;
     }
 
     public WebDesktopPane getDesktopPanel() {
@@ -52,16 +52,31 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.loadNotaFiscal();
         this.loadAtivoImobilizado();
         this.loadContasPagar();
-        this.loadBackgroud();        
-        this.loadWidgetSaldo();
         this.loadFluxoCaixa();
         this.loadContasReceber();
         this.loadaddpessaoa();
         this.loadControleEstoque();
-        this.loadMateriais();        
+        this.loadMateriais();
+
+        Thread t = new Thread(() -> {
+
+            this.loadBackgroud();
+            this.loadWidgetSaldo();
+
+        });
+
+        try {
+            t.sleep(500);
+            t.start();
+        } catch (InterruptedException ex) {
+            System.out.println("Erro: " + ex.getMessage());
+        }
+
+        
     }
 
     private void loadWidgetSaldo() {
+
         this.saldo = PanelWidgetSaldo.getInstance();
 
         Dimension d = this.saldo.getMinimumSize();
@@ -72,6 +87,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.saldo.setBounds(x, 0, w, h);
         this.desktopPanel.add(this.saldo);
         this.desktopPanel.setComponentZOrder(this.saldo, 1);
+
     }
 
     private void loadBackgroud() {
@@ -360,14 +376,14 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle r = env.getMaximumWindowBounds();
-        frame.setMaximizedBounds(r);        
-        frame.setExtendedState(frame.getState() | JFrame.MAXIMIZED_BOTH);        
+        frame.setMaximizedBounds(r);
+        frame.setExtendedState(frame.getState() | JFrame.MAXIMIZED_BOTH);
         frame.loadComponents();
         //frame.carrregarNotificacoes();
         frame.setNomeUsuario(nomeUsuario);
-        
+
         VerificaDados();
-        
+
     }
 
     private static void VerificaDados() {
@@ -383,13 +399,12 @@ public class FormPrincipal extends javax.swing.JFrame {
                 }
             }
         };
-        
+
         thread.start();
-        
+
     }
 
-    
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.desktoppane.WebDesktopPane desktopPanel;
     private com.alee.extended.image.WebImage imageBackgroud;
