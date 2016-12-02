@@ -83,7 +83,8 @@ public class Utils {
         linhasDesmarcado,
         pizzaMarcado,
         pizzaDesmarcado,
-        produto
+        produto,
+        relatorio
 
     }
 
@@ -210,7 +211,9 @@ public class Utils {
             case pizzaDesmarcado:
                 url = "pizzaDesmarcado.png";
                 break;
-
+            case relatorio:
+                url = "relatorio_ok.png";
+                break;
         }
 
         return new ImageIcon(Utils.class.getResource("/imagens/" + url));
@@ -288,33 +291,31 @@ public class Utils {
 
         new LogDAO().insert(log);
     }
-    
-    public int diasEntreDatas(String datainicial, String datafinal){
-        
+
+    public int diasEntreDatas(String datainicial, String datafinal) {
+
         // Dando um exemplo: quantos dias se passam desde 07/09/1822 até 05/06/2006?
-        DateFormat df = new SimpleDateFormat ("dd/MM/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         df.setLenient(false);
         Date d1 = null;
         Date d2 = null;
         try {
-            d1 = df.parse (datainicial.toString());
-            System.out.println (d1);
-            d2 = df.parse (datafinal.toString());
-            System.out.println (d2);
-            
-            
+            d1 = df.parse(datainicial.toString());
+            System.out.println(d1);
+            d2 = df.parse(datafinal.toString());
+            System.out.println(d2);
+
         } catch (ParseException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         long dt = (d2.getTime() - d1.getTime()) + 3600000; // 1 hora para compensar horário de verão
-        System.out.println (dt / 86400000L); // passaram-se 67111 dias
-        
-        int totalDias  = (int) (dt/86400000);
-        
-        
+        System.out.println(dt / 86400000L); // passaram-se 67111 dias
+
+        int totalDias = (int) (dt / 86400000);
+
         return totalDias;
-        
+
     }
 
     public static void log(Exception erro) {

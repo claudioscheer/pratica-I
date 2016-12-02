@@ -253,7 +253,6 @@ public class FormContaReceber extends WebInternalFrame {
         fieldValorUnitario = new components.TextFieldValorMonetario();
         fieldValorTotal = new components.TextFieldValorMonetario();
         fieldValorRecebido = new components.TextFieldValorMonetario();
-        botao_salvar1 = new com.alee.laf.button.WebButton();
 
         webPanel1.setEnabled(false);
 
@@ -477,15 +476,6 @@ public class FormContaReceber extends WebInternalFrame {
             }
         });
 
-        botao_salvar1.setBackground(new java.awt.Color(51, 255, 51));
-        botao_salvar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar_ok.png"))); // NOI18N
-        botao_salvar1.setText("Parcelas");
-        botao_salvar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botao_salvar1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout webPanel1Layout = new javax.swing.GroupLayout(webPanel1);
         webPanel1.setLayout(webPanel1Layout);
         webPanel1Layout.setHorizontalGroup(
@@ -575,13 +565,12 @@ public class FormContaReceber extends WebInternalFrame {
                         .addComponent(botao_abrir_relatorios1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(33, 33, 33)
                         .addComponent(botao_alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botao_salvar1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botao_abrir_relatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(botao_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addComponent(botao_abrir_relatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(102, 102, 102)
+                        .addGap(232, 232, 232)
                         .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(webPanel1Layout.createSequentialGroup()
                                 .addComponent(webLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -676,17 +665,15 @@ public class FormContaReceber extends WebInternalFrame {
                             .addComponent(webLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6)
                         .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txt_data_lancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(botao_abrir_relatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_data_lancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fieldValorRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(24, 24, 24)
+                        .addGap(38, 38, 38)
                         .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(botao_abrir_relatorios1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botao_alterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(botao_salvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(botao_salvar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(botao_alterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botao_abrir_relatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(botao_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(webPanel1Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -1003,10 +990,6 @@ preenche_TABEL();
         fieldValorParcela.setValue(fieldValorTotal.getValue() / (Integer) comb_parcelas.getValue());
     }//GEN-LAST:event_fieldValorUnitarioFocusLost
 
-    private void botao_salvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_salvar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botao_salvar1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -1062,7 +1045,6 @@ preenche_TABEL();
     private com.alee.laf.button.WebButton botao_abrir_relatorios2;
     private com.alee.laf.button.WebButton botao_alterar;
     private com.alee.laf.button.WebButton botao_salvar;
-    private com.alee.laf.button.WebButton botao_salvar1;
     private com.alee.laf.checkbox.WebCheckBox checkboxEntrada;
     private com.alee.laf.checkbox.WebCheckBox checkboxEntrada3;
     private com.alee.laf.checkbox.WebCheckBox checkboxEntrada4;
