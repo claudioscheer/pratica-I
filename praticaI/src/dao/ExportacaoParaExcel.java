@@ -84,6 +84,7 @@ public class ExportacaoParaExcel {
                 this.AdicionaLinha(row, coluna, item);
 
                 coluna += 1;
+
             }
 
             this.ExportacaoMensal(dataInicial, dataFinal, row, linha);
@@ -222,6 +223,9 @@ public class ExportacaoParaExcel {
 
             List<FlxcxOperacoes> operacoes = BuscarOperacoes(especificacao.getEspCodigo());
 
+            boolean mostraEspecificacao = true;
+            int sequenciaOperacao = 0;
+
             for (FlxcxOperacoes operacao : operacoes) {
 
                 totalEntradas = 0;
@@ -239,14 +243,16 @@ public class ExportacaoParaExcel {
 
                     if (mostrar) {
 
-                        //Linha alimenta uma nova especificacao
-                        linha += 1;
-                        row = firstSheet.createRow(linha);
+                        if (mostraEspecificacao) {
 
-                        //Coluna com a descricao da especificacao
-                        this.AdicionaLinha(row, 0, especificacao.getEspDescricao());
+                            //Linha alimenta uma nova especificacao
+                            linha += 1;
+                            row = firstSheet.createRow(linha);
 
-                        int sequenciaOperacao = 0;
+                            //Coluna com a descricao da especificacao
+                            this.AdicionaLinha(row, 0, especificacao.getEspDescricao());
+                            mostraEspecificacao = false;
+                        }
 
                         //Linha alimenta uma nova operacao
                         linha += 1;
@@ -257,8 +263,9 @@ public class ExportacaoParaExcel {
                         this.AdicionaLinha(row, 0, sequenciaOperacao);
 
                         //Descricao da operacao
-                        firstSheet.autoSizeColumn(1);
-                        row.createCell(1).setCellValue(operacao.getOpDescricao());
+//                        firstSheet.autoSizeColumn(1);
+//                        row.createCell(1).setCellValue(operacao.getOpDescricao());
+                        this.AdicionaLinha(row, 1, operacao.getOpDescricao());
 
                         mostrar = false;
                     } else {
@@ -737,37 +744,37 @@ public class ExportacaoParaExcel {
 
     private void AdicionaLinha(HSSFRow row, int coluna, double valor) {
 
-        firstSheet.autoSizeColumn(coluna);
-
         //Linha alimenta novo valor
         row.createCell(coluna).setCellValue(valor);
+
+        firstSheet.autoSizeColumn(coluna);
 
     }
 
     private void AdicionaLinha(HSSFRow row, int coluna, String valor) {
 
-        firstSheet.autoSizeColumn(coluna);
-
         //Linha alimenta novo valor
         row.createCell(coluna).setCellValue(valor);
+
+        firstSheet.autoSizeColumn(coluna);
 
     }
 
     private void AdicionaLinha(HSSFRow row, int coluna, Date valor) {
 
-        firstSheet.autoSizeColumn(coluna);
-
         //Linha alimenta novo valor
         row.createCell(coluna).setCellValue(valor);
+
+        firstSheet.autoSizeColumn(coluna);
 
     }
 
     private void AdicionaLinha(HSSFRow row, int coluna, int valor) {
 
-        firstSheet.autoSizeColumn(coluna);
-
         //Linha alimenta novo valor
         row.createCell(coluna).setCellValue(valor);
+
+        firstSheet.autoSizeColumn(coluna);
 
     }
 
@@ -782,8 +789,9 @@ public class ExportacaoParaExcel {
         HSSFRow rowcabec = firstSheet.getRow(linhaCabecalho);
 
         //Descricao da operacao
-        firstSheet.autoSizeColumn(coluna);
         rowcabec.createCell(coluna).setCellValue(data);
+
+        firstSheet.autoSizeColumn(coluna);
 
     }
 
