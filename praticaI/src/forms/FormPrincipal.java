@@ -56,6 +56,12 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.loadContasReceber();
         this.loadaddpessaoa();
         this.loadControleEstoque();
+
+        this.loadMateriais();
+        this.loadRelatoriosContasReceber();
+
+        this.loadMateriais();        
+
         this.loadMateriais();
 
         Thread t = new Thread(() -> {
@@ -73,6 +79,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         }
 
         
+
     }
 
     private void loadWidgetSaldo() {
@@ -232,6 +239,29 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.desktopPanel.add(iconDesktop);
 
     }
+    private void loadRelatoriosContasReceber() {
+
+        final IconDesktop iconDesktop = new IconDesktop("Relatorio Contas a Receber", Utils.getImage(Utils.Image.relatorio));
+
+        iconDesktop.setActionListener((e) -> {
+            if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
+                return;
+            }
+            FormRelatorios_em_tela form = new FormRelatorios_em_tela();
+            this.desktopPanel.add(form);
+             form.open();
+            try {
+                form.setMaximum(false);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(FormPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         
+        });
+
+        iconDesktop.setLocation(new Point(130, 320));
+        this.desktopPanel.add(iconDesktop);
+    }
+    
 
     private void loadaddpessaoa() {
 
