@@ -51,6 +51,27 @@ public class CarCapContasDAO {
         return cont;
 
     }
+     
+      
+        public List<CarCapContas> BuscarparcelasId(int id) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+
+        Query query = session.createQuery("from CarCapContas as a where carcapOperacoesComerciais_operacoesID =:codigo ");
+
+        query.setParameter("codigo", id);
+        List<CarCapContas> parcela = query.list();
+        
+        //CarCapContas contas = (CarCapContas) query.uniqueResult();
+        session.getTransaction().commit();
+        session.close();
+        
+        return parcela;
+
+    }
+       
+       
     
       public CarCapContas BuscarContasId(int id) {
 
