@@ -30,6 +30,8 @@ import model.FlxcxOperacoes;
 import model.Operacao;
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.collections.comparators.ComparatorChain;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
 
 /**
  *
@@ -54,8 +56,13 @@ public class ExportacaoParaExcel {
             //controla linha posicionada
             int linha = 0;
 
+            HSSFCellStyle style = this.workbook.createCellStyle();
+            HSSFFont font = this.workbook.createFont();
+            font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+            style.setFont(font);
+            
             HSSFRow row = firstSheet.createRow(linha);
-
+           
             this.AdicionaLinha(row, 0, "Data Inicial: ");
             this.AdicionaLinha(row, 1, new SimpleDateFormat("dd-MM-yyyy").format(dataInicial));
 
@@ -65,7 +72,7 @@ public class ExportacaoParaExcel {
             linha += 1;
             row = firstSheet.createRow(linha);
 
-            int coluna = 3;
+            int coluna = 2;
 
             this.linhaCabecalho = linha;
 
@@ -81,13 +88,13 @@ public class ExportacaoParaExcel {
 
             for (String item : colunasExcel) {
 
-                this.AdicionaLinha(row, coluna, item);
+                this.AdicionaLinhaBold(row, style, coluna, item);
 
                 coluna += 1;
 
             }
 
-            this.ExportacaoMensal(dataInicial, dataFinal, row, linha);
+            this.ExportacaoMensal(dataInicial, dataFinal, row, style,linha);
 
 //                    break;
 //
@@ -209,12 +216,14 @@ public class ExportacaoParaExcel {
 
     }
 
-    private void ExportacaoMensal(Date dataInicial, Date dataFinal, HSSFRow row, int linha) {
+    private void ExportacaoMensal(Date dataInicial, Date dataFinal, HSSFRow row, HSSFCellStyle style ,int linha) {
 
         double totalEntradas = 0;
         double totalSaidas = 0;
         int mes = 0;
 
+        
+        
         List<FlxcxEspecificacoes> especificacoes = BuscarEspecificoes();
 
         int mesAnterior = 0;
@@ -250,7 +259,7 @@ public class ExportacaoParaExcel {
                             row = firstSheet.createRow(linha);
 
                             //Coluna com a descricao da especificacao
-                            this.AdicionaLinha(row, 0, especificacao.getEspDescricao());
+                            this.AdicionaLinhaBold(row,style,0, especificacao.getEspDescricao());
                             mostraEspecificacao = false;
                         }
 
@@ -260,12 +269,12 @@ public class ExportacaoParaExcel {
 
                         //codigo sequencial
                         sequenciaOperacao += 1;
-                        this.AdicionaLinha(row, 0, sequenciaOperacao);
+                        this.AdicionaLinha(row, 0, sequenciaOperacao + " - " + operacao.getOpDescricao());
 
                         //Descricao da operacao
 //                        firstSheet.autoSizeColumn(1);
 //                        row.createCell(1).setCellValue(operacao.getOpDescricao());
-                        this.AdicionaLinha(row, 1, operacao.getOpDescricao());
+//                        this.AdicionaLinha(row, 1, operacao.getOpDescricao());
 
                         mostrar = false;
                     } else {
@@ -300,40 +309,40 @@ public class ExportacaoParaExcel {
                     switch (mes) {
 
                         case 1:
-                            this.AdicionaLinha(row, 3, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 2, (totalEntradas - totalSaidas));
                             break;
                         case 2:
-                            this.AdicionaLinha(row, 4, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 3, (totalEntradas - totalSaidas));
                             break;
                         case 3:
-                            this.AdicionaLinha(row, 5, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 4, (totalEntradas - totalSaidas));
                             break;
                         case 4:
-                            this.AdicionaLinha(row, 6, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 5, (totalEntradas - totalSaidas));
                             break;
                         case 5:
-                            this.AdicionaLinha(row, 7, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 6, (totalEntradas - totalSaidas));
                             break;
                         case 6:
-                            this.AdicionaLinha(row, 8, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 7, (totalEntradas - totalSaidas));
                             break;
                         case 7:
-                            this.AdicionaLinha(row, 9, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 8, (totalEntradas - totalSaidas));
                             break;
                         case 8:
-                            this.AdicionaLinha(row, 10, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 9, (totalEntradas - totalSaidas));
                             break;
                         case 9:
-                            this.AdicionaLinha(row, 11, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 10, (totalEntradas - totalSaidas));
                             break;
                         case 10:
-                            this.AdicionaLinha(row, 12, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 11, (totalEntradas - totalSaidas));
                             break;
                         case 11:
-                            this.AdicionaLinha(row, 13, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 12, (totalEntradas - totalSaidas));
                             break;
                         case 12:
-                            this.AdicionaLinha(row, 14, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 13, (totalEntradas - totalSaidas));
                             break;
 
                     }
@@ -344,40 +353,40 @@ public class ExportacaoParaExcel {
                     switch (mes) {
 
                         case 1:
-                            this.AdicionaLinha(row, 3, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 2, (totalEntradas - totalSaidas));
                             break;
                         case 2:
-                            this.AdicionaLinha(row, 4, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 3, (totalEntradas - totalSaidas));
                             break;
                         case 3:
-                            this.AdicionaLinha(row, 5, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 4, (totalEntradas - totalSaidas));
                             break;
                         case 4:
-                            this.AdicionaLinha(row, 6, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 5, (totalEntradas - totalSaidas));
                             break;
                         case 5:
-                            this.AdicionaLinha(row, 7, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 6, (totalEntradas - totalSaidas));
                             break;
                         case 6:
-                            this.AdicionaLinha(row, 8, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 7, (totalEntradas - totalSaidas));
                             break;
                         case 7:
-                            this.AdicionaLinha(row, 9, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 8, (totalEntradas - totalSaidas));
                             break;
                         case 8:
-                            this.AdicionaLinha(row, 10, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 9, (totalEntradas - totalSaidas));
                             break;
                         case 9:
-                            this.AdicionaLinha(row, 11, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 10, (totalEntradas - totalSaidas));
                             break;
                         case 10:
-                            this.AdicionaLinha(row, 12, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 11, (totalEntradas - totalSaidas));
                             break;
                         case 11:
-                            this.AdicionaLinha(row, 13, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 12, (totalEntradas - totalSaidas));
                             break;
                         case 12:
-                            this.AdicionaLinha(row, 14, (totalEntradas - totalSaidas));
+                            this.AdicionaLinha(row, 13, (totalEntradas - totalSaidas));
                             break;
 
                     }
@@ -760,6 +769,16 @@ public class ExportacaoParaExcel {
 
     }
 
+     private void AdicionaLinhaBold(HSSFRow row, HSSFCellStyle style ,int coluna, String valor) {
+
+        //Linha alimenta novo valor
+        row.createCell(coluna).setCellValue(valor);
+        row.getCell(coluna).setCellStyle(style);
+        
+        firstSheet.autoSizeColumn(coluna);
+
+    }
+    
     private void AdicionaLinha(HSSFRow row, int coluna, Date valor) {
 
         //Linha alimenta novo valor

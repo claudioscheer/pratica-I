@@ -190,7 +190,7 @@ public class CarCapContasDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
 
-        Query query = session.createQuery("from CarCapContas as a where flxcxoperacoes_opcodigo = :codigo and contadataemissao BETWEEN :dataInicial and :dataFinal and contaStatus = :status");
+        Query query = session.createQuery("from CarCapContas as a where flxcxoperacoes_opcodigo = :codigo and contadataemissao BETWEEN :dataInicial and :dataFinal and contaStatus = :status order by contadataemissao");
 
         query.setParameter("codigo", codigoOperacao);
         query.setParameter("dataInicial", dataInicial);
