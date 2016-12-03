@@ -187,11 +187,10 @@
         <Component class="com.alee.laf.combobox.WebComboBox" name="ComboBoxMeioPgto">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="&#xa0;"/>
-                <StringItem index="1" value="Dinheiro"/>
-                <StringItem index="2" value="Cheque"/>
-                <StringItem index="3" value="Banco"/>
+              <StringArray count="3">
+                <StringItem index="0" value="Dinheiro"/>
+                <StringItem index="1" value="Cheque"/>
+                <StringItem index="2" value="Banco"/>
               </StringArray>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
@@ -260,7 +259,7 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtDataPagamento">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Data de pagamento"/>
+            <Property name="text" type="java.lang.String" value="Data da nota fiscal:"/>
           </Properties>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtMeioPagamento">
@@ -270,7 +269,7 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtValorTotal">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Valor total"/>
+            <Property name="text" type="java.lang.String" value="Valor total:"/>
           </Properties>
         </Component>
         <Component class="com.alee.extended.date.WebDateField" name="fieldDataParcela">
@@ -359,9 +358,9 @@
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="6" rowCount="0">
+                    <Column editable="false" title="Fornecedor" type="java.lang.Object"/>
                     <Column editable="false" title="Descri&#xe7;&#xe3;o" type="java.lang.Object"/>
                     <Column editable="false" title="Parcelas" type="java.lang.Object"/>
-                    <Column editable="false" title="Parcelas Pendentes" type="java.lang.Object"/>
                     <Column editable="false" title="Valor Total" type="java.lang.Object"/>
                     <Column editable="false" title="Valor Pago" type="java.lang.Object"/>
                     <Column editable="false" title="Valor Pendente" type="java.lang.Object"/>

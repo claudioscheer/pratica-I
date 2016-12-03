@@ -1,25 +1,16 @@
 package forms;
 
-import com.alee.laf.WebLookAndFeel;
 import com.alee.laf.desktoppane.WebInternalFrame;
-import com.alee.managers.language.LanguageManager;
 import components.Validador;
-import dao.CarCapContasDAO;
 import enumeraveis.TipoConta;
 import forms.busca.FormBuscaNotaFiscal;
-import dao.PatNotaFiscalDAO;
 import dao.carcapOperacoesComerciaisDAO;
-import enumeraveis.FormaPagamento;
 import enumeraveis.StatusConta;
 import forms.busca.FormBuscaPessoa;
 import forms.busca.FormBuscaProduto;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Stack;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import model.CarCapContas;
 import model.CarcapOperacoesComerciais;
@@ -152,12 +143,12 @@ public class FormContaPagar extends WebInternalFrame {
 
     private Object[] contaToArray(CarcapOperacoesComerciais c) {
         Object[] o = new Object[6];
-        o[0] = c.getDescricao();
-        o[1] = c.getNumeroParcela();
-        o[2] = 1;
+        o[0] = c.getPessoa();
+        o[1] = c.getDescricao();
+        o[2] = c.getNumeroParcela();
         o[3] = c.getValorTotal();
-        o[4] = c.getValorPendente();
-        o[5] = c.getValorTotal() - c.getValorPendente();
+        o[4] = c.getValorRecebido();
+        o[5] = c.getValorPendente();
         return o;
     }
 
@@ -195,7 +186,7 @@ public class FormContaPagar extends WebInternalFrame {
 
         webPanel1.setEnabled(false);
 
-        ComboBoxMeioPgto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Dinheiro", "Cheque", "Banco" }));
+        ComboBoxMeioPgto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dinheiro", "Cheque", "Banco" }));
         ComboBoxMeioPgto.setEnabled(false);
 
         ComboBoxFormaPgto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "À Vista", "A Prazo" }));
@@ -229,11 +220,11 @@ public class FormContaPagar extends WebInternalFrame {
         fieldDescrição.setToolTipText("");
         fieldDescrição.setEnabled(false);
 
-        txtDataPagamento.setText("Data de pagamento");
+        txtDataPagamento.setText("Data da nota fiscal:");
 
         txtMeioPagamento.setText("Meio de pagamento");
 
-        txtValorTotal.setText("Valor total");
+        txtValorTotal.setText("Valor total:");
 
         fieldDataParcela.setToolTipText("Informe a data de pagamento da primeira parcela");
 
@@ -286,7 +277,7 @@ public class FormContaPagar extends WebInternalFrame {
 
             },
             new String [] {
-                "Descrição", "Parcelas", "Parcelas Pendentes", "Valor Total", "Valor Pago", "Valor Pendente"
+                "Fornecedor", "Descrição", "Parcelas", "Valor Total", "Valor Pago", "Valor Pendente"
             }
         ) {
             boolean[] canEdit = new boolean [] {

@@ -109,7 +109,7 @@
     </Container>
     <Component class="com.alee.laf.label.WebLabel" name="txtNotaFiscal">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Valor parcela"/>
+        <Property name="text" type="java.lang.String" value="Valor da parcela:"/>
       </Properties>
     </Component>
     <Component class="components.TextFieldValorMonetario" name="fieldValorParcela">
@@ -157,7 +157,7 @@
     </Component>
     <Component class="com.alee.laf.label.WebLabel" name="txtNotaFiscal3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Voc&#xea; est&#xe1; pagado a parcela:"/>
+        <Property name="text" type="java.lang.String" value="Voc&#xea; est&#xe1; pagando a parcela:"/>
       </Properties>
     </Component>
     <Component class="com.alee.laf.label.WebLabel" name="lblNumeroParcela">

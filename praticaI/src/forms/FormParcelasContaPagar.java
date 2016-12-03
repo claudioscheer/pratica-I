@@ -119,7 +119,7 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tableLista);
 
-        txtNotaFiscal.setText("Valor parcela");
+        txtNotaFiscal.setText("Valor da parcela:");
 
         fieldValorParcela.setToolTipText("");
         fieldValorParcela.setEnabled(false);
@@ -154,7 +154,7 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
             }
         });
 
-        txtNotaFiscal3.setText("Você está pagado a parcela:");
+        txtNotaFiscal3.setText("Você está pagando a parcela:");
 
         lblNumeroParcela.setText("1");
         lblNumeroParcela.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
