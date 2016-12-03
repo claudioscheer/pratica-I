@@ -31,15 +31,14 @@ public class CarCapContas implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta")
     private int contaId;
     private double valorRecebido;
-    
+
     /* campos referentes às parcelas */
     private double valorPendente;
-    private Stack<CarCapContas> parcelas;
     /* fim dos campos referentes às parcelas */
-    
+
     @Enumerated
     private StatusConta contaStatus;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private CarEstTipoOperacao carEstTipoOperacao;
     @ManyToOne
     private CarPessoa carPessoa;
@@ -47,7 +46,7 @@ public class CarCapContas implements java.io.Serializable {
     private FlxcxOperacoes flxcxOperacoes;
     @Transient
     private String tipoOperacaoDescricao;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private PatNotaFiscal patNotaFiscal;
     private double contaValorTotal;
     @Temporal(TemporalType.DATE)
@@ -64,7 +63,7 @@ public class CarCapContas implements java.io.Serializable {
     @Enumerated
     private FormaPagamento forma_rece_pagamento;
     @Enumerated
-    private MeioRecebimentoPagamento meio_recebimento;    
+    private MeioRecebimentoPagamento meio_recebimento;
     private double quantidade_produto;
     private double acrescimo;
     @Transient
@@ -72,13 +71,38 @@ public class CarCapContas implements java.io.Serializable {
     @Transient
     private String contaTipoDescricao;
 
+    @Temporal(TemporalType.DATE)
+    private Date dataVencimento;
+    
+    @Temporal(TemporalType.DATE)
+    private Date dataPagamento;
+
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    
+    
+    public Date getDataVencimento() {
+        return dataVencimento;
+    }
+
+    public void setDataVencimento(Date dataVencimento) {
+        this.dataVencimento = dataVencimento;
+    }
+
     public EstProduto getProduto() {
         return produto;
     }
+
     public void setProduto(EstProduto produto) {
         this.produto = produto;
     }
-    
+
     public double getAcrescimo() {
         return acrescimo;
     }
@@ -155,23 +179,15 @@ public class CarCapContas implements java.io.Serializable {
     public double getValorPendente() {
         return valorPendente;
     }
-    
+
     public void setValorPendente(double valorPendente) {
         this.valorPendente = valorPendente;
     }
 
-    public Stack<CarCapContas> getParcelas() {
-        return parcelas;
-    }
-
-    public void setParcelas(Stack<CarCapContas> parcelas) {
-        this.parcelas = parcelas;
-    }
-    
     public CarCapContas() {
     }
-    
-/*  
+
+    /*  
     public CarCapContas(int contaId, double contaValorTotal, //double valorParcela,//  Date contaDataEmissao, int contaNumParcelas, double contaValorPago, TipoConta contaTipo, String produto, String descricao,
             MeioRecebimentoPagamento meio_recebimento, double quantidade_produto, FormaPagamento forma_rece_pagamento,double valorRecebido) {
         this.contaId = contaId;
@@ -208,8 +224,7 @@ public class CarCapContas implements java.io.Serializable {
         this.valorRecebido = valo;
       //  this.valorParcela = valorParcela;
     }
-*/
-    
+     */
     public int getContaId() {
         return this.contaId;
     }
@@ -313,5 +328,5 @@ public class CarCapContas implements java.io.Serializable {
     public void setValorRecebido(double valorRecebido) {
         this.valorRecebido = valorRecebido;
     }
-    
+
 }

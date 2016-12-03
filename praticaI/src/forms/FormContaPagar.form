@@ -20,17 +20,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="webPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="webPanel1" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="webPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
+          <Component id="webPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -44,157 +41,142 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="txtDataPagamento" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="fieldDataEntrada" min="-2" pref="160" max="-2" attributes="0"/>
-                              </Group>
+                      <Component id="fieldNotaFiscal" alignment="0" max="32767" attributes="0"/>
+                      <Component id="fieldDescrição" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="txtDescricao" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtNotaFiscal" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="txtNotaFiscal" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="fieldNotaFiscal" max="32767" attributes="0"/>
+                                  <Component id="txtParcelas" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="235" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="fieldValorParcela" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="txtValorParcela" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <Component id="fieldDescrição" alignment="0" min="-2" pref="560" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtValorTotal" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtDataPagamento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="fieldDataEntrada" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="fieldValorTotal" min="-2" pref="149" max="-2" attributes="0"/>
+                                      <Component id="txtValorTotal" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtFormaPagamento" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="ComboBoxFormaPgto" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
+                                      <Component id="txtValorRecebido" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtValorPendente" min="-2" max="-2" attributes="0"/>
                                       <Component id="ComboBoxMeioPgto" min="-2" pref="184" max="-2" attributes="0"/>
-                                      <Component id="txtMeioPagamento" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtMeioPagamento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="fieldValorPendente" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="txtValorPendente" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="fieldValorPendente" min="-2" pref="160" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="txtValorRecebido" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="fieldValorRecebido" min="-2" pref="160" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtParcelas" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtValorParcela" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtPrimeiroVencimento" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="fieldValorParcela" pref="160" max="32767" attributes="0"/>
-                                      <Component id="fieldParcelas" max="32767" attributes="0"/>
-                                      <Component id="fieldDataParcela" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="txtFormaPagamento" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="fieldValorRecebido" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="fieldParcelas" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                              <Component id="txtPrimeiroVencimento" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="22" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                          <Component id="btnParcelas" min="-2" pref="130" max="-2" attributes="0"/>
-                          <EmptySpace pref="154" max="32767" attributes="0"/>
-                          <Component id="btnSalvar" min="-2" pref="130" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+                          <Component id="fieldDataParcela" min="-2" pref="160" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnSalvar" min="-2" pref="92" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jScrollPane1" min="-2" pref="711" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" pref="711" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnParcelas" min="-2" pref="113" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="fieldNotaFiscal" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txtNotaFiscal" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnParcelas" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="txtNotaFiscal" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="fieldNotaFiscal" min="-2" pref="30" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="txtDataPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtValorTotal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="fieldDataEntrada" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="fieldValorTotal" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="txtDescricao" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="fieldDescrição" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtFormaPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtMeioPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <Component id="ComboBoxFormaPgto" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="txtValorRecebido" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="fieldDescrição" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="txtValorTotal" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="fieldValorTotal" min="-2" pref="30" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="txtFormaPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="txtMeioPagamento" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="ComboBoxFormaPgto" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="ComboBoxMeioPgto" min="-2" pref="30" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtValorRecebido" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fieldValorRecebido" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtValorPendente" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fieldValorPendente" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtParcelas" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fieldParcelas" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtValorParcela" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fieldValorParcela" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtPrimeiroVencimento" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fieldDataParcela" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace pref="165" max="32767" attributes="0"/>
+                                  <Component id="fieldValorRecebido" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="btnParcelas" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="ComboBoxMeioPgto" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="txtValorPendente" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="fieldValorPendente" min="-2" pref="30" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="jScrollPane1" max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtParcelas" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtValorParcela" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="fieldParcelas" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="fieldValorParcela" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="txtPrimeiroVencimento" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="fieldDataParcela" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="16" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -218,10 +200,9 @@
         <Component class="com.alee.laf.combobox.WebComboBox" name="ComboBoxFormaPgto">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="&#xa0;"/>
-                <StringItem index="1" value="&#xc0; Vista"/>
-                <StringItem index="2" value="A Prazo"/>
+              <StringArray count="2">
+                <StringItem index="0" value="&#xc0; Vista"/>
+                <StringItem index="1" value="A Prazo"/>
               </StringArray>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
@@ -232,12 +213,12 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtParcelas">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Parcelas:"/>
+            <Property name="text" type="java.lang.String" value="Parcelas"/>
           </Properties>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtValorRecebido">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Valor Recebido / Entrada:"/>
+            <Property name="text" type="java.lang.String" value="Valor entrada"/>
           </Properties>
         </Component>
         <Component class="components.TextFieldFK" name="fieldNotaFiscal">
@@ -247,16 +228,13 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtNotaFiscal">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nota Fiscal:"/>
+            <Property name="text" type="java.lang.String" value="Nota fiscal"/>
           </Properties>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="btnSalvar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="ff" red="33" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagens/salvar_ok.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Salvar"/>
           </Properties>
@@ -266,7 +244,7 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtFormaPagamento">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Forma de Pagamento:"/>
+            <Property name="text" type="java.lang.String" value="Forma de pagamento"/>
           </Properties>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtDescricao">
@@ -282,17 +260,17 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtDataPagamento">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Data de pagamento:"/>
+            <Property name="text" type="java.lang.String" value="Data de pagamento"/>
           </Properties>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtMeioPagamento">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Meio de Pagamento:"/>
+            <Property name="text" type="java.lang.String" value="Meio de pagamento"/>
           </Properties>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtValorTotal">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Valor Total:"/>
+            <Property name="text" type="java.lang.String" value="Valor total"/>
           </Properties>
         </Component>
         <Component class="com.alee.extended.date.WebDateField" name="fieldDataParcela">
@@ -304,9 +282,6 @@
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="ff" red="33" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/imagens/editar_ok.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Parcelas"/>
           </Properties>
@@ -324,7 +299,7 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtPrimeiroVencimento">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Data 1&#xb0; Vencimento:"/>
+            <Property name="text" type="java.lang.String" value="Data 1&#xb0; vencimento"/>
           </Properties>
         </Component>
         <Component class="com.alee.laf.spinner.WebSpinner" name="fieldParcelas">
@@ -340,7 +315,7 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtValorParcela">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Valor da Parcela:"/>
+            <Property name="text" type="java.lang.String" value="Valor da parcela"/>
           </Properties>
         </Component>
         <Component class="components.TextFieldValorMonetario" name="fieldValorParcela">
@@ -365,7 +340,7 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="txtValorPendente">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Valor Pendente:"/>
+            <Property name="text" type="java.lang.String" value="Valor pendente"/>
           </Properties>
         </Component>
         <Component class="components.TextFieldValorMonetario" name="fieldValorPendente">
@@ -383,15 +358,13 @@
             <Component class="javax.swing.JTable" name="tableLista">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="8" rowCount="0">
-                    <Column editable="true" title="ID" type="java.lang.Object"/>
-                    <Column editable="true" title="Vencimento" type="java.lang.Object"/>
-                    <Column editable="true" title="Fornecedor" type="java.lang.Object"/>
-                    <Column editable="true" title="Parcelas" type="java.lang.Object"/>
-                    <Column editable="true" title="Parcelas Pendentes" type="java.lang.Object"/>
-                    <Column editable="true" title="Valor Total" type="java.lang.Object"/>
-                    <Column editable="true" title="Valor Pago" type="java.lang.Object"/>
-                    <Column editable="true" title="Valor Pendente" type="java.lang.Object"/>
+                  <Table columnCount="6" rowCount="0">
+                    <Column editable="false" title="Descri&#xe7;&#xe3;o" type="java.lang.Object"/>
+                    <Column editable="false" title="Parcelas" type="java.lang.Object"/>
+                    <Column editable="false" title="Parcelas Pendentes" type="java.lang.Object"/>
+                    <Column editable="false" title="Valor Total" type="java.lang.Object"/>
+                    <Column editable="false" title="Valor Pago" type="java.lang.Object"/>
+                    <Column editable="false" title="Valor Pendente" type="java.lang.Object"/>
                   </Table>
                 </Property>
               </Properties>

@@ -1,4 +1,3 @@
-
 package dao;
 
 import enumeraveis.TipoConta;
@@ -12,7 +11,6 @@ import utils.HibernateUtil;
 public class carcapOperacoesComerciaisDAO {
 
     //CarcapOperacoesComerciais g = new CarcapOperacoesComerciais();
-    
     public Boolean update(CarcapOperacoesComerciais conta) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
@@ -38,6 +36,16 @@ public class carcapOperacoesComerciaisDAO {
         session.getTransaction().commit();
         session.close();
         return true;
+    }
+
+    public List<CarcapOperacoesComerciais> buscarContasPagar() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        Query query = session.createQuery("from CarcapOperacoesComerciais as a ");
+        List<CarcapOperacoesComerciais> ativos = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return ativos;
     }
 
     public List<CarcapOperacoesComerciais> getAll() {
@@ -83,9 +91,9 @@ public class carcapOperacoesComerciaisDAO {
         return contas;
 
     }
-    
-    public CarcapOperacoesComerciais BuscarId(int id){
-        
+
+    public CarcapOperacoesComerciais BuscarId(int id) {
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
 

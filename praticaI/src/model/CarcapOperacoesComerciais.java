@@ -1,14 +1,16 @@
-
 package model;
 
 import enumeraveis.StatusConta;
 import enumeraveis.TipoConta;
 import enumeraveis.TipoMovimento;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Stack;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,10 +21,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
-@SequenceGenerator(name = "seq_opComercias", sequenceName = "seq_opComercias",
-        allocationSize = 1)
+@SequenceGenerator(name = "seq_opComercias", sequenceName = "seq_opComercias", allocationSize = 1)
 public class CarcapOperacoesComerciais implements java.io.Serializable {
 
     private int operacoesID;
@@ -36,14 +36,44 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
     private TipoMovimento movimento;
     private double quantidade;
     private TipoConta tipoDeConta;
-    private List<CarCapContas> contas;
-    private Stack<CarCapContas> parcelas;
     private double ValorTotal;
     private double ValorRecebido;
     private double ValorPendente;
     private double ValorParcela;
     private StatusConta contaStatus;
+    
+    private List<CarCapContas> parcelas;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_opComercias")
+    public int getOperacoesID() {
+        return operacoesID;
+    }
+
+    public void setOperacoesID(int operacoesID) {
+        this.operacoesID = operacoesID;
+    }
+
+    @OneToMany(mappedBy = "carcapOperacoesComerciais", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public List<CarCapContas> getParcelas() {
+        if (this.parcelas == null) {
+            this.parcelas = new ArrayList<>();
+        }
+        return this.parcelas;
+    }
+
+    public void setParcelas(List<CarCapContas> parcelas) {
+        this.parcelas = parcelas;
+    }
+
+    public void addParcela(CarCapContas parcela) {
+        if (parcela != null) {
+            parcela.setCarcapOperacoesComerciais(this);
+            this.getParcelas().add(parcela);
+        }
+    }
+
+    @Temporal(javax.persistence.TemporalType.DATE)
     public Date getDataParcela() {
         return DataParcela;
     }
@@ -59,7 +89,7 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
     public void setValorParcela(double ValorParcela) {
         this.ValorParcela = ValorParcela;
     }
-    
+
     public StatusConta getContaStatus() {
         return contaStatus;
     }
@@ -67,7 +97,7 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
     public void setContaStatus(StatusConta contaStatus) {
         this.contaStatus = contaStatus;
     }
-    
+
     public double getValorTotal() {
         return ValorTotal;
     }
@@ -90,47 +120,6 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
 
     public void setValorPendente(double ValorPendente) {
         this.ValorPendente = ValorPendente;
-    }
-
-    public Stack<CarCapContas> getParcelas() {
-        return parcelas;
-    }
-
-    public void setParcelas(Stack<CarCapContas> parcelas) {
-        this.parcelas = parcelas;
-    }
-    
-    public CarcapOperacoesComerciais() {
-    }
-
-    public CarcapOperacoesComerciais(int operacoesID, Date datLancamento, int numeroParcela, String Descricao, double quantidade) {
-        this.operacoesID = operacoesID;
-        this.datLancamento = datLancamento;
-        this.numeroParcela = numeroParcela;
-        this.Descricao = Descricao;
-        this.quantidade = quantidade;
-    }
-
-    public CarcapOperacoesComerciais(int operacoesID, Date datLancamento, PatNotaFiscal OperacaoNota, int numeroParcela, EstProduto idProduto, CarPessoa pessoa, String Descricao, TipoMovimento movimento, double quantidade) {
-        this.operacoesID = operacoesID;
-        this.datLancamento = datLancamento;
-        this.OperacaoNota = OperacaoNota;
-        this.numeroParcela = numeroParcela;
-        this.produto = idProduto;
-        this.pessoa = pessoa;
-        this.Descricao = Descricao;
-        this.movimento = movimento;
-        this.quantidade = quantidade;    
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_opComercias")
-    public int getOperacoesID() {
-        return operacoesID;
-    }
-
-    public void setOperacoesID(int operacoesID) {
-        this.operacoesID = operacoesID;
     }
 
     @Temporal(TemporalType.DATE)
@@ -158,7 +147,7 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
     public void setNumeroParcela(int numeroParcela) {
         this.numeroParcela = numeroParcela;
     }
-    
+
     @ManyToOne
     public EstProduto getProdutoId() {
         return produto;
@@ -168,7 +157,6 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
         this.produto = produtoId;
     }
 
-    @OneToOne
     @ManyToOne
     public CarPessoa getPessoa() {
         return pessoa;
@@ -186,7 +174,7 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
         this.Descricao = Descricao;
     }
 
-    @Enumerated 
+    @Enumerated
     public TipoMovimento getMovimento() {
         return movimento;
     }
@@ -202,15 +190,6 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
     public void setQuantidade(double quantidade) {
         this.quantidade = quantidade;
     }
-    
-//    @OneToOne
-//      public EstProduto getProduto() {
-//        return produto;
-//    }
-//
-//    public void setProduto(EstProduto produto) {
-//        this.produto = produto;
-//    }
 
     @Enumerated
     public TipoConta getTipoDeConta() {
@@ -221,13 +200,4 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
         this.tipoDeConta = tipoDeConta;
     }
 
-    @OneToMany(mappedBy = "carcapOperacoesComerciais")
-    public List<CarCapContas> getContas() {
-        return contas;
-    }
-
-    public void setContas(List<CarCapContas> contas) {
-        this.contas = contas;
-    }
-     
 }
