@@ -143,7 +143,7 @@ public class FormContaPagar extends WebInternalFrame {
 
     private Object[] contaToArray(CarcapOperacoesComerciais c) {
         Object[] o = new Object[6];
-        o[0] = c.getPessoa();
+        o[0] = c.getPessoa().getPessoaNome();
         o[1] = c.getDescricao();
         o[2] = c.getNumeroParcela();
         o[3] = c.getValorTotal();

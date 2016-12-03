@@ -1,5 +1,6 @@
 package forms;
 
+import components.Validador;
 import dao.carcapOperacoesComerciaisDAO;
 import enumeraveis.StatusConta;
 import java.awt.Point;
@@ -14,13 +15,18 @@ import model.CarcapOperacoesComerciais;
 public class FormParcelasContaPagar extends javax.swing.JFrame {
 
     private CarcapOperacoesComerciais conta;
-
+    private Validador validador;
     private int parcelaPagando;
 
     public FormParcelasContaPagar() {
         initComponents();
+        setLocationRelativeTo(null);
         this.lblNumeroParcela.setText("0");
         fieldValorAcrescimo.setTextoMonetario(" %");
+
+        this.validador = new Validador(Validador.TipoValidator.ICONE);
+        this.validador.addMaiorQueValidator(fieldValorAcrescimo, 0.0);
+        this.validador.addMenorQueValidator(fieldValorAcrescimo, 100.0);
 
         tableLista.addMouseListener(new MouseAdapter() {
             @Override
@@ -75,6 +81,7 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableLista = new javax.swing.JTable();
         txtNotaFiscal = new com.alee.laf.label.WebLabel();
@@ -86,6 +93,8 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
         webButton1 = new com.alee.laf.button.WebButton();
         txtNotaFiscal3 = new com.alee.laf.label.WebLabel();
         lblNumeroParcela = new com.alee.laf.label.WebLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -138,7 +147,7 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
 
         txtNotaFiscal1.setText("Valor a pagar");
 
-        txtNotaFiscal2.setText("Porcentagem acréscimo (%)");
+        txtNotaFiscal2.setText("Porcentagem acréscimo/desconto (%)");
 
         fieldValorAcrescimo.setToolTipText("");
         fieldValorAcrescimo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -159,15 +168,19 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
         lblNumeroParcela.setText("1");
         lblNumeroParcela.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
 
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Desconto");
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Acréscimo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(webButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(txtNotaFiscal3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -182,7 +195,14 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
                             .addComponent(txtNotaFiscal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fieldValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtNotaFiscal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldValorAcrescimo, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(fieldValorAcrescimo, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRadioButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButton2))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(112, 112, 112)
+                        .addComponent(webButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(157, 157, 157)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE))
         );
@@ -199,6 +219,10 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldValorParcela, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton2))
+                .addGap(18, 18, 18)
                 .addComponent(txtNotaFiscal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldValorAcrescimo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,9 +230,9 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
                 .addComponent(txtNotaFiscal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(webButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(38, 38, 38))
         );
 
         pack();
@@ -247,9 +271,12 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
     }//GEN-LAST:event_tableListaMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private components.TextFieldValorMonetario fieldValorAcrescimo;
     private components.TextFieldValorMonetario fieldValorParcela;
     private components.TextFieldValorMonetario fieldValorTotal;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private com.alee.laf.label.WebLabel lblNumeroParcela;
     private javax.swing.JTable tableLista;
