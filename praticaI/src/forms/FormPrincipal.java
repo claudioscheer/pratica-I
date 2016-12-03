@@ -58,7 +58,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.loadControleEstoque();
 
         this.loadMateriais();
-        this.loadRelatoriosContasReceber();
+       this.loadRelatoriosContasReceber();
 
         this.loadMateriais();        
 
@@ -241,20 +241,20 @@ public class FormPrincipal extends javax.swing.JFrame {
     }
     private void loadRelatoriosContasReceber() {
 
-        final IconDesktop iconDesktop = new IconDesktop("Relatorio Contas a Receber", Utils.getImage(Utils.Image.relatorio));
+        final IconDesktop iconDesktop = new IconDesktop("Relatorios CAR", Utils.getImage(Utils.Image.relatorio));
 
         iconDesktop.setActionListener((e) -> {
             if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
                 return;
             }
             FormRelatorios_em_tela form = new FormRelatorios_em_tela();
-            this.desktopPanel.add(form);
-             form.open();
-            try {
-                form.setMaximum(false);
-            } catch (PropertyVetoException ex) {
-                Logger.getLogger(FormPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            this.desktopPanel.add(form);
+            form.setVisible(true);//             
+//            try {
+//                form.setMaximum(true);
+//            } catch (PropertyVetoException ex) {
+//                Logger.getLogger(FormPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//            }
          
         });
 
@@ -262,7 +262,6 @@ public class FormPrincipal extends javax.swing.JFrame {
         this.desktopPanel.add(iconDesktop);
     }
     
-
     private void loadaddpessaoa() {
 
         final IconDesktop iconDesktop = new IconDesktop("Pessoa", Utils.getImage(Utils.Image.addpessoa));

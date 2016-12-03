@@ -21,7 +21,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="webPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -41,127 +41,135 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="webLabel1" min="-2" max="-2" attributes="0"/>
-                      <Component id="combo_tip_lancamento" min="-2" pref="157" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="webLabel3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txt_busca_cliente_fornecedor" min="-2" pref="395" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="webLabel17" min="-2" max="-2" attributes="0"/>
-                      <Component id="txt_pess_cad" min="-2" pref="300" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="webLabel16" min="-2" max="-2" attributes="0"/>
-                      <Component id="webDateField3" min="-2" pref="120" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="webLabel19" min="-2" max="-2" attributes="0"/>
-                      <Component id="webDateField1" min="-2" pref="120" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                  <Component id="botao_abrir_relatorios2" min="-2" pref="117" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="23" pref="23" max="-2" attributes="0"/>
-                  <Component id="webLabel10" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="153" pref="153" max="-2" attributes="0"/>
-                  <Component id="webLabel9" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="289" pref="289" max="-2" attributes="0"/>
-                  <Component id="webLabel7" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
-                  <Component id="checkboxEntrada" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                  <Component id="checkboxEntrada3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                  <Component id="checkboxEntrada4" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="Comb_tip_operacao" min="-2" pref="239" max="-2" attributes="0"/>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Component id="txt_busca_produto" min="-2" pref="305" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="webLabel13" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="71" pref="71" max="-2" attributes="0"/>
-                          <Component id="webLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
-                          <Component id="webLabel6" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="txt_data_lancamento1" min="-2" pref="160" max="-2" attributes="0"/>
-                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                          <Component id="fieldQuantidade" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                          <Component id="txt_busca_nota" min="-2" pref="280" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="webLabel12" min="-2" max="-2" attributes="0"/>
-                      <Component id="txt_descricao" min="-2" pref="560" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="webLabel11" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="32" pref="32" max="-2" attributes="0"/>
-                          <Component id="webLabel21" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="85" pref="85" max="-2" attributes="0"/>
-                          <Component id="webLabel4" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="Comb_forma_pagamento_recebimento" min="-2" pref="210" max="-2" attributes="0"/>
-                          <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
-                          <Component id="fieldValorUnitario" min="-2" pref="150" max="-2" attributes="0"/>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Component id="comb_parcelas" min="-2" pref="160" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="webLabel14" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
-                          <Component id="webLabel15" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="100" pref="100" max="-2" attributes="0"/>
-                          <Component id="webLabel22" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="comb_meio_recebimento" min="-2" pref="210" max="-2" attributes="0"/>
-                          <EmptySpace min="22" pref="22" max="-2" attributes="0"/>
-                          <Component id="fieldValorTotal" min="-2" pref="143" max="-2" attributes="0"/>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Component id="fieldValorParcela" min="-2" pref="167" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="botao_abrir_relatorios1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="botao_alterar" min="-2" pref="130" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="botao_abrir_relatorios" min="-2" pref="130" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="botao_salvar" min="-2" pref="130" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="232" max="-2" attributes="0"/>
+                          <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="webLabel20" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="56" pref="56" max="-2" attributes="0"/>
-                                  <Component id="webLabel8" min="-2" max="-2" attributes="0"/>
+                              <Component id="webLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="combo_tip_lancamento" min="-2" pref="157" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="webLabel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_busca_cliente_fornecedor" min="-2" pref="395" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="webLabel17" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_pess_cad" min="-2" pref="300" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="webLabel16" min="-2" max="-2" attributes="0"/>
+                              <Component id="webDateField3" min="-2" pref="120" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="webLabel19" min="-2" max="-2" attributes="0"/>
+                              <Component id="webDateField1" min="-2" pref="120" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                          <Component id="botao_abrir_relatorios2" min="-2" pref="117" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="23" pref="23" max="-2" attributes="0"/>
+                          <Component id="webLabel10" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="153" pref="153" max="-2" attributes="0"/>
+                          <Component id="webLabel9" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="289" pref="289" max="-2" attributes="0"/>
+                          <Component id="webLabel7" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
+                          <Component id="checkboxEntrada" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                          <Component id="checkboxEntrada3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                          <Component id="checkboxEntrada4" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="comb_meio_recebimento" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
+                                      <Component id="webLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="fieldValorTotal" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
+                                      <Component id="webLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="webLabel22" min="-2" max="-2" attributes="0"/>
+                                      <Component id="fieldValorParcela" min="-2" pref="164" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="Comb_forma_pagamento_recebimento" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
+                                      <Component id="webLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="webLabel21" min="-2" max="-2" attributes="0"/>
+                                      <Component id="fieldValorUnitario" min="-2" pref="150" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="webLabel4" min="-2" max="-2" attributes="0"/>
+                                      <Component id="comb_parcelas" min="-2" pref="142" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <Component id="txt_data_lancamento" min="-2" pref="150" max="-2" attributes="0"/>
+                                  <Component id="Comb_tip_operacao" min="-2" pref="239" max="-2" attributes="0"/>
                                   <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                                  <Component id="fieldValorRecebido" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <Component id="txt_busca_produto" min="-2" pref="305" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="webLabel13" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="71" pref="71" max="-2" attributes="0"/>
+                                  <Component id="webLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
+                                  <Component id="webLabel6" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="txt_data_lancamento1" min="-2" pref="160" max="-2" attributes="0"/>
+                                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                  <Component id="fieldQuantidade" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
+                                  <Component id="txt_busca_nota" min="-2" pref="280" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="webLabel12" min="-2" max="-2" attributes="0"/>
+                              <Component id="txt_descricao" min="-2" pref="560" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="botao_abrir_relatorios1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="botao_alterar" min="-2" pref="130" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="botao_abrir_relatorios" min="-2" pref="130" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="botao_salvar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="webButton1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="232" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txt_data_lancamento" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
+                                      <Component id="webLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="webLabel8" min="-2" max="-2" attributes="0"/>
+                                      <Component id="fieldValorRecebido" min="-2" pref="134" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="730" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="730" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -209,9 +217,9 @@
                       <Component id="checkboxEntrada3" min="-2" max="-2" attributes="0"/>
                       <Component id="checkboxEntrada4" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="Comb_tip_operacao" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="txt_busca_produto" min="-2" pref="30" max="-2" attributes="0"/>
@@ -230,54 +238,68 @@
                           </Group>
                           <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                           <Component id="webLabel12" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                          <Component id="txt_descricao" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                  <Component id="txt_descricao" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="webLabel11" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="webLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="webLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="Comb_forma_pagamento_recebimento" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="fieldValorUnitario" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="comb_parcelas" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="webLabel14" min="-2" max="-2" attributes="0"/>
+                                      <Component id="webLabel15" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="comb_meio_recebimento" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="fieldValorTotal" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="fieldValorParcela" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="webLabel22" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="webLabel11" min="-2" max="-2" attributes="0"/>
-                              <Component id="webLabel21" min="-2" max="-2" attributes="0"/>
-                              <Component id="webLabel4" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="Comb_forma_pagamento_recebimento" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="fieldValorUnitario" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="comb_parcelas" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="webLabel14" min="-2" max="-2" attributes="0"/>
-                              <Component id="webLabel15" min="-2" max="-2" attributes="0"/>
-                              <Component id="webLabel22" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="comb_meio_recebimento" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="fieldValorTotal" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="fieldValorParcela" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="webLabel20" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="webLabel20" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="txt_data_lancamento" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="fieldValorRecebido" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="botao_abrir_relatorios1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="botao_alterar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="botao_abrir_relatorios" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="botao_salvar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="webButton1" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                               <Component id="webLabel8" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txt_data_lancamento" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="fieldValorRecebido" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="botao_abrir_relatorios1" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="botao_alterar" alignment="3" max="32767" attributes="0"/>
-                                  <Component id="botao_abrir_relatorios" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="botao_salvar" min="-2" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="16" pref="16" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jScrollPane2" min="-2" pref="460" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -361,7 +383,7 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cliente/Fornecedor:"/>
+            <Property name="text" type="java.lang.String" value="Cliente:"/>
           </Properties>
         </Component>
         <Component class="com.alee.laf.combobox.WebComboBox" name="combo_tip_lancamento">
@@ -480,7 +502,7 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel11">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Forma de Pagamento/Recebimento:"/>
+            <Property name="text" type="java.lang.String" value="Forma de Recebimento:"/>
           </Properties>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel12">
@@ -497,12 +519,12 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel14">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Meio de pagamento/Recebimento:"/>
+            <Property name="text" type="java.lang.String" value="Meio de Recebimento:"/>
           </Properties>
         </Component>
         <Component class="com.alee.laf.checkbox.WebCheckBox" name="checkboxEntrada">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pendente (em ser)"/>
+            <Property name="text" type="java.lang.String" value="Pendente"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxEntradaActionPerformed"/>
@@ -538,7 +560,7 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel17">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cliente/Fornecedor:"/>
+            <Property name="text" type="java.lang.String" value="Cliente:"/>
           </Properties>
         </Component>
         <Component class="com.alee.extended.date.WebDateField" name="webDateField3">
@@ -658,6 +680,17 @@
           </Events>
         </Component>
         <Component class="components.TextFieldValorMonetario" name="fieldValorRecebido">
+        </Component>
+        <Component class="com.alee.laf.button.WebButton" name="webButton1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagens/sair.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Sair"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="webButton1ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

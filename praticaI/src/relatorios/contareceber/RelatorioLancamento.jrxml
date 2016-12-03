@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2016-11-30T14:44:08 -->
+<!-- 2016-12-03T14:52:07 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioFluxo" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f2aa1104-ccd2-4655-ac8f-735df765de3f">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="dataIni" class="java.util.Date"/>
@@ -75,20 +75,20 @@
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="42" splitType="Stretch">
+		<band height="51" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="10" width="130" height="20" uuid="1af4ae00-14e1-4ba9-8fab-6b0f449c2641"/>
+				<reportElement x="0" y="10" width="120" height="20" uuid="1af4ae00-14e1-4ba9-8fab-6b0f449c2641"/>
 				<textElement textAlignment="Center">
 					<font size="13" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Tipo de Operação]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="140" y="11" width="60" height="20" uuid="d8d91bdf-b844-4902-8c9e-7881a219c54e"/>
+				<reportElement x="120" y="5" width="90" height="41" uuid="d8d91bdf-b844-4902-8c9e-7881a219c54e"/>
 				<textElement textAlignment="Center">
 					<font size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Data]]></text>
+				<text><![CDATA[Data de Recebimento]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="210" y="11" width="80" height="20" uuid="16d1b58e-c983-475a-801d-8b64d3e12fbc"/>
@@ -123,12 +123,12 @@
 	<detail>
 		<band height="48" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement x="0" y="0" width="130" height="41" uuid="27d8c7fa-6bba-4a1d-8495-ff1fd8233e81"/>
+				<reportElement x="0" y="0" width="120" height="41" uuid="27d8c7fa-6bba-4a1d-8495-ff1fd8233e81"/>
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{flxcxOperacoes.opDescricao}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="140" y="0" width="60" height="20" uuid="68d11492-3b56-4593-8b2d-275528fb450f"/>
+				<reportElement x="120" y="0" width="90" height="20" uuid="68d11492-3b56-4593-8b2d-275528fb450f"/>
 				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{contaDataEmissao})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">

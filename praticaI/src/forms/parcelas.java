@@ -161,9 +161,9 @@ public class parcelas extends javax.swing.JFrame {
         if (valor_pendete == 0) {
             altera.setCapContaStatus(StatusConta.Quitada);
         } else if (valor_pendete < valorParcela) {
-            altera.setCapContaStatus(StatusConta.PendenteEmser);
+            altera.setCapContaStatus(StatusConta.Pendente);
         } else if (valor_pendete >= valorParcela) {
-            altera.setCapContaStatus(StatusConta.PendenteEmser);
+            altera.setCapContaStatus(StatusConta.Pendente);
         }
 
 //        int value = comb_status.getSelectedIndex();

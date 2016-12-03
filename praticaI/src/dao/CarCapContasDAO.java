@@ -181,7 +181,7 @@ public class CarCapContasDAO {
 
         query.setParameter("datainicial", dataInicial);
         query.setParameter("datafinal", dataFinal);
-        query.setParameter("pendente", StatusConta.PendenteEmser);
+        query.setParameter("pendente", StatusConta.Pendente);
         List<CarCapContas> contas = query.list();
         session.getTransaction().commit();
         session.close();

@@ -10,10 +10,10 @@ package enumeraveis;
  * @author Diego
  */
 public enum StatusConta {
-    PendenteEmser, PendenteVencida, Quitada,;
+    Pendente, PendenteVencida, Quitada,;
     
     public static StatusConta getPendenteEmser() {  
-        return PendenteEmser;
+        return Pendente;
     }
 
     public static StatusConta getPendenteVencida() {
