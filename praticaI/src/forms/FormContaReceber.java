@@ -160,7 +160,7 @@ public class FormContaReceber extends WebInternalFrame {
 
             tabelamovimetos.addRow(new Object[]{
               j.getOperacoesID(),j.getDatLancamento(),j.getProdutoId().getProdutoDescricao(),
-                j.getNumeroParcela(),j.getQuantidade(),j.getPessoa().getPessoaNome(),j.getTipoDeConta()});
+                j.getNumeroParcela(),j.getQuantidade(),j.getPessoa().getPessoaNome()});
         }
 
         txt_tabela.setModel(tabelamovimetos);
@@ -261,11 +261,11 @@ public class FormContaReceber extends WebInternalFrame {
 
             },
             new String [] {
-                "ID", "Data", "Produto", "N° Parcelas", "Quantidade", "Cliente", "Total"
+                "ID", "Data", "Produto", "N° Parcelas", "Quantidade", "Cliente"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -286,7 +286,6 @@ public class FormContaReceber extends WebInternalFrame {
             txt_tabela.getColumnModel().getColumn(3).setPreferredWidth(100);
             txt_tabela.getColumnModel().getColumn(4).setPreferredWidth(100);
             txt_tabela.getColumnModel().getColumn(5).setPreferredWidth(150);
-            txt_tabela.getColumnModel().getColumn(6).setPreferredWidth(120);
         }
 
         webLabel1.setText("Tipo de Lançamento:");
@@ -951,26 +950,32 @@ preenche_TABEL();
         int codParcela = RetornarLinhaSelecionada(0);
         CarCapContasDAO dao = new CarCapContasDAO();
         CarCapContas pagarValor = dao.BuscarContasId(codParcela);
-        fieldValorUnitario.setText(String.valueOf(pagarValor.getContaValorTotal() / pagarValor.getQuantidade_produto()));
-        txt_data_lancamento.setText(String.valueOf(pagarValor.getContaDataEmissao()));
-        txt_data_lancamento.setEnabled(false);
-        txt_busca_produto.setText(String.valueOf(pagarValor.getProduto().getProdutoDescricao()));
-        txt_busca_produto.setEnabled(true);
-        fieldQuantidade.setText(String.valueOf(pagarValor.getQuantidade_produto()));
-        fieldQuantidade.setEnabled(true);
-        comb_parcelas.setValue(pagarValor.getContaNumParcelas());
-//        comb_status.setSelectedIndex(pagarValor.getCapContaStatus().ordinal());
-        txt_descricao.setText(pagarValor.getDescricao());
-        fieldValorTotal.setText(String.valueOf(pagarValor.getContaValorTotal()));
-        fieldValorTotal.setEnabled(true);
-        fieldValorParcela.setText(String.valueOf(pagarValor.getContaValorPago()));
-        fieldValorParcela.setEnabled(true);
-        fieldValorRecebido.setText(String.valueOf(pagarValor.getValorRecebido()));
-        if (fieldValorParcela.getText().equals(fieldValorRecebido.getText())) {
-            JOptionPane.showMessageDialog(null, "Esta parcela parece estar quitada :D");
-        }
+//        fieldValorUnitario.setText(String.valueOf(pagarValor.getContaValorTotal() / pagarValor.getQuantidade_produto()));
+//        txt_data_lancamento.setText(String.valueOf(pagarValor.getContaDataEmissao()));
+//        txt_data_lancamento.setEnabled(false);
+//        txt_busca_produto.setText(String.valueOf(pagarValor.getProduto().getProdutoDescricao()));
+//        txt_busca_produto.setEnabled(true);
+//        fieldQuantidade.setText(String.valueOf(pagarValor.getQuantidade_produto()));
+//        fieldQuantidade.setEnabled(true);
+//        comb_parcelas.setValue(pagarValor.getContaNumParcelas());
+////        comb_status.setSelectedIndex(pagarValor.getCapContaStatus().ordinal());
+//        txt_descricao.setText(pagarValor.getDescricao());
+//        fieldValorTotal.setText(String.valueOf(pagarValor.getContaValorTotal()));
+//        fieldValorTotal.setEnabled(true);
+//        fieldValorParcela.setText(String.valueOf(pagarValor.getContaValorPago()));
+//        fieldValorParcela.setEnabled(true);
+//        fieldValorRecebido.setText(String.valueOf(pagarValor.getValorRecebido()));
+//        if (fieldValorParcela.getText().equals(fieldValorRecebido.getText())) {
+//            JOptionPane.showMessageDialog(null, "Esta parcela parece estar quitada :D");
+//        }
+//        
+//        EnabledCampos();
+          parcelas parcela = new parcelas(codParcela);
         
-        EnabledCampos();
+        
+        parcela.setVisible(true);
+        
+        
     }//GEN-LAST:event_txt_tabelaMouseClicked
 
     private void fieldValorTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldValorTotalActionPerformed
