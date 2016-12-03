@@ -252,6 +252,7 @@ public class FormContaReceber extends WebInternalFrame {
         webButton1 = new com.alee.laf.button.WebButton();
 
         webPanel1.setEnabled(false);
+        webPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txt_tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -285,11 +286,16 @@ public class FormContaReceber extends WebInternalFrame {
             txt_tabela.getColumnModel().getColumn(5).setPreferredWidth(150);
         }
 
+        webPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(615, 113, 730, 460));
+
         webLabel1.setText("Tipo de Lançamento:");
+        webPanel1.add(webLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 6, -1, -1));
 
         webLabel2.setText("Quantidade:");
+        webPanel1.add(webLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 151, -1, -1));
 
         webLabel3.setText("Cliente:");
+        webPanel1.add(webLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 6, -1, -1));
 
         combo_tip_lancamento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "ENTRADA", "SAÍDA" }));
         combo_tip_lancamento.addActionListener(new java.awt.event.ActionListener() {
@@ -297,14 +303,17 @@ public class FormContaReceber extends WebInternalFrame {
                 combo_tip_lancamentoActionPerformed(evt);
             }
         });
+        webPanel1.add(combo_tip_lancamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 28, 157, 30));
 
         comb_meio_recebimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dinheiro", "Cheque", "Via Banco" }));
+        webPanel1.add(comb_meio_recebimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 383, 210, 30));
 
         webDateField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 webDateField1ActionPerformed(evt);
             }
         });
+        webPanel1.add(webDateField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1068, 29, 120, 30));
 
         Comb_forma_pagamento_recebimento.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "A Prazo", "A Vista", " ", " " }));
         Comb_forma_pagamento_recebimento.addActionListener(new java.awt.event.ActionListener() {
@@ -312,24 +321,33 @@ public class FormContaReceber extends WebInternalFrame {
                 Comb_forma_pagamento_recebimentoActionPerformed(evt);
             }
         });
+        webPanel1.add(Comb_forma_pagamento_recebimento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 313, 210, 30));
 
         webLabel4.setText("Parcelas:");
+        webPanel1.add(webLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(408, 291, -1, -1));
 
         webLabel7.setText("Status:");
+        webPanel1.add(webLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(612, 81, -1, 20));
 
         webLabel8.setText("Valor Recebido:");
+        webPanel1.add(webLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(408, 431, -1, -1));
+        webPanel1.add(txt_busca_nota, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 173, 280, 30));
 
         webLabel6.setText("Vincular NF:");
+        webPanel1.add(webLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(302, 151, -1, -1));
 
         webLabel9.setText("Produto:");
+        webPanel1.add(webLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 81, -1, -1));
 
         webLabel10.setText("Tipo de Operação:");
+        webPanel1.add(webLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 81, -1, -1));
 
         Comb_tip_operacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Comb_tip_operacaoActionPerformed(evt);
             }
         });
+        webPanel1.add(Comb_tip_operacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 103, 239, 30));
 
         botao_abrir_relatorios.setBackground(new java.awt.Color(51, 255, 51));
         botao_abrir_relatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/relatorio_ok.png"))); // NOI18N
@@ -339,6 +357,7 @@ public class FormContaReceber extends WebInternalFrame {
                 botao_abrir_relatoriosActionPerformed(evt);
             }
         });
+        webPanel1.add(botao_abrir_relatorios, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 521, 130, -1));
 
         botao_salvar.setBackground(new java.awt.Color(51, 255, 51));
         botao_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/salvar_ok.png"))); // NOI18N
@@ -348,14 +367,20 @@ public class FormContaReceber extends WebInternalFrame {
                 botao_salvarActionPerformed(evt);
             }
         });
+        webPanel1.add(botao_salvar, new org.netbeans.lib.awtextra.AbsoluteConstraints(407, 521, -1, -1));
 
         webLabel11.setText("Forma de Recebimento:");
+        webPanel1.add(webLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 291, -1, -1));
 
         webLabel12.setText("Descrição:");
+        webPanel1.add(webLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 221, -1, -1));
+        webPanel1.add(txt_descricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 243, 570, 30));
 
         webLabel13.setText("Data Lançamento:");
+        webPanel1.add(webLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 151, -1, -1));
 
         webLabel14.setText("Meio de Recebimento:");
+        webPanel1.add(webLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 361, -1, -1));
 
         checkboxEntrada.setText("Pendente");
         checkboxEntrada.addActionListener(new java.awt.event.ActionListener() {
@@ -363,6 +388,7 @@ public class FormContaReceber extends WebInternalFrame {
                 checkboxEntradaActionPerformed(evt);
             }
         });
+        webPanel1.add(checkboxEntrada, new org.netbeans.lib.awtextra.AbsoluteConstraints(677, 81, -1, -1));
 
         checkboxEntrada3.setText("Pendente (vencida)");
         checkboxEntrada3.addActionListener(new java.awt.event.ActionListener() {
@@ -370,32 +396,40 @@ public class FormContaReceber extends WebInternalFrame {
                 checkboxEntrada3ActionPerformed(evt);
             }
         });
+        webPanel1.add(checkboxEntrada3, new org.netbeans.lib.awtextra.AbsoluteConstraints(768, 81, -1, -1));
 
         webLabel15.setText("Valor Total:");
+        webPanel1.add(webLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 361, -1, -1));
 
         txt_data_lancamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_data_lancamentoActionPerformed(evt);
             }
         });
+        webPanel1.add(txt_data_lancamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 453, 150, 30));
 
         webLabel16.setText("Data Inicial:");
+        webPanel1.add(webLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 6, -1, -1));
 
         txt_pess_cad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_pess_cadActionPerformed(evt);
             }
         });
+        webPanel1.add(txt_pess_cad, new org.netbeans.lib.awtextra.AbsoluteConstraints(612, 29, 300, 30));
 
         webLabel17.setText("Cliente:");
+        webPanel1.add(webLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(612, 6, -1, -1));
 
         webDateField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 webDateField3ActionPerformed(evt);
             }
         });
+        webPanel1.add(webDateField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 29, 120, 30));
 
         webLabel19.setText("Data Final:");
+        webPanel1.add(webLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(1068, 6, -1, -1));
 
         botao_alterar.setBackground(new java.awt.Color(51, 255, 51));
         botao_alterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/editar_ok.png"))); // NOI18N
@@ -405,6 +439,9 @@ public class FormContaReceber extends WebInternalFrame {
                 botao_alterarActionPerformed(evt);
             }
         });
+        webPanel1.add(botao_alterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 521, 130, -1));
+        webPanel1.add(txt_busca_cliente_fornecedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 29, 395, 30));
+        webPanel1.add(txt_busca_produto, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 103, 305, 30));
 
         txt_data_lancamento1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -416,16 +453,22 @@ public class FormContaReceber extends WebInternalFrame {
                 txt_data_lancamento1ActionPerformed(evt);
             }
         });
+        webPanel1.add(txt_data_lancamento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 173, 160, 30));
 
         webLabel20.setText("Data 1° Vencimento:");
+        webPanel1.add(webLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 431, -1, -1));
 
         webLabel21.setText("Valor Unitário:");
+        webPanel1.add(webLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 291, -1, -1));
 
         comb_parcelas.setModel(new javax.swing.SpinnerNumberModel(1, 1, 50, 1));
+        webPanel1.add(comb_parcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(408, 314, 180, -1));
 
         webLabel22.setText("Valor da Parcela:");
+        webPanel1.add(webLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 360, -1, -1));
 
         checkboxEntrada4.setText("Quitada");
+        webPanel1.add(checkboxEntrada4, new org.netbeans.lib.awtextra.AbsoluteConstraints(912, 81, -1, -1));
 
         botao_abrir_relatorios2.setBackground(new java.awt.Color(51, 255, 51));
         botao_abrir_relatorios2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/buscar_ok.png"))); // NOI18N
@@ -435,6 +478,7 @@ public class FormContaReceber extends WebInternalFrame {
                 botao_abrir_relatorios2ActionPerformed(evt);
             }
         });
+        webPanel1.add(botao_abrir_relatorios2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1206, 14, 117, 55));
 
         botao_abrir_relatorios1.setBackground(new java.awt.Color(51, 255, 51));
         botao_abrir_relatorios1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/limpar_ok.png"))); // NOI18N
@@ -444,6 +488,7 @@ public class FormContaReceber extends WebInternalFrame {
                 botao_abrir_relatorios1ActionPerformed(evt);
             }
         });
+        webPanel1.add(botao_abrir_relatorios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 521, -1, -1));
 
         fieldValorParcela.setEditable(false);
         fieldValorParcela.addActionListener(new java.awt.event.ActionListener() {
@@ -451,14 +496,17 @@ public class FormContaReceber extends WebInternalFrame {
                 fieldValorParcelaActionPerformed(evt);
             }
         });
+        webPanel1.add(fieldValorParcela, new org.netbeans.lib.awtextra.AbsoluteConstraints(407, 383, 190, 30));
 
         fieldQuantidade.setTextoMonetario(" ");
+        webPanel1.add(fieldQuantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 173, 100, 30));
 
         fieldValorUnitario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 fieldValorUnitarioFocusLost(evt);
             }
         });
+        webPanel1.add(fieldValorUnitario, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 313, 150, 30));
 
         fieldValorTotal.setEditable(false);
         fieldValorTotal.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -471,228 +519,12 @@ public class FormContaReceber extends WebInternalFrame {
                 fieldValorTotalActionPerformed(evt);
             }
         });
+        webPanel1.add(fieldValorTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 383, 143, 30));
+        webPanel1.add(fieldValorRecebido, new org.netbeans.lib.awtextra.AbsoluteConstraints(408, 453, 190, 30));
 
         webButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/sair.png"))); // NOI18N
         webButton1.setText("Sair");
-        webButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                webButton1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout webPanel1Layout = new javax.swing.GroupLayout(webPanel1);
-        webPanel1.setLayout(webPanel1Layout);
-        webPanel1Layout.setHorizontalGroup(
-            webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(webPanel1Layout.createSequentialGroup()
-                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(webLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(combo_tip_lancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(webLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_busca_cliente_fornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
-                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(webLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_pess_cad, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(webLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(webDateField3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(webLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(webDateField1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(botao_abrir_relatorios2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(webLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(153, 153, 153)
-                        .addComponent(webLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(289, 289, 289)
-                        .addComponent(webLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(checkboxEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(checkboxEntrada3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(checkboxEntrada4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(webPanel1Layout.createSequentialGroup()
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comb_meio_recebimento, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(webLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(22, 22, 22)
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fieldValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(webLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(webLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fieldValorParcela, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(webPanel1Layout.createSequentialGroup()
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Comb_forma_pagamento_recebimento, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(webLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(22, 22, 22)
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(webLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fieldValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(webLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comb_parcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(webPanel1Layout.createSequentialGroup()
-                                .addComponent(Comb_tip_operacao, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txt_busca_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(webPanel1Layout.createSequentialGroup()
-                                .addComponent(webLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(71, 71, 71)
-                                .addComponent(webLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addComponent(webLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(webPanel1Layout.createSequentialGroup()
-                                .addComponent(txt_data_lancamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(fieldQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(txt_busca_nota, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(webLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(webPanel1Layout.createSequentialGroup()
-                                .addComponent(botao_abrir_relatorios1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botao_alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botao_abrir_relatorios, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botao_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(webButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(webPanel1Layout.createSequentialGroup()
-                                .addGap(232, 232, 232)
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_data_lancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(webLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(webLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fieldValorRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        webPanel1Layout.setVerticalGroup(
-            webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(webPanel1Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addComponent(webLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(combo_tip_lancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addComponent(webLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(txt_busca_cliente_fornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addComponent(webLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(txt_pess_cad, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addComponent(webLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(webDateField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addComponent(webLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(webDateField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(botao_abrir_relatorios2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12)
-                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(webLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(webLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(webLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkboxEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkboxEntrada3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkboxEntrada4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Comb_tip_operacao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_busca_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(webLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(webLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(webLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)
-                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_data_lancamento1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_busca_nota, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(webLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(webPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(txt_descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(webLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(webLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(webLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(6, 6, 6)
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Comb_forma_pagamento_recebimento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(fieldValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(comb_parcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(17, 17, 17)
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(webLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(webLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(6, 6, 6)
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comb_meio_recebimento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(fieldValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(fieldValorParcela, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(webPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(webLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(webPanel1Layout.createSequentialGroup()
-                                .addComponent(webLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txt_data_lancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fieldValorRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(38, 38, 38)
-                                .addGroup(webPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(botao_abrir_relatorios1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botao_alterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botao_abrir_relatorios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(botao_salvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(webButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(webLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(webPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))))
-        );
+        webPanel1.add(webButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 521, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -700,7 +532,7 @@ public class FormContaReceber extends WebInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(webPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 19, Short.MAX_VALUE))
+                .addGap(0, 25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1009,17 +841,6 @@ public class FormContaReceber extends WebInternalFrame {
         fieldValorTotal.setValue(fieldQuantidade.getValue() * fieldValorUnitario.getValue());
         fieldValorParcela.setValue(fieldValorTotal.getValue() / (Integer) comb_parcelas.getValue());
     }//GEN-LAST:event_fieldValorUnitarioFocusLost
-
-    private void webButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton1ActionPerformed
-        this.fechar();
-    }
-
-    private void fechar() {
-        if (javax.swing.JOptionPane.showConfirmDialog(null, "Deseja Sair?", "ATENÇÂO ", javax.swing.JOptionPane.YES_NO_OPTION) == 0) {
-            this.dispose();
-
-        }
-    }//GEN-LAST:event_webButton1ActionPerformed
 
     /**
      * @param args the command line arguments

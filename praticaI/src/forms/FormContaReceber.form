@@ -21,7 +21,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="webPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -37,281 +37,19 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
 
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="webLabel1" min="-2" max="-2" attributes="0"/>
-                              <Component id="combo_tip_lancamento" min="-2" pref="157" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="webLabel3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txt_busca_cliente_fornecedor" min="-2" pref="395" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="webLabel17" min="-2" max="-2" attributes="0"/>
-                              <Component id="txt_pess_cad" min="-2" pref="300" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="webLabel16" min="-2" max="-2" attributes="0"/>
-                              <Component id="webDateField3" min="-2" pref="120" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="webLabel19" min="-2" max="-2" attributes="0"/>
-                              <Component id="webDateField1" min="-2" pref="120" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Component id="botao_abrir_relatorios2" min="-2" pref="117" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="23" pref="23" max="-2" attributes="0"/>
-                          <Component id="webLabel10" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="153" pref="153" max="-2" attributes="0"/>
-                          <Component id="webLabel9" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="289" pref="289" max="-2" attributes="0"/>
-                          <Component id="webLabel7" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
-                          <Component id="checkboxEntrada" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Component id="checkboxEntrada3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Component id="checkboxEntrada4" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="comb_meio_recebimento" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                      <Component id="webLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="fieldValorTotal" alignment="0" min="-2" pref="143" max="-2" attributes="0"/>
-                                      <Component id="webLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="webLabel22" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fieldValorParcela" min="-2" pref="164" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="Comb_forma_pagamento_recebimento" alignment="0" min="-2" pref="210" max="-2" attributes="0"/>
-                                      <Component id="webLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="webLabel21" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fieldValorUnitario" min="-2" pref="150" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="webLabel4" min="-2" max="-2" attributes="0"/>
-                                      <Component id="comb_parcelas" min="-2" pref="142" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="Comb_tip_operacao" min="-2" pref="239" max="-2" attributes="0"/>
-                                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                                  <Component id="txt_busca_produto" min="-2" pref="305" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="webLabel13" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="71" pref="71" max="-2" attributes="0"/>
-                                  <Component id="webLabel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
-                                  <Component id="webLabel6" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="txt_data_lancamento1" min="-2" pref="160" max="-2" attributes="0"/>
-                                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                                  <Component id="fieldQuantidade" min="-2" pref="100" max="-2" attributes="0"/>
-                                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                                  <Component id="txt_busca_nota" min="-2" pref="280" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="webLabel12" min="-2" max="-2" attributes="0"/>
-                              <Component id="txt_descricao" min="-2" pref="560" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="botao_abrir_relatorios1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="botao_alterar" min="-2" pref="130" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="botao_abrir_relatorios" min="-2" pref="130" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="botao_salvar" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="webButton1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="232" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txt_data_lancamento" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
-                                      <Component id="webLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="webLabel8" min="-2" max="-2" attributes="0"/>
-                                      <Component id="fieldValorRecebido" min="-2" pref="134" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="730" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="webLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                          <Component id="combo_tip_lancamento" min="-2" pref="30" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="webLabel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
-                          <Component id="txt_busca_cliente_fornecedor" min="-2" pref="30" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="webLabel17" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
-                          <Component id="txt_pess_cad" min="-2" pref="30" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="webLabel16" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
-                          <Component id="webDateField3" min="-2" pref="30" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="webLabel19" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
-                          <Component id="webDateField1" min="-2" pref="30" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                          <Component id="botao_abrir_relatorios2" min="-2" pref="55" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="webLabel10" min="-2" max="-2" attributes="0"/>
-                      <Component id="webLabel9" min="-2" max="-2" attributes="0"/>
-                      <Component id="webLabel7" min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="checkboxEntrada" min="-2" max="-2" attributes="0"/>
-                      <Component id="checkboxEntrada3" min="-2" max="-2" attributes="0"/>
-                      <Component id="checkboxEntrada4" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="Comb_tip_operacao" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txt_busca_produto" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="webLabel13" min="-2" max="-2" attributes="0"/>
-                              <Component id="webLabel2" min="-2" max="-2" attributes="0"/>
-                              <Component id="webLabel6" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txt_data_lancamento1" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="fieldQuantidade" min="-2" pref="30" max="-2" attributes="0"/>
-                              <Component id="txt_busca_nota" min="-2" pref="30" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Component id="webLabel12" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                  <Component id="txt_descricao" min="-2" pref="30" max="-2" attributes="0"/>
-                                  <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="webLabel11" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="webLabel21" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="webLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="Comb_forma_pagamento_recebimento" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="fieldValorUnitario" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="comb_parcelas" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="webLabel14" min="-2" max="-2" attributes="0"/>
-                                      <Component id="webLabel15" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="comb_meio_recebimento" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="fieldValorTotal" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                          <Component id="fieldValorParcela" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="webLabel22" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="webLabel20" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txt_data_lancamento" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                      <Component id="fieldValorRecebido" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="botao_abrir_relatorios1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="botao_alterar" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="botao_abrir_relatorios" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="botao_salvar" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="webButton1" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Component id="webLabel8" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" min="-2" pref="460" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-              </Group>
-          </Group>
-        </DimensionLayout>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="false"/>
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
           </AuxValues>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="615" y="113" width="730" height="460"/>
+            </Constraint>
+          </Constraints>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
@@ -375,16 +113,31 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Tipo de Lan&#xe7;amento:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="6" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Quantidade:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="192" y="151" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel3">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cliente:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="183" y="6" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.combobox.WebComboBox" name="combo_tip_lancamento">
           <Properties>
@@ -398,6 +151,11 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="combo_tip_lancamentoActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="28" width="157" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.combobox.WebComboBox" name="comb_meio_recebimento">
           <Properties>
@@ -409,11 +167,21 @@
               </StringArray>
             </Property>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="383" width="210" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.extended.date.WebDateField" name="webDateField1">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="webDateField1ActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="1068" y="29" width="120" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.combobox.WebComboBox" name="Comb_forma_pagamento_recebimento">
           <Properties>
@@ -429,38 +197,78 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Comb_forma_pagamento_recebimentoActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="313" width="210" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel4">
           <Properties>
             <Property name="text" type="java.lang.String" value="Parcelas:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="408" y="291" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel7">
           <Properties>
             <Property name="text" type="java.lang.String" value="Status:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="612" y="81" width="-1" height="20"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel8">
           <Properties>
             <Property name="text" type="java.lang.String" value="Valor Recebido:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="408" y="431" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="components.TextFieldFK" name="txt_busca_nota">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="304" y="173" width="280" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel6">
           <Properties>
             <Property name="text" type="java.lang.String" value="Vincular NF:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="302" y="151" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel9">
           <Properties>
             <Property name="text" type="java.lang.String" value="Produto:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="277" y="81" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel10">
           <Properties>
             <Property name="text" type="java.lang.String" value="Tipo de Opera&#xe7;&#xe3;o:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="23" y="81" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.combobox.WebComboBox" name="Comb_tip_operacao">
           <Properties>
@@ -471,6 +279,11 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Comb_tip_operacaoActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="103" width="239" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="botao_abrir_relatorios">
           <Properties>
@@ -485,6 +298,11 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_abrir_relatoriosActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="271" y="521" width="130" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="botao_salvar">
           <Properties>
@@ -499,28 +317,58 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_salvarActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="407" y="521" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel11">
           <Properties>
             <Property name="text" type="java.lang.String" value="Forma de Recebimento:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="291" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel12">
           <Properties>
             <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="221" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_descricao">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="243" width="570" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel13">
           <Properties>
             <Property name="text" type="java.lang.String" value="Data Lan&#xe7;amento:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="151" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel14">
           <Properties>
             <Property name="text" type="java.lang.String" value="Meio de Recebimento:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="361" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.checkbox.WebCheckBox" name="checkboxEntrada">
           <Properties>
@@ -529,6 +377,11 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxEntradaActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="677" y="81" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.checkbox.WebCheckBox" name="checkboxEntrada3">
           <Properties>
@@ -537,41 +390,81 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxEntrada3ActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="768" y="81" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel15">
           <Properties>
             <Property name="text" type="java.lang.String" value="Valor Total:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="252" y="361" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.extended.date.WebDateField" name="txt_data_lancamento">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_data_lancamentoActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="252" y="453" width="150" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel16">
           <Properties>
             <Property name="text" type="java.lang.String" value="Data Inicial:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="930" y="6" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="components.TextFieldFK" name="txt_pess_cad">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_pess_cadActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="612" y="29" width="300" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel17">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cliente:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="612" y="6" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.extended.date.WebDateField" name="webDateField3">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="webDateField3ActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="930" y="29" width="120" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel19">
           <Properties>
             <Property name="text" type="java.lang.String" value="Data Final:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="1068" y="6" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="botao_alterar">
           <Properties>
@@ -586,26 +479,56 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_alterarActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="135" y="521" width="130" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="components.TextFieldFK" name="txt_busca_cliente_fornecedor">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="183" y="29" width="395" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="components.TextFieldFK" name="txt_busca_produto">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="277" y="103" width="305" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.extended.date.WebDateField" name="txt_data_lancamento1">
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txt_data_lancamento1MouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt_data_lancamento1ActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="173" width="160" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel20">
           <Properties>
             <Property name="text" type="java.lang.String" value="Data 1&#xb0; Vencimento:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="252" y="431" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel21">
           <Properties>
             <Property name="text" type="java.lang.String" value="Valor Unit&#xe1;rio:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="252" y="291" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.spinner.WebSpinner" name="comb_parcelas">
           <Properties>
@@ -613,16 +536,31 @@
               <SpinnerModel initial="1" maximum="50" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="408" y="314" width="180" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel22">
           <Properties>
             <Property name="text" type="java.lang.String" value="Valor da Parcela:"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="410" y="360" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.checkbox.WebCheckBox" name="checkboxEntrada4">
           <Properties>
             <Property name="text" type="java.lang.String" value="Quitada"/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="912" y="81" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="botao_abrir_relatorios2">
           <Properties>
@@ -637,6 +575,11 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_abrir_relatorios2ActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="1206" y="14" width="117" height="55"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="botao_abrir_relatorios1">
           <Properties>
@@ -651,6 +594,11 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_abrir_relatorios1ActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="20" y="521" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="components.TextFieldValorMonetario" name="fieldValorParcela">
           <Properties>
@@ -659,16 +607,31 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fieldValorParcelaActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="407" y="383" width="190" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="components.TextFieldValorMonetario" name="fieldQuantidade">
           <Properties>
             <Property name="textoMonetario" type="java.lang.String" value=" "/>
           </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="192" y="173" width="100" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="components.TextFieldValorMonetario" name="fieldValorUnitario">
           <Events>
             <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="fieldValorUnitarioFocusLost"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="252" y="313" width="150" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="components.TextFieldValorMonetario" name="fieldValorTotal">
           <Properties>
@@ -678,8 +641,18 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="fieldValorTotalMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="fieldValorTotalActionPerformed"/>
           </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="252" y="383" width="143" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="components.TextFieldValorMonetario" name="fieldValorRecebido">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="408" y="453" width="190" height="30"/>
+            </Constraint>
+          </Constraints>
         </Component>
         <Component class="com.alee.laf.button.WebButton" name="webButton1">
           <Properties>
@@ -688,9 +661,11 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Sair"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="webButton1ActionPerformed"/>
-          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="517" y="521" width="-1" height="-1"/>
+            </Constraint>
+          </Constraints>
         </Component>
       </SubComponents>
     </Container>
