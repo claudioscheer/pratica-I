@@ -617,7 +617,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
 
         webLabel8.setText("Total de Saídas:");
 
-        webLabel9.setText("Total:");
+        webLabel9.setText("Saldo do Período:");
 
         javax.swing.GroupLayout webBreadcrumb3Layout = new javax.swing.GroupLayout(webBreadcrumb3);
         webBreadcrumb3.setLayout(webBreadcrumb3Layout);
@@ -636,7 +636,7 @@ public class FormFluxodeCaixa extends WebInternalFrame {
                 .addComponent(webLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(611, Short.MAX_VALUE))
+                .addContainerGap(555, Short.MAX_VALUE))
         );
         webBreadcrumb3Layout.setVerticalGroup(
             webBreadcrumb3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

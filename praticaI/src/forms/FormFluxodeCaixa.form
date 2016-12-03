@@ -555,7 +555,7 @@
                   <Component id="webLabel9" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="txtTotal" min="-2" pref="102" max="-2" attributes="0"/>
-                  <EmptySpace pref="611" max="32767" attributes="0"/>
+                  <EmptySpace pref="555" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -589,7 +589,7 @@
         </Component>
         <Component class="com.alee.laf.label.WebLabel" name="webLabel9">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Total:"/>
+            <Property name="text" type="java.lang.String" value="Saldo do Per&#xed;odo:"/>
           </Properties>
         </Component>
         <Component class="com.alee.laf.text.WebTextField" name="txtTotalEntradas">
