@@ -9,9 +9,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import utils.HibernateUtil;
 
-
 public class carcapOperacoesComerciaisDAO {
-
 
     //CarcapOperacoesComerciais g = new CarcapOperacoesComerciais();
     
@@ -52,8 +50,6 @@ public class carcapOperacoesComerciaisDAO {
         return ativos;
     }
 
-  
-
     public List<CarcapOperacoesComerciais> ListarTodos(Date dataInicial, Date dataFinal) {
 
         System.out.println("DataInicial: " + dataInicial + " DataFinal: " + dataFinal);
@@ -90,24 +86,17 @@ public class carcapOperacoesComerciaisDAO {
     
     public CarcapOperacoesComerciais BuscarId(int id){
         
-        
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
 
         Query query = session.createQuery("from car_cap_contas as a where operacoesid =:id");
         query.setParameter("id", id);
 
-
         CarcapOperacoesComerciais contas = (CarcapOperacoesComerciais) query.list();
         session.getTransaction().commit();
         session.close();
         return contas;
-        
-        
     }
-
-    
-    
 
 //    public double SomarContas(TipoConta tipo, Date dataInicial, Date dataFinal) {
 //

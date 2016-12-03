@@ -1,14 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package model;
 
+import enumeraveis.StatusConta;
 import enumeraveis.TipoConta;
 import enumeraveis.TipoMovimento;
 import java.util.Date;
 import java.util.List;
+import java.util.Stack;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -28,26 +26,79 @@ import javax.persistence.TemporalType;
 public class CarcapOperacoesComerciais implements java.io.Serializable {
 
     private int operacoesID;
-
     private Date datLancamento;
-
+    private Date DataParcela;
     private PatNotaFiscal OperacaoNota;
-
     private int numeroParcela;
-
     private EstProduto produto;
-
     private CarPessoa pessoa;
-
     private String Descricao;
-
     private TipoMovimento movimento;
-
     private double quantidade;
-    
     private TipoConta tipoDeConta;
-    
     private List<CarCapContas> contas;
+    private Stack<CarCapContas> parcelas;
+    private double ValorTotal;
+    private double ValorRecebido;
+    private double ValorPendente;
+    private double ValorParcela;
+    private StatusConta contaStatus;
+
+    public Date getDataParcela() {
+        return DataParcela;
+    }
+
+    public void setDataParcela(Date DataParcela) {
+        this.DataParcela = DataParcela;
+    }
+
+    public double getValorParcela() {
+        return ValorParcela;
+    }
+
+    public void setValorParcela(double ValorParcela) {
+        this.ValorParcela = ValorParcela;
+    }
+    
+    public StatusConta getContaStatus() {
+        return contaStatus;
+    }
+
+    public void setContaStatus(StatusConta contaStatus) {
+        this.contaStatus = contaStatus;
+    }
+    
+    public double getValorTotal() {
+        return ValorTotal;
+    }
+
+    public void setValorTotal(double ValorTotal) {
+        this.ValorTotal = ValorTotal;
+    }
+
+    public double getValorRecebido() {
+        return ValorRecebido;
+    }
+
+    public void setValorRecebido(double ValorRecebido) {
+        this.ValorRecebido = ValorRecebido;
+    }
+
+    public double getValorPendente() {
+        return ValorPendente;
+    }
+
+    public void setValorPendente(double ValorPendente) {
+        this.ValorPendente = ValorPendente;
+    }
+
+    public Stack<CarCapContas> getParcelas() {
+        return parcelas;
+    }
+
+    public void setParcelas(Stack<CarCapContas> parcelas) {
+        this.parcelas = parcelas;
+    }
     
     public CarcapOperacoesComerciais() {
     }
@@ -58,7 +109,6 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
         this.numeroParcela = numeroParcela;
         this.Descricao = Descricao;
         this.quantidade = quantidade;
-       
     }
 
     public CarcapOperacoesComerciais(int operacoesID, Date datLancamento, PatNotaFiscal OperacaoNota, int numeroParcela, EstProduto idProduto, CarPessoa pessoa, String Descricao, TipoMovimento movimento, double quantidade) {
@@ -79,12 +129,10 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
         return operacoesID;
     }
 
-    
     public void setOperacoesID(int operacoesID) {
         this.operacoesID = operacoesID;
     }
 
-    
     @Temporal(TemporalType.DATE)
     public Date getDatLancamento() {
         return datLancamento;
@@ -94,13 +142,11 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
         this.datLancamento = datLancamento;
     }
 
-    
     @OneToOne
     public PatNotaFiscal getOperacaoNota() {
         return OperacaoNota;
     }
 
-    
     public void setOperacaoNota(PatNotaFiscal OperacaoNota) {
         this.OperacaoNota = OperacaoNota;
     }
@@ -112,10 +158,7 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
     public void setNumeroParcela(int numeroParcela) {
         this.numeroParcela = numeroParcela;
     }
-
     
-    
-  
     @ManyToOne
     public EstProduto getProdutoId() {
         return produto;
@@ -160,8 +203,6 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
         this.quantidade = quantidade;
     }
     
-    
-    
 //    @OneToOne
 //      public EstProduto getProduto() {
 //        return produto;
@@ -189,5 +230,4 @@ public class CarcapOperacoesComerciais implements java.io.Serializable {
         this.contas = contas;
     }
      
-    
 }

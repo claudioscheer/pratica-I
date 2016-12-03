@@ -19,6 +19,7 @@ public class FormLogin extends javax.swing.JFrame {
     public FormLogin() {
         initComponents();
         this.initValidador();
+        getRootPane().setDefaultButton(btnLogar);
     }
 
     public void initValidador() {

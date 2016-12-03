@@ -22,32 +22,19 @@ public class CarCapContasDAO {
         session.close();
          return true;
         } catch (Exception e) {
-            
             System.out.println(e);
             return false;
         }
-       
-       
     }
     
-    
      public CarCapContas altera(int id,CarCapContas cont) {
-
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-
         Query query = session.createQuery("from CarCapContas as a where contaID =:codigo ");
-
         query.setParameter("codigo", id);
-
-        
-        
-        
-        
         session.update(cont);
         session.getTransaction().commit();
         session.close();
-        
         return cont;
 
     }
@@ -74,20 +61,14 @@ public class CarCapContasDAO {
        
     
       public CarCapContas BuscarContasId(int id) {
-
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-
         Query query = session.createQuery("from CarCapContas as a where contaID =:codigo ");
-
         query.setParameter("codigo", id);
-
         CarCapContas contas = (CarCapContas) query.uniqueResult();
         session.getTransaction().commit();
         session.close();
-        
         return contas;
-
     }
 
     public Boolean insert(CarCapContas conta) {
@@ -112,6 +93,51 @@ public class CarCapContasDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         Query query = session.createQuery("from CarCapContas as a");
+        List<CarCapContas> contas = query.list();
+        session.getTransaction().commit();
+        session.close();
+        return contas;
+    }
+
+    public List<CarCapContas> getAll(int paginaBuscar, int indexfiltro, String filtro) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().begin();
+        
+        String where = "";
+        if (!filtro.isEmpty()) {
+            switch (indexfiltro) {
+                case 0:
+                    where = " and a.pessoaId = :p1";
+                    break;
+                case 1:
+                    where = " and a.pessoaNome like :p1";
+                    break;
+                case 2:
+                    where = " and a.pessoaCpfCnpj like :p1";
+                    break;
+            }
+        }
+    
+        Query query = session.createQuery("from CarCapContas a where 1 = 1 " + where);
+        
+        if (paginaBuscar > -1) {
+            query.setMaxResults(utils.Utils.MaxResultQuery);
+            query.setFirstResult(paginaBuscar * utils.Utils.MaxResultQuery);
+        }
+        
+        if (!filtro.isEmpty()) {
+            switch (indexfiltro) {
+                case 0:
+                    query.setParameter("p1", Integer.parseInt(filtro));
+                    break;
+                case 1:
+                    query.setParameter("p1", "%" + filtro + "%");
+                    break;
+                case 2:
+                    query.setParameter("p1", filtro);
+                    break;
+            }
+        }
         List<CarCapContas> contas = query.list();
         session.getTransaction().commit();
         session.close();
@@ -162,9 +188,6 @@ public class CarCapContasDAO {
         return contas;  
         
     }
-    
-    
-    
 
     public List<CarCapContas> ListarTodosPaginacao(int paginaBuscar, Date dataInicial, Date dataFinal) {
 
@@ -186,7 +209,6 @@ public class CarCapContasDAO {
         session.close();
         return contas;
     }
-    
     
     public List<CarCapContas> ListarContas(TipoConta tipo, Date dataInicial, Date dataFinal) {
 
@@ -226,8 +248,6 @@ public class CarCapContasDAO {
 
     }
     
-      
-
     public double SomarContas(TipoConta tipo, Date dataInicial, Date dataFinal) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -303,5 +323,4 @@ public class CarCapContasDAO {
         return total;
 
     }
-
 }
