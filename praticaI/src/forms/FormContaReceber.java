@@ -524,6 +524,11 @@ public class FormContaReceber extends WebInternalFrame {
 
         webButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/sair.png"))); // NOI18N
         webButton1.setText("Sair");
+        webButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                webButton1ActionPerformed(evt);
+            }
+        });
         webPanel1.add(webButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 521, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -841,6 +846,16 @@ public class FormContaReceber extends WebInternalFrame {
         fieldValorTotal.setValue(fieldQuantidade.getValue() * fieldValorUnitario.getValue());
         fieldValorParcela.setValue(fieldValorTotal.getValue() / (Integer) comb_parcelas.getValue());
     }//GEN-LAST:event_fieldValorUnitarioFocusLost
+
+    private void webButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton1ActionPerformed
+              this.fechar();
+    }
+
+    private void fechar() {
+        if (javax.swing.JOptionPane.showConfirmDialog(null, "Deseja Sair?", "ATENÇÂO ", javax.swing.JOptionPane.YES_NO_OPTION) == 0) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_webButton1ActionPerformed
 
     /**
      * @param args the command line arguments

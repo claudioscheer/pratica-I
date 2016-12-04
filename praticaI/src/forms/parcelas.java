@@ -68,6 +68,7 @@ public class parcelas extends javax.swing.JFrame {
         webLabel2 = new com.alee.laf.label.WebLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Parcelas");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabela_parcelas.setModel(new javax.swing.table.DefaultTableModel(
@@ -111,7 +112,7 @@ public class parcelas extends javax.swing.JFrame {
         });
         getContentPane().add(webButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 331, 118, 33));
 
-        webButton2.setText("S/Função ");
+        webButton2.setText("Sair");
         webButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 webButton2ActionPerformed(evt);
@@ -119,7 +120,12 @@ public class parcelas extends javax.swing.JFrame {
         });
         getContentPane().add(webButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(738, 331, 98, 33));
 
-        webButton3.setText("s/Função");
+        webButton3.setText("Cancelar");
+        webButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                webButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(webButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(501, 331, 97, 33));
 
         fieldValorParcela.setEditable(false);
@@ -141,7 +147,13 @@ public class parcelas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void webButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton2ActionPerformed
-        // TODO add your handling code here:
+        this.fechar();
+    }
+
+    private void fechar() {
+        if (javax.swing.JOptionPane.showConfirmDialog(null, "Deseja Sair?", "ATENÇÂO ", javax.swing.JOptionPane.YES_NO_OPTION) == 0) {
+            this.dispose();
+        }
     }//GEN-LAST:event_webButton2ActionPerformed
 
     private void webButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton1ActionPerformed
@@ -214,6 +226,16 @@ filtraParcelas(this.codigoParcela);
         
         
     }//GEN-LAST:event_tabela_parcelasMouseClicked
+
+    private void webButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton3ActionPerformed
+        this.cancelar();
+    }
+
+    private void cancelar() {
+        if (javax.swing.JOptionPane.showConfirmDialog(null, "Deseja Cancelar operação?", "ATENÇÂO ", javax.swing.JOptionPane.YES_NO_OPTION) == 0) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_webButton3ActionPerformed
 
     public void filtraParcelas(int a){
         
