@@ -31,8 +31,6 @@ public class FormEstoque extends javax.swing.JFrame {
      */
     public FormEstoque(java.awt.Frame parent, boolean modal) {
         initComponents();
-        IniciarDadosEstoque iniciar = new IniciarDadosEstoque();
-        iniciar.execute();
     }
 
     /**
