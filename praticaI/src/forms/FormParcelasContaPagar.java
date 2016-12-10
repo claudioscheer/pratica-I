@@ -1,6 +1,10 @@
 package forms;
 
+
+import dao.CarCapContasDAO;
+
 import components.Validador;
+
 import dao.carcapOperacoesComerciaisDAO;
 import enumeraveis.StatusConta;
 import java.awt.Point;
@@ -11,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.CarCapContas;
 import model.CarcapOperacoesComerciais;
+import utils.Utils;
 
 public class FormParcelasContaPagar extends javax.swing.JFrame {
 
@@ -36,12 +41,12 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
                     Point p = me.getPoint();
                     int row = table.rowAtPoint(p);
 
-                    if (Boolean.valueOf(((DefaultTableModel) table.getModel()).getValueAt(row, 1).toString())) {
+                    if (Boolean.valueOf(((DefaultTableModel) table.getModel()).getValueAt(row, 0).toString())) {
                         return;
                     }
 
                     parcelaPagando = row;
-                    lblNumeroParcela.setText(((DefaultTableModel) table.getModel()).getValueAt(row, 0).toString());
+                    lblNumeroParcela.setText(((DefaultTableModel) table.getModel()).getValueAt(row, 1).toString());
                 }
             }
         });
@@ -68,13 +73,50 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
     }
 
     private Object[] parcelaToArray(int numero, CarCapContas c) {
-        Object[] o = new Object[5];
-        o[0] = numero;
-        o[1] = c.getValorRecebido() != 0;
+        Object[] o = new Object[6];
+        o[0] = c.getCapContaStatus();
+        o[1] = numero;
         o[2] = c.getDataVencimento();
-        o[3] = c.getValorRecebido();
-        o[4] = c.getAcrescimo();
+        o[3] = c.getCarcapOperacoesComerciais().getValorTotal();
+        o[4] = c.getValorRecebido();
+        o[5] = c.getAcrescimo();
         return o;
+    }
+
+    private void pagarParcela() {
+        if (parcelaPagando < 0) {
+            return;
+        }
+
+        double saldo = new CarCapContasDAO().Fechamento(Calendar.getInstance().getTime());
+
+        CarCapContas parcela = conta.getParcelas().get(parcelaPagando);
+        parcela.setAcrescimo(fieldValorTotal.getValue() - fieldValorParcela.getValue());
+
+        if (conta.getValorParcela() > saldo) {
+            utils.Utils.notificacao("Saldo insuficiente", Utils.TipoNotificacao.erro, 5000);
+            return;
+        }
+
+        if (conta.getValorParcela() == fieldValorTotal.getValue()) {
+            parcela.setCapContaStatus(StatusConta.Quitada);
+        } else if (conta.getValorParcela() > fieldValorTotal.getValue()) {
+            double soma = fieldValorTotal.getValue() + parcela.getValorRecebido();
+            if (soma == conta.getValorParcela()) {
+                parcela.setCapContaStatus(StatusConta.Quitada);
+            } else {
+                parcela.setValorRecebido(soma);
+            }
+
+            // chamar um JFrame pra escolher o que fazer com o valor pendente
+            // se fica como vencido ou se prorroga, criando mais uma parcela depois da última com o valor restante
+        }
+        parcela.setDataPagamento(Calendar.getInstance().getTime());
+        parcela.setValorRecebido(fieldValorTotal.getValue());
+
+        new carcapOperacoesComerciaisDAO().update(conta);
+        
+      //  new 
     }
 
     @SuppressWarnings("unchecked")
@@ -90,7 +132,7 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
         txtNotaFiscal1 = new com.alee.laf.label.WebLabel();
         txtNotaFiscal2 = new com.alee.laf.label.WebLabel();
         fieldValorAcrescimo = new components.TextFieldValorMonetario();
-        webButton1 = new com.alee.laf.button.WebButton();
+        btnPagar = new com.alee.laf.button.WebButton();
         txtNotaFiscal3 = new com.alee.laf.label.WebLabel();
         lblNumeroParcela = new com.alee.laf.label.WebLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
@@ -103,19 +145,12 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Número", "Quitada?", "Data vencimento", "Valor pago", "Acréscimo"
+                "Status", "N° Parcela", "Data de Vencimento", "Valor Total", "Valor Pago", "Acréscimo"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -156,10 +191,10 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
             }
         });
 
-        webButton1.setText("Pagar");
-        webButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPagar.setText("Pagar");
+        btnPagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                webButton1ActionPerformed(evt);
+                btnPagarActionPerformed(evt);
             }
         });
 
@@ -181,6 +216,12 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(117, 117, 117)
+                        .addComponent(webButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(txtNotaFiscal3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -231,7 +272,7 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fieldValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(webButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
 
@@ -250,27 +291,20 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
         fieldValorTotal.setValue(fieldValorParcela.getValue() + (fieldValorParcela.getValue() * (fieldValorAcrescimo.getValue() / 100)));
     }//GEN-LAST:event_fieldValorAcrescimoKeyReleased
 
-    private void webButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_webButton1ActionPerformed
-        if (parcelaPagando <= 0) {
-            return;
-        }
+    private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
 
-        CarCapContas parcela = conta.getParcelas().get(parcelaPagando);
-        parcela.setAcrescimo(fieldValorTotal.getValue() - fieldValorParcela.getValue());
-        parcela.setCapContaStatus(StatusConta.Quitada);
-        parcela.setDataPagamento(Calendar.getInstance().getTime());
-        parcela.setValorRecebido(fieldValorTotal.getValue());
-
-        new carcapOperacoesComerciaisDAO().update(conta);
-
+        pagarParcela();
         atualizarParcelas();
-    }//GEN-LAST:event_webButton1ActionPerformed
+
+    }//GEN-LAST:event_btnPagarActionPerformed
 
     private void tableListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListaMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tableListaMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+
+    private com.alee.laf.button.WebButton btnPagar;
     private javax.swing.ButtonGroup buttonGroup1;
     private components.TextFieldValorMonetario fieldValorAcrescimo;
     private components.TextFieldValorMonetario fieldValorParcela;
@@ -284,6 +318,5 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
     private com.alee.laf.label.WebLabel txtNotaFiscal1;
     private com.alee.laf.label.WebLabel txtNotaFiscal2;
     private com.alee.laf.label.WebLabel txtNotaFiscal3;
-    private com.alee.laf.button.WebButton webButton1;
     // End of variables declaration//GEN-END:variables
 }

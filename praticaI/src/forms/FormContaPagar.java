@@ -129,6 +129,7 @@ public class FormContaPagar extends WebInternalFrame {
             dataPrimeiraParcela.add(Calendar.MONTH, 1);
         }
         contaDAO.insert(conta);
+        utils.Utils.notificacao("Conta cadastrada com sucesso!", Utils.TipoNotificacao.ok, 5000);
     }
 
     private void atualizarTabela() {
@@ -437,9 +438,10 @@ public class FormContaPagar extends WebInternalFrame {
     private void btnParcelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParcelasActionPerformed
 
         if (tableLista.getSelectedRow() < 0) {
+            Utils.notificacao("Selecione uma conta para visualizar as parcelas!", Utils.TipoNotificacao.erro, 5000);
             return;
         }
-
+        
         FormParcelasContaPagar parcelas = new FormParcelasContaPagar();
         parcelas.setConta(contas.get(tableLista.getSelectedRow()));
         parcelas.BuscarParcelas();
