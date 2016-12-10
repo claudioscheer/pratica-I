@@ -1,9 +1,7 @@
 package forms;
 
-import dao.CarCapContasDAO;
-
 import components.Validador;
-
+import dao.CarCapContasDAO;
 import dao.carcapOperacoesComerciaisDAO;
 import enumeraveis.StatusConta;
 import java.awt.Point;
@@ -14,7 +12,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.CarCapContas;
 import model.CarcapOperacoesComerciais;
-import utils.Utils;
 
 public class FormParcelasContaPagar extends javax.swing.JFrame {
 
@@ -93,7 +90,7 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
         parcela.setAcrescimo(fieldValorTotal.getValue() - fieldValorParcela.getValue());
 
         if (conta.getValorParcela() > saldo) {
-            utils.Utils.notificacao("Saldo insuficiente", Utils.TipoNotificacao.erro, 5000);
+            utils.Utils.notificacao("Saldo insuficiente", utils.Utils.TipoNotificacao.erro, 5000);
             return;
         }
 
@@ -144,12 +141,19 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Status", "N° Parcela", "Data de Vencimento", "Valor Total", "Valor Pago", "Acréscimo"
+                "Número", "Quitada?", "Data vencimento", "Valor pago", "Acréscimo"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -216,12 +220,6 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(webButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(txtNotaFiscal3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -242,7 +240,7 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
                                 .addComponent(jRadioButton2))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(112, 112, 112)
-                        .addComponent(webButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(157, 157, 157)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE))
         );
@@ -291,10 +289,8 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldValorAcrescimoKeyReleased
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
-
         pagarParcela();
         atualizarParcelas();
-
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void tableListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableListaMouseClicked
@@ -302,7 +298,6 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
     }//GEN-LAST:event_tableListaMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-
     private com.alee.laf.button.WebButton btnPagar;
     private javax.swing.ButtonGroup buttonGroup1;
     private components.TextFieldValorMonetario fieldValorAcrescimo;
