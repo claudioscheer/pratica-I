@@ -69,6 +69,8 @@ public class CarCapContas implements java.io.Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataVencimento;
     
+    
+    
     @Temporal(TemporalType.DATE)
     private Date dataPagamento;
 

@@ -12,7 +12,7 @@ package enumeraveis;
 public enum StatusConta {
     Pendente, PendenteVencida, Quitada,;
     
-    public static StatusConta getPendenteEmser() {  
+    public static StatusConta getPendente() {  
         return Pendente;
     }
 

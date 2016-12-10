@@ -122,7 +122,7 @@ public class FormContaPagar extends WebInternalFrame {
         for (int i = 0; i < numParcelas; i++) {
             CarCapContas parcela = new CarCapContas();
 
-            parcela.setCapContaStatus(StatusConta.PendenteEmser);
+            parcela.setCapContaStatus(StatusConta.Pendente);
             parcela.setDataVencimento(dataPrimeiraParcela.getTime());
 
             conta.addParcela(parcela);

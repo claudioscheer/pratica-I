@@ -50,8 +50,16 @@ public class PanelConsultaContaPagar extends WebPanel implements ActionListener 
         }
     }
 
-    public void setEvents(ActionListener add, ActionListener edit, ActionListener delete, ActionListener relatorio) {
+    public void setEvents(ActionListener relatorio) {
         buttonRelatorio.addActionListener(relatorio);
+    }
+
+    public void open() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setMaximum(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public class LoadPessoas extends SwingWorker<Void, Void> {
@@ -107,7 +115,7 @@ public class PanelConsultaContaPagar extends WebPanel implements ActionListener 
     public void actionPerformed(ActionEvent ae) {
         System.out.println("asdjkfaksldjfnkajsdfnk");
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -155,6 +163,11 @@ public class PanelConsultaContaPagar extends WebPanel implements ActionListener 
 
         buttonRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/relatorio_ok.png"))); // NOI18N
         buttonRelatorio.setText("Gerar relatórios");
+        buttonRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRelatorioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelOpcoesLayout = new javax.swing.GroupLayout(panelOpcoes);
         panelOpcoes.setLayout(panelOpcoesLayout);
@@ -192,6 +205,12 @@ public class PanelConsultaContaPagar extends WebPanel implements ActionListener 
                 .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRelatorioActionPerformed
+        FormRelatorioContasPagar form = new FormRelatorioContasPagar();
+        form.setVisible(true);
+// TODO add your handling code here:
+    }//GEN-LAST:event_buttonRelatorioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.alee.laf.button.WebButton buttonRelatorio;

@@ -105,7 +105,7 @@ public class CarCapContasDAO {
         if (!filtro.isEmpty()) {
             switch (indexfiltro) {
                 case 0:
-                    where = " and a.pessoaId = :p1";
+                    where = " and a.contaId = :p1";
                     break;
                 case 1:
                     where = " and a.pessoaNome like :p1";

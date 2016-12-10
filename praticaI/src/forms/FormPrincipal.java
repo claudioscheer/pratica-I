@@ -7,6 +7,7 @@ import com.alee.managers.language.LanguageManager;
 import components.MoverComponente;
 import components.IconDesktop;
 import components.PanelWidgetSaldo;
+import components.panelsListagem.PanelConsultaContaPagar;
 import dao.FlxcxEspecificacoesDAO;
 import forms.patrimonio.FormAtivoImobilizado;
 import utils.Utils;
@@ -59,6 +60,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         this.loadMateriais();
        this.loadRelatoriosContasReceber();
+       this.loadRelatorioContas();
 
         this.loadMateriais();        
 
@@ -191,6 +193,24 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
         iconDesktop.setLocation(new Point(0, 160));
+        this.desktopPanel.add(iconDesktop);
+    }
+    
+    private void loadRelatorioContas() {
+
+        final IconDesktop iconDesktop = new IconDesktop("Relatórios CAP", Utils.getImage(Utils.Image.pagar));
+        iconDesktop.setActionListener((e) -> {
+            if (iconDesktop.getClientProperty(MoverComponente.DRAGGED_MARK) != null) {
+                return;
+            }
+            PanelConsultaContaPagar form = new PanelConsultaContaPagar();
+            form.setVisible(true);
+            this.desktopPanel.add(form);
+            form.setMaximum(true);
+            form.isVisible();
+            
+        });
+        iconDesktop.setLocation(new Point(130, 160));
         this.desktopPanel.add(iconDesktop);
     }
 

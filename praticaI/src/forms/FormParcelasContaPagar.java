@@ -103,7 +103,8 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
             } else {
                 parcela.setValorRecebido(soma);
             }
-
+            
+            // proposta futura:
             // chamar um JFrame pra escolher o que fazer com o valor pendente
             // se fica como vencido ou se prorroga, criando mais uma parcela depois da última com o valor restante
         }
@@ -112,7 +113,8 @@ public class FormParcelasContaPagar extends javax.swing.JFrame {
 
         new carcapOperacoesComerciaisDAO().update(conta);
         
-      //  new 
+      //  efetuar o desconto do valor da parcela paga do saldo em caixa
+      // a ser adicionado.
     }
 
     @SuppressWarnings("unchecked")
