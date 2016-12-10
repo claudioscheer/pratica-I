@@ -197,7 +197,7 @@ public class EstMovimentacaoDAO
         double qtde = 0.0, custoM = 0.0, total = 0.0;
         for (EstMovimentacao mov : this.findByProduto(produto))
         {
-            if (mov.getCarEstTipoOperacao().getTpOpTipo() == 1 || mov.getCarEstTipoOperacao().getTpOpTipo() == 2)
+            if (mov.getCarEstTipoOperacao().getTpOpTipo() == 1)
             {
                 qtde += mov.getMovQuantidade();
                 total += mov.getMovTotal();
