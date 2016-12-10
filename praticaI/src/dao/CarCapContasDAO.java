@@ -58,8 +58,6 @@ public class CarCapContasDAO {
 
     }
        
-       
-    
       public CarCapContas BuscarContasId(int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
@@ -99,7 +97,7 @@ public class CarCapContasDAO {
         return contas;
     }
 
-    public List<CarCapContas> getAll(int paginaBuscar, int indexfiltro, String filtro) {
+    public List<CarCapContas> getAll(int indexfiltro, String filtro) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
         
@@ -120,10 +118,10 @@ public class CarCapContasDAO {
     
         Query query = session.createQuery("from CarCapContas a where 1 = 1 " + where);
         
-        if (paginaBuscar > -1) {
+        /* if (paginaBuscar > -1) {
             query.setMaxResults(utils.Utils.MaxResultQuery);
             query.setFirstResult(paginaBuscar * utils.Utils.MaxResultQuery);
-        }
+        } */
         
         if (!filtro.isEmpty()) {
             switch (indexfiltro) {
