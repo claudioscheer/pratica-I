@@ -6,10 +6,8 @@ import enumeraveis.MeioRecebimentoPagamento;
 import enumeraveis.StatusConta;
 import enumeraveis.TipoConta;
 import java.util.Date;
-import java.util.Stack;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,10 +29,7 @@ public class CarCapContas implements java.io.Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_conta")
     private int contaId;
     private double valorRecebido;
-
-    /* campos referentes às parcelas */
     private double valorPendente;
-    /* fim dos campos referentes às parcelas */
 
     @Enumerated
     private StatusConta contaStatus;
@@ -85,8 +80,6 @@ public class CarCapContas implements java.io.Serializable {
         this.dataPagamento = dataPagamento;
     }
 
-    
-    
     public Date getDataVencimento() {
         return dataVencimento;
     }
